@@ -1,0 +1,82 @@
+@import url(https://fonts.bunny.net/css?family=akshar:300,400,500,700|catamaran:200,300,400,500,600,700,800,900|family=adamina:400);
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@keyframes wave-animation {
+    0% {
+        transform: rotate(0deg);
+    }
+    10% {
+        transform: rotate(14deg);
+    }
+    20% {
+        transform: rotate(-8deg);
+    }
+    30% {
+        transform: rotate(14deg);
+    }
+    40% {
+        transform: rotate(-4deg);
+    }
+    50% {
+        transform: rotate(10deg);
+    }
+    60% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.wave {
+    @apply inline-block origin-[70%_70%] cursor-crosshair;
+    animation-duration: 2.5s;
+    animation-iteration-count: 1;
+    animation-name: wave-animation;
+}
+
+.wave:hover{
+    animation-iteration-count: infinite;
+}
+
+.label{
+    @apply text-[0.9em] leading-[1.2] no-underline inline-flex items-center justify-center border bg-[color:var(--label-color)] px-1.5 py-1 rounded-[0.4em] border-[solid];
+
+    span {
+        @apply inline-flex mr-[0.4em];
+        svg {
+            @apply fill-text dark:fill-text-dark w-[1em] h-[1em];
+        }
+        img {
+            @apply w-[1em] h-[1em];
+        }
+
+    }
+}
+
+.body{
+    @apply bg-[color:var(--background-color)] text-[color:var(--color)] leading-[inherit];
+    -webkit-font-smoothing: antialiased;
+    font-family: Catamaran, sans-serif;
+    line-height: 1.5;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+}
+
+p{
+    @apply text-justify;
+    text-justify: inter-word;
+}
+
+.social-button {
+    @apply flex flex-row gap-0.5 items-center content-center border-text dark:border-text-dark no-underline text-[1.2em] transition-all duration-[ease-in] delay-100 px-2.5 py-[5px] rounded-[10px] border-2 border-solid hover:bg-button hover:dark:bg-button-dark hover:border-button-hover hover:dark:border-button-hover-dark;
+}
+.social-button svg {
+    @apply fill-text dark:fill-text-dark w-[25px] h-[25px] mr-2.5;
+}
