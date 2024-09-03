@@ -6,12 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ClapRequest;
 use App\Models\Clap;
 use App\Models\ClapLog;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 class ClapController extends Controller
 {
     const MAX_CLAPS_PER_USER = 10;
 
-    public function getClaps(ClapRequest $request)
+    public function getClaps(ClapRequest $request): JsonResponse
     {
         $data = $request->validated();
 
@@ -23,7 +27,7 @@ class ClapController extends Controller
         return response()->json($clap->count);
     }
 
-    public function updateClaps(ClapRequest $request)
+    public function updateClaps(ClapRequest $request): Application|Response|JsonResponse|\Illuminate\Contracts\Foundation\Application|ResponseFactory
     {
         $data = $request->validated();
         $ip_address = $request->ip();
