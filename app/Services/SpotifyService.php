@@ -7,7 +7,6 @@ use SoftinkLab\LaravelKeyvalueStorage\Facades\KVOption;
 use SpotifyWebAPI;
 use SpotifyWebAPI\SpotifyWebAPIAuthException;
 use SpotifyWebAPI\SpotifyWebAPIException;
-use function Symfony\Component\String\s;
 
 
 class SpotifyService

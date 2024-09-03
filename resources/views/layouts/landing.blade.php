@@ -432,7 +432,7 @@ l-47 20 -3 123 -3 123 -52 -3z"/>
                 <li class="w-full items-center transition-all duration-[ease-in] delay-100 cursor-pointer px-[0.7rem] py-2 rounded-lg hover:bg-menu-hover hover:dark:bg-menu-hover-dark">
                     <a href="/" class="flex justify-between no-underline">
                     <span class="text-[1.2rem] flex items-center gap-2">
-                       <svg class="invert-[96%] sepia-[6%] saturate-[105%] hue-rotate-[201deg] brightness-[90%] contrast-[92%]" viewBox="0 0 24 24" fill="none" width="25" height="25" xmlns="http://www.w3.org/2000/svg"><g
+                       <svg class="dark:invert-[96%] dark:sepia-[6%] dark:saturate-[105%] dark:hue-rotate-[201deg] dark:brightness-[90%] dark:contrast-[92%]" viewBox="0 0 24 24" fill="none" width="25" height="25" xmlns="http://www.w3.org/2000/svg"><g
                                id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier"
                                                                               stroke-linecap="round"
                                                                               stroke-linejoin="round"></g><g
@@ -450,7 +450,7 @@ l-47 20 -3 123 -3 123 -52 -3z"/>
                 <li class="w-full items-center transition-all duration-[ease-in] delay-100 cursor-pointer px-[0.7rem] py-2 rounded-lg hover:bg-menu-hover hover:dark:bg-menu-hover-dark">
                     <a href="/posts" class="flex justify-between no-underline">
                    <span class="text-[1.2rem] flex items-center gap-2">
-                   <svg class="invert-[96%] sepia-[6%] saturate-[105%] hue-rotate-[201deg] brightness-[90%] contrast-[92%]" viewBox="0 0 24 24" fill="none" width="25" height="25" xmlns="http://www.w3.org/2000/svg"><g
+                   <svg class="dark:invert-[96%] dark:sepia-[6%] dark:saturate-[105%] dark:hue-rotate-[201deg] dark:brightness-[90%] dark:contrast-[92%]" viewBox="0 0 24 24" fill="none" width="25" height="25" xmlns="http://www.w3.org/2000/svg"><g
                            id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round"
                                                                           stroke-linejoin="round"></g><g
                            id="SVGRepo_iconCarrier"> <path
@@ -467,7 +467,7 @@ l-47 20 -3 123 -3 123 -52 -3z"/>
                 <li class="w-full items-center transition-all duration-[ease-in] delay-100 cursor-pointer px-[0.7rem] py-2 rounded-lg hover:bg-menu-hover hover:dark:bg-menu-hover-dark">
                     <a href="/poems" class="flex justify-between no-underline">
                       <span class="text-[1.2rem] flex items-center gap-2">
-                    <svg class="invert-[96%] sepia-[6%] saturate-[105%] hue-rotate-[201deg] brightness-[90%] contrast-[92%]" viewBox="0 0 24 24" fill="none" width="25" height="25" xmlns="http://www.w3.org/2000/svg"><g
+                    <svg class="dark:invert-[96%] dark:sepia-[6%] dark:saturate-[105%] dark:hue-rotate-[201deg] dark:brightness-[90%] dark:contrast-[92%]" viewBox="0 0 24 24" fill="none" width="25" height="25" xmlns="http://www.w3.org/2000/svg"><g
                             id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round"
                                                                            stroke-linejoin="round"></g><g
                             id="SVGRepo_iconCarrier"> <path
@@ -488,7 +488,7 @@ l-47 20 -3 123 -3 123 -52 -3z"/>
                 <li class="w-full items-center transition-all duration-[ease-in] delay-100 cursor-pointer px-[0.7rem] py-2 rounded-lg hover:bg-menu-hover hover:dark:bg-menu-hover-dark">
                     <div class="flex justify-between no-underline">
                     <span class="text-[1.2rem] flex items-center gap-2">
-                   <svg class="invert-[96%] sepia-[6%] saturate-[105%] hue-rotate-[201deg] brightness-[90%] contrast-[92%]" viewBox="0 0 24 24" width="25" height="25" fill="none" xmlns="http://www.w3.org/2000/svg"><g
+                   <svg class="dark:invert-[96%] dark:sepia-[6%] dark:saturate-[105%] dark:hue-rotate-[201deg] dark:brightness-[90%] dark:contrast-[92%]" viewBox="0 0 24 24" width="25" height="25" fill="none" xmlns="http://www.w3.org/2000/svg"><g
                            id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round"
                                                                           stroke-linejoin="round"></g><g
                            id="SVGRepo_iconCarrier"> <path
@@ -505,7 +505,7 @@ l-47 20 -3 123 -3 123 -52 -3z"/>
                 <li class="w-full items-center transition-all duration-[ease-in] delay-100 cursor-pointer px-[0.7rem] py-2 rounded-lg hover:bg-menu-hover hover:dark:bg-menu-hover-dark">
                     <a href="/bookmarks" class="flex justify-between no-underline">
                       <span class="text-[1.2rem] flex items-center gap-2">
-                   <svg class="invert-[96%] sepia-[6%] saturate-[105%] hue-rotate-[201deg] brightness-[90%] contrast-[92%]" viewBox="0 0 24 24" fill="none" width="25" height="25" xmlns="http://www.w3.org/2000/svg"><g
+                   <svg class="dark:invert-[96%] dark:sepia-[6%] dark:saturate-[105%] dark:hue-rotate-[201deg] dark:brightness-[90%] dark:contrast-[92%]" viewBox="0 0 24 24" fill="none" width="25" height="25" xmlns="http://www.w3.org/2000/svg"><g
                            id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round"
                                                                           stroke-linejoin="round"></g><g
                            id="SVGRepo_iconCarrier"> <path
@@ -519,6 +519,8 @@ l-47 20 -3 123 -3 123 -52 -3z"/>
                     </a>
                 </li>
             </ul>
+
+            <livewire:spotify-playing/>
 
             <div class="cursor-pointer w-full bg-button dark:bg-button-dark flex flex-row gap-[15px] text-xl items-center mt-2 px-2.5 py-2 rounded-[5px] hover:bg-button-hover hover:dark:bg-button-dark active:brightness-[1.3]">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="34" viewBox="0 0 448 512"><path fill="currentColor" d="M48 32C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm98.88 133.234c19.636 0 37.082 6.789 49.929 16.971c11.88 9.452 17.444 18.907 22.298 27.393l-33.923 16.949c-2.427-5.565-5.347-11.387-12.846-17.682c-8.248-6.552-16.478-8.484-23.524-8.484c-27.626 0-42.17 25.693-42.17 54.287c0 37.573 19.161 56.22 42.17 56.22c22.3 0 31.278-15.51 37.08-25.435L219.6 302.66c-6.315 9.926-12.374 19.635-25.95 29.069c-7.262 5.09-23.977 15.037-47.736 15.037C100.586 346.766 64 313.81 64 255.87c0-50.636 34.415-90.637 82.88-90.637m75.483 5.328h45.565L303.31 292.24l35.125-121.678H384l-59.379 171.112H281.01z"/></svg>
