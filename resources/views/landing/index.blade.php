@@ -25,7 +25,7 @@
             ve <a class="label" href="https://itemsatis.com" target="_blank"><span><img src="{{ asset('assets/img/itemsatis.png') }}"
                                                                                         alt="İtemSatış Logo"
                                                                                         title="İtemSatış Logo"></span>İtemSatış</a>
-            firmalarında Full-stack Geliştirici olarak çalışıyorum.
+            firmalarında full-stack Geliştirici ve Ekip Lideri olarak rol oynuyorum.
         </p>
         <div class="flex flex-row gap-[0.7em] w-full my-[2em]">
             <img src="{{ asset('assets/img/me/me_1.JPG') }}" alt="Ben" class="h-[11vw] transition-transform duration-[0.2s] -outline-offset-1 rounded-[1em] hover:scale-110 outline outline-1 outline-outline-color dark:outline-outline-color-dark">
@@ -100,14 +100,12 @@
                     Twitter
                 </a>
             </div>
-            <div class="about_software">
+            <div>
                 <p class="text-light-text dark:text-light-text-dark text-[1.3em]">
                     Öte yandan yazılımdaki durumum için aşağıdaki kısmı inceleyebilirsiniz. Eğer ki okuduğum kitapları veya
                     dinlediğim müzikleri merak ediyorsanız, kitaplığa uğrayabilirisiniz.
                 </p>
-                <div class="software_tabs">
-
-                </div>
+                <livewire:software-tabs/>
             </div>
         </div>
     </div>

@@ -18,7 +18,7 @@ use SoftinkLab\LaravelKeyvalueStorage\Facades\KVOption;
 |
 */
 
-Route::get('/get-claps', [ClapController::class, 'getClaps']);
+Route::get('/get-claps', [ClapController::class, 'getClaps'])->middleware('throttle:100,1');
 Route::post('/update-claps', [ClapController::class, 'updateClaps']);
 
 
@@ -35,10 +35,6 @@ Route::group(['as' => 'spotify.', 'prefix' => 'spotify'], function () {
     // others
     Route::get('playing', [SpotifyController::class, 'playing']);
     Route::get('playlists', [SpotifyController::class, 'playlists']);
-
-    Route::get('test', function(){
-        return KVOption::get('spotify_access_token');
-    });
 });
 
 

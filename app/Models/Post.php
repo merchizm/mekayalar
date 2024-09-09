@@ -28,6 +28,18 @@ class Post extends Model
         'post_status' => PostEnum::class,
     ];
 
+    protected $appends = [
+        'readingTime'
+    ];
+
+    public function getReadingTimeAttribute()
+    {
+        $text_content = strip_tags($this->post_content);
+        $word_count = str_word_count($text_content);
+        $reading_time_minutes = ceil($word_count / 200);
+        return $reading_time_minutes;
+    }
+
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'author');
@@ -42,4 +54,5 @@ class Post extends Model
     {
         return $this->hasMany(Category::class, 'post_category_id');
     }
+
 }

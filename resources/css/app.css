@@ -112,3 +112,8 @@ p{
         @apply transition-[filter] duration-[0.5s] ease-[ease] w-[50px] h-[50px];
     }
 }
+
+.poem-container{
+    @apply text-[1.2em] select-none italic;
+    font-family: "Adamina", serif;
+}

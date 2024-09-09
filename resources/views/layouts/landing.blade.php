@@ -6,12 +6,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Scripts -->
+    @yield('styles')
     @livewireStyles
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="body">
+<body class="body dark">
 <div class="relative min-h-[100vh] bg-background text-text dark:bg-background-dark dark:text-text-dark">
     <div class="flex flex-row gap-[6vw] pt-0 pb-40 px-[100px]">
 
@@ -413,7 +412,7 @@ l-47 20 -3 123 -3 123 -52 -3z"/>
                 </svg>
             </div>
             <div class="flex flex-col gap-2.5 items-center mb-5">
-            <span data-name="Meriç&nbsp;Enes&nbsp;Kayalar" class="text-[2rem] block font-semibold">
+            <span class="text-[2rem] block font-semibold">
                 Meriç Enes Kayalar
             </span>
                 <p class="block">
@@ -430,7 +429,7 @@ l-47 20 -3 123 -3 123 -52 -3z"/>
             </div>
             <ul class="w-full p-0">
                 <li class="w-full items-center transition-all duration-[ease-in] delay-100 cursor-pointer px-[0.7rem] py-2 rounded-lg hover:bg-menu-hover hover:dark:bg-menu-hover-dark">
-                    <a href="/" class="flex justify-between no-underline">
+                    <a href="{{ route('landing.index') }}" class="flex justify-between no-underline">
                     <span class="text-[1.2rem] flex items-center gap-2">
                        <svg class="dark:invert-[96%] dark:sepia-[6%] dark:saturate-[105%] dark:hue-rotate-[201deg] dark:brightness-[90%] dark:contrast-[92%]" viewBox="0 0 24 24" fill="none" width="25" height="25" xmlns="http://www.w3.org/2000/svg"><g
                                id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier"
@@ -448,7 +447,7 @@ l-47 20 -3 123 -3 123 -52 -3z"/>
                     </a>
                 </li>
                 <li class="w-full items-center transition-all duration-[ease-in] delay-100 cursor-pointer px-[0.7rem] py-2 rounded-lg hover:bg-menu-hover hover:dark:bg-menu-hover-dark">
-                    <a href="/posts" class="flex justify-between no-underline">
+                    <a href="{{ route('blog.index') }}" class="flex justify-between no-underline">
                    <span class="text-[1.2rem] flex items-center gap-2">
                    <svg class="dark:invert-[96%] dark:sepia-[6%] dark:saturate-[105%] dark:hue-rotate-[201deg] dark:brightness-[90%] dark:contrast-[92%]" viewBox="0 0 24 24" fill="none" width="25" height="25" xmlns="http://www.w3.org/2000/svg"><g
                            id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round"
@@ -465,7 +464,7 @@ l-47 20 -3 123 -3 123 -52 -3z"/>
                     </a>
                 </li>
                 <li class="w-full items-center transition-all duration-[ease-in] delay-100 cursor-pointer px-[0.7rem] py-2 rounded-lg hover:bg-menu-hover hover:dark:bg-menu-hover-dark">
-                    <a href="/poems" class="flex justify-between no-underline">
+                    <a href="{{  route('poems.index') }}" class="flex justify-between no-underline">
                       <span class="text-[1.2rem] flex items-center gap-2">
                     <svg class="dark:invert-[96%] dark:sepia-[6%] dark:saturate-[105%] dark:hue-rotate-[201deg] dark:brightness-[90%] dark:contrast-[92%]" viewBox="0 0 24 24" fill="none" width="25" height="25" xmlns="http://www.w3.org/2000/svg"><g
                             id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round"
@@ -503,7 +502,7 @@ l-47 20 -3 123 -3 123 -52 -3z"/>
                     </div>
                 </li>
                 <li class="w-full items-center transition-all duration-[ease-in] delay-100 cursor-pointer px-[0.7rem] py-2 rounded-lg hover:bg-menu-hover hover:dark:bg-menu-hover-dark">
-                    <a href="/bookmarks" class="flex justify-between no-underline">
+                    <a href="{{  route('bookmarks.index') }}" class="flex justify-between no-underline">
                       <span class="text-[1.2rem] flex items-center gap-2">
                    <svg class="dark:invert-[96%] dark:sepia-[6%] dark:saturate-[105%] dark:hue-rotate-[201deg] dark:brightness-[90%] dark:contrast-[92%]" viewBox="0 0 24 24" fill="none" width="25" height="25" xmlns="http://www.w3.org/2000/svg"><g
                            id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round"
@@ -542,92 +541,93 @@ l-47 20 -3 123 -3 123 -52 -3z"/>
                 @yield('content')
             </div>
         </main>
-        <livewire:screen-saver/>
+        <!--<livewire:screen-saver/>-->
     </div>
-</div>
-<footer class="absolute w-full h-10 flex flex-row justify-between items-center pt-[0.4em] pb-16 px-[100px] bottom-0">
-    <div class="copyright">
-        © sitedeki içeriklerin tüm hakları saklıdır<br>
-        2021 ═ {{ date("Y") }}<br>
-        <div class="flex flex-row gap-1 items-center">
-            <svg
-                class="w-5 h-5 fill-text dark:fill-text-dark"
-                xmlns:dc="http://purl.org/dc/elements/1.1/"
-                xmlns:cc="http://creativecommons.org/ns#"
-                xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-                xmlns:svg="http://www.w3.org/2000/svg"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-                xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-                width="197.55556mm"
-                height="197.55556mm"
-                viewBox="0 0 700.00001 700"
-                id="svg2"
-                version="1.1"
-                inkscape:version="0.91 r13725"
-                sodipodi:docname="Star.svg">
-                <defs
-                    id="defs4" />
-                <sodipodi:namedview
-                    id="base"
-                    pagecolor="#ffffff"
-                    bordercolor="#666666"
-                    borderopacity="1.0"
-                    inkscape:pageopacity="0.0"
-                    inkscape:pageshadow="2"
-                    inkscape:zoom="0.95714285"
-                    inkscape:cx="350"
-                    inkscape:cy="350"
-                    inkscape:document-units="px"
-                    inkscape:current-layer="layer1"
-                    showgrid="false"
-                    fit-margin-top="0"
-                    fit-margin-left="0"
-                    fit-margin-right="0"
-                    fit-margin-bottom="0"
-                    inkscape:window-width="1600"
-                    inkscape:window-height="837"
-                    inkscape:window-x="-8"
-                    inkscape:window-y="-8"
-                    inkscape:window-maximized="1" />
-                <g
-                    inkscape:label="Layer 1"
-                    inkscape:groupmode="layer"
-                    id="layer1"
-                    transform="translate(1252.3164,-304.67969)">
-                    <path
-                        style="opacity:1;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0"
-                        d="m -902.3164,304.67969 -28.04007,302.41272 -115.18233,-95.63509 95.63512,115.1823 -302.41272,28.04007 302.41348,28.03931 -95.63588,115.1823 115.18233,-95.63433 28.04007,302.41273 28.03931,-302.41349 115.1823,95.63509 -95.63509,-115.1823 302.41348,-28.03931 -302.41272,-28.04007 95.63433,-115.1823 -115.1823,95.63586 -28.03931,-302.41349 z"
-                        id="path4140"
-                        inkscape:connector-curvature="0" />
-                </g>
-            </svg> Meriç
+    <footer class="absolute w-full h-10 flex flex-row justify-between items-center pt-[0.4em] pb-16 px-[100px] bottom-0">
+        <div class="copyright">
+            © sitedeki içeriklerin tüm hakları saklıdır<br>
+            2021 ═ {{ date("Y") }}<br>
+            <div class="flex flex-row items-center gap-1">
+                <svg
+                    class="w-3 h-3 fill-text dark:fill-text-dark"
+                    xmlns:dc="http://purl.org/dc/elements/1.1/"
+                    xmlns:cc="http://creativecommons.org/ns#"
+                    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                    xmlns:svg="http://www.w3.org/2000/svg"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+                    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+                    width="197.55556mm"
+                    height="197.55556mm"
+                    viewBox="0 0 700.00001 700"
+                    id="svg2"
+                    version="1.1"
+                    inkscape:version="0.91 r13725"
+                    sodipodi:docname="Star.svg">
+                    <defs
+                        id="defs4" />
+                    <sodipodi:namedview
+                        id="base"
+                        pagecolor="#ffffff"
+                        bordercolor="#666666"
+                        borderopacity="1.0"
+                        inkscape:pageopacity="0.0"
+                        inkscape:pageshadow="2"
+                        inkscape:zoom="0.95714285"
+                        inkscape:cx="350"
+                        inkscape:cy="350"
+                        inkscape:document-units="px"
+                        inkscape:current-layer="layer1"
+                        showgrid="false"
+                        fit-margin-top="0"
+                        fit-margin-left="0"
+                        fit-margin-right="0"
+                        fit-margin-bottom="0"
+                        inkscape:window-width="1600"
+                        inkscape:window-height="837"
+                        inkscape:window-x="-8"
+                        inkscape:window-y="-8"
+                        inkscape:window-maximized="1" />
+                    <g
+                        inkscape:label="Layer 1"
+                        inkscape:groupmode="layer"
+                        id="layer1"
+                        transform="translate(1252.3164,-304.67969)">
+                        <path
+                            style="opacity:1;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0"
+                            d="m -902.3164,304.67969 -28.04007,302.41272 -115.18233,-95.63509 95.63512,115.1823 -302.41272,28.04007 302.41348,28.03931 -95.63588,115.1823 115.18233,-95.63433 28.04007,302.41273 28.03931,-302.41349 115.1823,95.63509 -95.63509,-115.1823 302.41348,-28.03931 -302.41272,-28.04007 95.63433,-115.1823 -115.1823,95.63586 -28.03931,-302.41349 z"
+                            id="path4140"
+                            inkscape:connector-curvature="0" />
+                    </g>
+                </svg> Meriç
+            </div>
         </div>
-    </div>
-    <div class="flags">
-        <div class="flag">
-            <img src="{{ asset('assets/img/ataturk-32310.png') }}"
-                 alt="Halaskâr Başöğretmenimiz Mareşal Mustafa Kemal Atatürk">
-            <span>
+        <div class="flags">
+            <div class="flag">
+                <img src="{{ asset('assets/img/ataturk-32310.png') }}"
+                     alt="Halaskâr Başöğretmenimiz Mareşal Mustafa Kemal Atatürk">
+                <span>
                     Halaskâr<br>Mustafa Kemal Atatürk
                 </span>
-        </div>
-        <div class="flag">
-            <img src="{{ asset('assets/img/turkiye_coat_of_army_fan_made.png') }}"
-                 alt="Türkiye Coat Of Army (Unofficial)">
-            <span>
+            </div>
+            <div class="flag">
+                <img src="{{ asset('assets/img/turkiye_coat_of_army_fan_made.png') }}"
+                     alt="Türkiye Coat Of Army (Unofficial)">
+                <span>
                     Türkiye<br>Cumhurİyetİ
                 </span>
-        </div>
-        <div class="flag">
-            <img src="{{ asset('assets/img/tatarstan_coat_of_army.png') }}"
-                 alt="Tatarstan Coat Of Army">
-            <span>
+            </div>
+            <div class="flag">
+                <img src="{{ asset('assets/img/tatarstan_coat_of_army.png') }}"
+                     alt="Tatarstan Coat Of Army">
+                <span>
                     Tatarstan<br>Respublİkasy
                 </span>
+            </div>
         </div>
-    </div>
-</footer>
+    </footer>
+</div>
+@yield('scripts')
 @livewireScripts
 </body>
 </html>

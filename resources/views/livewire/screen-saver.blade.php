@@ -2,7 +2,7 @@
      x-init="
         document.body.addEventListener('mousemove', () => {
             showScreenSaver = false;
-            intervalId = null;
+            clearInterval(intervalId);
         });
         document.addEventListener('mouseleave', () => {
             showScreenSaver = true;
