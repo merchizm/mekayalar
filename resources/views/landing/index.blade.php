@@ -6,7 +6,7 @@
             hey, Ben Meriç <span class="wave">👋</span>
         </h1>
         <p class="text-justify leading-[1.75] text-[1.125em]">
-            Merhaba, ben bir full-stack geliştiriciyim ve aynı zamanda senior <span class="label"><span><svg
+            Merhaba, ben bir full-stack geliştiriciyim ve aynı zamanda uzman <span class="label"><span><svg
                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 194.44 97.7"><title>PHP logo</title><path
                             d="M430.16,483.7H459q12.7.11,18.4,7.32t3.77,19.69a37.77,37.77,0,0,1-3.34,11.19,33.26,33.26,0,0,1-6.89,9.9,24,24,0,0,1-11.51,7.1,53,53,0,0,1-12.7,1.51H433.82l-4.09,20.44h-15l15.39-77.15h0M442.75,496l-6.46,32.28a7.92,7.92,0,0,0,1.29.11h1.51a56.58,56.58,0,0,0,17.22-2q6.89-2.26,9.25-15.71,1.94-11.3-3.87-13A48.28,48.28,0,0,0,447.38,496q-1.29.11-2.47.11h-2.26l.11-.11"
                             transform="translate(-414.78 -463.15)"/><path
