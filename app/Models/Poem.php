@@ -12,6 +12,7 @@ class Poem extends Model
 
     protected $fillable = [
         'title',
+        'slug',
         'content',
         'status',
         'wrote_at'

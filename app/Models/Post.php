@@ -19,6 +19,8 @@ class Post extends Model
         'post_category_id',
         'post_tags',
         'post_image',
+        'type',
+        'description'
     ];
 
     protected $casts = [
@@ -40,7 +42,7 @@ class Post extends Model
         return $reading_time_minutes;
     }
 
-    public function author(): BelongsTo
+    public function post_author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'author');
     }

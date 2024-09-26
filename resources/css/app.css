@@ -68,7 +68,7 @@
 }
 
 .label {
-    @apply text-[0.9em] leading-[1.2] no-underline inline-flex items-center justify-center border bg-[color:var(--label-color)] px-1.5 py-1 rounded-[0.4em] border-[solid];
+    @apply text-[0.9em] leading-[1.2] no-underline inline-flex items-center justify-center border bg-label-color dark:bg-label-color-dark px-1.5 py-1 rounded-[0.4em] dark:border-button-dark;
 
     span {
         @apply inline-flex mr-[0.4em];
@@ -192,5 +192,29 @@ body {
 
     >* {
         @apply block rounded-[calc(1.5rem_-_0.5rem)] overflow-hidden w-full object-cover h-[500px];
+    }
+}
+
+/* Article Section */
+
+article {
+    h2 {
+        font-size: 1.5em;
+        margin-bottom: 0.3em;
+        margin-top: 0.3em;
+    }
+
+    h3 {
+        font-size: 1.3em;
+        margin-bottom: 0.3em;
+        margin-top: 0.3em;
+    }
+
+    ul {
+        list-style-type: '— ';
+    }
+
+    p {
+        margin-bottom: 0.3em;
     }
 }

@@ -20,9 +20,9 @@ enum PostEnum : string
     public function color(): string
     {
         return match ($this){
-            self::PUBLISHED => 'success',
-            self::DRAFT => 'warning',
-            self::TRASH => 'danger',
+            self::PUBLISHED => 'bg-lime-lt',
+            self::DRAFT => 'bg-indigo-lt',
+            self::TRASH => 'bg-orange-lt',
         };
     }
 }

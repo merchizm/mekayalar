@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\BlogController;
-use App\Http\Controllers\BookmarkController;
-use App\Http\Controllers\PoemController;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Landing\BlogController;
+use App\Http\Controllers\Landing\BookmarkController;
+use App\Http\Controllers\Landing\BookshelfController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,26 +19,43 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', function () {
+    seo()
+        ->title('Mekayalar.com')
+        ->description('Meriç\'in ilham dolu ve sürdürülebilir blogu')
+        ->twitter()
+        ->twitterCreator('merchizm')
+        ->locale('tr_TR')
+        ->withUrl();
+
     return view('landing.index');
 })->name('landing.index');
 
-Route::get('/poems', [PoemController::class, 'index'])->name('poems.index');
-Route::get('/poems/{poem}', [PoemController::class, 'show'])->name('poems.show');
+Route::get('/poems', [App\Http\Controllers\Landing\PoemController::class, 'index'])->name('poems.index');
+Route::get('/poems/{poem}', [App\Http\Controllers\Landing\PoemController::class, 'show'])->name('poems.show');
 
 Route::get('/bookmarks', [BookmarkController::class, 'index'])->name('bookmarks.index');
 
 Route::get('/posts', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/posts/{slug}', [BlogController::class, 'show'])->name('blog.show');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/bookshelf', [BookshelfController::class, 'index'])->name('bookshelf.index');
 
-Route::middleware('auth')->group(function () {
+Route::group(['prefix' => 'admin','middleware' => ['auth', 'verified']], function () {
+
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::resource('posts', PostController::class)->names('posts');
+    Route::post('/posts/draft', [PostController::class, 'saveDraft'])->name('posts.draft');
+
+    Route::resource('poems', \App\Http\Controllers\Admin\PoemController::class)->names('admin.poems');
 });
 
 require __DIR__.'/auth.php';
