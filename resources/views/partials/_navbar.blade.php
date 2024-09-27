@@ -33,7 +33,7 @@
                                     <a class="dropdown-item" href="{{ route('posts.index') }}">
                                         Gönderilerim
                                     </a>
-                                    <a class="dropdown-item" href="">
+                                    <a class="dropdown-item" href="{{ route('admin.poems.index') }}">
                                         Şiirlerim
                                     </a>
                                 </div>
@@ -41,7 +41,7 @@
                         </div>
                     </li>
                     <li class="nav-item  {{ (request()->segment(2) == 'media') ? 'active' : '' }}">
-                        <a class="nav-link" href="">
+                        <a class="nav-link" href="{{ route('admin.media') }}">
                     <span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/checkbox -->
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cloud-upload"
                              width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
@@ -53,7 +53,7 @@
 </svg>
                     </span>
                             <span class="nav-link-title">
-                      Medya Yöneticisi
+                      Dosya Yöneticisi
                     </span>
                         </a>
                     </li>

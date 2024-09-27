@@ -190,7 +190,7 @@
         function addPoem() {
             let formData = $('#addPoemForm').serialize();
             $.ajax({
-                url: '{{ route('poems.store') }}',
+                url: '{{ route('admin.poems.store') }}',
                 method: 'POST',
                 data: formData,
                 success: function(response) {

@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Media extends Model
 {
-    use SoftDeletes;
     protected $fillable = [
         'name',
         'path',
-        'type'
+        'type',
+        'parent_folder'
     ];
 
     protected $appends = [
@@ -20,6 +20,6 @@ class Media extends Model
     ];
 
     public function getUrlAttribute(){
-        return asset($this->attributes['path']);
+        return asset('storage/uploads/'.$this->attributes['parent_folder'].'/'. $this->attributes['name']);
     }
 }

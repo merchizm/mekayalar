@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\MediaController;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
@@ -56,6 +57,14 @@ Route::group(['prefix' => 'admin','middleware' => ['auth', 'verified']], functio
     Route::post('/posts/draft', [PostController::class, 'saveDraft'])->name('posts.draft');
 
     Route::resource('poems', \App\Http\Controllers\Admin\PoemController::class)->names('admin.poems');
+
+    Route::post('/upload', [MediaController::class , 'upload'])->name('admin.media.upload');
+    Route::get('/files', [MediaController::class, 'listFiles'])->name('admin.media.files');
+    Route::post('/delete', [MediaController::class ,'delete']);
+    Route::post('/rename', [MediaController::class, 'rename']);
+    Route::post('/create-folder', [MediaController::class ,'createFolder'])->name('admin.media.createFolder');
+    Route::get('/download/{file}', [MediaController::class , 'download']);
+    Route::get('/media', [MediaController::class , 'index'])->name('admin.media');
 });
 
 require __DIR__.'/auth.php';
