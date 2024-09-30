@@ -17,28 +17,25 @@
                     </span>
                         </a>
                     </li>
-                    <li class="nav-item {{ (request()->segment(2) == 'home') ? 'active' : '' }} dropdown">
-                        <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown"
-                           data-bs-auto-close="outside" role="button" aria-expanded="false">
-                    <span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/package -->
-                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-article"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 4m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /><path d="M7 8h10" /><path d="M7 12h10" /><path d="M7 16h10" /></svg>
+                    <li class="nav-item  {{ (request()->segment(2) == 'posts') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('posts.index') }}">
+                    <span class="nav-link-icon d-md-none d-lg-inline-block">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cloud-upload" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zm6 10H7m6-3H7m4-3H7"/></svg>
                     </span>
                             <span class="nav-link-title">
-                               İçerik Yöneticisi
-                            </span>
+                      Gönderilerim
+                    </span>
                         </a>
-                        <div class="dropdown-menu">
-                            <div class="dropdown-menu-columns">
-                                <div class="dropdown-menu-column">
-                                    <a class="dropdown-item" href="{{ route('posts.index') }}">
-                                        Gönderilerim
-                                    </a>
-                                    <a class="dropdown-item" href="{{ route('admin.poems.index') }}">
-                                        Şiirlerim
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                    </li>
+                    <li class="nav-item  {{ (request()->segment(2) == 'poems') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('admin.poems.index') }}">
+                    <span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/checkbox -->
+                   <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cloud-upload" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M6.979 3.074a6 6 0 0 1 4.988 1.425l.037.033l.034-.03a6 6 0 0 1 4.733-1.44l.246.036a6 6 0 0 1 3.364 10.008l-.18.185l-.048.041l-7.45 7.379a1 1 0 0 1-1.313.082l-.094-.082l-7.493-7.422A6 6 0 0 1 6.979 3.074"/></svg>
+                    </span>
+                            <span class="nav-link-title">
+                      Şiirlerim
+                    </span>
+                        </a>
                     </li>
                     <li class="nav-item  {{ (request()->segment(2) == 'media') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('admin.media') }}">
@@ -57,6 +54,8 @@
                     </span>
                         </a>
                     </li>
+
+                </ul>
             </div>
         </div>
     </div>

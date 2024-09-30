@@ -20,7 +20,7 @@
     <div class="my-5 image-container"><img
         src="{{ $post->post_image }}" alt="{{ $post->post_title }}"></div>
     <article>
-        {!! $post->post_content !!}
+        {!! $post->content !!}
     </article>
 @endsection
 

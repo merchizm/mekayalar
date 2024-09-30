@@ -45,6 +45,7 @@
             height: 215px;
         }
     </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     @yield('header')
 </head>
 
@@ -158,6 +159,9 @@
     const STORAGE_URL = "{{ url('storage/') }}";
 </script>
 <script src="{{ asset('assets/js/tabler.min.js') }}" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="{{ asset('assets/js/purify.js') }}"></script>
 @yield('scripts')
 </body>
 

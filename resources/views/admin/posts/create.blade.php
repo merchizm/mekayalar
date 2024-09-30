@@ -1,13 +1,12 @@
 @extends('layouts.panel')
 
+@section('page_title', 'Yeni Gönderi')
+
 @section('content')
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Create Post</h3>
-                    </div>
                     <div class="card-body">
                         <form id="post-form" action="{{ route('posts.store') }}" method="POST">
                             @csrf
@@ -17,17 +16,17 @@
 
                             <!-- Post Title -->
                             <div class="mb-3">
-                                <label class="form-label">Title</label>
+                                <label class="form-label">Başlık</label>
                                 <input type="text" name="post_title" id="post_title" class="form-control" oninput="generateSlug()">
                             </div>
 
                             <!-- Type Selection -->
                             <div class="mb-3">
-                                <label class="form-label">Type</label>
+                                <label class="form-label">Tür</label>
                                 <select name="type" id="type" class="form-select" onchange="toggleFieldsBasedOnType()">
-                                    <option value="0">Post</option>
-                                    <option value="1">Image</option>
-                                    <option value="2">Design</option>
+                                    <option value="0">Gönderi</option>
+                                    <option value="1">Görsel</option>
+                                    <option value="2">Tasarım/Çizim</option>
                                 </select>
                             </div>
 
@@ -37,35 +36,33 @@
                                 <input type="text" name="post_slug" id="post_slug" class="form-control">
                             </div>
 
-                            <!-- Quill Content Editor (Hidden if type is 1 or 2) -->
                             <div class="mb-3" id="content-section">
-                                <label class="form-label">Content</label>
-                                <div id="editor-container" style="height: 300px;"></div>
-                                <input type="hidden" name="post_content" id="post_content">
+                                <label class="form-label">İçerik</label>
+                                <x-MarkdownEditor name="content" />
                             </div>
 
                             <!-- Description (Hidden if type is 1 or 2) -->
                             <div class="mb-3" id="description-section">
-                                <label class="form-label">Description</label>
+                                <label class="form-label">Açıklama</label>
                                 <textarea id="description" name="description" class="form-control" rows="3" placeholder="Enter description..."></textarea>
                             </div>
 
                             <!-- Tags (Hidden if type is 1 or 2) -->
                             <div class="mb-3" id="tags-section">
-                                <label class="form-label">Tags</label>
+                                <label class="form-label">Etiketler</label>
                                 <input type="text" name="post_tags" id="post_tags" class="form-control" placeholder="Enter tags...">
                             </div>
 
                             <div class="mb-3" id="url-section">
-                                <label class="form-label">URL</label>
+                                <label class="form-label">Görsel</label>
                                 <input type="text" name="post_image" id="url" class="form-control" placeholder="Enter image or design URL">
                             </div>
 
                             <div class="mb-3" id="status-section">
-                                <label class="form-label">Status</label>
+                                <label class="form-label">Durum</label>
                                 <select name="post_status" class="form-select">
-                                    <option value="draft">Draft</option>
-                                    <option value="published">Published</option>
+                                    <option value="draft">Taslak</option>
+                                    <option value="published">Yayımla</option>
                                 </select>
                             </div>
 
@@ -74,13 +71,13 @@
 
                             <!-- Category Selection Modal Trigger (Hidden if type is 1 or 2) -->
                             <div class="mb-3" id="category-section">
-                                <label class="form-label">Category</label>
-                                <button type="button" class="btn btn-primary" onclick="showCategoryModal()">Select Category</button>
+                                <label class="form-label">Kategori</label>
+                                <button type="button" class="btn btn-primary" onclick="showCategoryModal()">Kategori Seç</button>
                                 <input type="hidden" name="post_category_id" id="selected_category_id">
-                                <div id="selected_category_name" class="mt-2">Selected Category: None</div>
+                                <div id="selected_category_name" class="mt-2">Seçili Kategori: None</div>
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Create Post</button>
+                            <button type="submit" class="btn btn-primary">Oluştur</button>
                         </form>
                     </div>
                 </div>
@@ -163,42 +160,11 @@
 
         function selectCategory(id, name) {
             document.getElementById('selected_category_id').value = id;
-            document.getElementById('selected_category_name').textContent = 'Selected Category: ' + name;
+            document.getElementById('selected_category_name').textContent = 'Seçili Kategori: ' + name;
             var categoryModal = bootstrap.Modal.getInstance(document.getElementById('categoryModal'));
             categoryModal.hide();
         }
 
-        const toolbarOptions = [
-            ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-            ['blockquote', 'code-block'],
-            ['link', 'image', 'video', 'formula'],
-
-            [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-            [{ 'list': 'ordered'}, { 'list': 'bullet' }, { 'list': 'check' }],
-            [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-            [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-            [{ 'direction': 'rtl' }],                         // text direction
-
-            [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-
-            [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-            [{ 'font': [] }],
-            [{ 'align': [] }],
-
-            ['clean']                                         // remove formatting button
-        ];
-
-        var quill = new Quill('#editor-container', {
-            modules: {
-                toolbar: toolbarOptions
-            },
-            theme: 'snow'
-        });
-
-        document.getElementById('post-form').addEventListener('submit', function () {
-            document.getElementById('post_content').value = quill.root.innerHTML;
-        });
 
 
         // Initial toggle when the page loads
@@ -218,7 +184,7 @@
                 post_title: document.getElementById('post_title').value,
                 type: document.getElementById('type').value,
                 post_slug: document.getElementById('post_slug').value,
-                post_content: quill.root.innerHTML,
+                post_content: document.querySelector("[name='content']").value,
                 description: document.getElementById('description').value,
                 post_tags: JSON.stringify(tagify.value), // Convert tagify tags to JSON
                 post_image: document.getElementById('url').value,
@@ -250,7 +216,7 @@
             document.getElementById('post_title').addEventListener('input', autoSaveDraft);
             document.getElementById('description').addEventListener('input', autoSaveDraft);
             document.getElementById('selected_category_id').addEventListener('change', autoSaveDraft);
-            quill.root.innerHTML.on('change', autoSaveDraft);
+            document.querySelector("[name='content']").addEventListener('change', autoSaveDraft);
         });
     </script>
 @endsection

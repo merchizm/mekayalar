@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Parsedown;
 
 class Post extends Model
 {
@@ -31,7 +32,8 @@ class Post extends Model
     ];
 
     protected $appends = [
-        'readingTime'
+        'readingTime',
+        'content'
     ];
 
     public function getReadingTimeAttribute()
@@ -54,7 +56,12 @@ class Post extends Model
 
     public function category(): HasMany
     {
-        return $this->hasMany(Category::class, 'post_category_id');
+        return $this->hasMany(Category::class, 'post_category_id', 'id');
     }
 
+    public function getContentAttribute()
+    {
+        $Parsedown = new Parsedown();
+        return $Parsedown->text($this->post_content);
+    }
 }
