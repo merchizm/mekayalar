@@ -80,11 +80,9 @@ class PostController extends Controller
     {
         $request->validate([
             'post_title' => 'required',
-            'post_slug' => 'required|unique:posts,post_slug,' . $post->id,
-            'post_content' => 'required',
             'post_status' => 'required',
-            'author' => 'required',
-            'post_category_id' => 'required',
+            'post_image' => 'required',
+            'type' => 'required'
         ]);
 
         $post->update($request->all());
