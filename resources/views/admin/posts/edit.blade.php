@@ -42,15 +42,13 @@
                             <!-- Description (Hidden if type is 1 or 2) -->
                             <div class="mb-3" id="description-section">
                                 <label class="form-label">Açıklama</label>
-                                <textarea id="description" name="description" class="form-control" rows="3" placeholder="Enter description...">
-                                    {{ old('description', $post->description) }}
-                                </textarea>
+                                <textarea id="description" name="description" class="form-control" rows="3" placeholder="Enter description...">{{ old('description', $post->description) }}</textarea>
                             </div>
 
                             <!-- Tags (Hidden if type is 1 or 2) -->
                             <div class="mb-3" id="tags-section">
                                 <label class="form-label">Etiketler</label>
-                                <input type="text" name="post_tags" id="post_tags" class="form-control" placeholder="Enter tags..." value="{{ old('post_tags', json_encode($post->post_tags)) }}">
+                                <input type="text" name="post_tags" id="post_tags" class="form-control" placeholder="Enter tags...">
                             </div>
 
                             <div class="mb-3" id="url-section">
@@ -71,7 +69,7 @@
                                 <label class="form-label">Category</label>
                                 <button type="button" class="btn btn-primary" onclick="showCategoryModal()">Select Category</button>
                                 <input type="hidden" name="post_category_id" id="selected_category_id" value="{{ old('post_category_id', $post->post_category_id) }}">
-                                <div id="selected_category_name" class="mt-2">Selected Category: {{ $post->category()->name ?? 'None' }}</div>
+                                <div id="selected_category_name" class="mt-2">Selected Category: {{ App\Models\Category::where('id', $post->post_category_id)->first()->name }}</div>
                             </div>
 
                             <button type="submit" class="btn btn-primary">Güncelle</button>
@@ -96,6 +94,8 @@
                 enabled: 0, // Always show suggestions dropdown
             }
         });
+
+        tagify.addTags({!! old('post_tags', $post->post_tags) !!});
 
         // Function to toggle fields based on the selected type
         function toggleFieldsBasedOnType() {

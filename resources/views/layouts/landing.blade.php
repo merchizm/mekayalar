@@ -606,7 +606,7 @@ l-47 20 -3 123 -3 123 -52 -3z"/>
         </div>
         <div class="flags">
             <div class="flag">
-                <img src="{{ asset('assets/img/ataturk-32310.png') }}"
+                <img src="{{ asset('assets/img/ataturk-32310.png') }}"  class="aspect-[602/568]"
                      alt="Halaskâr Başöğretmenimiz Mareşal Mustafa Kemal Atatürk">
                 <span>
                     Halaskâr<br>Mustafa Kemal Atatürk

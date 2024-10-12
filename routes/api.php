@@ -47,3 +47,7 @@ Route::group(['as' => 'raindrop.', 'prefix' => 'raindrop'], function(){
     Route::get('callback', [RaindropController::class, 'callback']);
 });
 
+
+Route::group(['as' => 'github.', 'prefix' => 'github'], function(){
+    
+});	

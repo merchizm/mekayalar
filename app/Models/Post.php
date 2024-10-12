@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Parsedown;
 
 class Post extends Model
@@ -54,9 +55,9 @@ class Post extends Model
         return $this->belongsTo(Media::class, 'post_image');
     }
 
-    public function category(): HasMany
+    public function category(): HasOne
     {
-        return $this->hasMany(Category::class, 'post_category_id', 'id');
+        return $this->hasOne(Category::class, 'post_category_id');
     }
 
     public function getContentAttribute()

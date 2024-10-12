@@ -20,7 +20,7 @@
                  x-transition:leave-end="opacity-0">
                 @foreach($techs[1] as $tech)
                     <div class="border-button dark:border-button-dark flex flex-col gap-[15px] items-center w-[220px] px-[50px] py-5 rounded-[10px] border-2 border-dashed hover:bg-button-hover hover:dark:bg-button-hover-dark">
-                        <img src="{{ $this->getSvg($tech->icon_name, $tech->icon_type) }}" class="w-[50px] h-[50px]">
+                        <img src="{{ $this->getSvg($tech->icon_name, $tech->icon_type) }}" alt="{{ $tech->name }}" class="w-[50px] h-[50px]">
                         <div class="flex flex-col items-center text-[1.2em]">
                             {{ $tech->name }}
                         </div>
@@ -40,7 +40,7 @@
                  x-transition:leave-end="opacity-0">
                 @foreach($techs[2] as $tech)
                     <div class="border-button dark:border-button-dark flex flex-col gap-[15px] items-center w-[220px] px-[50px] py-5 rounded-[10px] border-2 border-dashed hover:bg-button-hover hover:dark:bg-button-hover-dark">
-                        <img src="{{ $this->getSvg($tech->icon_name, $tech->icon_type) }}" class="w-[50px] h-[50px]">
+                        <img src="{{ $this->getSvg($tech->icon_name, $tech->icon_type) }}" alt="{{ $tech->name }}" class="w-[50px] h-[50px]">
                         <div class="flex flex-col items-center text-[1.2em]">
                             {{ $tech->name }}
                         </div>
@@ -60,7 +60,7 @@
                  x-transition:leave-end="opacity-0">
                 @foreach($techs[3] as $tech)
                     <div class="border-button dark:border-button-dark flex flex-col gap-[15px] items-center w-[220px] px-[50px] py-5 rounded-[10px] border-2 border-dashed hover:bg-button-hover hover:dark:bg-button-hover-dark">
-                        <img src="{{ $this->getSvg($tech->icon_name, $tech->icon_type) }}" class="w-[50px] h-[50px]">
+                        <img src="{{ $this->getSvg($tech->icon_name, $tech->icon_type) }}" alt="{{ $tech->name }}" class="w-[50px] h-[50px]">
                         <div class="flex flex-col items-center text-[1.2em]">
                             {{ $tech->name }}
                         </div>

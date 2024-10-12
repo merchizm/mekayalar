@@ -87,9 +87,7 @@
             <!-- Fullscreen Preview Button -->
             <button id="preview-fullscreen-btn" class="btn btn-sm btn-info toolbar-btn float-end" title="Fullscreen Preview"><i class="bi bi-arrows-fullscreen"></i></button>
         </div>
-        <textarea id="markdown-content" class="form-control" placeholder="Write your markdown here..." name="{{ $name }}" style="height: calc(100% - 60px);">
-            {{ $value }}
-        </textarea>
+        <textarea id="markdown-content" class="form-control" placeholder="Write your markdown here..." name="{{ $name }}" style="height: calc(100% - 60px);">{{ $value }}</textarea>
 
         <!-- Bottom Bar for character count -->
         <div class="bottom-bar">
@@ -107,8 +105,7 @@
     </div>
 </div>
 <script>
-    // Event listener for markdown to HTML conversion and character count
-    document.getElementById('markdown-content').addEventListener('input', function () {
+    const renderFun = function () {
         const markdownContent = document.getElementById('markdown-content');
         const htmlContent = document.getElementById('html-content');
         const charCountDisplay = document.getElementById('character-count');
@@ -120,7 +117,13 @@
         // Update character count
         const characterCount = markdownContent.value.length;
         charCountDisplay.textContent = `Characters: ${characterCount}`;
-    });
+    };
+    
+    // Event listener for markdown to HTML conversion and character count
+    document.getElementById('markdown-content').addEventListener('input', renderFun);
+
+
+    document.addEventListener('DOMContentLoaded', renderFun);
 
     // Fullscreen preview toggle
     document.getElementById('preview-fullscreen-btn').addEventListener('click', function () {
