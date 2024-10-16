@@ -11,10 +11,11 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="body dark">
-<div class="relative min-h-[100vh] bg-background text-text dark:bg-background-dark dark:text-text-dark">
-    <div class="flex flex-row gap-[6vw] pt-0 pb-40 px-[100px]">
+<div class="relative min-h-screen bg-background text-text dark:bg-background-dark dark:text-text-dark">
+    <div class="flex flex-col lg:flex-row gap-4 lg:gap-[6vw] pt-0 pb-40 px-4 lg:px-[100px]">
 
-        <header class="h-[83vh] w-[15%] relative flex flex-col gap-2.5 mt-[75px]">
+        <header class="lg:h-[83vh] w-full lg:w-[15%] relative flex flex-col gap-2.5 mt-[75px]">
+            
             <div class="w-full h-[200px] flex justify-items-center justify-center items-center mb-[5px] p-2.5 rounded-[10px] hover:bg-menu-hover hover:dark:bg-menu-hover-dark hover:rounded-[20px] transition-all duration-[ease-in] delay-200">
                 <svg class="w-[200px] fill-text dark:fill-text-dark" version="1.0" xmlns="http://www.w3.org/2000/svg"
                      width="300" height="300" viewBox="0 0 1024.000000 1024.000000"
@@ -529,7 +530,7 @@ l-47 20 -3 123 -3 123 -52 -3z"/>
             </div>
         </header>
 
-        <main class="w-[55vw] ml-[15px] mt-[75px]">
+        <main class="w-full lg:w-[55vw] ml-0 lg:ml-[15px] mt-[75px]">
             <div class="flex justify-between items-center px-0 py-2.5">
                 <div>
                     <livewire:dark-mode-toggle/>
@@ -545,8 +546,8 @@ l-47 20 -3 123 -3 123 -52 -3z"/>
         </main>
         <!--<livewire:screen-saver/>-->
     </div>
-    <footer class="absolute w-full h-10 flex flex-row justify-between items-center pt-[0.4em] pb-16 px-[100px] bottom-0">
-        <div class="copyright">
+    <footer class="absolute w-full h-10 flex flex-col lg:flex-row justify-between items-center pt-[0.4em] pb-16 px-4 lg:px-[100px] bottom-0">
+        <div class="mb-4 copyright lg:text-left lg:mb-0">
             © sitedeki içeriklerin tüm hakları saklıdır<br>
             2021 ═ {{ date("Y") }}<br>
             <div class="flex flex-row items-center gap-1">
@@ -604,7 +605,7 @@ l-47 20 -3 123 -3 123 -52 -3z"/>
                 </svg> Meriç
             </div>
         </div>
-        <div class="flags">
+        <div class="flex flex-wrap justify-center gap-4 flags lg:justify-end">
             <div class="flag">
                 <img src="{{ asset('assets/img/ataturk-32310.png') }}"  class="aspect-[602/568]"
                      alt="Halaskâr Başöğretmenimiz Mareşal Mustafa Kemal Atatürk">
