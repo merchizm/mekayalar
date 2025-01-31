@@ -1,70 +1,64 @@
 @extends('layouts.landing')
 
 @section('content')
-<div class="grid w-full p-4">
+<div class="grid w-full p-2 sm:p-4">
     <div x-data="{ currentTab: 1}">
-      <ul class="flex gap-3 align-content-strech">
-        <li>
+      <ul class="flex flex-wrap gap-2 sm:gap-3 align-content-strech">
+        <li class="w-full sm:w-auto">
           <button @click="currentTab = 1"
-                  class="px-5 py-3 rounded"
+                  class="w-full px-3 py-2 text-sm rounded sm:w-auto sm:px-5 sm:py-3 sm:text-base"
                   :class="currentTab === 1 ? 'transition-all duration-[ease-in] delay-100 border-text dark:border-text-dark bg-button dark:bg-button-dark hover:bg-button hover:dark:bg-button-dark hover:border-button-hover hover:dark:border-button-hover-dark' : ' hover:bg-button hover:dark:bg-button-dark hover:border-button-hover hover:dark:border-button-hover-dark'">Playlistlerim</button>    
         </li>
-        <li>
+        <li class="w-full sm:w-auto">
           <button @click="currentTab = 2"
-                  class="px-5 py-3 rounded"
+                  class="w-full px-3 py-2 text-sm rounded sm:w-auto sm:px-5 sm:py-3 sm:text-base"
                   :class="currentTab === 2 ? 'transition-all duration-[ease-in] delay-100 border-text dark:border-text-dark bg-button dark:bg-button-dark hover:bg-button hover:dark:bg-button-dark hover:border-button-hover hover:dark:border-button-hover-dark' : ' hover:bg-button hover:dark:bg-button-dark hover:border-button-hover hover:dark:border-button-hover-dark'">Repolarım</button>    
         </li>
-        <li>
+        <li class="w-full sm:w-auto">
           <button @click="currentTab = 3"
-                  class="px-5 py-3 rounded"
+                  class="w-full px-3 py-2 text-sm rounded sm:w-auto sm:px-5 sm:py-3 sm:text-base"
                   :class="currentTab === 3 ? 'transition-all duration-[ease-in] delay-100 border-text dark:border-text-dark bg-button dark:bg-button-dark hover:bg-button hover:dark:bg-button-dark hover:border-button-hover hover:dark:border-button-hover-dark' : ' hover:bg-button hover:dark:bg-button-dark hover:border-button-hover hover:dark:border-button-hover-dark'">Gistlerim</button>    
         </li>
-        <li>
+        <li class="w-full sm:w-auto">
           <button @click="currentTab = 4"
-                  class="px-5 py-3 rounded"
+                  class="w-full px-3 py-2 text-sm rounded sm:w-auto sm:px-5 sm:py-3 sm:text-base"
                   :class="currentTab === 4 ? 'transition-all duration-[ease-in] delay-100 border-text dark:border-text-dark bg-button dark:bg-button-dark hover:bg-button hover:dark:bg-button-dark hover:border-button-hover hover:dark:border-button-hover-dark' : ' hover:bg-button hover:dark:bg-button-dark hover:border-button-hover hover:dark:border-button-hover-dark'">Okuduğum Kitaplar</button>    
         </li>
       </ul>
-      <div x-show="currentTab === 1" class="w-full mt-4"
-           >
-            <div class="grid w-full grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-6">
+      <div x-show="currentTab === 1" class="w-full mt-4">
+            <div class="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 sm:gap-6">
             @foreach ($playlists['items'] as $playlist)
                 @if ($playlist->public === true)
-                    <div class="border-button dark:border-button-dark flex flex-col gap-[15px] items-center w-[220px] py-5 rounded-[10px] border-2 border-dashed hover:bg-button-hover hover:dark:bg-button-hover-dark">
-                        <a href="{{ $playlist->external_urls->spotify }}" target="_blank">
-                        <!-- Playlist Görseli -->
-                        <img src="{{ $playlist->images[0]->url  }}" alt="{{ $playlist->name }}" class="object-cover w-full h-48 rounded-t-lg">
-                        <!-- Kart İçeriği -->
+                    <div class="border-button dark:border-button-dark flex flex-col gap-[15px] items-center w-full sm:w-[220px] py-5 rounded-[10px] border-2 border-dashed hover:bg-button-hover hover:dark:bg-button-hover-dark">
+                        <a href="{{ $playlist->external_urls->spotify }}" target="_blank" class="w-full">
+                        <img src="{{ $playlist->images[0]->url  }}" alt="{{ $playlist->name }}" class="object-cover w-full rounded-t-lg h-36 sm:h-48">
                         <div class="p-4">
-                            <h3 class="mb-2 text-xl font-bold text-white">{{ $playlist->name }}</h3>
+                            <h3 class="mb-2 text-lg font-bold text-white sm:text-xl">{{ $playlist->name }}</h3>
                         </div>
                         </a>
                     </div>
                 @endif
             @endforeach
-  </div>
-           </div>
+            </div>
+      </div>
       <div x-show="currentTab === 2" class="w-full mt-4">
         <ul class="grid gap-3">
         @foreach ($repos as $repo)
-            <li class="max-w-[53vw] p-4 bg-button dark:bg-button-dark hover:bg-button-hover dark:hover:bg-button-hover-dark rounded-lg md:max-w-[90vw]">
+            <li class="w-full p-3 rounded-lg sm:p-4 bg-button dark:bg-button-dark hover:bg-button-hover dark:hover:bg-button-hover-dark">
                 <div class="mb-2 title">
-                    <a href={{ $repo['html_url'] }} class="flex items-center text-lg font-bold text-color">
+                    <a href={{ $repo['html_url'] }} class="flex items-center text-base font-bold sm:text-lg text-color">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" class="fill-text dark:fill-text-dark">
                             <path d="M6.375 21.3q-.7 0-1.2-.5t-.5-1.2V4.4q0-.7.5-1.2t1.2-.5h11.25q.7 0 1.2.5t.5 1.2v15.2q0 .7-.5 1.2t-1.2.5Zm.025-1.4h11.2q.125 0 .225-.1t.1-.2V4.4q0-.1-.1-.2t-.225-.1h-1.575v6.375l-2.2-1.3-2.175 1.3V4.1H6.4q-.125 0-.225.1t-.1.2v15.2q0 .1.1.2t.225.1Zm-.325 0V4.1 19.9Zm5.575-9.425 2.175-1.3 2.2 1.3-2.2-1.3-2.175 1.3Z"/>
                         </svg>
                         <span class="ml-2">{{  $repo['name'] }}</span>
                     </a>
                 </div>
-                <p class="py-1 overflow-hidden text-ellipsis whitespace-nowrap">{{ $repo['description'] ?? '' }}</p>
-                <div class="flex items-center gap-4 mt-2 text-base">
+                <p class="py-1 overflow-hidden text-sm sm:text-base text-ellipsis whitespace-nowrap">{{ $repo['description'] ?? '' }}</p>
+                <div class="flex flex-wrap items-center gap-2 mt-2 text-sm sm:gap-4 sm:text-base">
                     <span class="flex items-center">
-                        <div
-                            class="w-3 h-3 mr-2 rounded-full"
-                            style="background-color:{{ $repo['language'] !== null
-                                ? $langColors[$repo['language']]['color']
-                                : $langColors['Markdown']['color'] }}"
-                        ></div>
+                        <div class="w-3 h-3 mr-2 rounded-full"
+                            style="background-color:{{ $repo['language'] !== null ? $langColors[$repo['language']]['color'] : $langColors['Markdown']['color'] }}">
+                        </div>
                         {{  $repo['language'] ?? 'Markdown' }}
                     </span>
                     <span class="flex items-center">
@@ -83,21 +77,20 @@
             </li>
         @endforeach
         </ul>       
-
       </div>
       <div x-show="currentTab === 3" class="w-full mt-4">
         <ul class="grid gap-3">
             @foreach ($gists as $gist)
-                <li class="max-w-[53vw] p-4 bg-button dark:bg-button-dark hover:bg-button-hover dark:hover:bg-button-hover-dark rounded-lg md:max-w-[90vw]">
+                <li class="w-full p-3 rounded-lg sm:p-4 bg-button dark:bg-button-dark hover:bg-button-hover dark:hover:bg-button-hover-dark">
                     <div class="mb-2 title">
-                        <a href={{ $gist['html_url'] }} class="flex items-center text-lg font-bold text-color">
+                        <a href={{ $gist['html_url'] }} class="flex items-center text-base font-bold sm:text-lg text-color">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" class="fill-text dark:fill-text-dark">
                             <path d="M5.812 17.417q-.52 0-.885-.365-.365-.364-.365-.885V3.833q0-.521.365-.885.365-.365.906-.365h6.375l3.23 3.209v10.375q0 .521-.365.885-.365.365-.906.365Zm5.646-10.875V3.583H5.833q-.104 0-.187.084-.084.083-.084.166v12.334q0 .083.084.166.083.084.187.084h8.334q.104 0 .187-.084.084-.083.084-.166V6.542ZM5.562 3.583v3.396-3.396 12.834V3.583Z"/>
                         </svg>
                             <span class="ml-2">{{  $gist['description'] }}</span>
                         </a>
                     </div>
-                    <div class="flex items-center gap-4 mt-2 text-base">
+                    <div class="flex items-center gap-2 mt-2 text-sm sm:gap-4 sm:text-base">
                         <span class="flex items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" class="fill-text dark:fill-text-dark">
                                 <path d="M5.312 11.354h9.376v-1.25H5.312Zm0-2.416h9.376v-1.25H5.312Zm0-2.438h9.376V5.25H5.312ZM17.75 17.271l-2.854-2.833H3.75q-.625 0-1.062-.438-.438-.438-.438-1.062V3.729q0-.625.438-1.062.437-.438 1.062-.438h12.5q.625 0 1.062.438.438.437.438 1.083ZM3.5 3.75v9.438h11.938L16.5 14.25V3.75q0-.125-.073-.198-.073-.073-.177-.073H3.75q-.104 0-.177.073T3.5 3.75Zm0 0v10.5V3.479v.271Z"/>
@@ -109,8 +102,9 @@
             @endforeach
         </ul>
       </div>
-      <div x-show="currentTab === 4" class="w-full mt-4"
-           ><p class="leading-normal">burası çok yakında.</p></div>
+      <div x-show="currentTab === 4" class="w-full mt-4">
+        <p class="text-sm leading-normal sm:text-base">burası çok yakında.</p>
+      </div>
     </div>
-  </div>
+</div>
 @endsection

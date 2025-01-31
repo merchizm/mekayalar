@@ -420,7 +420,7 @@ l-47 20 -3 123 -3 123 -52 -3z"/>
                     Yazılımcı • Pixel Artist • Herbokolok
                 </p>
             </div>
-            <div class="relative mb-[15px]">
+            <div class="relative mb-[15px] hidden lg:block">
                 <input class="bg-button-hover dark:bg-button-hover-dark text-[1em] border border-social-bg dark:border-social-bg-dark w-full p-[0.7em] rounded-lg border-solid focus:outline focus:outline-key-border focus:dark:outline-key-border-dark"
                     type="text"
                     aria-label="Ara"
@@ -544,13 +544,15 @@ l-47 20 -3 123 -3 123 -52 -3z"/>
                 @yield('content')
             </div>
         </main>
-        <!--<livewire:screen-saver/>-->
+        <livewire:screen-saver/>
     </div>
-    <footer class="absolute w-full h-10 flex flex-col lg:flex-row justify-between items-center pt-[0.4em] pb-16 px-4 lg:px-[100px] bottom-0">
-        <div class="mb-4 copyright lg:text-left lg:mb-0">
-            © sitedeki içeriklerin tüm hakları saklıdır<br>
-            2021 ═ {{ date("Y") }}<br>
-            <div class="flex flex-row items-center gap-1">
+    <footer class="absolute w-full flex flex-col lg:flex-row justify-between items-center pt-[0.4em] pb-16 lg:pb-4 px-4 lg:px-[100px] bottom-0 bg-background/80 dark:bg-background-dark/80 backdrop-blur-sm">
+        <div class="mb-4 text-center copyright lg:text-left lg:mb-0">
+            <div class="text-sm lg:text-base">
+                © sitedeki içeriklerin tüm hakları saklıdır<br>
+                2021 ═ {{ date("Y") }}
+            </div>
+            <div class="flex flex-row items-center justify-center gap-1 mt-1 lg:justify-start">
                 <svg
                     class="w-3 h-3 fill-text dark:fill-text-dark"
                     xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -605,25 +607,25 @@ l-47 20 -3 123 -3 123 -52 -3z"/>
                 </svg> Meriç
             </div>
         </div>
-        <div class="flex flex-wrap justify-center gap-4 flags lg:justify-end">
-            <div class="flag">
+        <div class="flex flex-wrap justify-center gap-2 lg:gap-4 flags lg:justify-end">
+            <div class="scale-75 flag lg:scale-100">
                 <img src="{{ asset('assets/img/ataturk-32310.png') }}"  class="aspect-[602/568]"
                      alt="Halaskâr Başöğretmenimiz Mareşal Mustafa Kemal Atatürk">
-                <span>
+                <span class="text-xs lg:text-base">
                     Halaskâr<br>Mustafa Kemal Atatürk
                 </span>
             </div>
-            <div class="flag">
+            <div class="scale-75 flag lg:scale-100">
                 <img src="{{ asset('assets/img/turkiye_coat_of_army_fan_made.png') }}"
                      alt="Türkiye Coat Of Army (Unofficial)">
-                <span>
+                <span class="text-xs lg:text-base">
                     Türkiye<br>Cumhurİyetİ
                 </span>
             </div>
-            <div class="flag">
+            <div class="scale-75 flag lg:scale-100">
                 <img src="{{ asset('assets/img/tatarstan_coat_of_army.png') }}"
                      alt="Tatarstan Coat Of Army">
-                <span>
+                <span class="text-xs lg:text-base">
                     Tatarstan<br>Respublİkasy
                 </span>
             </div>

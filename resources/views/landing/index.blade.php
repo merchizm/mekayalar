@@ -1,14 +1,14 @@
 @extends('layouts.landing')
 
 @section('content')
-    <div class="flex p-5 border-purple-600 rounded bg-purple-500/60 text-purple-50">
+    <div class="flex flex-col p-3 border-purple-600 rounded sm:p-5 bg-purple-500/60 text-purple-50">
         Web siteyi hala geliştirme aşamasındayım. Bu yüzden bazı hatalarla karşılaşabilirsiniz. Umarım web sitemi beğenirsiniz :)
     </div>
-    <div class="leading-[1.75] text-[1.1em]">
-        <h1 class="text-[1.7em] font-medium ml-[0.2em] mt-[0.3em] mb-[0.8em]">
+    <div class="leading-[1.75] text-[1em] sm:text-[1.1em]">
+        <h1 class="text-[1.5em] sm:text-[1.7em] font-medium ml-[0.2em] mt-[0.3em] mb-[0.8em]">
             hey, Ben Meriç <span class="wave">👋</span>
         </h1>
-        <p class="text-justify leading-[1.75] text-[1.125em]">
+        <p class="text-justify leading-[1.75] text-[1em] sm:text-[1.125em]">
             Merhaba, ben bir full-stack geliştiriciyim ve aynı zamanda uzman <span class="label"><span><svg
                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 194.44 97.7"><title>PHP logo</title><path
                             d="M430.16,483.7H459q12.7.11,18.4,7.32t3.77,19.69a37.77,37.77,0,0,1-3.34,11.19,33.26,33.26,0,0,1-6.89,9.9,24,24,0,0,1-11.51,7.1,53,53,0,0,1-12.7,1.51H433.82l-4.09,20.44h-15l15.39-77.15h0M442.75,496l-6.46,32.28a7.92,7.92,0,0,0,1.29.11h1.51a56.58,56.58,0,0,0,17.22-2q6.89-2.26,9.25-15.71,1.94-11.3-3.87-13A48.28,48.28,0,0,0,447.38,496q-1.29.11-2.47.11h-2.26l.11-.11"
@@ -23,16 +23,16 @@
                             transform="translate(-411.22 -408.25)" style="fill:#ff2d20"/></svg></span>Laravel</span> uzmanıyım. Pixel
             arta olan ilgim ve şiirle olan tutkumun yanı sıra felsefi düşüncelere de büyük bir ilgi duyuyorum. Geçmişte full-stack geliştirici ve takım lideri olarak rol aldım.
         </p>
-        <div class="flex flex-row gap-[0.7em] w-full my-[2em]">
-            <img src="{{ asset('assets/img/me/me_1.JPG') }}" alt="Ben" class="h-[11vw] transition-transform duration-[0.2s] -outline-offset-1 rounded-[1em] hover:scale-110 outline outline-1 outline-outline-color dark:outline-outline-color-dark">
-            <img src="{{ asset('assets/img/me/me_2.JPG') }}" alt="Yine ben" class="h-[11vw] transition-transform duration-[0.2s] -outline-offset-1 rounded-[1em] hover:scale-110 outline outline-1 outline-outline-color dark:outline-outline-color-dark">
-            <img src="{{ asset('assets/img/me/me_3.JPG') }}" alt="Evet, ben" class="h-[11vw] transition-transform duration-[0.2s] -outline-offset-1 rounded-[1em] hover:scale-110 outline outline-1 outline-outline-color dark:outline-outline-color-dark">
-            <img src="{{ asset('assets/img/me/me_4.JPG') }}" alt="Buyrun, ben" class="h-[11vw] transition-transform duration-[0.2s] -outline-offset-1 rounded-[1em] hover:scale-110 outline outline-1 outline-outline-color dark:outline-outline-color-dark">
-            <img src="{{ asset('assets/img/me/me_5.JPG') }}" alt="Ihım ben" class="h-[11vw] transition-transform duration-[0.2s] -outline-offset-1 rounded-[1em] hover:scale-110 outline outline-1 outline-outline-color dark:outline-outline-color-dark">
-            <img src="{{ asset('assets/img/me/me_6.JPG') }}" alt="Diğer ben" class="h-[11vw] transition-transform duration-[0.2s] -outline-offset-1 rounded-[1em] hover:scale-110 outline outline-1 outline-outline-color dark:outline-outline-color-dark">
-            <img src="{{ asset('assets/img/me/me_7.JPG') }}" alt="Bir diğer ben" class="h-[11vw] transition-transform duration-[0.2s] -outline-offset-1 rounded-[1em] hover:scale-110 outline outline-1 outline-outline-color dark:outline-outline-color-dark">
+        <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2 sm:gap-[0.7em] w-full my-[2em]">
+            <img src="{{ asset('assets/img/me/me_1.JPG') }}" alt="Ben" class="w-full h-auto sm:h-[11vw] transition-transform duration-[0.2s] -outline-offset-1 rounded-[1em] hover:scale-110 outline outline-1 outline-outline-color dark:outline-outline-color-dark">
+            <img src="{{ asset('assets/img/me/me_2.JPG') }}" alt="Yine ben" class="w-full h-auto sm:h-[11vw] transition-transform duration-[0.2s] -outline-offset-1 rounded-[1em] hover:scale-110 outline outline-1 outline-outline-color dark:outline-outline-color-dark">
+            <img src="{{ asset('assets/img/me/me_3.JPG') }}" alt="Evet, ben" class="w-full h-auto sm:h-[11vw] transition-transform duration-[0.2s] -outline-offset-1 rounded-[1em] hover:scale-110 outline outline-1 outline-outline-color dark:outline-outline-color-dark">
+            <img src="{{ asset('assets/img/me/me_4.JPG') }}" alt="Buyrun, ben" class="w-full h-auto sm:h-[11vw] transition-transform duration-[0.2s] -outline-offset-1 rounded-[1em] hover:scale-110 outline outline-1 outline-outline-color dark:outline-outline-color-dark">
+            <img src="{{ asset('assets/img/me/me_5.JPG') }}" alt="Ihım ben" class="w-full h-auto sm:h-[11vw] transition-transform duration-[0.2s] -outline-offset-1 rounded-[1em] hover:scale-110 outline outline-1 outline-outline-color dark:outline-outline-color-dark">
+            <img src="{{ asset('assets/img/me/me_6.JPG') }}" alt="Diğer ben" class="w-full h-auto sm:h-[11vw] transition-transform duration-[0.2s] -outline-offset-1 rounded-[1em] hover:scale-110 outline outline-1 outline-outline-color dark:outline-outline-color-dark">
+            <img src="{{ asset('assets/img/me/me_7.JPG') }}" alt="Bir diğer ben" class="w-full h-auto sm:h-[11vw] transition-transform duration-[0.2s] -outline-offset-1 rounded-[1em] hover:scale-110 outline outline-1 outline-outline-color dark:outline-outline-color-dark">
         </div>
-        <div class="flex flex-col gap-3 text-[1.125em]">
+        <div class="flex flex-col gap-3 text-[1em] sm:text-[1.125em]">
             <p>
                 Göç etmeyi görev edinmiş bir ailenin ferdiyim. İçimdeki asabiyet, bilgiye olan açlığımı kodlamayla
                 giderme yolunda ilerlememe sebep oldu. İlk başlarda zoraki kitap okuma çabalarını hayatımın merkezine
@@ -59,15 +59,15 @@
                 menüyü kullanabilirsin.
                 Sosyal medya hesaplarım ise şöyle,
             </p>
-            <div class="flex flex-row gap-1">
-                <a href="#" class="social-button">
+            <div class="flex flex-wrap gap-2 sm:flex-row sm:gap-1">
+                <a href="#" class="w-full social-button sm:w-auto">
                     <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="m335 499c14 0 12 17 12 17h-182s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"></path>
                     </svg>
                     Github
                 </a>
-                <a href="#" class="social-button">
+                <a href="#" class="w-full social-button sm:w-auto">
                     <svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="m21.06 48.73h18.11v58.27h-18.11zm9.06-29a10.5 10.5 0 1 1 -10.5 10.49 10.5 10.5 0 0 1 10.5-10.49"
@@ -77,14 +77,14 @@
                     </svg>
                     Linkedin
                 </a>
-                <a href="#" class="social-button">
+                <a href="#" class="w-full social-button sm:w-auto">
                     <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="m250 186c-46 0-69 35-69 74 0 44 29 72 68 72 43 0 73-32 73-75 0-44-34-71-72-71zm-1-37c30 0 57 13 77 33 0-22 35-22 35 1v150c-1 10 10 16 16 9 25-25 54-128-14-187-64-56-149-47-195-15-48 33-79 107-49 175 33 76 126 99 182 76 28-12 41 26 12 39-45 19-168 17-225-82-38-68-36-185 67-248 78-46 182-33 244 32 66 69 62 197-2 246-28 23-71 1-71-32v-11c-20 20-47 32-77 32-57 0-108-51-108-108 0-58 51-110 108-110"></path>
                     </svg>
                     Email
                 </a>
-                <a href="" class="social-button">
+                <a href="" class="w-full social-button sm:w-auto">
                     <svg version="1.1" id="svg5" xmlns:svg="http://www.w3.org/2000/svg"
                          xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                          viewBox="0 0 1668.56 1221.19">
