@@ -42,4 +42,49 @@ class BlogController extends Controller
             'post' => $post
         ]);
     }
+    
+    public function category($slug)
+    {
+        $category = Category::where('slug', $slug)->firstOrFail();
+        
+        seo()
+            ->title('Mekayalar.com — ' . $category->name . ' Kategorisi')
+            ->description($category->description)
+            ->twitter()
+            ->twitterCreator('merchizm')
+            ->locale('tr_TR')
+            ->withUrl();
+            
+        return view('landing.blog.category', [
+            'posts' => Post::where('post_status', PostEnum::PUBLISHED)
+                ->where('post_category_id', $category->id)
+                ->orderBy('updated_at', 'desc')
+                ->get(),
+            'categories' => Category::all(),
+            'currentCategory' => $category
+        ]);
+    }
+    
+    public function type($type)
+    {
+        $typeLabel = ($type === 'photo') ? 'Fotoğraf' : 'Çizim';
+        
+        seo()
+            ->title('Mekayalar.com — ' . $typeLabel . ' Gönderileri')
+            ->description($typeLabel . ' türündeki gönderilerim.')
+            ->twitter()
+            ->twitterCreator('merchizm')
+            ->locale('tr_TR')
+            ->withUrl();
+            
+        return view('landing.blog.type', [
+            'posts' => Post::where('post_status', PostEnum::PUBLISHED)
+                ->where('type', $type === 'photo' ? '1' : '2')
+                ->orderBy('updated_at', 'desc')
+                ->get(),
+            'categories' => Category::all(),
+            'currentType' => $type,
+            'typeLabel' => $typeLabel
+        ]);
+    }
 }

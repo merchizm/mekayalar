@@ -1,16 +1,24 @@
 @extends('layouts.landing')
 
 @section('content')
+    <div class="flex flex-col mb-[2em]">
+        <h1 class="text-[2.5em] font-bold mb-2">{{ $typeLabel }} Gönderileri</h1>
+        <p class="text-[1.2em] text-dark-text dark:text-dark-text-dark">{{ $typeLabel }} türündeki tüm gönderilerim.</p>
+    </div>
+
     <div class="flex flex-col sm:flex-row gap-[0.5em] items-start sm:items-center justify-between mt-[0.4em] mb-[2em]">
         <div class="flex gap-[0.5em] mb-2 sm:mb-0">
-            <a href="{{ route('blog.type', ['type' => 'photo']) }}" class="flex bg-button-hover dark:bg-button-hover-dark cursor-pointer px-[1em] py-[0.3em] rounded-md hover:bg-button dark:hover:bg-button-dark">
+            <a href="{{ route('blog.type', ['type' => 'photo']) }}" class="flex {{ $currentType == 'photo' ? 'bg-button dark:bg-button-dark' : 'bg-button-hover dark:bg-button-hover-dark' }} cursor-pointer px-[1em] py-[0.3em] rounded-md hover:bg-button dark:hover:bg-button-dark">
                 📸
             </a>
-            <a href="{{ route('blog.type', ['type' => 'drawing']) }}" class="flex bg-button-hover dark:bg-button-hover-dark cursor-pointer px-[1em] py-[0.3em] rounded-md hover:bg-button dark:hover:bg-button-dark">
+            <a href="{{ route('blog.type', ['type' => 'drawing']) }}" class="flex {{ $currentType == 'drawing' ? 'bg-button dark:bg-button-dark' : 'bg-button-hover dark:bg-button-hover-dark' }} cursor-pointer px-[1em] py-[0.3em] rounded-md hover:bg-button dark:hover:bg-button-dark">
                 👾
             </a>
         </div>
         <div class="flex flex-wrap gap-[0.5em]">
+            <a class="flex bg-button-hover dark:bg-button-hover-dark cursor-pointer px-[1em] py-[0.3em] rounded-md hover:bg-button dark:hover:bg-button-dark" href="{{ route('blog.index') }}">
+                Tümü
+            </a>
             @foreach ($categories as $category)
             <a class="flex bg-button-hover dark:bg-button-hover-dark cursor-pointer px-[1em] py-[0.3em] rounded-md hover:bg-button dark:hover:bg-button-dark" href="{{ route('blog.category', ['slug' => $category->slug]) }}">
                 {{ $category->name }}
@@ -18,6 +26,13 @@
             @endforeach
         </div>
     </div>
+
+    @if($posts->isEmpty())
+    <div class="flex flex-col items-center justify-center py-[5em]">
+        <h2 class="text-[1.8em] font-semibold mb-2">Bu türde henüz gönderi bulunmuyor</h2>
+        <p class="text-[1.2em] text-dark-text dark:text-dark-text-dark">Daha sonra tekrar kontrol edin.</p>
+    </div>
+    @else
     @foreach ($posts as $post)
         @if ($post->type == '0')
         <a class="flex flex-col sm:flex-row gap-[1em] sm:gap-[2em] transition-[outline-color] duration-[ease] delay-150 mb-[1em] p-[5px] rounded-[10px] outline outline-1 outline-transparent hover:outline-outline-color dark:hover:outline-outline-color-dark" href="{{  route('blog.show', ['slug' => $post->post_slug]) }}">
@@ -50,4 +65,5 @@
         </div>
         @endif
     @endforeach
+    @endif
 @endsection

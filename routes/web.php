@@ -40,6 +40,8 @@ Route::get('/bookmarks', [BookmarkController::class, 'index'])->name('bookmarks.
 
 Route::get('/posts', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/posts/{slug}', [BlogController::class, 'show'])->name('blog.show');
+Route::get('/category/{slug}', [BlogController::class, 'category'])->name('blog.category');
+Route::get('/type/{type}', [BlogController::class, 'type'])->name('blog.type');
 
 Route::get('/bookshelf', [BookshelfController::class, 'index'])->name('bookshelf.index');
 
