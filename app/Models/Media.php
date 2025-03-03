@@ -10,9 +10,12 @@ class Media extends Model
 {
     protected $fillable = [
         'name',
+        'original_name',
         'path',
         'type',
-        'parent_folder'
+        'parent_folder',
+        'size',
+        'mime_type'
     ];
 
     protected $appends = [

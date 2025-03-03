@@ -46,7 +46,7 @@ Route::get('/bookshelf', [BookshelfController::class, 'index'])->name('bookshelf
 Route::group(['prefix' => 'admin','middleware' => ['auth', 'verified']], function () {
 
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        return view('admin.dashboard');
     })->name('dashboard');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
