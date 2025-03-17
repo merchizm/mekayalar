@@ -69,23 +69,23 @@
     <div id="markdown-editor" class="form-control">
         <!-- Toolbar -->
         <div id="toolbar" class="mb-2">
-            <button id="bold-btn" class="btn btn-sm btn-secondary toolbar-btn" title="Bold"><i class="bi bi-type-bold"></i></button>
-            <button id="italic-btn" class="btn btn-sm btn-secondary toolbar-btn" title="Italic"><i class="bi bi-type-italic"></i></button>
-            <button id="heading-btn" class="btn btn-sm btn-secondary toolbar-btn" title="Heading"><i class="bi bi-type-h1"></i></button>
-            <button id="link-btn" class="btn btn-sm btn-secondary toolbar-btn" title="Link"><i class="bi bi-link-45deg"></i></button>
-            <button id="strikethrough-btn" class="btn btn-sm btn-secondary toolbar-btn" title="Strikethrough"><i class="bi bi-type-strikethrough"></i></button>
-            <button id="blockquote-btn" class="btn btn-sm btn-secondary toolbar-btn" title="Blockquote"><i class="bi bi-blockquote-right"></i></button>
-            <button id="codeblock-btn" class="btn btn-sm btn-secondary toolbar-btn" title="Code Block"><i class="bi bi-code-slash"></i></button>
-            <button id="ul-btn" class="btn btn-sm btn-secondary toolbar-btn" title="Unordered List"><i class="bi bi-list-ul"></i></button>
-            <button id="ol-btn" class="btn btn-sm btn-secondary toolbar-btn" title="Ordered List"><i class="bi bi-list-ol"></i></button>
-            <button id="hr-btn" class="btn btn-sm btn-secondary toolbar-btn" title="Horizontal Rule"><i class="bi bi-dash-lg"></i></button>
-            <button id="image-btn" class="btn btn-sm btn-secondary toolbar-btn" title="Image"><i class="bi bi-image"></i></button>
+            <button type="button" id="bold-btn" class="btn btn-sm btn-secondary toolbar-btn" title="Bold"><i class="bi bi-type-bold"></i></button>
+            <button type="button" id="italic-btn" class="btn btn-sm btn-secondary toolbar-btn" title="Italic"><i class="bi bi-type-italic"></i></button>
+            <button type="button" id="heading-btn" class="btn btn-sm btn-secondary toolbar-btn" title="Heading"><i class="bi bi-type-h1"></i></button>
+            <button type="button" id="link-btn" class="btn btn-sm btn-secondary toolbar-btn" title="Link"><i class="bi bi-link-45deg"></i></button>
+            <button type="button" id="strikethrough-btn" class="btn btn-sm btn-secondary toolbar-btn" title="Strikethrough"><i class="bi bi-type-strikethrough"></i></button>
+            <button type="button" id="blockquote-btn" class="btn btn-sm btn-secondary toolbar-btn" title="Blockquote"><i class="bi bi-blockquote-right"></i></button>
+            <button type="button" id="codeblock-btn" class="btn btn-sm btn-secondary toolbar-btn" title="Code Block"><i class="bi bi-code-slash"></i></button>
+            <button type="button" id="ul-btn" class="btn btn-sm btn-secondary toolbar-btn" title="Unordered List"><i class="bi bi-list-ul"></i></button>
+            <button type="button" id="ol-btn" class="btn btn-sm btn-secondary toolbar-btn" title="Ordered List"><i class="bi bi-list-ol"></i></button>
+            <button type="button" id="hr-btn" class="btn btn-sm btn-secondary toolbar-btn" title="Horizontal Rule"><i class="bi bi-dash-lg"></i></button>
+            <button type="button" id="image-btn" class="btn btn-sm btn-secondary toolbar-btn" title="Image"><i class="bi bi-image"></i></button>
 
             <!-- Hide/Show Preview Button -->
-            <button id="preview-hide-btn" class="btn btn-sm btn-warning toolbar-btn" title="Hide Preview"><i class="bi bi-eye-slash"></i></button>
+            <button type="button" id="preview-hide-btn" class="btn btn-sm btn-warning toolbar-btn" title="Hide Preview"><i class="bi bi-eye-slash"></i></button>
 
             <!-- Fullscreen Preview Button -->
-            <button id="preview-fullscreen-btn" class="btn btn-sm btn-info toolbar-btn float-end" title="Fullscreen Preview"><i class="bi bi-arrows-fullscreen"></i></button>
+            <button type="button" id="preview-fullscreen-btn" class="btn btn-sm btn-info toolbar-btn float-end" title="Fullscreen Preview"><i class="bi bi-arrows-fullscreen"></i></button>
         </div>
         <textarea id="markdown-content" class="form-control" placeholder="Write your markdown here..." name="{{ $name }}" style="height: calc(100% - 60px);">{{ $value }}</textarea>
 

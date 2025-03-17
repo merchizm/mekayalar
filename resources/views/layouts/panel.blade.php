@@ -65,7 +65,7 @@
                          alt="mekayalar.com" class="navbar-brand-image">
                 </a>
             </h1>
-            <div class="navbar-nav flex-row order-md-last">
+            <div class="flex-row navbar-nav order-md-last">
                 <div class="nav-item d-none d-md-flex me-3">
                     <div class="btn-list">
                         <a href="{{ url('?rel=admin_panel') }}" class="btn" target="_blank">
@@ -79,26 +79,6 @@
                             </svg>
                             Ana Sayfa
                         </a>
-                    </div>
-                </div>
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
-                       aria-label="Open user menu">
-                        <span class="avatar avatar-sm">
-                            {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
-                        </span>
-                        <div class="d-none d-xl-block ps-2">
-                            <div>{{ auth()->user()->name }}</div>
-                            <div class="mt-1 small text-muted">{{ auth()->user()->email }}</div>
-                        </div>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                        <a href="{{ route('profile.edit') }}" class="dropdown-item">Profil Ayarları</a>
-                        <div class="dropdown-divider"></div>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                            @csrf
-                            <button type="submit" class="dropdown-item">Çıkış Yap</button>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -132,15 +112,15 @@
         @yield('modals')
         <footer class="footer footer-transparent d-print-none">
             <div class="container-xl">
-                <div class="row text-center align-items-center flex-row-reverse">
+                <div class="flex-row-reverse text-center row align-items-center">
                     <div class="col-lg-auto ms-lg-auto">
-                        <ul class="list-inline list-inline-dots mb-0">
+                        <ul class="mb-0 list-inline list-inline-dots">
                             <li class="list-inline-item"><a href="#" class="link-secondary">Meric's Blog</a>
                             </li>
                         </ul>
                     </div>
-                    <div class="col-12 col-lg-auto mt-3 mt-lg-0">
-                        <ul class="list-inline list-inline-dots mb-0">
+                    <div class="mt-3 col-12 col-lg-auto mt-lg-0">
+                        <ul class="mb-0 list-inline list-inline-dots">
                             <li class="list-inline-item">
                                 Copyright &copy; {{ date('Y') }}
                                 <a href="https://github.com/merchizm" class="link-secondary">Merchizm</a>.

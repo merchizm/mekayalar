@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Landing\BlogController;
 use App\Http\Controllers\Landing\BookmarkController;
 use App\Http\Controllers\Landing\BookshelfController;
+use App\Http\Controllers\Landing\ProjectController as LandingProjectController;
+use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,8 +44,13 @@ Route::get('/posts', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/posts/{slug}', [BlogController::class, 'show'])->name('blog.show');
 Route::get('/category/{slug}', [BlogController::class, 'category'])->name('blog.category');
 Route::get('/type/{type}', [BlogController::class, 'type'])->name('blog.type');
+Route::get('/search', [BlogController::class, 'search'])->name('blog.search');
 
 Route::get('/bookshelf', [BookshelfController::class, 'index'])->name('bookshelf.index');
+
+// Projects Routes
+Route::get('/projects', [LandingProjectController::class, 'index'])->name('projects.index');
+Route::get('/projects/{project}', [LandingProjectController::class, 'show'])->name('projects.show');
 
 Route::group(['prefix' => 'admin','middleware' => ['auth', 'verified']], function () {
 
@@ -59,6 +66,9 @@ Route::group(['prefix' => 'admin','middleware' => ['auth', 'verified']], functio
     Route::post('/posts/draft', [PostController::class, 'saveDraft'])->name('posts.draft');
 
     Route::resource('poems', \App\Http\Controllers\Admin\PoemController::class)->names('admin.poems');
+
+    // Admin Projects Routes
+    Route::resource('projects', AdminProjectController::class)->names('admin.projects');
 
     Route::post('/upload', [MediaController::class , 'upload'])->name('admin.media.upload');
     Route::get('/files', [MediaController::class, 'listFiles'])->name('admin.media.files');

@@ -56,6 +56,15 @@
     }
 }
 
+@keyframes spotify-playing {
+  0%, 100% {
+    transform: scaleY(0.3);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
 .wave {
     @apply inline-block origin-[70%_70%] cursor-crosshair;
     animation-duration: 2.5s;
@@ -217,4 +226,16 @@ article {
     p {
         margin-bottom: 0.3em;
     }
+}
+
+.animate-spotify-playing {
+  animation: spotify-playing 1.5s infinite;
+}
+
+.animation-delay-100 {
+  animation-delay: 0.2s;
+}
+
+.animation-delay-200 {
+  animation-delay: 0.4s;
 }

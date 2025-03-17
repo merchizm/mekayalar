@@ -87,4 +87,31 @@ class BlogController extends Controller
             'typeLabel' => $typeLabel
         ]);
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('q');
+        
+        seo()
+            ->title('Mekayalar.com — "' . $query . '" Araması')
+            ->description('"' . $query . '" için arama sonuçları')
+            ->twitter()
+            ->twitterCreator('merchizm')
+            ->locale('tr_TR')
+            ->withUrl();
+            
+        $posts = Post::where('post_status', PostEnum::PUBLISHED)
+            ->where(function($q) use ($query) {
+                $q->where('post_title', 'like', '%' . $query . '%')
+                  ->orWhere('post_content', 'like', '%' . $query . '%');
+            })
+            ->orderBy('updated_at', 'desc')
+            ->get();
+            
+        return view('landing.blog.search', [
+            'posts' => $posts,
+            'categories' => Category::all(),
+            'query' => $query
+        ]);
+    }
 }
