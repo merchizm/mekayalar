@@ -10,6 +10,7 @@ use App\Http\Controllers\Landing\BookmarkController;
 use App\Http\Controllers\Landing\BookshelfController;
 use App\Http\Controllers\Landing\ProjectController as LandingProjectController;
 use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
+use App\Http\Controllers\SitemapController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +27,7 @@ use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
 Route::get('/', function () {
     seo()
         ->title('Mekayalar.com')
-        ->description('Meriç\'in ilham dolu ve sürdürülebilir blogu')
+        ->description('Meriç\'in ilham dolu ve sürdürülebilir websitesi')
         ->twitter()
         ->twitterCreator('merchizm')
         ->locale('tr_TR')
@@ -34,6 +35,10 @@ Route::get('/', function () {
 
     return view('landing.index');
 })->name('landing.index');
+
+Route::get('/incognito', function () {
+    return view('landing.incognito');
+})->name('incognito');
 
 Route::get('/poems', [App\Http\Controllers\Landing\PoemController::class, 'index'])->name('poems.index');
 Route::get('/poems/{poem}', [App\Http\Controllers\Landing\PoemController::class, 'show'])->name('poems.show');
@@ -86,13 +91,10 @@ require __DIR__.'/auth.php';
 */
 
 Route::get('/applause-button.js', function () {
-    // Load the stub content
     $stub = File::get(resource_path('stubs/applause-button.stub'));
 
-    // Replace the placeholder with the dynamic value
-    $content = str_replace('__DYNAMIC_VALUE__', url(''), $stub);
-
-    // Return the content as a JavaScript file
-    return response($content)
-        ->header('Content-Type', 'application/javascript');
+    return response($stub, 200)
+        ->header('Content-Type', 'text/javascript');
 })->name('applause-button');
+
+Route::get('sitemap.xml', [SitemapController::class, 'index'])->name('sitemap.index');

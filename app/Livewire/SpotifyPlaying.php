@@ -3,7 +3,6 @@
 namespace App\Livewire;
 
 use App\Services\SpotifyService;
-use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
 class SpotifyPlaying extends Component
@@ -15,7 +14,6 @@ class SpotifyPlaying extends Component
     public function mount(): void
     {
         $this->fetchData();
-        $this->dispatch('fetchDataInterval');
     }
 
     public function fetchData(): void
@@ -34,6 +32,7 @@ class SpotifyPlaying extends Component
             $this->musicName = null;
         }
     }
+
     public function render()
     {
         return view('livewire.spotify-playing');

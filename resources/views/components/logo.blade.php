@@ -1,4 +1,4 @@
-<svg class="w-[200px] fill-text dark:fill-text-dark" version="1.0" xmlns="http://www.w3.org/2000/svg"
+<svg class="w-[300px] fill-text dark:fill-text-dark" version="1.0" xmlns="http://www.w3.org/2000/svg"
                      width="300" height="300" viewBox="0 0 1024.000000 1024.000000"
                      preserveAspectRatio="xMidYMid meet">
 
