@@ -24,7 +24,7 @@ class ClapRequest extends FormRequest
     {
         return [
             'type' => 'string|required|in:post,poem,test',
-            'id' => 'integer|required'
+            'id'   => 'integer|required',
         ];
     }
 }

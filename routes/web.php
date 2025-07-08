@@ -1,16 +1,16 @@
 <?php
 
 use App\Http\Controllers\Admin\MediaController;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
 use App\Http\Controllers\Landing\BlogController;
 use App\Http\Controllers\Landing\BookmarkController;
 use App\Http\Controllers\Landing\BookshelfController;
 use App\Http\Controllers\Landing\ProjectController as LandingProjectController;
-use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SitemapController;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +22,6 @@ use App\Http\Controllers\SitemapController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
 
 Route::get('/', function () {
     seo()
@@ -57,7 +56,7 @@ Route::get('/bookshelf', [BookshelfController::class, 'index'])->name('bookshelf
 Route::get('/projects', [LandingProjectController::class, 'index'])->name('projects.index');
 Route::get('/projects/{project}', [LandingProjectController::class, 'show'])->name('projects.show');
 
-Route::group(['prefix' => 'admin','middleware' => ['auth', 'verified']], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified']], function (): void {
 
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
@@ -70,18 +69,18 @@ Route::group(['prefix' => 'admin','middleware' => ['auth', 'verified']], functio
     Route::resource('posts', PostController::class)->names('posts');
     Route::post('/posts/draft', [PostController::class, 'saveDraft'])->name('posts.draft');
 
-    Route::resource('poems', \App\Http\Controllers\Admin\PoemController::class)->names('admin.poems');
+    Route::resource('poems', App\Http\Controllers\Admin\PoemController::class)->names('admin.poems');
 
     // Admin Projects Routes
     Route::resource('projects', AdminProjectController::class)->names('admin.projects');
 
-    Route::post('/upload', [MediaController::class , 'upload'])->name('admin.media.upload');
+    Route::post('/upload', [MediaController::class, 'upload'])->name('admin.media.upload');
     Route::get('/files', [MediaController::class, 'listFiles'])->name('admin.media.files');
-    Route::post('/delete', [MediaController::class ,'delete']);
+    Route::post('/delete', [MediaController::class, 'delete']);
     Route::post('/rename', [MediaController::class, 'rename']);
-    Route::post('/create-folder', [MediaController::class ,'createFolder'])->name('admin.media.createFolder');
-    Route::get('/download/{file}', [MediaController::class , 'download']);
-    Route::get('/media', [MediaController::class , 'index'])->name('admin.media');
+    Route::post('/create-folder', [MediaController::class, 'createFolder'])->name('admin.media.createFolder');
+    Route::get('/download/{file}', [MediaController::class, 'download']);
+    Route::get('/media', [MediaController::class, 'index'])->name('admin.media');
 });
 
 require __DIR__.'/auth.php';

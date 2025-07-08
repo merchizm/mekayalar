@@ -3,10 +3,8 @@
 namespace App\Models;
 
 use App\Enums\PostEnum;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Parsedown;
 
@@ -22,26 +20,27 @@ class Post extends Model
         'post_tags',
         'post_image',
         'type',
-        'description'
+        'description',
     ];
 
     protected $casts = [
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-        'post_tags' => 'array',
+        'created_at'  => 'datetime',
+        'updated_at'  => 'datetime',
+        'post_tags'   => 'array',
         'post_status' => PostEnum::class,
     ];
 
     protected $appends = [
         'readingTime',
-        'content'
+        'content',
     ];
 
     public function getReadingTimeAttribute()
     {
-        $text_content = strip_tags($this->post_content);
-        $word_count = str_word_count($text_content);
+        $text_content         = strip_tags($this->post_content);
+        $word_count           = str_word_count($text_content);
         $reading_time_minutes = ceil($word_count / 200);
+
         return $reading_time_minutes;
     }
 
@@ -63,6 +62,7 @@ class Post extends Model
     public function getContentAttribute()
     {
         $Parsedown = new Parsedown();
+
         return $Parsedown->text($this->post_content);
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ClapLog extends Model
@@ -12,6 +11,6 @@ class ClapLog extends Model
     protected $fillable = [
         'clap_id',
         'ip_address',
-        'count'
+        'count',
     ];
 }

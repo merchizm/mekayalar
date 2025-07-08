@@ -12,7 +12,6 @@ use Illuminate\Routing\Redirector;
 
 class SpotifyController extends Controller
 {
-
     private SpotifyService $service;
 
     public function __construct()
@@ -28,6 +27,7 @@ class SpotifyController extends Controller
     public function callback(Request $request): JsonResponse
     {
         $this->service->callback($request);
+
         return response()->json([
             'message' => 'Success',
         ]);

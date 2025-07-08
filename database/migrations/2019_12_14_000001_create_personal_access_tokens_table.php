@@ -10,12 +10,14 @@ return new class() extends Migration {
      */
     public function up(): void
     {
-        Schema::create('tech_stack', function (Blueprint $table): void {
+        Schema::create('personal_access_tokens', function (Blueprint $table): void {
             $table->id();
+            $table->morphs('tokenable');
             $table->string('name');
-            $table->enum('icon_type', ['wdm', 'withoutdm']);
-            $table->string('icon_name');
-            $table->year('start_year');
+            $table->string('token', 64)->unique();
+            $table->text('abilities')->nullable();
+            $table->timestamp('last_used_at')->nullable();
+            $table->timestamp('expires_at')->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +27,6 @@ return new class() extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('tech_stacks');
+        Schema::dropIfExists('personal_access_tokens');
     }
 };

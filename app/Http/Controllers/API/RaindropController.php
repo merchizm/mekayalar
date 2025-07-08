@@ -11,7 +11,6 @@ use Illuminate\Routing\Redirector;
 
 class RaindropController extends Controller
 {
-
     private RaindropService $service;
 
     public function __construct()

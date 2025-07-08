@@ -12,15 +12,16 @@ class PoemController extends Controller
     public function index()
     {
         $poems = Poem::orderBy('id', 'desc')->get();
+
         return view('admin.poems', compact('poems'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
-            'content' => 'required',
-            'status' => 'required|in:published,draft,trash',
+            'title'    => 'required|string|max:255',
+            'content'  => 'required',
+            'status'   => 'required|in:published,draft,trash',
             'wrote_at' => 'required|date',
         ]);
 
@@ -39,9 +40,9 @@ class PoemController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
-            'content' => 'required',
-            'status' => 'required|in:published,draft,trash',
+            'title'    => 'required|string|max:255',
+            'content'  => 'required',
+            'status'   => 'required|in:published,draft,trash',
             'wrote_at' => 'required|date',
         ]);
 

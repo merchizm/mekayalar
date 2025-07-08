@@ -20,19 +20,19 @@ class Project extends Model
         'github_url',
         'is_featured',
         'is_published',
-        'completed_at'
+        'completed_at',
     ];
 
     protected $casts = [
-        'is_featured' => 'boolean',
+        'is_featured'  => 'boolean',
         'is_published' => 'boolean',
         'completed_at' => 'date',
     ];
 
-    public function setTitleAttribute($value)
+    public function setTitleAttribute($value): void
     {
         $this->attributes['title'] = $value;
-        $this->attributes['slug'] = Str::slug($value);
+        $this->attributes['slug']  = Str::slug($value);
     }
 
     public function getRouteKeyName()

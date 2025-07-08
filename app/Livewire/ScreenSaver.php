@@ -6,17 +6,15 @@ use Livewire\Component;
 
 class ScreenSaver extends Component
 {
-
     public $showScreenSaver = false;
-    protected $listeners = ['mouseMoved', 'mouseLeft'];
+    protected $listeners    = ['mouseMoved', 'mouseLeft'];
 
-
-    public function mouseMoved()
+    public function mouseMoved(): void
     {
         $this->showScreenSaver = false;
     }
 
-    public function mouseLeft()
+    public function mouseLeft(): void
     {
         if (!$this->showScreenSaver) {
             $this->showScreenSaver = true;

@@ -4,15 +4,14 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::table('tech_stack', function (Blueprint $table) {
-            $table->enum('status', [1,2,3]);
+        Schema::table('tech_stack', function (Blueprint $table): void {
+            $table->enum('status', [1, 2, 3]);
         });
     }
 
@@ -21,7 +20,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('tech_stack', function (Blueprint $table) {
+        Schema::table('tech_stack', function (Blueprint $table): void {
             // hiç bir şey yapmamıza gerek yok açıkcası
         });
     }

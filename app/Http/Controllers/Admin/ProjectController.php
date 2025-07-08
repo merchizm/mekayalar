@@ -15,7 +15,7 @@ class ProjectController extends Controller
     public function index()
     {
         return view('admin.projects.index', [
-            'projects' => Project::orderBy('created_at', 'desc')->get()
+            'projects' => Project::orderBy('created_at', 'desc')->get(),
         ]);
     }
 
@@ -33,19 +33,19 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
-            'content' => 'nullable|string',
-            'url' => 'nullable|url|max:255',
-            'github_url' => 'nullable|url|max:255',
-            'is_featured' => 'nullable|sometimes',
+            'title'        => 'required|string|max:255',
+            'description'  => 'required|string|max:255',
+            'content'      => 'nullable|string',
+            'url'          => 'nullable|url|max:255',
+            'github_url'   => 'nullable|url|max:255',
+            'is_featured'  => 'nullable|sometimes',
             'is_published' => 'nullable|sometimes',
             'completed_at' => 'nullable|date',
-            'image' => 'required|url|max:255'
+            'image'        => 'required|url|max:255',
         ]);
 
         // Set boolean values
-        $validated['is_featured'] = $request->has('is_featured');
+        $validated['is_featured']  = $request->has('is_featured');
         $validated['is_published'] = $request->has('is_published');
 
         Project::create($validated);
@@ -75,19 +75,19 @@ class ProjectController extends Controller
     public function update(Request $request, Project $project)
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
-            'content' => 'nullable|string',
-            'url' => 'nullable|url|max:255',
-            'github_url' => 'nullable|url|max:255',
-            'is_featured' => 'nullable|boolean',
+            'title'        => 'required|string|max:255',
+            'description'  => 'required|string|max:255',
+            'content'      => 'nullable|string',
+            'url'          => 'nullable|url|max:255',
+            'github_url'   => 'nullable|url|max:255',
+            'is_featured'  => 'nullable|boolean',
             'is_published' => 'nullable|boolean',
             'completed_at' => 'nullable|date',
-            'image' => 'nullable|url|max:255'
+            'image'        => 'nullable|url|max:255',
         ]);
 
         // Set boolean values
-        $validated['is_featured'] = $request->has('is_featured');
+        $validated['is_featured']  = $request->has('is_featured');
         $validated['is_published'] = $request->has('is_published');
 
         $project->update($validated);

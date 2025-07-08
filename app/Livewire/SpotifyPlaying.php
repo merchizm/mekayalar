@@ -7,9 +7,8 @@ use Livewire\Component;
 
 class SpotifyPlaying extends Component
 {
-    public $loading = false;
+    public $loading   = false;
     public $musicName = null;
-
 
     public function mount(): void
     {
@@ -22,13 +21,13 @@ class SpotifyPlaying extends Component
             $data = (new SpotifyService())->currentPlaying();
             if ($data['is_playing']) {
                 $this->musicName = "{$data['name']} - {$data['artists']}";
-                $this->loading = true;
+                $this->loading   = true;
             } else {
                 $this->musicName = null;
-                $this->loading = false;
+                $this->loading   = false;
             }
         } catch (\Exception $e) {
-            $this->loading = false;
+            $this->loading   = false;
             $this->musicName = null;
         }
     }

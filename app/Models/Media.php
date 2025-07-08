@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Media extends Model
 {
@@ -15,14 +13,15 @@ class Media extends Model
         'type',
         'parent_folder',
         'size',
-        'mime_type'
+        'mime_type',
     ];
 
     protected $appends = [
         'url',
     ];
 
-    public function getUrlAttribute(){
-        return asset('storage/uploads/'.$this->attributes['parent_folder'].'/'. $this->attributes['name']);
+    public function getUrlAttribute()
+    {
+        return asset('storage/uploads/'.$this->attributes['parent_folder'].'/'.$this->attributes['name']);
     }
 }

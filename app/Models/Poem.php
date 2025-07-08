@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Enums\PostEnum;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Poem extends Model
@@ -15,14 +14,14 @@ class Poem extends Model
         'slug',
         'content',
         'status',
-        'wrote_at'
+        'wrote_at',
     ];
 
     protected $casts = [
-        'wrote_at' => 'datetime',
+        'wrote_at'   => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
-        'status' => PostEnum::class
+        'status'     => PostEnum::class,
     ];
 
 }

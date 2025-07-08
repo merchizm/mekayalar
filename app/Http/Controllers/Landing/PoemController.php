@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers\Landing;
 
-use App\Models\Poem;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Poem;
 
 class PoemController extends Controller
 {
@@ -18,12 +17,10 @@ class PoemController extends Controller
             ->locale('tr_TR')
             ->withUrl();
 
-
         return view('landing.poem.index', [
-            'poems' => Poem::orderBy('wrote_at', 'desc')->get()
+            'poems' => Poem::orderBy('wrote_at', 'desc')->get(),
         ]);
     }
-
 
     public function show($slug)
     {
@@ -31,16 +28,16 @@ class PoemController extends Controller
 
         if ($poem->exists()) {
             seo()
-                ->title('Mekayalar.com — '. $poem->title)
+                ->title('Mekayalar.com — '.$poem->title)
                 ->twitter()
                 ->twitterCreator('merchizm')
                 ->locale('tr_TR')
                 ->withUrl();
 
             return view('landing.poem.show', [
-                'poem' => $poem
+                'poem' => $poem,
             ]);
-        }else{
+        } else {
             abort(404);
         }
     }
