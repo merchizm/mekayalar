@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class BlogController extends Controller
 {
@@ -20,7 +21,7 @@ class BlogController extends Controller
             ->locale('tr_TR')
             ->withUrl();
 
-        return view('landing.blog.index', [
+        return Inertia::render('Landing/Blog/Index', [
             'posts'      => Post::where('post_status', PostEnum::PUBLISHED)->orderBy('updated_at', 'desc')->get(),
             'categories' => Category::all(),
         ]);
@@ -37,7 +38,7 @@ class BlogController extends Controller
             ->locale('tr_TR')
             ->withUrl();
 
-        return view('landing.blog.show', [
+        return Inertia::render('Landing/Blog/Show', [
             'post' => $post,
         ]);
     }
@@ -54,7 +55,7 @@ class BlogController extends Controller
             ->locale('tr_TR')
             ->withUrl();
 
-        return view('landing.blog.category', [
+        return Inertia::render('Landing/Blog/Category', [
             'posts' => Post::where('post_status', PostEnum::PUBLISHED)
                 ->where('post_category_id', $category->id)
                 ->orderBy('updated_at', 'desc')
@@ -76,7 +77,7 @@ class BlogController extends Controller
             ->locale('tr_TR')
             ->withUrl();
 
-        return view('landing.blog.type', [
+        return Inertia::render('Landing/Blog/Type', [
             'posts' => Post::where('post_status', PostEnum::PUBLISHED)
                 ->where('type', $type === 'photo' ? '1' : '2')
                 ->orderBy('updated_at', 'desc')
@@ -107,7 +108,7 @@ class BlogController extends Controller
             ->orderBy('updated_at', 'desc')
             ->get();
 
-        return view('landing.blog.search', [
+        return Inertia::render('Landing/Blog/Search', [
             'posts'      => $posts,
             'categories' => Category::all(),
             'query'      => $query,

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Landing;
 use App\Http\Controllers\Controller;
 use App\Services\RaindropService;
 use Illuminate\Support\Facades\Cache;
+use Inertia\Inertia;
 
 class BookmarkController extends Controller
 {
@@ -36,7 +37,7 @@ class BookmarkController extends Controller
             ->locale('tr_TR')
             ->withUrl();
 
-        return view('landing.bookmarks.index', [
+        return Inertia::render('Landing/Bookmarks/Index', [
             'bookmarks' => $bookmarks,
         ]);
     }

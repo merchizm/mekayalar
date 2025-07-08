@@ -42,4 +42,24 @@ class SpotifyController extends Controller
     {
         return response()->json($this->service->userPlaylists($request->query('offset', 0)));
     }
+
+    public function currentlyPlaying(SpotifyService $spotifyService): JsonResponse
+    {
+        try {
+            $data = $spotifyService->currentPlaying();
+            if ($data['is_playing']) {
+                return response()->json([
+                    'isPlaying' => true,
+                    'musicName' => "{$data['name']} - {$data['artists']}"
+                ]);
+            }
+        } catch (\Exception $e) {
+            // Do nothing, return default response
+        }
+
+        return response()->json([
+            'isPlaying' => false,
+            'musicName' => null
+        ]);
+    }
 }

@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\API\ClapController;
+use App\Http\Controllers\API\GithubController;
 use App\Http\Controllers\API\RaindropController;
 use App\Http\Controllers\API\SpotifyController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,6 +34,7 @@ Route::group(['as' => 'spotify.', 'prefix' => 'spotify'], function (): void {
     // others
     Route::get('playing', [SpotifyController::class, 'playing']);
     Route::get('playlists', [SpotifyController::class, 'playlists']);
+    Route::get('currently-playing', [SpotifyController::class, 'currentlyPlaying']);
 });
 
 /*
@@ -41,8 +44,12 @@ Route::group(['as' => 'spotify.', 'prefix' => 'spotify'], function (): void {
 Route::group(['as' => 'raindrop.', 'prefix' => 'raindrop'], function (): void {
     Route::get('authorize', [RaindropController::class, 'authToRain']);
     Route::get('callback', [RaindropController::class, 'callback']);
+    Route::get('collections', [RaindropController::class, 'collections']);
+    Route::get('highlights', [RaindropController::class, 'highlights']);
 });
 
 Route::group(['as' => 'github.', 'prefix' => 'github'], function (): void {
-
+    Route::get('events', [GithubController::class, 'events']);
 });
+
+Route::post('/clap', [ClapController::class, 'clap']);

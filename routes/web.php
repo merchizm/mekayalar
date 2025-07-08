@@ -11,6 +11,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SitemapController;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +33,7 @@ Route::get('/', function () {
         ->locale('tr_TR')
         ->withUrl();
 
-    return view('landing.index');
+    return Inertia::render('Landing/Index');
 })->name('landing.index');
 
 Route::get('/incognito', function () {

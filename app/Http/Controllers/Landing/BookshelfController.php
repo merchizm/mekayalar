@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Landing;
 use App\Http\Controllers\Controller;
 use App\Services\GithubService;
 use App\Services\SpotifyService;
+use Inertia\Inertia;
 
 class BookshelfController extends Controller
 {
@@ -28,7 +29,7 @@ class BookshelfController extends Controller
             ->locale('tr_TR')
             ->withUrl();
 
-        return view('landing.bookshelf.index', [
+        return Inertia::render('Landing/Bookshelf/Index', [
             'playlists'  => $this->spotifyService->userPlaylists(),
             'repos'      => $this->githubService->getRepos(),
             'gists'      => $this->githubService->getGists(),

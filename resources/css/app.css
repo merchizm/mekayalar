@@ -436,6 +436,14 @@ article {
     /* indigo-400 */
 }
 
+.tick-day {
+    background-color: #fde047;
+}
+
+.tick-night {
+    background-color: #a5b4fc;
+}
+
 .timeline-marker {
     position: absolute;
     top: 50%;

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Landing;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use Inertia\Inertia;
 
 class ProjectController extends Controller
 {
@@ -17,7 +18,7 @@ class ProjectController extends Controller
             ->locale('tr_TR')
             ->withUrl();
 
-        return view('landing.projects.index', [
+        return Inertia::render('Landing/Projects/Index', [
             'featuredProjects' => Project::where('is_published', true)
                 ->where('is_featured', 1)
                 ->orderBy('completed_at', 'desc')
@@ -43,7 +44,7 @@ class ProjectController extends Controller
             ->locale('tr_TR')
             ->withUrl();
 
-        return view('landing.projects.show', [
+        return Inertia::render('Landing/Projects/Show', [
             'project' => $project,
         ]);
     }

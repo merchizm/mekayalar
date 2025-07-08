@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Landing;
 
 use App\Http\Controllers\Controller;
 use App\Models\Poem;
+use Inertia\Inertia;
 
 class PoemController extends Controller
 {
@@ -17,7 +18,7 @@ class PoemController extends Controller
             ->locale('tr_TR')
             ->withUrl();
 
-        return view('landing.poem.index', [
+        return Inertia::render('Landing/Poem/Index', [
             'poems' => Poem::orderBy('wrote_at', 'desc')->get(),
         ]);
     }
@@ -34,7 +35,7 @@ class PoemController extends Controller
                 ->locale('tr_TR')
                 ->withUrl();
 
-            return view('landing.poem.show', [
+            return Inertia::render('Landing/Poem/Show', [
                 'poem' => $poem,
             ]);
         } else {
