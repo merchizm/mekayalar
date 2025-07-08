@@ -28,7 +28,7 @@ class ProfileTest extends TestCase
         $response = $this
             ->actingAs($user)
             ->patch('/profile', [
-                'name'  => 'Test User',
+                'name' => 'Test User',
                 'email' => 'test@example.com',
             ]);
 
@@ -50,7 +50,7 @@ class ProfileTest extends TestCase
         $response = $this
             ->actingAs($user)
             ->patch('/profile', [
-                'name'  => 'Test User',
+                'name' => 'Test User',
                 'email' => $user->email,
             ]);
 
@@ -91,7 +91,7 @@ class ProfileTest extends TestCase
             ]);
 
         $response
-            ->assertSessionHasErrorsIn('userDeletion', 'password')
+            ->assertSessionHasErrors('password')
             ->assertRedirect('/profile');
 
         $this->assertNotNull($user->fresh());
