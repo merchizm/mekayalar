@@ -265,32 +265,71 @@ class MediaController extends Controller
 
     public function delete(Request $request)
     {
+        $request->validate([
+            'type' => 'required|string|in:file,folder',
+            'path' => 'required|string',
+        ]);
+
+        $type = $request->input('type');
+        $path = $request->input('path');
+        $disk = Storage::disk('uploads');
+
         try {
-            $request->validate([
-                'file'          => 'required|string',
-                'parent_folder' => 'required|string',
-            ]);
+            if ($type === 'folder') {
+                $this->deleteFolderRecursive($path, $disk);
 
-            $file          = $request->input('file');
-            $parent_folder = $request->input('parent_folder');
+                return response()->json(['success' => true, 'message' => 'Klasör ve içeriği başarıyla silindi.']);
+            }
 
-            // Delete from storage
-            Storage::disk('uploads')->delete($parent_folder.'/'.$file);
+            // Dosya silme
+            $media = Media::where('name', $path)->firstOrFail();
+            $fullPath = $media->parent_folder === '/' ? $media->name : $media->parent_folder.'/'.$media->name;
 
-            // Delete from database
-            Media::where('name', $file)
-                ->where('parent_folder', $parent_folder)
-                ->delete();
+            if ($disk->exists($fullPath)) {
+                $disk->delete($fullPath);
+            }
+            $media->delete();
 
-            return response()->json([
-                'success' => true,
-                'message' => 'File deleted successfully',
-            ]);
+            return response()->json(['success' => true, 'message' => 'Dosya başarıyla silindi.']);
+
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json(['success' => false, 'message' => 'Veritabanında dosya bulunamadı.'], 404);
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Delete failed: '.$e->getMessage(),
-            ], 500);
+            \Illuminate\Support\Facades\Log::error("File deletion failed: {$e->getMessage()}");
+
+            return response()->json(['success' => false, 'message' => 'Dosya silinirken bir hata oluştu.'], 500);
+        }
+    }
+
+    private function deleteFolderRecursive($folderName, $disk)
+    {
+        // Önce veritabanından bu klasöre ait tüm alt öğeleri (dosyalar ve alt klasörler) bulalım.
+        $childItems = Media::where('parent_folder', $folderName)->get();
+
+        foreach ($childItems as $item) {
+            if ($item->type === 'folder') {
+                // Eğer alt öğe bir klasörse, onu da özyinelemeli olarak silelim.
+                $this->deleteFolderRecursive($item->name, $disk);
+            } else {
+                // Eğer alt öğe bir dosyaysa, diskten silelim.
+                $filePath = $item->parent_folder === '/' ? $item->name : $item->parent_folder.'/'.$item->name;
+                if ($disk->exists($filePath)) {
+                    $disk->delete($filePath);
+                }
+                // Dosyayı veritabanından silelim.
+                $item->delete();
+            }
+        }
+
+        // Şimdi içi boşaltılmış olan klasörün kendisini diskten ve veritabanından silelim.
+        $folderInDb = Media::where('name', $folderName)->where('type', 'folder')->first();
+        if ($folderInDb) {
+            $folderPath = $folderInDb->parent_folder === '/' ? $folderInDb->name : $folderInDb->parent_folder.'/'.$folderInDb->name;
+
+            if ($disk->exists($folderPath)) {
+                $disk->deleteDirectory($folderPath);
+            }
+            $folderInDb->delete();
         }
     }
 

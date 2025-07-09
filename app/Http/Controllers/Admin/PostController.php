@@ -31,29 +31,29 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'post_title' => 'required|string|max:255',
-            'post_content' => 'required|string',
-            'post_category_id' => 'required|integer|exists:categories,id',
-            'post_status' => 'required|in:published,draft',
-            'post_image' => 'nullable|string|max:255',
-            'description' => 'nullable|string|max:500',
-            'type' => 'required|string',
-            'url' => 'nullable|string|max:255',
-            'post_tags' => 'nullable|array',
+            'post_title'        => 'required|string|max:255',
+            'post_content'      => 'required|string',
+            'post_category_id'  => 'required|integer|exists:categories,id',
+            'post_status'       => 'required|in:published,draft',
+            'post_image'        => 'nullable|string|max:255',
+            'description'       => 'nullable|string|max:500',
+            'type'              => 'required|string',
+            'url'               => 'nullable|string|max:255',
+            'post_tags'         => 'nullable|array',
             'post_tags.*.value' => 'required|string|max:50',
         ]);
 
         Post::create([
-            'post_title' => $validated['post_title'],
-            'post_slug' => Str::slug($validated['post_title']),
-            'post_content' => $validated['post_content'],
+            'post_title'       => $validated['post_title'],
+            'post_slug'        => Str::slug($validated['post_title']),
+            'post_content'     => $validated['post_content'],
             'post_category_id' => $validated['post_category_id'],
-            'post_status' => $validated['post_status'],
-            'post_image' => $validated['post_image'],
-            'description' => $validated['description'],
-            'type' => $validated['type'],
-            'author' => Auth::id(),
-            'post_tags' => !empty($validated['post_tags']) ? array_column($validated['post_tags'], 'value') : null,
+            'post_status'      => $validated['post_status'],
+            'post_image'       => $validated['post_image'],
+            'description'      => $validated['description'],
+            'type'             => $validated['type'],
+            'author'           => Auth::id(),
+            'post_tags'        => !empty($validated['post_tags']) ? array_column($validated['post_tags'], 'value') : null,
         ]);
 
         return redirect()->route('admin.posts.index')->with('success', 'Post created successfully.');
@@ -62,7 +62,7 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         return Inertia::render('Admin/Posts/Edit', [
-            'post' => $post,
+            'post'       => $post,
             'categories' => Category::all(),
         ]);
     }
@@ -70,27 +70,27 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         $validated = $request->validate([
-            'post_title' => 'required|string|max:255',
-            'post_content' => 'required|string',
-            'post_category_id' => 'required|integer|exists:categories,id',
-            'post_status' => 'required|in:published,draft',
-            'post_image' => 'nullable|string|max:255',
-            'description' => 'nullable|string|max:500',
-            'type' => 'required|string',
-            'url' => 'nullable|string|max:255',
-            'post_tags' => 'nullable|array',
+            'post_title'        => 'required|string|max:255',
+            'post_content'      => 'required|string',
+            'post_category_id'  => 'required|integer|exists:categories,id',
+            'post_status'       => 'required|in:published,draft',
+            'post_image'        => 'nullable|string|max:255',
+            'description'       => 'nullable|string|max:500',
+            'type'              => 'required|string',
+            'url'               => 'nullable|string|max:255',
+            'post_tags'         => 'nullable|array',
             'post_tags.*.value' => 'required|string|max:50',
         ]);
 
         $updateData = [
-            'post_title' => $validated['post_title'],
-            'post_slug' => Str::slug($validated['post_title']),
-            'post_content' => $validated['post_content'],
+            'post_title'       => $validated['post_title'],
+            'post_slug'        => Str::slug($validated['post_title']),
+            'post_content'     => $validated['post_content'],
             'post_category_id' => $validated['post_category_id'],
-            'post_status' => $validated['post_status'],
-            'post_image' => $validated['post_image'],
-            'description' => $validated['description'],
-            'type' => $validated['type'],
+            'post_status'      => $validated['post_status'],
+            'post_image'       => $validated['post_image'],
+            'description'      => $validated['description'],
+            'type'             => $validated['type'],
         ];
 
         if (array_key_exists('post_tags', $validated)) {

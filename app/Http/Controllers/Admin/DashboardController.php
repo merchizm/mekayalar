@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Post;
 use App\Models\Poem;
+use App\Models\Post;
 use App\Models\User;
 use Carbon\Carbon;
 use Inertia\Inertia;
@@ -20,11 +20,11 @@ class DashboardController extends Controller
     {
         $stats = [
             'posts' => [
-                'total' => Post::count(),
+                'total'  => Post::count(),
                 'recent' => Post::where('created_at', '>=', Carbon::now()->subDays(7))->count(),
             ],
             'poems' => [
-                'total' => Poem::count(),
+                'total'  => Poem::count(),
                 'recent' => Poem::where('created_at', '>=', Carbon::now()->subDays(7))->count(),
             ],
             'media' => [
@@ -39,9 +39,9 @@ class DashboardController extends Controller
         $recentPoems = Poem::latest()->take(5)->get(['id', 'title', 'wrote_at']);
 
         return Inertia::render('Admin/Dashboard', [
-            'stats' => $stats,
+            'stats'       => $stats,
             'recentPosts' => $recentPosts,
             'recentPoems' => $recentPoems,
         ]);
     }
-} 
+}

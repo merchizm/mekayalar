@@ -1,6 +1,6 @@
 import AdminLayout from '@/Layouts/AdminLayout';
 import { Head, Link, router } from '@inertiajs/react';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import AddPoemModal from '@/Components/Admin/Poems/AddPoemModal';
 import EditPoemModal from '@/Components/Admin/Poems/EditPoemModal';
@@ -27,6 +27,17 @@ export default function Index({ auth, poems }) {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedPoem, setSelectedPoem] = useState(null);
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const poemIdToEdit = urlParams.get('edit');
+    if (poemIdToEdit) {
+      const poemToEdit = poems.find(p => p.id.toString() === poemIdToEdit);
+      if (poemToEdit) {
+        openEditModal(poemToEdit);
+      }
+    }
+  }, [poems]);
 
   const openEditModal = (poem) => {
     setSelectedPoem(poem);

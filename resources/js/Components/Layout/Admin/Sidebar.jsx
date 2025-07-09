@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link, usePage } from '@inertiajs/react';
 import ApplicationLogo from '@/Components/ApplicationLogo';
+import DarkModeToggle from '@/Components/Common/DarkModeToggle';
+import LogoutButton from '@/Components/Common/LogoutButton';
 
 import {
   HomeIcon as HomeOutline,
@@ -120,8 +122,8 @@ export default function Sidebar() {
   ];
 
   return (
-    <div className="flex flex-col flex-shrink-0 bg-white border-r border-gray-200 w-[15vw] dark:bg-gray-900 dark:border-gray-700">
-      <div className="flex flex-shrink-0 items-center px-4 h-16">
+    <div className="flex flex-col flex-shrink-0 bg-white border-r border-gray-200 w-[12vw] dark:bg-gray-900 dark:border-gray-700 pt-2">
+      <div className="flex items-center gap-2.5 px-3.5 h-[70px]">
         <Link href={route('landing.index')} className="flex items-center">
           <ApplicationLogo className="w-[50px] fill-text dark:fill-text-dark" />
           <span className="ml-3 text-lg font-semibold text-gray-900 dark:text-white">MBlog</span>
@@ -157,22 +159,28 @@ export default function Sidebar() {
       </div>
 
       <div className="flex-shrink-0 p-4 mt-auto border-t border-gray-200 dark:border-gray-700">
-        {auth && auth.user && (
-          <Link href={route('admin.profile.edit')} className="block flex-shrink-0 group">
-            <div className="flex items-center">
-              <div>
-                <img
-                  className="inline-block w-8 h-8 rounded-full"
-                  src={`https://ui-avatars.com/api/?name=${encodeURIComponent(auth.user.name)}&background=random&color=fff`}
-                  alt=""
-                />
+        <div className="flex justify-between items-center">
+          {auth && auth.user && (
+            <Link href={route('admin.profile.edit')} className="block flex-shrink-0 group">
+              <div className="flex items-center">
+                <div>
+                  <img
+                    className="inline-block w-8 h-8 rounded-full"
+                    src={`https://ui-avatars.com/api/?name=${encodeURIComponent(auth.user.name)}&background=random&color=fff`}
+                    alt=""
+                  />
+                </div>
+                <div className="ml-3">
+                  <p className="text-sm font-medium text-gray-700 group-hover:text-gray-900 dark:text-gray-200 dark:group-hover:text-white">{auth.user.name}</p>
+                </div>
               </div>
-              <div className="ml-3">
-                <p className="text-sm font-medium text-gray-700 group-hover:text-gray-900 dark:text-gray-200 dark:group-hover:text-white">{auth.user.name}</p>
-              </div>
-            </div>
-          </Link>
-        )}
+            </Link>
+          )}
+          <div className="flex items-center space-x-2">
+            <DarkModeToggle />
+            <LogoutButton />
+          </div>
+        </div>
       </div>
     </div>
   );

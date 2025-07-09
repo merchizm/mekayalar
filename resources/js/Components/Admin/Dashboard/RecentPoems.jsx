@@ -20,7 +20,7 @@ export default function RecentPoems({ poems }) {
                 </p>
               </div>
               <div className="ml-4">
-                <Link href={route('admin.poems.edit', poem.id)} className="px-3 py-1 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                <Link href={route('admin.poems.index', { edit: poem.id })} className="px-3 py-1 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                   Düzenle
                 </Link>
               </div>

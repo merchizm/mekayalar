@@ -4,8 +4,8 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\PoemController;
 use App\Http\Controllers\Admin\PostController;
-use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
+use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
 use App\Http\Controllers\Landing\BlogController;
 use App\Http\Controllers\Landing\BookmarkController;
 use App\Http\Controllers\Landing\BookshelfController;
@@ -59,12 +59,12 @@ Route::get('/bookshelf', [BookshelfController::class, 'index'])->name('bookshelf
 
 Route::get('/projects', [LandingProjectController::class, 'index'])->name('projects.index');
 Route::get('/projects/{project}', [LandingProjectController::class, 'show'])->name('projects.show');
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::prefix('admin')->name('admin.')->group(function () {
+    Route::prefix('admin')->name('admin.')->group(function (): void {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
         Route::get('/posts/check_slug', [PostController::class, 'check_slug'])->name('posts.check_slug');
