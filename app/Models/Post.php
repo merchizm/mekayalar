@@ -54,9 +54,9 @@ class Post extends Model
         return $this->belongsTo(Media::class, 'post_image');
     }
 
-    public function category(): HasOne
+    public function category(): BelongsTo
     {
-        return $this->hasOne(Category::class, 'post_category_id');
+        return $this->belongsTo(Category::class, 'post_category_id');
     }
 
     public function getContentAttribute()

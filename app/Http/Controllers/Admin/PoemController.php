@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Poem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Inertia\Inertia;
 
 class PoemController extends Controller
 {
@@ -13,7 +14,9 @@ class PoemController extends Controller
     {
         $poems = Poem::orderBy('id', 'desc')->get();
 
-        return view('admin.poems', compact('poems'));
+        return Inertia::render('Admin/Poems/Index', [
+            'poems' => $poems,
+        ]);
     }
 
     public function store(Request $request)

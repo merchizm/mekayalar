@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
 
 class ProjectController extends Controller
 {
@@ -14,7 +15,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return view('admin.projects.index', [
+        return Inertia::render('Admin/Projects/Index', [
             'projects' => Project::orderBy('created_at', 'desc')->get(),
         ]);
     }
@@ -24,7 +25,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.projects.create');
+        return Inertia::render('Admin/Projects/Create');
     }
 
     /**
@@ -66,7 +67,9 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('admin.projects.edit', compact('project'));
+        return Inertia::render('Admin/Projects/Edit', [
+            'project' => $project,
+        ]);
     }
 
     /**

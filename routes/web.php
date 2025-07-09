@@ -1,11 +1,15 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MediaController;
+use App\Http\Controllers\Admin\PoemController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
+use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Landing\BlogController;
 use App\Http\Controllers\Landing\BookmarkController;
 use App\Http\Controllers\Landing\BookshelfController;
+use App\Http\Controllers\Landing\PoemController as LandingPoemController;
 use App\Http\Controllers\Landing\ProjectController as LandingProjectController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SitemapController;
@@ -40,8 +44,8 @@ Route::get('/incognito', function () {
     return view('landing.incognito');
 })->name('incognito');
 
-Route::get('/poems', [App\Http\Controllers\Landing\PoemController::class, 'index'])->name('poems.index');
-Route::get('/poems/{poem}', [App\Http\Controllers\Landing\PoemController::class, 'show'])->name('poems.show');
+Route::get('/poems', [LandingPoemController::class, 'index'])->name('poems.index');
+Route::get('/poems/{poem}', [LandingPoemController::class, 'show'])->name('poems.show');
 
 Route::get('/bookmarks', [BookmarkController::class, 'index'])->name('bookmarks.index');
 
@@ -53,35 +57,36 @@ Route::get('/search', [BlogController::class, 'search'])->name('blog.search');
 
 Route::get('/bookshelf', [BookshelfController::class, 'index'])->name('bookshelf.index');
 
-// Projects Routes
 Route::get('/projects', [LandingProjectController::class, 'index'])->name('projects.index');
 Route::get('/projects/{project}', [LandingProjectController::class, 'show'])->name('projects.show');
-
-Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified']], function (): void {
-
-    Route::get('/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('dashboard');
-
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::resource('posts', PostController::class)->names('posts');
-    Route::post('/posts/draft', [PostController::class, 'saveDraft'])->name('posts.draft');
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::resource('poems', App\Http\Controllers\Admin\PoemController::class)->names('admin.poems');
+        Route::get('/posts/check_slug', [PostController::class, 'check_slug'])->name('posts.check_slug');
+        Route::resource('posts', PostController::class)->except(['show']);
+        Route::post('/posts/draft', [PostController::class, 'saveDraft'])->name('posts.draft');
 
-    // Admin Projects Routes
-    Route::resource('projects', AdminProjectController::class)->names('admin.projects');
+        Route::get('/profile', [AdminProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile', [AdminProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/profile', [AdminProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::post('/upload', [MediaController::class, 'upload'])->name('admin.media.upload');
-    Route::get('/files', [MediaController::class, 'listFiles'])->name('admin.media.files');
-    Route::post('/delete', [MediaController::class, 'delete']);
-    Route::post('/rename', [MediaController::class, 'rename']);
-    Route::post('/create-folder', [MediaController::class, 'createFolder'])->name('admin.media.createFolder');
-    Route::get('/download/{file}', [MediaController::class, 'download']);
-    Route::get('/media', [MediaController::class, 'index'])->name('admin.media');
+        Route::resource('poems', PoemController::class)->names('poems');
+
+        Route::resource('projects', AdminProjectController::class)->names('projects');
+
+        Route::post('/upload', [MediaController::class, 'upload'])->name('media.upload');
+        Route::get('/files', [MediaController::class, 'listFiles'])->name('media.files');
+        Route::post('/delete', [MediaController::class, 'delete'])->name('media.delete');
+        Route::post('/rename', [MediaController::class, 'rename'])->name('media.rename');
+        Route::post('/create-folder', [MediaController::class, 'createFolder'])->name('media.createFolder');
+        Route::get('/download/{file}', [MediaController::class, 'download'])->name('media.download');
+        Route::get('/media', [MediaController::class, 'index'])->name('media.index');
+    });
 });
 
 require __DIR__.'/auth.php';

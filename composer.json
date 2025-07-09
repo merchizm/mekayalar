@@ -14,6 +14,7 @@
         "erusev/parsedown": "^1.7",
         "guzzlehttp/guzzle": "^7.2",
         "inertiajs/inertia-laravel": "^2.0",
+        "intervention/image": "^3.11",
         "jwilsson/spotify-web-api-php": "^6.1",
         "laravel/framework": "^12.0",
         "laravel/sanctum": "^4.0",
@@ -25,7 +26,7 @@
         "tightenco/ziggy": "^2.0"
     },
     "require-dev": {
-        "brainmaestro/composer-git-hooks": "^3.0",
+        "captainhook/captainhook-phar": "^5.21",
         "fakerphp/faker": "^1.9.1",
         "larastan/larastan": "^3.5",
         "laravel/breeze": "^2.3",
@@ -73,12 +74,6 @@
     "extra": {
         "laravel": {
             "dont-discover": []
-        },
-        "hooks": {
-            "pre-commit": [
-                "composer pint",
-                "composer phpstan"
-            ]
         }
     },
     "config": {
@@ -87,7 +82,8 @@
         "sort-packages": true,
         "allow-plugins": {
             "pestphp/pest-plugin": true,
-            "php-http/discovery": true
+            "php-http/discovery": true,
+            "captainhook/captainhook-phar": true
         }
     },
     "minimum-stability": "stable",

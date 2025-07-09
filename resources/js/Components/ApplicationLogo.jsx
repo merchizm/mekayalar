@@ -6,10 +6,8 @@ export default function ApplicationLogo({ className = '', ...props }) {
             {...props}
             version="1.0"
             xmlns="http://www.w3.org/2000/svg"
-            width="300"
-            height="300"
             viewBox="0 0 1024.000000 1024.000000"
-            preserveAspectRatio="xMidYMid meet">
+            preserveAspectRatio="xMidYMid meet"
             className={className}
         >
             <g transform="translate(0.000000,1024.000000) scale(0.100000,-0.100000)" stroke="none">

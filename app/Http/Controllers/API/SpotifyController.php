@@ -50,7 +50,7 @@ class SpotifyController extends Controller
             if ($data['is_playing']) {
                 return response()->json([
                     'isPlaying' => true,
-                    'musicName' => "{$data['name']} - {$data['artists']}"
+                    'musicName' => "{$data['name']} - {$data['artists']}",
                 ]);
             }
         } catch (\Exception $e) {
@@ -59,7 +59,7 @@ class SpotifyController extends Controller
 
         return response()->json([
             'isPlaying' => false,
-            'musicName' => null
+            'musicName' => null,
         ]);
     }
 }

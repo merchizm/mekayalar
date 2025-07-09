@@ -5,15 +5,17 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Media;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Inertia\Inertia;
 use Intervention\Image\Facades\Image;
 
 class MediaController extends Controller
 {
     public function index()
     {
-        return view('admin.files');
+        return Inertia::render('Admin/Files/Index');
     }
 
     public function upload(Request $request)

@@ -4,7 +4,6 @@ use App\Http\Controllers\API\ClapController;
 use App\Http\Controllers\API\GithubController;
 use App\Http\Controllers\API\RaindropController;
 use App\Http\Controllers\API\SpotifyController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
