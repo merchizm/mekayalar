@@ -2,6 +2,7 @@ import AdminLayout from '@/Layouts/AdminLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 import toast from 'react-hot-toast';
 import MarkdownEditor from '@/Components/Admin/Posts/MarkdownEditor'; // Re-using the post markdown editor
+import TagInput from '@/Components/Common/TagInput';
 
 export default function Edit({ auth, project }) {
   const { data, setData, put, processing, errors } = useForm({
@@ -14,11 +15,12 @@ export default function Edit({ auth, project }) {
     completed_at: project.completed_at ? new Date(project.completed_at).toISOString().split('T')[0] : '',
     is_featured: project.is_featured || false,
     is_published: project.is_published || false,
+    tags: project.tags || [],
   });
 
   const submit = (e) => {
     e.preventDefault();
-    put(route('admin.projects.update', project.id), {
+    put(route('admin.projects.update', project.slug), {
       onSuccess: () => toast.success('Proje başarıyla güncellendi!'),
       onError: (e) => {
         console.error(e);
@@ -61,6 +63,18 @@ export default function Edit({ auth, project }) {
                 <input type="text" className={formInputClass} name="description" value={data.description} onChange={e => setData('description', e.target.value)} required />
                 <small className={formHintClass}>Kısa bir açıklama (SEO için de kullanılacak)</small>
                 {errors.description && <div className={errorClass}>{errors.description}</div>}
+              </div>
+
+              <div>
+                <label className={formLabelClass}>Etiketler</label>
+                <TagInput
+                  value={data.tags}
+                  onChange={tags => setData('tags', tags)}
+                  placeholder="Etiket ekleyin..."
+                  className={formInputClass}
+                />
+                <small className={formHintClass}>Her bir etiketi yazıp Enter'a basarak ekleyebilirsiniz.</small>
+                {errors.tags && <div className={errorClass}>{errors.tags}</div>}
               </div>
 
               <div>

@@ -7,6 +7,16 @@ import { createRoot } from 'react-dom/client';
 
 const appName = import.meta.env.VITE_APP_NAME;
 
+window.__ = (name, params = {}) => {
+    const language = usePage().props?.localeLanguage;
+    let sentence = language[name] ?? name;
+    for (const [key, value] of Object.entries(params).sort(
+      ([a], [b]) => b.length - a.length
+    ))
+      sentence = sentence.replace(`:${key}`, value);
+    return sentence;
+  };
+
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
     resolve: (name) =>

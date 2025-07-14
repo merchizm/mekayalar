@@ -6,7 +6,6 @@ use App\Enums\PostEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class BlogController extends Controller
@@ -22,7 +21,7 @@ class BlogController extends Controller
             ->withUrl();
 
         return Inertia::render('Landing/Blog/Index', [
-            'posts'      => Post::where('post_status', PostEnum::PUBLISHED)->orderBy('updated_at', 'desc')->get(),
+            'posts'      => Post::where('post_status', PostEnum::PUBLISHED)->orderBy('updated_at', 'desc')->paginate(6),
             'categories' => Category::all(),
         ]);
     }
@@ -30,9 +29,14 @@ class BlogController extends Controller
     public function show($slug)
     {
         $post = Post::where('post_status', PostEnum::PUBLISHED)->where('post_slug', $slug)->first();
+
+        if (!$post) {
+            abort(404);
+        }
+
         seo()
             ->title('Mekayalar.com — '.$post->post_title)
-            ->description($post->description)
+            ->description($post->description ?? '')
             ->twitter()
             ->twitterCreator('merchizm')
             ->locale('tr_TR')
@@ -45,7 +49,11 @@ class BlogController extends Controller
 
     public function category($slug)
     {
-        $category = Category::where('slug', $slug)->firstOrFail();
+        $category = Category::where('slug', $slug)->first();
+
+        if (!$category) {
+            abort(404);
+        }
 
         seo()
             ->title('Mekayalar.com — '.$category->name.' Kategorisi')
@@ -59,7 +67,7 @@ class BlogController extends Controller
             'posts' => Post::where('post_status', PostEnum::PUBLISHED)
                 ->where('post_category_id', $category->id)
                 ->orderBy('updated_at', 'desc')
-                ->get(),
+                ->paginate(6),
             'categories'      => Category::all(),
             'currentCategory' => $category,
         ]);
@@ -81,37 +89,10 @@ class BlogController extends Controller
             'posts' => Post::where('post_status', PostEnum::PUBLISHED)
                 ->where('type', $type === 'photo' ? '1' : '2')
                 ->orderBy('updated_at', 'desc')
-                ->get(),
+                ->paginate(6),
             'categories'  => Category::all(),
             'currentType' => $type,
             'typeLabel'   => $typeLabel,
-        ]);
-    }
-
-    public function search(Request $request)
-    {
-        $query = $request->input('q');
-
-        seo()
-            ->title('Mekayalar.com — "'.$query.'" Araması')
-            ->description('"'.$query.'" için arama sonuçları')
-            ->twitter()
-            ->twitterCreator('merchizm')
-            ->locale('tr_TR')
-            ->withUrl();
-
-        $posts = Post::where('post_status', PostEnum::PUBLISHED)
-            ->where(function ($q) use ($query): void {
-                $q->where('post_title', 'like', '%'.$query.'%')
-                    ->orWhere('post_content', 'like', '%'.$query.'%');
-            })
-            ->orderBy('updated_at', 'desc')
-            ->get();
-
-        return Inertia::render('Landing/Blog/Search', [
-            'posts'      => $posts,
-            'categories' => Category::all(),
-            'query'      => $query,
         ]);
     }
 }

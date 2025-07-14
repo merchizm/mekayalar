@@ -1,12 +1,13 @@
 import React from 'react';
 import TimezoneThemeSwitcher from '@/Components/Common/TimezoneThemeSwitcher.jsx';
 
-const Footer = () => {
+const Footer = ({ isDarkMode, setDarkMode }) => {
   return (
     <footer className="mt-24 w-full">
       <div className="px-4 py-8 mx-auto max-w-screen-xl">
-        <TimezoneThemeSwitcher />
-
+        <div className="mb-8">
+          <TimezoneThemeSwitcher isDarkMode={isDarkMode} setDarkMode={setDarkMode} />
+        </div>
         <div className="flex gap-8 justify-center items-end mt-12 mb-8 lg:gap-12">
           <div className="text-center transition-transform hover:scale-105">
             <img src="/assets/img/ataturk-32310.png" className="mx-auto mb-2 h-16" alt="Halaskâr Başöğretmenimiz Mareşal Mustafa Kemal Atatürk" />

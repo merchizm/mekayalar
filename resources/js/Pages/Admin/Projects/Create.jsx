@@ -2,6 +2,7 @@ import AdminLayout from '@/Layouts/AdminLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 import toast from 'react-hot-toast';
 import MarkdownEditor from '@/Components/Admin/Posts/MarkdownEditor'; // Re-using the post markdown editor
+import TagInput from '@/Components/Common/TagInput';
 
 export default function Create({ auth }) {
   const { data, setData, post, processing, errors } = useForm({
@@ -14,6 +15,7 @@ export default function Create({ auth }) {
     completed_at: '',
     is_featured: false,
     is_published: true,
+    tags: [],
   });
 
   const submit = (e) => {
@@ -61,6 +63,18 @@ export default function Create({ auth }) {
                 <input type="text" className={formInputClass} name="description" value={data.description} onChange={e => setData('description', e.target.value)} required />
                 <small className={formHintClass}>Kısa bir açıklama (SEO için de kullanılacak)</small>
                 {errors.description && <div className={errorClass}>{errors.description}</div>}
+              </div>
+
+              <div>
+                <label className={formLabelClass}>Etiketler</label>
+                <TagInput
+                  value={data.tags}
+                  onChange={tags => setData('tags', tags)}
+                  placeholder="Etiket ekleyin..."
+                  className={formInputClass}
+                />
+                <small className={formHintClass}>Her bir etiketi yazıp Enter'a basarak ekleyebilirsiniz.</small>
+                {errors.tags && <div className={errorClass}>{errors.tags}</div>}
               </div>
 
               <div>

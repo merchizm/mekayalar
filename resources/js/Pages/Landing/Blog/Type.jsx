@@ -4,25 +4,17 @@ import LandingLayout from '@/Layouts/LandingLayout';
 import FsLightbox from 'fslightbox-react';
 import PostCard from '@/Components/Landing/Blog/common/PostCard';
 import ImagePost from '@/Components/Landing/Blog/common/ImagePost';
-
-// Re-using components from the Blog/Index page
-const createExcerpt = (htmlString, limit = 250) => {
-  if (!htmlString) return '';
-  const tempDiv = document.createElement('div');
-  tempDiv.innerHTML = htmlString;
-  const text = tempDiv.textContent || tempDiv.innerText || '';
-  const cleanedText = text.replace(/(\\s*[\\r\\n]+\\s*|\\s+)/g, ' ').trim();
-  if (cleanedText.length <= limit) return cleanedText;
-  return cleanedText.substring(0, limit) + '...';
-};
+import Pagination from '@/Components/Common/Pagination';
 
 export default function Type({ posts, categories, currentType, typeLabel, seo }) {
+  const { data: postItems, links } = posts;
+
   const [lightboxController, setLightboxController] = useState({
     toggler: false,
     sourceIndex: 0
   });
 
-  const imageSources = useMemo(() => posts.filter(p => p.type !== '0').map(p => p.post_image), [posts]);
+  const imageSources = useMemo(() => postItems.filter(p => p.type !== '0').map(p => p.post_image), [postItems]);
 
   function openLightboxOnSource(sourceIndex) {
     setLightboxController({
@@ -32,7 +24,8 @@ export default function Type({ posts, categories, currentType, typeLabel, seo })
   }
 
   const findImagePostIndex = (post) => {
-    return imageSources.findIndex(src => src === post.post_image);
+    const imagePosts = postItems.filter(p => p.type !== '0');
+    return imagePosts.findIndex(p => p.post_image === post.post_image);
   }
 
   const typeLinks = [
@@ -71,8 +64,8 @@ export default function Type({ posts, categories, currentType, typeLabel, seo })
       </div>
 
       <div className="space-y-12">
-        {posts.length > 0 ? (
-          posts.map(post => (
+        {postItems.length > 0 ? (
+          postItems.map(post => (
             post.type === '0' ? (
               <PostCard key={post.id} post={post} />
             ) : (
@@ -89,6 +82,8 @@ export default function Type({ posts, categories, currentType, typeLabel, seo })
           </div>
         )}
       </div>
+
+      {postItems.length > 0 && <Pagination links={links} />}
 
       <FsLightbox
         toggler={lightboxController.toggler}

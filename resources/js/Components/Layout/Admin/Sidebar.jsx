@@ -117,7 +117,7 @@ export default function Sidebar() {
   ];
 
   const favorites = [
-    { name: 'Yeni Yazı Ekle', href: route('admin.posts.create'), icon: { outline: PlusIcon, solid: PlusIcon }, current: route().current('admin.posts.create') },
+    { name: 'Yeni Gönderi Ekle', href: route('admin.posts.create'), icon: { outline: PlusIcon, solid: PlusIcon }, current: route().current('admin.posts.create') },
     { name: 'Yeni Proje Ekle', href: route('admin.projects.create'), icon: { outline: PlusIcon, solid: PlusIcon }, current: route().current('admin.projects.create') },
   ];
 

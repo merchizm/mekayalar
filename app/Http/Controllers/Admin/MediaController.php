@@ -282,7 +282,7 @@ class MediaController extends Controller
             }
 
             // Dosya silme
-            $media = Media::where('name', $path)->firstOrFail();
+            $media    = Media::where('name', $path)->firstOrFail();
             $fullPath = $media->parent_folder === '/' ? $media->name : $media->parent_folder.'/'.$media->name;
 
             if ($disk->exists($fullPath)) {
@@ -295,13 +295,13 @@ class MediaController extends Controller
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response()->json(['success' => false, 'message' => 'Veritabanında dosya bulunamadı.'], 404);
         } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error("File deletion failed: {$e->getMessage()}");
+            Log::error("File deletion failed: {$e->getMessage()}");
 
             return response()->json(['success' => false, 'message' => 'Dosya silinirken bir hata oluştu.'], 500);
         }
     }
 
-    private function deleteFolderRecursive($folderName, $disk)
+    private function deleteFolderRecursive($folderName, $disk): void
     {
         // Önce veritabanından bu klasöre ait tüm alt öğeleri (dosyalar ve alt klasörler) bulalım.
         $childItems = Media::where('parent_folder', $folderName)->get();

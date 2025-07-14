@@ -15,7 +15,7 @@ const NightIcon = () => (
   </svg>
 );
 
-export default function TimezoneThemeSwitcher() {
+export default function TimezoneThemeSwitcher({ isDarkMode, setDarkMode }) {
   const hours = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 0, 1, 2];
   const [actualHour, setActualHour] = useState(null);
   const [displayHour, setDisplayHour] = useState(null);
@@ -29,6 +29,13 @@ export default function TimezoneThemeSwitcher() {
     setActualHour(currentHour);
     setDisplayHour(currentHour);
   }, []);
+
+  useEffect(() => {
+    if (displayHour !== null) {
+      const isNight = displayHour >= 21 || displayHour < 9;
+      setDarkMode(isNight);
+    }
+  }, [displayHour, setDarkMode]);
 
   useEffect(() => {
     const positionMarker = () => {
@@ -77,8 +84,6 @@ export default function TimezoneThemeSwitcher() {
     setHoveredIndex(null);
   };
 
-  const isNight = displayHour >= 21 || displayHour < 9;
-
   return (
     <div className="flex flex-col items-center w-full">
       <div className="flex relative justify-between items-end w-full max-w-2xl h-16" ref={ticksContainerRef} onMouseLeave={handleMouseLeave}>
@@ -107,7 +112,7 @@ export default function TimezoneThemeSwitcher() {
 
         <div className="absolute timeline-marker" ref={markerRef} style={{ opacity: 0, transition: 'all 0.4s ease-out' }}>
           <button className="flex justify-center items-center w-8 h-8 text-white rounded-full ring-4 bg-menu-active dark:bg-menu-active-dark dark:text-background-dark ring-background dark:ring-background-dark">
-            {isNight ? <NightIcon /> : <DayIcon />}
+            {isDarkMode ? <NightIcon /> : <DayIcon />}
           </button>
         </div>
       </div>

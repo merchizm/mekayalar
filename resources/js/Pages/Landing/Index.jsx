@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import LandingLayout from '@/Layouts/LandingLayout';
 import AccordionItem from '@/Components/Landing/Index/AccordionItem';
 import TwitterModal from '@/Components/Landing/Index/TwitterModal';
+import { Link } from '@inertiajs/react';
 
-export default function Index({ seo }) {
+export default function Index({ seo, featuredProjects }) {
   const [isTwitterModalOpen, setTwitterModalOpen] = useState(false);
   const [twitterUrl, setTwitterUrl] = useState('');
 
@@ -157,56 +158,49 @@ export default function Index({ seo }) {
           </div>
         </div>
 
-        <div className="mb-8">
-          <h2 className="mb-6 text-2xl font-bold text-text dark:text-text-dark">Projelerim</h2>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <div className="flex overflow-hidden flex-col rounded-lg border transition-all duration-300 border-divider dark:border-label-border-dark bg-background dark:bg-repository-card-bg-dark hover:shadow-lg hover:-translate-y-1">
-              <div className="h-48 bg-center bg-cover" style={{ backgroundImage: "url('/assets/img/card-bg-1.svg')" }}></div>
-              <div className="flex flex-col flex-grow p-6">
-                <h3 className="text-xl font-semibold text-text dark:text-text-dark">Kişisel Web Sitesi</h3>
-                <p className="flex-grow mt-2 text-base text-text dark:text-text-dark">
-                  Şu an gezindiğiniz bu web sitesi, en son çalışmalarımı ve yazılarımı sergilemek için tasarlandı. Laravel ve Tailwind CSS ile geliştirildi.
-                </p>
-                <div className="flex flex-wrap gap-2 mt-4">
-                  <span className="px-2 py-1 text-xs font-semibold text-gray-800 bg-gray-200 rounded-full dark:bg-gray-700 dark:text-gray-200">Laravel</span>
-                  <span className="px-2 py-1 text-xs font-semibold text-gray-800 bg-gray-200 rounded-full dark:bg-gray-700 dark:text-gray-200">Tailwind CSS</span>
-                  <span className="px-2 py-1 text-xs font-semibold text-gray-800 bg-gray-200 rounded-full dark:bg-gray-700 dark:text-gray-200">Alpine.js</span>
+        {featuredProjects && featuredProjects.length > 0 && (
+          <div className="mb-8">
+            <h2 className="mb-6 text-2xl font-bold text-text dark:text-text-dark">Öne Çıkan Projeler</h2>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+              {featuredProjects.map(project => (
+                <div key={project.id} className="flex overflow-hidden flex-col rounded-lg border transition-all duration-300 border-divider dark:border-label-border-dark bg-background dark:bg-repository-card-bg-dark hover:shadow-lg hover:-translate-y-1">
+                  <Link href={route('projects.show', project.slug)} className="block h-48 bg-center bg-cover" style={{ backgroundImage: `url(${project.image})` }}>
+                    <span className="sr-only">{project.title}</span>
+                  </Link>
+                  <div className="flex flex-col flex-grow p-6">
+                    <h3 className="text-xl font-semibold text-text dark:text-text-dark">
+                      <Link href={route('projects.show', project.slug)}>{project.title}</Link>
+                    </h3>
+                    <p className="flex-grow mt-2 text-base text-text dark:text-text-dark">
+                      {project.description}
+                    </p>
+                    {project.tags && project.tags.length > 0 && (
+                      <div className="flex flex-wrap gap-2 mt-4">
+                        {project.tags.map(tag => (
+                          <span key={tag} className="px-2 py-1 text-xs font-semibold text-gray-800 bg-gray-200 rounded-full dark:bg-gray-700 dark:text-gray-200">{tag}</span>
+                        ))}
+                      </div>
+                    )}
+                    <div className="flex gap-4 items-center mt-6">
+                      {project.github_url && (
+                        <a href={project.github_url} target="_blank" rel="noopener noreferrer" className="flex items-center text-sm font-medium text-light-text dark:text-light-text-dark hover:text-menu-active dark:hover:text-menu-active-dark">
+                          <svg className="mr-2 w-4 h-4" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="m335 499c14 0 12 17 12 17h-182s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"></path></svg>
+                          GitHub
+                        </a>
+                      )}
+                      {project.url && (
+                        <a href={project.url} target="_blank" rel="noopener noreferrer" className="flex items-center text-sm font-medium text-light-text dark:text-light-text-dark hover:text-menu-active dark:hover:text-menu-active-dark">
+                          <svg className="mr-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                          Canlı Demo
+                        </a>
+                      )}
+                    </div>
+                  </div>
                 </div>
-                <div className="flex gap-4 items-center mt-6">
-                  <a href="#" className="flex items-center text-sm font-medium text-light-text dark:text-light-text-dark hover:text-menu-active dark:hover:text-menu-active-dark">
-                    <svg className="mr-2 w-4 h-4" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="m335 499c14 0 12 17 12 17h-182s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"></path></svg>
-                    GitHub
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex overflow-hidden flex-col rounded-lg border transition-all duration-300 border-divider dark:border-label-border-dark bg-background dark:bg-repository-card-bg-dark hover:shadow-lg hover:-translate-y-1">
-              <div className="h-48 bg-center bg-cover" style={{ backgroundImage: "url('/assets/img/card-bg-2.svg')" }}></div>
-              <div className="flex flex-col flex-grow p-6">
-                <h3 className="text-xl font-semibold text-text dark:text-text-dark">Proje Yönetim Aracı</h3>
-                <p className="flex-grow mt-2 text-base text-text dark:text-text-dark">
-                  Takımlar için görev yönetimi, ilerleme takibi ve iş birliği özelliklerine sahip bir web uygulaması.
-                </p>
-                <div className="flex flex-wrap gap-2 mt-4">
-                  <span className="px-2 py-1 text-xs font-semibold text-gray-800 bg-gray-200 rounded-full dark:bg-gray-700 dark:text-gray-200">PHP</span>
-                  <span className="px-2 py-1 text-xs font-semibold text-gray-800 bg-gray-200 rounded-full dark:bg-gray-700 dark:text-gray-200">React</span>
-                  <span className="px-2 py-1 text-xs font-semibold text-gray-800 bg-gray-200 rounded-full dark:bg-gray-700 dark:text-gray-200">Socket.io</span>
-                </div>
-                <div className="flex gap-4 items-center mt-6">
-                  <a href="#" className="flex items-center text-sm font-medium text-light-text dark:text-light-text-dark hover:text-menu-active dark:hover:text-menu-active-dark">
-                    <svg className="mr-2 w-4 h-4" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="m335 499c14 0 12 17 12 17h-182s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"></path></svg>
-                    GitHub
-                  </a>
-                  <a href="#" className="flex items-center text-sm font-medium text-light-text dark:text-light-text-dark hover:text-menu-active dark:hover:text-menu-active-dark">
-                    <svg className="mr-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                    Canlı Demo
-                  </a>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
-        </div>
+        )}
       </div>
 
       <TwitterModal

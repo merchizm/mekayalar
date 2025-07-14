@@ -1,24 +1,25 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { marked } from 'marked';
 import DOMPurify from 'dompurify';
+import Highlight from 'react-highlight';
 
 const ProjectContent = ({ project }) => {
-  const contentRef = useRef(null);
+  const [content, setContent] = useState('');
 
   useEffect(() => {
-    if (project.content && contentRef.current) {
+    if (typeof window !== 'undefined' && project.content) {
       const parsedContent = marked.parse(project.content || '');
       const sanitizedContent = DOMPurify.sanitize(parsedContent);
-      contentRef.current.innerHTML = sanitizedContent;
+      setContent(sanitizedContent);
     }
   }, [project.content]);
 
   return (
     <div className="lg:col-span-2">
       {project.content ? (
-        <div className="pb-8 max-w-none prose prose-lg project-content dark:prose-invert">
-          <div ref={contentRef} className="min-h-[100px]"></div>
-        </div>
+        <article className="pb-8 max-w-none prose prose-lg dark:prose-invert">
+          <Highlight innerHTML={true}>{content}</Highlight>
+        </article>
       ) : (
         <div className="max-w-none prose prose-lg dark:prose-invert">
           <p>{project.description}</p>

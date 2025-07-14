@@ -4,7 +4,20 @@ import { Link } from '@inertiajs/react';
 const ProjectSidebar = ({ project }) => {
   return (
     <aside className="lg:col-span-1">
-      <div className="sticky top-24">
+      <div className="sticky top-24 space-y-6">
+        {project.tags && project.tags.length > 0 && (
+          <div className="p-6 space-y-4 rounded-2xl border shadow-sm bg-background dark:bg-repository-card-bg-dark border-divider dark:border-label-border-dark">
+            <h3 className="text-xl font-bold text-text dark:text-text-dark">Etiketler</h3>
+            <div className="flex flex-wrap gap-2">
+              {project.tags.map(tag => (
+                <span key={tag} className="px-3 py-1 text-sm font-semibold text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900/50 dark:text-blue-300">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
         <div className="p-6 space-y-4 rounded-2xl border shadow-sm bg-background dark:bg-repository-card-bg-dark border-divider dark:border-label-border-dark">
           <h3 className="text-xl font-bold text-text dark:text-text-dark">Proje Linkleri</h3>
           {project.url && (

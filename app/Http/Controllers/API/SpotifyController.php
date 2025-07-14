@@ -51,6 +51,7 @@ class SpotifyController extends Controller
                 return response()->json([
                     'isPlaying' => true,
                     'musicName' => "{$data['name']} - {$data['artists']}",
+                    'musicUrl'  => $data['url'],
                 ]);
             }
         } catch (\Exception $e) {

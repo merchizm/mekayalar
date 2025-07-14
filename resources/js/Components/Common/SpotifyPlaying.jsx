@@ -1,19 +1,35 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
 export default function SpotifyPlaying() {
   const [isLoading, setIsLoading] = useState(false);
   const [musicName, setMusicName] = useState(null);
+  const [musicUrl, setMusicUrl] = useState(null);
+  const [showTooltip, setShowTooltip] = useState(false);
+  const hideTooltipTimeout = useRef(null);
+
+  const handleMouseEnter = () => {
+    clearTimeout(hideTooltipTimeout.current);
+    setShowTooltip(true);
+  };
+
+  const handleMouseLeave = () => {
+    hideTooltipTimeout.current = setTimeout(() => {
+      setShowTooltip(false);
+    }, 300);
+  };
 
   const fetchData = async () => {
     try {
       const response = await axios.get('/api/spotify/currently-playing');
-      const { isPlaying, musicName } = response.data;
+      const { isPlaying, musicName, musicUrl } = response.data;
       setIsLoading(isPlaying);
       setMusicName(musicName);
+      setMusicUrl(musicUrl);
     } catch (error) {
       setIsLoading(false);
       setMusicName(null);
+      setMusicUrl(null);
     }
   };
 
@@ -31,51 +47,14 @@ export default function SpotifyPlaying() {
     return text;
   };
 
-  const equalizerStyle = (
-    <style>
-      {`
-        .equalizer-container {
-            display: flex;
-            align-items: flex-end;
-            height: 16px;
-            gap: 2px;
-        }
 
-        .equalizer-bar {
-            width: 3px;
-            height: 100%;
-            background-color: #1DB954; /* Spotify Green */
-            animation: wave 1.2s infinite ease-in-out;
-            border-radius: 2px;
-        }
-
-        .equalizer-bar:nth-child(2) {
-            animation-delay: -1.0s;
-        }
-
-        .equalizer-bar:nth-child(3) {
-            animation-delay: -0.8s;
-        }
-        
-        .equalizer-bar:nth-child(4) {
-            animation-delay: -0.6s;
-        }
-
-        @keyframes wave {
-            0%, 40%, 100% {
-                height: 25%;
-            }
-            20% {
-                height: 100%;
-            }
-        }
-        `}
-    </style>
-  );
 
   return (
-    <div className="p-1 rounded-xl border shadow-sm bg-background dark:bg-repository-card-bg-dark border-divider dark:border-label-border-dark">
-      {equalizerStyle}
+    <div
+      className="relative p-1 rounded-xl border shadow-sm bg-background dark:bg-repository-card-bg-dark border-divider dark:border-label-border-dark"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       {isLoading ? (
         <div className="flex gap-2 items-center px-3 h-10 rounded-lg transition-colors hover:bg-button-hover dark:hover:bg-button-hover-dark" title={`Spotify'da Dinliyorum: ${musicName}`}>
           <div className="equalizer-container">
@@ -85,6 +64,14 @@ export default function SpotifyPlaying() {
             <div className="equalizer-bar"></div>
           </div>
           <span className="hidden text-xs font-medium text-text dark:text-text-dark sm:inline">{limit(musicName, 40)}</span>
+          {showTooltip && musicUrl && (
+            <div className="absolute bottom-full left-1/2 z-10 px-3 py-2 mb-2 w-max text-xs rounded shadow-lg -translate-x-1/2 tooltip-bubble text-default dark:text-white bg-background dark:bg-repository-card-bg-dark">
+              <div className="flex gap-4 items-center">
+                <a href={musicUrl} target="_blank" rel="noopener noreferrer" className="hover:text-spotify-green">Müziği aç</a>
+                <a href="https://open.spotify.com/user/hkt7thwkuynqutz8jenb3x0wu?si=eb716f20515241b4" target="_blank" rel="noopener noreferrer" className="hover:text-spotify-green">Profilime git</a>
+              </div>
+            </div>
+          )}
         </div>
       ) : (
         <div className="flex justify-center items-center w-10 h-10 rounded-lg transition-colors" title="Spotify'da aktif değilim">

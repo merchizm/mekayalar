@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\PoemController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\Landing\PoemController as LandingPoemController;
 use App\Http\Controllers\Landing\ProjectController as LandingProjectController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SitemapController;
+use App\Models\Project;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -37,7 +39,15 @@ Route::get('/', function () {
         ->locale('tr_TR')
         ->withUrl();
 
-    return Inertia::render('Landing/Index');
+    $featuredProjects = Project::where('is_published', true)
+        ->where('is_featured', true)
+        ->orderBy('completed_at', 'desc')
+        ->take(2)
+        ->get();
+
+    return Inertia::render('Landing/Index', [
+        'featuredProjects' => $featuredProjects,
+    ]);
 })->name('landing.index');
 
 Route::get('/incognito', function () {
@@ -70,6 +80,7 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
         Route::get('/posts/check_slug', [PostController::class, 'check_slug'])->name('posts.check_slug');
         Route::resource('posts', PostController::class)->except(['show']);
         Route::post('/posts/draft', [PostController::class, 'saveDraft'])->name('posts.draft');
+        Route::resource('categories', CategoryController::class)->only(['index', 'store', 'update', 'destroy']);
 
         Route::get('/profile', [AdminProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [AdminProfileController::class, 'update'])->name('profile.update');

@@ -16,4 +16,9 @@ class Category extends Model
     protected $attributes = [
         'description' => 'Kategori',
     ];
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'post_category_id');
+    }
 }

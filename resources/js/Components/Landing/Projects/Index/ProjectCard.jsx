@@ -19,6 +19,17 @@ const ProjectCard = ({ project }) => {
       <div className="flex flex-col flex-grow">
         <h3 className="text-xl font-bold transition-colors text-text dark:text-text-dark group-hover:text-menu-active dark:group-hover:text-menu-active-dark">{project.title}</h3>
         <p className="flex-grow mt-3 text-sm text-light-text dark:text-light-text-dark">{limitText(project.description, 120)}</p>
+
+        {project.tags && project.tags.length > 0 && (
+          <div className="mt-4 flex flex-wrap gap-2">
+            {project.tags.map(tag => (
+              <span key={tag} className="px-2 py-1 text-xs font-semibold text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900/50 dark:text-blue-300">
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+
         <div className="flex justify-between items-center pt-4 mt-auto border-t border-divider/50 dark:border-divider-dark/50">
           <span className="text-sm font-semibold text-menu-active dark:text-menu-active-dark">
             Detayları İncele

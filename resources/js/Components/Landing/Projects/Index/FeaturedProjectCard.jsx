@@ -11,6 +11,15 @@ const FeaturedProjectCard = ({ project }) => (
     <div className="p-6">
       <h3 className="text-2xl font-bold text-text dark:text-text-dark">{project.title}</h3>
       <p className="mt-2 text-light-text dark:text-light-text-dark">{project.description}</p>
+      {project.tags && project.tags.length > 0 && (
+        <div className="mt-4 flex flex-wrap gap-2">
+          {project.tags.map(tag => (
+            <span key={tag} className="px-2 py-1 text-xs font-semibold text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900/50 dark:text-blue-300">
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
       <div className="flex justify-between items-center mt-4">
         <span className="inline-flex items-center text-sm font-semibold text-menu-active dark:text-menu-active-dark">
           Detayları İncele

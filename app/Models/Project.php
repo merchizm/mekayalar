@@ -21,12 +21,14 @@ class Project extends Model
         'is_featured',
         'is_published',
         'completed_at',
+        'tags',
     ];
 
     protected $casts = [
         'is_featured'  => 'boolean',
         'is_published' => 'boolean',
         'completed_at' => 'date',
+        'tags'         => 'array',
     ];
 
     public function setTitleAttribute($value): void

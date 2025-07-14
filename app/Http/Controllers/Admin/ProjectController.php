@@ -43,6 +43,7 @@ class ProjectController extends Controller
             'is_published' => 'nullable|sometimes',
             'completed_at' => 'nullable|date',
             'image'        => 'required|url|max:255',
+            'tags'         => 'nullable|array',
         ]);
 
         // Set boolean values
@@ -87,6 +88,7 @@ class ProjectController extends Controller
             'is_published' => 'nullable|boolean',
             'completed_at' => 'nullable|date',
             'image'        => 'nullable|url|max:255',
+            'tags'         => 'nullable|array',
         ]);
 
         // Set boolean values
