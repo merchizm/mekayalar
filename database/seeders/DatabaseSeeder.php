@@ -17,6 +17,5 @@ class DatabaseSeeder extends Seeder
 
         $this->call(AdminSeeder::class);
         $this->call(PoemSeeder::class);
-        $this->call(TechStackSeeder::class);
     }
 }
