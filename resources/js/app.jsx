@@ -18,7 +18,6 @@ window.__ = (name, params = {}) => {
   };
 
 createInertiaApp({
-    title: (title) => `${title} - ${appName}`,
     resolve: (name) =>
         resolvePageComponent(
             `./Pages/${name}.jsx`,
