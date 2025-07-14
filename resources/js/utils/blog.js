@@ -1,4 +1,5 @@
 export const createExcerpt = (htmlString, limit = 250) => {
+  if (htmlString.length <= limit) return htmlString;  
   if (!htmlString) return '';
   const tempDiv = document.createElement('div');
   tempDiv.innerHTML = htmlString;

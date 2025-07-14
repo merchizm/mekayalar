@@ -340,6 +340,11 @@ article {
     display: none;
 }
 
+.mobile-nav-wrapper {
+    width: 100%;
+    max-width: 100%;
+}
+
 .equalizer-container {
     display: flex;
     align-items: flex-end;
@@ -375,6 +380,16 @@ article {
     transform-origin: bottom;
 }
 
+.mobile-timeline-tick {
+    width: 2px;
+}
+
+@media (min-width: 640px) {
+    .mobile-timeline-tick {
+        width: 3px;
+    }
+}
+
 .dark .timeline-tick {
     background-color: #374151;
 }
@@ -390,6 +405,20 @@ article {
 .tick-current {
     height: 2.5rem;
     background-color: #f97316;
+}
+
+@media (max-width: 639px) {
+    .tick-night {
+        height: 0.75rem;
+    }
+
+    .tick-day {
+        height: 1.25rem;
+    }
+
+    .tick-current {
+        height: 2rem;
+    }
 }
 
 .dark .tick-current {
@@ -446,6 +475,10 @@ article {
 }
 
 @media (max-width: 768px) {
+    .mobile-nav-wrapper {
+        max-width: calc(100vw - 32px);
+        margin: 0 auto;
+    }
 
     .mobile-nav-container::before,
     .mobile-nav-container::after {
@@ -476,18 +509,41 @@ article {
         background: linear-gradient(to left, var(--background-dark), transparent);
     }
 
-    header nav {
-        max-width: calc(100vw - 32px);
-    }
-
     .mobile-nav-container {
         overflow-x: auto;
         -ms-overflow-style: none;
         scrollbar-width: none;
+        position: relative;
     }
 
     .mobile-nav-container::-webkit-scrollbar {
         display: none;
+    }
+
+    .mobile-nav-container ul {
+        justify-content: flex-start;
+        min-width: max-content;
+        gap: 0.125rem;
+    }
+
+    header nav {
+        max-width: calc(100vw - 32px);
+    }
+}
+
+@media (min-width: 769px) {
+    .mobile-nav-container {
+        overflow-x: visible;
+    }
+
+    .mobile-nav-container::before,
+    .mobile-nav-container::after {
+        display: none;
+    }
+
+    .mobile-nav-container ul {
+        gap: 0.25rem;
+        min-width: auto;
     }
 }
 
@@ -547,4 +603,17 @@ article {
 
 .dark .tooltip-bubble::after {
     border-top-color: var(--button-hover-dark-bg, #374151);
+}
+
+.touch-manipulation {
+    touch-action: manipulation;
+}
+
+@media (hover: none) and (pointer: coarse) {
+
+    .timeline-tick.hover-main:not(.tick-current),
+    .timeline-tick.hover-near:not(.tick-current) {
+        transform: none;
+        background-color: inherit;
+    }
 }

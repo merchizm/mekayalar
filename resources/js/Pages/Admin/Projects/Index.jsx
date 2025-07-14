@@ -5,6 +5,7 @@ import { Fragment, useState } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid';
 import ConfirmationModal from '@/Components/Common/ConfirmationModal';
+import { createExcerpt } from '@/utils/blog';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -88,7 +89,7 @@ export default function Index({ auth, projects }) {
                               </div>
                               <div className="ml-4">
                                 <div className="text-sm font-medium text-gray-900 dark:text-white">{project.title}</div>
-                                <div className="text-sm text-gray-500 dark:text-gray-400">{project.description}</div>
+                                <div className="text-sm text-gray-500 dark:text-gray-400">{createExcerpt(project.description, 100)}</div>
                               </div>
                             </div>
                           </td>

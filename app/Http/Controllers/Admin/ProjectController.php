@@ -47,8 +47,8 @@ class ProjectController extends Controller
         ]);
 
         // Set boolean values
-        $validated['is_featured']  = $request->has('is_featured');
-        $validated['is_published'] = $request->has('is_published');
+        $validated['is_featured']  = $request->has('is_featured') && $request->is_featured == 'true';
+        $validated['is_published'] = $request->has('is_published') && $request->is_published == 'true';
 
         Project::create($validated);
 
@@ -92,8 +92,8 @@ class ProjectController extends Controller
         ]);
 
         // Set boolean values
-        $validated['is_featured']  = $request->has('is_featured');
-        $validated['is_published'] = $request->has('is_published');
+        $validated['is_featured']  = $request->has('is_featured') && $request->is_featured == 'true';
+        $validated['is_published'] = $request->has('is_published') && $request->is_published == 'true';
 
         $project->update($validated);
 

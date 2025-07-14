@@ -17,13 +17,8 @@ const TagInput = ({ value = [], onChange, ...props }) => {
         create: true,
         persist: false,
         items: value,
-        onItemAdd: (itemValue) => {
-          if (!value.includes(itemValue)) {
-            onChange([...value, itemValue]);
-          }
-        },
-        onItemRemove: (itemValue) => {
-          onChange(value.filter(v => v !== itemValue));
+        onChange(values) {
+          onChange(values ? values.split(',') : []);
         },
         ...props
       });
