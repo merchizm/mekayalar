@@ -227,12 +227,6 @@ Bu proje MIT lisansı altında lisanslanmıştır.
 4. Push edin (`git push origin feature/amazing-feature`)
 5. Pull Request açın
 
-## 📧 İletişim
-
-- **Web**: [mekayalar.com](https://mekayalar.com)
-- **Email**: info@mekayalar.com
-- **GitHub**: [@kullanici](https://github.com/kullanici)
-
 ---
 
 ⭐ Projeyi beğendiyseniz star vermeyi unutmayın!
