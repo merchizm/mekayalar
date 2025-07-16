@@ -22,6 +22,14 @@ class Media extends Model
 
     public function getUrlAttribute()
     {
-        return asset('storage/uploads/'.$this->attributes['parent_folder'].'/'.$this->attributes['name']);
+        $parentFolder = $this->attributes['parent_folder'];
+        $name = $this->attributes['name'];
+        
+        // Handle root folder case to avoid double slashes
+        if ($parentFolder === '/') {
+            return asset('storage/uploads/' . $name);
+        }
+        
+        return asset('storage/uploads/' . trim($parentFolder, '/') . '/' . $name);
     }
 }

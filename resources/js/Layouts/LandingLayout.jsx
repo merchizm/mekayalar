@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link, Head, usePage } from '@inertiajs/react';
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import SpotifyPlaying from '@/Components/Common/SpotifyPlaying';
@@ -8,41 +8,16 @@ import Header from '@/Components/Layout/Landing/Header';
 import Footer from '@/Components/Layout/Landing/Footer';
 import { detectIncognito } from "detectincognitojs";
 import TimezoneThemeSwitcher from '@/Components/Common/TimezoneThemeSwitcher';
-
-const getCookie = (name) => {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(';').shift();
-};
-
-const setCookie = (name, value, days) => {
-  let expires = "";
-  if (days) {
-    const date = new Date();
-    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-    expires = "; expires=" + date.toUTCString();
-  }
-  document.cookie = name + "=" + (value || "") + expires + "; path=/";
-};
+import { useThemeManager } from '@/hooks/useThemeManager';
 
 export default function LandingLayout({ children, seo }) {
-  const [isDarkMode, setDarkMode] = useState(() => {
-    const darkModeCookie = getCookie('dark_mode');
-    if (darkModeCookie !== undefined) {
-      return darkModeCookie === '1';
-    }
-    const currentHour = new Date().getHours();
-    return currentHour >= 21 || currentHour < 9;
-  });
-
-  useEffect(() => {
-    setCookie('dark_mode', isDarkMode ? '1' : '0', 365 * 5);
-    if (isDarkMode) {
-      document.body.classList.add('dark');
-    } else {
-      document.body.classList.remove('dark');
-    }
-  }, [isDarkMode]);
+  const {
+    isDarkMode,
+    hasManualOverride,
+    toggleManualMode,
+    setTimeBasedMode,
+    resetToAutomatic
+  } = useThemeManager();
 
   useEffect(() => {
     const checkIncognito = async () => {
@@ -53,10 +28,6 @@ export default function LandingLayout({ children, seo }) {
     };
     checkIncognito();
   }, []);
-
-  const toggleMode = () => {
-    setDarkMode(prevMode => !prevMode);
-  };
 
   return (
     <>
@@ -91,7 +62,12 @@ export default function LandingLayout({ children, seo }) {
                 </a>
               </div>
               <div className="flex items-center p-1 rounded-xl border shadow-sm bg-background dark:bg-repository-card-bg-dark border-divider dark:border-label-border-dark">
-                <DarkModeToggle isDarkMode={isDarkMode} toggleMode={toggleMode} />
+                <DarkModeToggle
+                  isDarkMode={isDarkMode}
+                  toggleMode={toggleManualMode}
+                  hasManualOverride={hasManualOverride}
+                  resetToAutomatic={resetToAutomatic}
+                />
               </div>
             </div>
             <hr className="h-px w-full border-t-divider dark:border-t-divider-dark m-0 rounded-[10px] border-t-2 border-0 border-solid" />
@@ -101,7 +77,12 @@ export default function LandingLayout({ children, seo }) {
           </main>
         </div>
 
-        <Footer isDarkMode={isDarkMode} setDarkMode={setDarkMode} />
+        <Footer
+          isDarkMode={isDarkMode}
+          setTimeBasedMode={setTimeBasedMode}
+          hasManualOverride={hasManualOverride}
+          resetToAutomatic={resetToAutomatic}
+        />
       </div>
     </>
   );

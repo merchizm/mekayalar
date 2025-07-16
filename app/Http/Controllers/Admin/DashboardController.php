@@ -8,6 +8,7 @@ use App\Models\Post;
 use App\Models\User;
 use Carbon\Carbon;
 use Inertia\Inertia;
+use App\Models\Media;
 
 class DashboardController extends Controller
 {
@@ -28,7 +29,7 @@ class DashboardController extends Controller
                 'recent' => Poem::where('created_at', '>=', Carbon::now()->subDays(7))->count(),
             ],
             'media' => [
-                'total' => count(glob(storage_path('app/public/uploads/*'))),
+                'total' => Media::count(),
             ],
             'users' => [
                 'total' => User::count(),

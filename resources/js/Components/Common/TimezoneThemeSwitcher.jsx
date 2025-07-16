@@ -15,7 +15,7 @@ const NightIcon = () => (
   </svg>
 );
 
-export default function TimezoneThemeSwitcher({ isDarkMode, setDarkMode }) {
+export default function TimezoneThemeSwitcher({ isDarkMode, setTimeBasedMode, hasManualOverride, resetToAutomatic }) {
   const hours = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 0, 1, 2];
   const [actualHour, setActualHour] = useState(null);
   const [displayHour, setDisplayHour] = useState(null);
@@ -35,11 +35,10 @@ export default function TimezoneThemeSwitcher({ isDarkMode, setDarkMode }) {
   }, []);
 
   useEffect(() => {
-    if (displayHour !== null) {
-      const isNight = displayHour >= 21 || displayHour < 9;
-      setDarkMode(isNight);
+    if (displayHour !== null && setTimeBasedMode) {
+      setTimeBasedMode(displayHour);
     }
-  }, [displayHour, setDarkMode]);
+  }, [displayHour, setTimeBasedMode]);
 
   useEffect(() => {
     const positionMarker = () => {
@@ -126,7 +125,15 @@ export default function TimezoneThemeSwitcher({ isDarkMode, setDarkMode }) {
               onMouseOver={() => handleMouseOver(index)}
               onTouchStart={() => handleTouchStart(index)}
               onTouchEnd={handleTouchEnd}
-              onClick={() => setDisplayHour(hour)}>
+              onClick={() => {
+                if (hour === actualHour && hasManualOverride && resetToAutomatic) {
+                  // Clicking on actual time when manual override is active - reset to automatic
+                  resetToAutomatic();
+                } else {
+                  // Normal time selection
+                  setDisplayHour(hour);
+                }
+              }}>
               <div className={tickClasses.trim()}></div>
             </div>
           );

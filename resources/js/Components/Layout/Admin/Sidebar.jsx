@@ -3,6 +3,7 @@ import { Link, usePage } from '@inertiajs/react';
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import DarkModeToggle from '@/Components/Common/DarkModeToggle';
 import LogoutButton from '@/Components/Common/LogoutButton';
+import { useThemeManager } from '@/hooks/useThemeManager';
 
 import {
   HomeIcon as HomeOutline,
@@ -101,6 +102,13 @@ export default function Sidebar() {
   const [spacesOpen, setSpacesOpen] = useState(true);
   const [favoritesOpen, setFavoritesOpen] = useState(true);
 
+  const {
+    isDarkMode,
+    hasManualOverride,
+    toggleManualMode,
+    resetToAutomatic
+  } = useThemeManager();
+
   const navigation = [
     { name: 'Genel Bakış', href: route('admin.dashboard'), icon: { outline: HomeOutline, solid: HomeSolid }, current: route().current('admin.dashboard') },
     {
@@ -177,7 +185,12 @@ export default function Sidebar() {
             </Link>
           )}
           <div className="flex items-center space-x-2">
-            <DarkModeToggle />
+            <DarkModeToggle
+              isDarkMode={isDarkMode}
+              toggleMode={toggleManualMode}
+              hasManualOverride={hasManualOverride}
+              resetToAutomatic={resetToAutomatic}
+            />
             <LogoutButton />
           </div>
         </div>

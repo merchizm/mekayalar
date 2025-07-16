@@ -1,12 +1,17 @@
 import React from 'react';
 import TimezoneThemeSwitcher from '@/Components/Common/TimezoneThemeSwitcher.jsx';
 
-const Footer = ({ isDarkMode, setDarkMode }) => {
+const Footer = ({ isDarkMode, setTimeBasedMode, hasManualOverride, resetToAutomatic }) => {
   return (
     <footer className="mt-24 w-full">
       <div className="px-4 py-8 mx-auto max-w-screen-xl">
         <div className="mb-8">
-          <TimezoneThemeSwitcher isDarkMode={isDarkMode} setDarkMode={setDarkMode} />
+          <TimezoneThemeSwitcher 
+            isDarkMode={isDarkMode} 
+            setTimeBasedMode={setTimeBasedMode}
+            hasManualOverride={hasManualOverride}
+            resetToAutomatic={resetToAutomatic}
+          />
         </div>
         <div className="flex gap-8 justify-center items-end mt-12 mb-8 lg:gap-12">
           <div className="text-center transition-transform hover:scale-105">

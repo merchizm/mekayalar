@@ -50,7 +50,7 @@ export default function Index({ auth, projects }) {
         <div className="flex flex-col gap-3 mb-6 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Projelerim</h2>
-            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Tüm projelerimi buradan yönetebilirsiniz.</p>
+            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Tüm projelerini buradan yönetebilirsin.</p>
           </div>
           <Link href={route('admin.projects.create')} className="inline-flex justify-center items-center px-4 py-2 font-semibold text-white bg-blue-600 rounded-lg shadow-md transition duration-150 ease-in-out hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
             <svg xmlns="http://www.w3.org/2000/svg" className="mr-2 -ml-1 w-5 h-5 icon" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>

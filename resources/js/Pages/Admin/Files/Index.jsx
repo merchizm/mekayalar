@@ -6,11 +6,25 @@ import toast from 'react-hot-toast';
 import FolderItem from '@/Components/Admin/Files/FolderItem';
 import FileItem from '@/Components/Admin/Files/FileItem';
 import Breadcrumb from '@/Components/Admin/Files/Breadcrumb';
-import CreateFolder from '@/Components/Admin/Files/CreateFolder';
-import FileUpload from '@/Components/Admin/Files/FileUpload';
+import CreateFolderModal from '@/Components/Admin/Files/CreateFolderModal';
+import FileUploadModal from '@/Components/Admin/Files/FileUploadModal';
 import ConfirmDeleteModal from '@/Components/Admin/Files/ConfirmDeleteModal';
+import { GridIcon, ListIcon, PlusIcon, UploadIcon, DownloadIcon, LinkIcon, TrashIcon, ExternalLinkIcon } from '@/Components/Admin/Files/Icons';
 import { Menu, Item, useContextMenu, Separator } from "react-contexify";
 import "react-contexify/dist/ReactContexify.css";
+
+const getCookie = (name) => {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+  return null;
+};
+
+const setCookie = (name, value, days = 365) => {
+  const expires = new Date();
+  expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+  document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+};
 
 const FILE_MENU_ID = "file-menu";
 const FOLDER_MENU_ID = "folder-menu";
@@ -21,8 +35,16 @@ export default function Index({ auth }) {
   const [loading, setLoading] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
+  const [viewMode, setViewMode] = useState(() => getCookie('file-manager-view') || 'list');
+  const [showCreateFolderModal, setShowCreateFolderModal] = useState(false);
+  const [showUploadModal, setShowUploadModal] = useState(false);
   const { show: showFileMenu } = useContextMenu({ id: FILE_MENU_ID });
   const { show: showFolderMenu } = useContextMenu({ id: FOLDER_MENU_ID });
+
+  const handleViewModeChange = (mode) => {
+    setViewMode(mode);
+    setCookie('file-manager-view', mode);
+  };
 
   const fetchFiles = useCallback((path) => {
     setLoading(true);
@@ -86,6 +108,9 @@ export default function Index({ auth }) {
       case "copy-link":
         navigator.clipboard.writeText(file.url).then(() => toast.success('Bağlantı kopyalandı!'));
         break;
+      case "open-new-window":
+        window.open(file.url, '_blank');
+        break;
       case "delete":
         openDeleteModal(file, 'file');
         break;
@@ -109,47 +134,175 @@ export default function Index({ auth }) {
         <div className="px-5 py-4 border-b border-gray-200 dark:border-gray-700">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Dosya Yöneticisi</h3>
         </div>
-        <div className="p-5">
+        <div className="p-6">
           <Breadcrumb path={currentPath} onPathClick={handlePathChange} />
 
-          <FileUpload currentPath={currentPath} onSuccess={() => fetchFiles(currentPath)} />
+          {/* Action Bar */}
+          <div className="flex flex-col sm:flex-row gap-4 mb-6">
+            <div className="flex gap-2">
+              <button
+                onClick={() => setShowCreateFolderModal(true)}
+                className="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              >
+                <PlusIcon className="w-4 h-4 mr-2" />
+                Yeni Klasör
+              </button>
+              <button
+                onClick={() => setShowUploadModal(true)}
+                className="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+              >
+                <UploadIcon className="w-4 h-4 mr-2" />
+                Dosya Yükle
+              </button>
+            </div>
 
-          <CreateFolder currentPath={currentPath} onSuccess={() => fetchFiles(currentPath)} />
+            {/* View Mode Toggle */}
+            <div className="flex bg-gray-100 dark:bg-gray-700 rounded-lg p-1 ml-auto">
+              <button
+                onClick={() => handleViewModeChange('list')}
+                className={`p-2 rounded-md transition-colors duration-200 ${
+                  viewMode === 'list'
+                    ? 'bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow-sm'
+                    : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
+                }`}
+                title="Liste Görünümü"
+              >
+                <ListIcon className="w-5 h-5" />
+              </button>
+              <button
+                onClick={() => handleViewModeChange('grid')}
+                className={`p-2 rounded-md transition-colors duration-200 ${
+                  viewMode === 'grid'
+                    ? 'bg-white dark:bg-gray-600 text-gray-900 dark:text-white shadow-sm'
+                    : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
+                }`}
+                title="Izgara Görünümü"
+              >
+                <GridIcon className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
 
-          <div className="mt-5">
-            <h4 className="mb-3 font-semibold text-gray-800 text-md dark:text-gray-200">Dosya Gezgini</h4>
-            {loading ? (
-              <p className="text-gray-500 dark:text-gray-400">Yükleniyor...</p>
-            ) : (
-              <div className="border border-gray-200 dark:border-gray-700 rounded-md">
-                <ul className="divide-y divide-gray-200 dark:divide-gray-700">
-                  {items.folders.map(folder => (
-                    <div key={folder.id} onContextMenu={(e) => showFolderMenu({ event: e, props: { folder } })}>
-                      <FolderItem folder={folder} onFolderClick={handleFolderClick} />
-                    </div>
-                  ))}
-                  {items.files.map(file => (
-                    <div key={file.id} onContextMenu={(e) => showFileMenu({ event: e, props: { file } })}>
-                      <FileItem file={file} />
-                    </div>
-                  ))}
-                </ul>
+          {/* File Explorer */}
+          <div className="mt-6">
+            <div className="flex items-center justify-between mb-4">
+              <h4 className="font-semibold text-gray-800 text-lg dark:text-gray-200">
+                Dosya Gezgini
+              </h4>
+              <div className="text-sm text-gray-500 dark:text-gray-400">
+                {items.folders.length + items.files.length} öğe
               </div>
+            </div>
+            
+            {loading ? (
+              <div className="flex items-center justify-center py-12">
+                <div className="flex items-center space-x-2">
+                  <svg className="animate-spin h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  <span className="text-gray-500 dark:text-gray-400">Yükleniyor...</span>
+                </div>
+              </div>
+            ) : items.folders.length === 0 && items.files.length === 0 ? (
+              <div className="text-center py-12">
+                <div className="text-gray-400 dark:text-gray-500 mb-2">
+                  <svg className="mx-auto h-12 w-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                  </svg>
+                </div>
+                <p className="text-gray-500 dark:text-gray-400 text-center">Bu klasör boş</p>
+                <p className="text-sm text-gray-400 dark:text-gray-500 mt-1 text-center">
+                  Dosya yükleyin veya yeni klasör oluşturun
+                </p>
+              </div>
+            ) : (
+              <>
+                {viewMode === 'list' ? (
+                  <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+                    <ul>
+                      {items.folders.map(folder => (
+                        <div key={folder.id} onContextMenu={(e) => showFolderMenu({ event: e, props: { folder } })}>
+                          <FolderItem folder={folder} onFolderClick={handleFolderClick} viewMode={viewMode} />
+                        </div>
+                      ))}
+                      {items.files.map(file => (
+                        <div key={file.id} onContextMenu={(e) => showFileMenu({ event: e, props: { file } })}>
+                          <FileItem file={file} viewMode={viewMode} />
+                        </div>
+                      ))}
+                    </ul>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4">
+                    {items.folders.map(folder => (
+                      <div key={folder.id} onContextMenu={(e) => showFolderMenu({ event: e, props: { folder } })}>
+                        <FolderItem folder={folder} onFolderClick={handleFolderClick} viewMode={viewMode} />
+                      </div>
+                    ))}
+                    {items.files.map(file => (
+                      <div key={file.id} onContextMenu={(e) => showFileMenu({ event: e, props: { file } })}>
+                        <FileItem file={file} viewMode={viewMode} />
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>
       </div>
 
       <Menu id={FILE_MENU_ID} theme="dark">
-        <Item id="download" onClick={onFileItemClick}><i className="fas fa-download mr-2"></i>İndir</Item>
-        <Item id="copy-link" onClick={onFileItemClick}><i className="fas fa-link mr-2"></i>Bağlantıyı Kopyala</Item>
+        <Item id="open-new-window" onClick={onFileItemClick}>
+          <div className="flex items-center">
+            <ExternalLinkIcon className="mr-2" />
+            Yeni Pencerede Aç
+          </div>
+        </Item>
+        <Item id="download" onClick={onFileItemClick}>
+          <div className="flex items-center">
+            <DownloadIcon className="mr-2" />
+            İndir
+          </div>
+        </Item>
+        <Item id="copy-link" onClick={onFileItemClick}>
+          <div className="flex items-center">
+            <LinkIcon className="mr-2" />
+            Bağlantıyı Kopyala
+          </div>
+        </Item>
         <Separator />
-        <Item id="delete" onClick={onFileItemClick} className="text-red-500"><i className="fas fa-trash mr-2"></i>Sil</Item>
+        <Item id="delete" onClick={onFileItemClick} className="text-red-500">
+          <div className="flex items-center">
+            <TrashIcon className="mr-2" />
+            Sil
+          </div>
+        </Item>
       </Menu>
 
       <Menu id={FOLDER_MENU_ID} theme="dark">
-        <Item id="delete" onClick={onFolderItemClick} className="text-red-500"><i className="fas fa-trash mr-2"></i>Sil</Item>
+        <Item id="delete" onClick={onFolderItemClick} className="text-red-500">
+          <div className="flex items-center">
+            <TrashIcon className="mr-2" />
+            Sil
+          </div>
+        </Item>
       </Menu>
+
+      <CreateFolderModal
+        isOpen={showCreateFolderModal}
+        onClose={() => setShowCreateFolderModal(false)}
+        currentPath={currentPath}
+        onSuccess={() => fetchFiles(currentPath)}
+      />
+
+      <FileUploadModal
+        isOpen={showUploadModal}
+        onClose={() => setShowUploadModal(false)}
+        currentPath={currentPath}
+        onSuccess={() => fetchFiles(currentPath)}
+      />
 
       <ConfirmDeleteModal
         show={showDeleteModal}

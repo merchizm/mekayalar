@@ -105,7 +105,7 @@ export default function Index({ seo, featuredProjects }) {
               title="Alfatek - Full-stack Developer / Dev Team Lead"
               date="Aralık 2023 - Kasım 2024"
               logo="/assets/img/alfatek.png">
-              Eğer buraya hiç bir veri girmediysem beni uyarın.
+              Bu pozisyonda Laravel framework'ü üzerinde kapsamlı tema sistemleri geliştirdim ve Tailwind CSS ile Livewire teknolojilerini entegre ederek modern, dinamik web uygulamaları oluşturdum. Proje yönetimi süreçlerinde product manager ile yakın işbirliği içinde çalışarak, geliştirici ekibinin teknik liderliğini üstlendim.
             </AccordionItem>
 
             <div className="p-4 rounded-lg border transition-all duration-300 border-divider dark:border-label-border-dark bg-background dark:bg-repository-card-bg-dark">
