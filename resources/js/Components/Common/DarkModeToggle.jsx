@@ -21,7 +21,7 @@ export default function DarkModeToggle({ isDarkMode, toggleMode, hasManualOverri
         onClick={toggleMode} 
         onDoubleClick={handleDoubleClick}
         className={`w-10 h-10 flex items-center justify-center rounded-lg border border-divider dark:border-label-border-dark bg-background dark:bg-repository-card-bg-dark shadow-sm hover:shadow-md hover:translate-y-[-2px] transition-all duration-300 ${hasManualOverride ? 'ring-2 ring-blue-500 ring-opacity-50' : ''}`}
-        title={hasManualOverride ? 'Manual mod aktif - İki kere tıklayarak otomatik moda alın' : 'Zamana dayalı otomatik mod etkin'}
+        title={hasManualOverride ? __('Manual mod aktif - İki kere tıklayarak otomatik moda alın') : __('Zamana dayalı otomatik mod etkin')}
       >
         {isDarkMode ? lightSvg : darkSvg}
       </button>

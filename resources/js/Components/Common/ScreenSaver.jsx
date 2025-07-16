@@ -4,7 +4,7 @@ const byeArray = [
   'körişirbiz', 'görüşürüz', 'αντιο', 'ნახვამდის', 'довиждане', 'увидимся',
   'хayr', 'көрүшкөнчө', 'кездескенше', 'találkozunk', '또 봐요', 'tschüss',
   'goodbye', 'doei', 'au revoir', 'şalom', 'vale', 'namaste',
-  'さようなら', 'vemo-nos', 'slán', 'hüvasti'
+  'さようなら', 'vemo-nos', 'slán', 'hüvasti',
 ];
 
 function getRandomElement(excludeElement) {
@@ -84,7 +84,7 @@ export default function ScreenSaver() {
     <div className={`fixed text-[white] flex flex-col items-center justify-center z-[100] bg-background dark:bg-background-dark inset-0 transition-opacity duration-500 ${showScreenSaver ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
       <style>{animationStyles}</style>
       <span key={currentText} className="text-[14vmin] font-medium tracking-[2px] text-text dark:text-text-dark text-animate">{currentText}</span>
-      <span className="absolute m-[5px] bottom-[6vmin] text-text dark:text-text-dark">Mesajınızı bekliyorum</span>
+      <span className="absolute m-[5px] bottom-[6vmin] text-text dark:text-text-dark">{__('Mesajınızı bekliyorum')}</span>
       <a className="text-light-text dark:text-light-text-dark font-medium no-underline bottom-[4vmin] absolute m-[5px]" href="mailto:merichrocks@gmail.com">merichrocks@gmail.com</a>
     </div>
   );

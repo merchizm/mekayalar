@@ -12,12 +12,30 @@ use Inertia\Inertia;
 
 class PostController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::with('category')->latest()->get();
+        $query = Post::with('category')->latest();
+
+        // Search filter
+        if ($request->filled('search')) {
+            $query->where('post_title', 'like', '%' . $request->search . '%');
+        }
+
+        // Type filter
+        if ($request->filled('type')) {
+            $query->where('type', $request->type);
+        }
+
+        // Status filter
+        if ($request->filled('status')) {
+            $query->where('post_status', $request->status);
+        }
+
+        $posts = $query->paginate(10)->withQueryString();
 
         return Inertia::render('Admin/Posts/Index', [
             'posts' => $posts,
+            'filters' => $request->only(['search', 'type', 'status']),
         ]);
     }
 

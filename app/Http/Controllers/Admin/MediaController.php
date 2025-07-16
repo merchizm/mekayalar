@@ -400,9 +400,9 @@ class MediaController extends Controller
 
             $folderName   = $request->input('folderName');
             $parentFolder = $request->input('parent_folder', '/');
-            
+
             // Create the full folder path
-            $fullFolderPath = $parentFolder === '/' ? $folderName : $parentFolder . '/' . $folderName;
+            $fullFolderPath = $parentFolder === '/' ? $folderName : $parentFolder.'/'.$folderName;
 
             // Check if folder already exists
             $existingFolder = Media::where('name', $fullFolderPath)
@@ -417,13 +417,13 @@ class MediaController extends Controller
             }
 
             // Create directory in filesystem
-            $storagePath = $parentFolder === '/' ? $folderName : $parentFolder . '/' . $folderName;
+            $storagePath = $parentFolder === '/' ? $folderName : $parentFolder.'/'.$folderName;
             Storage::disk('uploads')->makeDirectory($storagePath);
 
             // Create database record
             Media::create([
                 'name'          => $fullFolderPath,
-                'path'          => storage_path('app/public/uploads/' . $storagePath),
+                'path'          => storage_path('app/public/uploads/'.$storagePath),
                 'type'          => 'folder',
                 'parent_folder' => $parentFolder,
             ]);
@@ -435,7 +435,7 @@ class MediaController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Create folder failed: ' . $e->getMessage(),
+                'message' => 'Create folder failed: '.$e->getMessage(),
             ], 500);
         }
     }

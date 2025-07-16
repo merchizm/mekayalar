@@ -31,11 +31,6 @@ export default function LandingLayout({ children, seo }) {
 
   return (
     <>
-      <Head>
-        <title>{seo?.title || 'Meriç Enes Kayalar'}</title>
-        <meta name="description" content={seo?.description || 'Yazılımcı • Pixel Artist • Herbokolok'} />
-        <meta name="csrf-token" content={usePage().props.csrf_token} />
-      </Head>
 
       <ScreenSaver />
 
@@ -48,7 +43,7 @@ export default function LandingLayout({ children, seo }) {
               <ApplicationLogo className="w-[300px] fill-text dark:fill-text-dark" />
             </div>
             <h1 className="text-5xl font-bold tracking-tighter lg:text-7xl">Meriç Enes Kayalar</h1>
-            <p className="mt-4 max-w-2xl text-xl text-light-text dark:text-light-text-dark">Yazılımcı • Pixel Artist • Herbokolok</p>
+            <p className="mt-4 max-w-2xl text-xl text-light-text dark:text-light-text-dark">{__('Yazılımcı • Pixel Artist • Herbokolok')}</p>
           </div>
 
           <main className="mx-auto w-full max-w-4xl">
