@@ -3,7 +3,7 @@ import { Link, Head } from '@inertiajs/react';
 import LandingLayout from '@/Layouts/LandingLayout';
 import '@/../css/applause-button.css';
 
-export default function Index({ poems, seo }) {
+function Index({ poems, seo }) {
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -22,7 +22,7 @@ export default function Index({ poems, seo }) {
   };
 
   return (
-    <LandingLayout seo={seo}>
+    <>
       <Head>
         {/* The stylesheet is imported directly, but if needed, it can be linked here */}
         {/* <link rel="stylesheet" href="/assets/styles/applause-button.css" /> */}
@@ -71,6 +71,10 @@ export default function Index({ poems, seo }) {
           <p className="text-light-text dark:text-light-text-dark">Yakında burada şiirlerimi görebileceksiniz.</p>
         </div>
       )}
-    </LandingLayout>
+    </>
   );
-} 
+}
+
+Index.layout = page => <LandingLayout children={page} seo={page.props.seo} />;
+
+export default Index;

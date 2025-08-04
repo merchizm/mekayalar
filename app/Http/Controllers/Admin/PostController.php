@@ -18,7 +18,7 @@ class PostController extends Controller
 
         // Search filter
         if ($request->filled('search')) {
-            $query->where('post_title', 'like', '%' . $request->search . '%');
+            $query->where('post_title', 'like', '%'.$request->search.'%');
         }
 
         // Type filter
@@ -34,7 +34,7 @@ class PostController extends Controller
         $posts = $query->paginate(10)->withQueryString();
 
         return Inertia::render('Admin/Posts/Index', [
-            'posts' => $posts,
+            'posts'   => $posts,
             'filters' => $request->only(['search', 'type', 'status']),
         ]);
     }

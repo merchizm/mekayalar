@@ -22,9 +22,8 @@ export default function Trans({ i18nKey, components = {}, values = {} }) {
     return text;
   }
 
-  // Split text by component placeholders and rebuild with JSX
-  const parts = [];
-  let remainingText = text;
+  // Process all component placeholders
+  let result = [text];
   let keyIndex = 0;
 
   // Sort component keys by length (longest first) to avoid partial matches
@@ -32,28 +31,31 @@ export default function Trans({ i18nKey, components = {}, values = {} }) {
 
   for (const componentKey of sortedComponentKeys) {
     const placeholder = `:${componentKey}`;
-    const splitParts = remainingText.split(placeholder);
-    
-    if (splitParts.length > 1) {
-      const newParts = [];
-      for (let i = 0; i < splitParts.length; i++) {
-        if (i > 0) {
-          newParts.push(React.cloneElement(components[componentKey], { key: `comp-${keyIndex++}` }));
+    const newResult = [];
+
+    for (const item of result) {
+      if (typeof item === 'string' && item.includes(placeholder)) {
+        const splitParts = item.split(placeholder);
+        for (let i = 0; i < splitParts.length; i++) {
+          if (splitParts[i]) {
+            newResult.push(splitParts[i]);
+          }
+          if (i < splitParts.length - 1) {
+            newResult.push(React.cloneElement(components[componentKey], { key: `comp-${keyIndex++}` }));
+          }
         }
-        if (splitParts[i]) {
-          newParts.push(splitParts[i]);
-        }
+      } else {
+        newResult.push(item);
       }
-      remainingText = newParts;
-      break;
     }
+    result = newResult;
   }
 
-  // If no components were replaced, return the text
-  if (typeof remainingText === 'string') {
-    return remainingText;
+  // If result is just a single string, return it directly
+  if (result.length === 1 && typeof result[0] === 'string') {
+    return result[0];
   }
 
   // Return the array of mixed text and components
-  return <>{remainingText}</>;
+  return <>{result}</>;
 }

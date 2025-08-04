@@ -6,7 +6,7 @@ import PostCard from '@/Components/Landing/Blog/common/PostCard';
 import ImagePost from '@/Components/Landing/Blog/common/ImagePost';
 import Pagination from '@/Components/Common/Pagination';
 
-export default function Index({ posts, categories, seo }) {
+function Index({ posts, categories, seo }) {
   const { data: postItems, links } = posts;
 
   const [lightboxController, setLightboxController] = useState({
@@ -29,7 +29,7 @@ export default function Index({ posts, categories, seo }) {
   }
 
   return (
-    <LandingLayout seo={seo}>
+    <>
       <header className="mb-12 text-center">
         <h1 className="text-5xl font-bold tracking-tight text-text dark:text-text-dark">Gönderilerim</h1>
         <p className="mx-auto mt-4 max-w-2xl text-xl text-light-text dark:text-light-text-dark">Düşüncelerim, tecrübelerim ve ara sıra karaladığım çizimler. Burada da çok profesyonel şeyler paylaşmadığımı ve daha kişisel şeyler olduğunu itiraf etmeliyim.</p>
@@ -80,6 +80,10 @@ export default function Index({ posts, categories, seo }) {
         sourceIndex={lightboxController.sourceIndex}
       />
 
-    </LandingLayout>
+    </>
   );
-} 
+}
+
+Index.layout = page => <LandingLayout children={page} seo={page.props.seo} />;
+
+export default Index;

@@ -6,9 +6,9 @@ import PostHeader from '@/Components/Landing/Blog/Show/PostHeader';
 import PostBody from '@/Components/Landing/Blog/Show/PostBody';
 import PostFooter from '@/Components/Landing/Blog/Show/PostFooter';
 
-export default function Show({ post, seo }) {
+function Show({ post, seo }) {
   return (
-    <LandingLayout seo={seo}>
+    <>
       <div className="container my-8">
         <div>
           <Breadcrumb post={post} />
@@ -19,6 +19,10 @@ export default function Show({ post, seo }) {
           </div>
         </div>
       </div>
-    </LandingLayout>
+    </>
   );
-} 
+}
+
+Show.layout = page => <LandingLayout children={page} seo={page.props.seo} />;
+
+export default Show;

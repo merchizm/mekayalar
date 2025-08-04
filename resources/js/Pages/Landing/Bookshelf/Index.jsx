@@ -6,11 +6,11 @@ import ReposTab from '@/Components/Landing/Bookshelf/Index/ReposTab';
 import GistsTab from '@/Components/Landing/Bookshelf/Index/GistsTab';
 import BooksTab from '@/Components/Landing/Bookshelf/Index/BooksTab';
 
-export default function Index({ playlists, repos, gists, langColors, seo }) {
+function Index({ playlists, repos, gists, langColors, seo }) {
   const [currentTab, setCurrentTab] = useState('playlists');
 
   return (
-    <LandingLayout seo={seo}>
+    <>
       <header className="mb-12 text-center">
         <h1 className="text-5xl font-bold tracking-tight text-text dark:text-text-dark">Dijital Kitaplığım</h1>
         <p className="mx-auto mt-4 max-w-2xl text-xl text-light-text dark:text-light-text-dark">Müzik zevkim, kod dünyam ve okuma notlarım. Hepsi bir arada. Umarım hoşuna gidecek şeyler bulabilirsin.</p>
@@ -52,6 +52,10 @@ export default function Index({ playlists, repos, gists, langColors, seo }) {
         {currentTab === 'books' && <BooksTab />}
 
       </div>
-    </LandingLayout>
+    </>
   );
-} 
+}
+
+Index.layout = page => <LandingLayout children={page} seo={page.props.seo} />;
+
+export default Index;

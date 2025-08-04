@@ -7,7 +7,7 @@ import Php from '@/Components/Landing/Svg/Php';
 import Laravel from '@/Components/Landing/Svg/Laravel';
 import Trans from '@/Components/Common/Trans';
 
-export default function Index({ seo, featuredProjects }) {
+function Index({ seo, featuredProjects }) {
   const [isTwitterModalOpen, setTwitterModalOpen] = useState(false);
   const [twitterUrl, setTwitterUrl] = useState('');
 
@@ -27,7 +27,7 @@ export default function Index({ seo, featuredProjects }) {
   };
 
   return (
-    <LandingLayout seo={seo}>
+    <>
       <div className="flex items-center p-5 mb-8 rounded-xl border bg-background dark:bg-repository-card-bg-dark border-divider dark:border-label-border-dark">
         <div className="flex-shrink-0 mr-4 text-menu-active dark:text-menu-active-dark">
           <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -46,7 +46,7 @@ export default function Index({ seo, featuredProjects }) {
 
         <div className="p-6 mb-8 rounded-xl border bg-background dark:bg-repository-card-bg-dark border-divider dark:border-label-border-dark">
           <p className="mb-4 text-base sm:text-lg text-text dark:text-text-dark">
-            <Trans 
+            <Trans
               i18nKey="Merhaba, ben bir full-stack geliştiriciyim, aynı zamanda :php geliştiricisi ve :laravel uzmanıyım. Pixel arta olan ilgim ve şiirle olan tutkumun yanı sıra felsefi düşüncelere de büyük bir ilgi duyuyorum. Geçmişte full-stack geliştirici ve takım lideri olarak rol aldım."
               components={{
                 php: <span className="label"><span><Php /></span>PHP</span>,
@@ -100,6 +100,13 @@ export default function Index({ seo, featuredProjects }) {
         <div className="mb-12">
           <h2 className="mb-6 text-2xl font-bold text-text dark:text-text-dark">{__('İş Deneyimi')}</h2>
           <div className="space-y-4">
+              <AccordionItem
+                  title="***** - Freelance Full-stack Developer"
+                  date={__('Mayıs 2025')}
+                  logo="/assets/img/hidden.png">
+                  {__('Ağırlıklı olarak Front-end olmak üzere, laravel ekosistemine uygun react/blade ve blade + alpine arayüzleri geliştiriyorum.')}
+              </AccordionItem>
+
             <AccordionItem
               title="Alfatek - Full-stack Developer / Dev Team Lead"
               date={__('Aralık 2023 - Kasım 2024')}
@@ -208,7 +215,10 @@ export default function Index({ seo, featuredProjects }) {
         onProceed={handleModalProceed}
         url={twitterUrl}
       />
-
-    </LandingLayout>
+    </>
   );
-} 
+}
+
+Index.layout = page => <LandingLayout children={page} seo={page.props.seo} />;
+
+export default Index;

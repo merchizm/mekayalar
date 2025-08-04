@@ -4,9 +4,9 @@ import LandingLayout from '@/Layouts/LandingLayout';
 import FeaturedProjectCard from '@/Components/Landing/Projects/Index/FeaturedProjectCard';
 import ProjectCard from '@/Components/Landing/Projects/Index/ProjectCard';
 
-export default function Index({ featuredProjects, projects, seo }) {
+function Index({ featuredProjects, projects, seo }) {
   return (
-    <LandingLayout seo={seo}>
+    <>
       <header className="mb-12 text-center">
         <h1 className="text-5xl font-bold tracking-tight text-text dark:text-text-dark">Projelerim</h1>
         <p className="mx-auto mt-4 max-w-2xl text-xl text-light-text dark:text-light-text-dark">Geliştirdiğim, katkıda bulunduğum ve gurur duyduğum çalışmalarım.</p>
@@ -45,6 +45,10 @@ export default function Index({ featuredProjects, projects, seo }) {
           </div>
         )}
       </div>
-    </LandingLayout>
+    </>
   );
-} 
+}
+
+Index.layout = page => <LandingLayout children={page} seo={page.props.seo} />;
+
+export default Index;

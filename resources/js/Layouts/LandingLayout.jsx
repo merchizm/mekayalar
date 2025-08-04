@@ -10,7 +10,7 @@ import { detectIncognito } from "detectincognitojs";
 import TimezoneThemeSwitcher from '@/Components/Common/TimezoneThemeSwitcher';
 import { useThemeManager } from '@/hooks/useThemeManager';
 
-export default function LandingLayout({ children, seo }) {
+function LandingLayout({ children, seo }) {
   const {
     isDarkMode,
     hasManualOverride,
@@ -43,7 +43,7 @@ export default function LandingLayout({ children, seo }) {
               <ApplicationLogo className="w-[300px] fill-text dark:fill-text-dark" />
             </div>
             <h1 className="text-5xl font-bold tracking-tighter lg:text-7xl">Meriç Enes Kayalar</h1>
-            <p className="mt-4 max-w-2xl text-xl text-light-text dark:text-light-text-dark">{__('Yazılımcı • Pixel Artist • Herbokolok')}</p>
+            <p className="mt-4 max-w-2xl text-xl text-light-text dark:text-light-text-dark">{__('Yazılımcı • Pixel Artist • Minimalist')}</p>
           </div>
 
           <main className="mx-auto w-full max-w-4xl">
@@ -82,3 +82,7 @@ export default function LandingLayout({ children, seo }) {
     </>
   );
 }
+
+LandingLayout.displayName = 'LandingLayout';
+
+export default LandingLayout;

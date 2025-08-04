@@ -3,7 +3,7 @@ import { Link, Head } from '@inertiajs/react';
 import LandingLayout from '@/Layouts/LandingLayout';
 import '@/../css/applause-button.css';
 
-export default function Show({ poem, seo }) {
+function Show({ poem, seo }) {
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -22,7 +22,7 @@ export default function Show({ poem, seo }) {
   };
 
   return (
-    <LandingLayout seo={seo}>
+    <>
       <div className="mx-auto max-w-3xl">
         <nav aria-label="breadcrumb" className="mb-8">
           <ol className="flex text-sm text-light-text dark:text-light-text-dark">
@@ -67,6 +67,10 @@ export default function Show({ poem, seo }) {
           </footer>
         </article>
       </div>
-    </LandingLayout>
+    </>
   );
-} 
+}
+
+Show.layout = page => <LandingLayout children={page} seo={page.props.seo} />;
+
+export default Show;

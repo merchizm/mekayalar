@@ -2,11 +2,11 @@ import React from 'react';
 import LandingLayout from '@/Layouts/LandingLayout';
 import BookmarkGroup from '@/Components/Landing/Bookmarks/Index/BookmarkGroup';
 
-export default function Index({ bookmarks, seo }) {
+function Index({ bookmarks, seo }) {
   const sortedBookmarkKeys = Object.keys(bookmarks).sort((a, b) => new Date(b) - new Date(a));
 
   return (
-    <LandingLayout seo={seo}>
+    <>
       <header className="mb-12 text-center">
         <h1 className="text-5xl font-bold tracking-tight text-text dark:text-text-dark">Yer İmlerim</h1>
         <p className="mx-auto mt-4 max-w-2xl text-xl text-light-text dark:text-light-text-dark">İlham veren, yol gösteren ve ufkumu genişleten dijital duraklarım. Burada seninde hoşuna gidecek şeyler bulabilirsin.</p>
@@ -27,6 +27,10 @@ export default function Index({ bookmarks, seo }) {
           </div>
         )}
       </div>
-    </LandingLayout>
+    </>
   );
-} 
+}
+
+Index.layout = page => <LandingLayout children={page} seo={page.props.seo} />;
+
+export default Index;

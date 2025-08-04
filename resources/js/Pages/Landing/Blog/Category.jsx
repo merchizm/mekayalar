@@ -6,7 +6,7 @@ import PostCard from '@/Components/Landing/Blog/common/PostCard';
 import ImagePost from '@/Components/Landing/Blog/common/ImagePost';
 import Pagination from '@/Components/Common/Pagination';
 
-export default function Category({ posts, categories, currentCategory, seo }) {
+function Category({ posts, categories, currentCategory, seo }) {
   const { data: postItems, links } = posts;
 
   const [lightboxController, setLightboxController] = useState({
@@ -29,7 +29,7 @@ export default function Category({ posts, categories, currentCategory, seo }) {
   }
 
   return (
-    <LandingLayout seo={seo}>
+    <>
       <header className="mb-12 text-center">
         <h1 className="text-5xl font-bold tracking-tight text-text dark:text-text-dark">{currentCategory.name}</h1>
         <p className="mx-auto mt-4 max-w-2xl text-xl text-light-text dark:text-light-text-dark">{currentCategory.description}</p>
@@ -87,6 +87,10 @@ export default function Category({ posts, categories, currentCategory, seo }) {
         sources={imageSources}
         sourceIndex={lightboxController.sourceIndex}
       />
-    </LandingLayout>
+    </>
   );
-} 
+}
+
+Category.layout = page => <LandingLayout children={page} seo={page.props.seo} />;
+
+export default Category;

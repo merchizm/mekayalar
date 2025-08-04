@@ -6,7 +6,7 @@ import PostCard from '@/Components/Landing/Blog/common/PostCard';
 import ImagePost from '@/Components/Landing/Blog/common/ImagePost';
 import Pagination from '@/Components/Common/Pagination';
 
-export default function Type({ posts, categories, currentType, typeLabel, seo }) {
+function Type({ posts, categories, currentType, typeLabel, seo }) {
   const { data: postItems, links } = posts;
 
   const [lightboxController, setLightboxController] = useState({
@@ -34,7 +34,7 @@ export default function Type({ posts, categories, currentType, typeLabel, seo })
   ];
 
   return (
-    <LandingLayout seo={seo}>
+    <>
       <header className="mb-12 text-center">
         <h1 className="text-5xl font-bold tracking-tight text-text dark:text-text-dark">{typeLabel} Gönderileri</h1>
         <p className="mx-auto mt-4 max-w-2xl text-xl text-light-text dark:text-light-text-dark">{typeLabel} türündeki tüm gönderilerim.</p>
@@ -90,6 +90,10 @@ export default function Type({ posts, categories, currentType, typeLabel, seo })
         sources={imageSources}
         sourceIndex={lightboxController.sourceIndex}
       />
-    </LandingLayout>
+    </>
   );
-} 
+}
+
+Type.layout = page => <LandingLayout children={page} seo={page.props.seo} />;
+
+export default Type;
