@@ -22,12 +22,11 @@ Route::post('/update-claps', [ClapController::class, 'updateClaps']);
 
 /*
  * Spotify End-points
- * Let's leave the security pillars aside for now.
  */
 
 Route::group(['as' => 'spotify.', 'prefix' => 'spotify'], function (): void {
     // authentication
-    Route::get('authorize', [SpotifyController::class, 'authToSpotify']);
+    Route::get('authorize', [SpotifyController::class, 'authToSpotify'])->middleware('auth');
     Route::get('callback', [SpotifyController::class, 'callback']);
 
     // others
@@ -39,9 +38,8 @@ Route::group(['as' => 'spotify.', 'prefix' => 'spotify'], function (): void {
 /*
  * Raindrop End-points
  */
-
 Route::group(['as' => 'raindrop.', 'prefix' => 'raindrop'], function (): void {
-    Route::get('authorize', [RaindropController::class, 'authToRain']);
+    Route::get('authorize', [RaindropController::class, 'authToRain'])->middleware('auth');
     Route::get('callback', [RaindropController::class, 'callback']);
     Route::get('collections', [RaindropController::class, 'collections']);
     Route::get('highlights', [RaindropController::class, 'highlights']);
