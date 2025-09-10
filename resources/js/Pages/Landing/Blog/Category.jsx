@@ -37,15 +37,15 @@ function Category({ posts, categories, currentCategory, seo }) {
 
       <div className="flex flex-wrap gap-4 justify-center items-center mb-10">
         <Link href={route('blog.index')} className="px-4 py-2 text-sm font-semibold rounded-full transition-colors bg-button dark:bg-button-dark text-text dark:text-text-dark hover:bg-button-hover dark:hover:bg-button-hover-dark">
-          Tüm Gönderiler
+          {__('Tüm Gönderiler')}
         </Link>
         <Link href={route('blog.type', { type: 'photo' })} className="flex gap-2 items-center px-4 py-2 text-sm font-semibold rounded-full border transition-colors bg-button dark:bg-button-dark text-text dark:text-text-dark border-divider dark:border-divider-dark hover:bg-button-hover dark:hover:bg-button-hover-dark hover:border-menu-active/50">
           <span className="text-lg">📸</span>
-          <span>Fotoğraflar</span>
+          <span>{__('Fotoğraflar')}</span>
         </Link>
         <Link href={route('blog.type', { type: 'drawing' })} className="flex gap-2 items-center px-4 py-2 text-sm font-semibold rounded-full border transition-colors bg-button dark:bg-button-dark text-text dark:text-text-dark border-divider dark:border-divider-dark hover:bg-button-hover dark:hover:bg-button-hover-dark hover:border-menu-active/50">
           <span className="text-lg">👾</span>
-          <span>Çizimler</span>
+          <span>{__('Çizimler')}</span>
         </Link>
         <div className="mx-2 w-px h-6 bg-divider dark:bg-divider-dark"></div>
         {categories.map(category => {
@@ -74,8 +74,8 @@ function Category({ posts, categories, currentCategory, seo }) {
             <svg xmlns="http://www.w3.org/2000/svg" className="mx-auto mb-6 w-20 h-20 text-light-text dark:text-dark-text-dark" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
             </svg>
-            <h2 className="mb-3 text-3xl font-bold text-text dark:text-text-dark">Bu Kategoride Henüz Gönderi Yok</h2>
-            <p className="text-xl text-center text-light-text dark:text-light-text-dark">Bu konu hakkında yazacaklarım olduğunda tekrar uğrayın.</p>
+            <h2 className="mb-3 text-3xl font-bold text-text dark:text-text-dark">{__('Bu Kategoride Henüz Gönderi Yok')}</h2>
+            <p className="text-xl text-center text-light-text dark:text-light-text-dark">{__('Bu konu hakkında yazacaklarım olduğunda tekrar uğrayın.')}</p>
           </div>
         )}
       </div>

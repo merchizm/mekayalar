@@ -14,9 +14,9 @@ const PlaylistsTab = ({ playlists }) => (
                 <div className="p-5">
                   <h3 className="text-lg font-bold text-text dark:text-text-dark line-clamp-1">{playlist.name}</h3>
                   <div className="flex justify-between items-center mt-3">
-                    <span className="text-sm text-light-text dark:text-light-text-dark">{playlist.tracks.total} Şarkı</span>
+                    <span className="text-sm text-light-text dark:text-light-text-dark">{__(':count Şarkı', { count: playlist.tracks.total })}</span>
                     <span className="inline-flex items-center text-sm font-semibold text-menu-active dark:text-menu-active-dark">
-                      Dinle
+                      {__('Dinle')}
                       <svg className="ml-1.5 w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"></path></svg>
                     </span>
                   </div>
@@ -30,8 +30,8 @@ const PlaylistsTab = ({ playlists }) => (
           <svg xmlns="http://www.w3.org/2000/svg" className="mx-auto mb-6 w-20 h-20 text-light-text dark:text-dark-text-dark" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
           </svg>
-          <h2 className="mb-3 text-3xl font-bold text-text dark:text-text-dark">Playlist Bulunamadı</h2>
-          <p className="text-xl text-light-text dark:text-light-text-dark">Henüz herkese açık bir Spotify playlist'im bulunmuyor.</p>
+          <h2 className="mb-3 text-3xl font-bold text-text dark:text-text-dark">{__('Playlist Bulunamadı')}</h2>
+          <p className="text-xl text-light-text dark:text-light-text-dark">{__('Henüz herkese açık bir Spotify playlist\'im bulunmuyor.')}</p>
         </div>
       )}
     </div>

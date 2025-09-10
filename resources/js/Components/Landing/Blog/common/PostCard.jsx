@@ -15,7 +15,7 @@ const PostCard = ({ post }) => (
         <div className="flex items-center mb-4 text-sm text-light-text dark:text-light-text-dark">
           <span>{new Date(post.created_at).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
           <span className="mx-2">•</span>
-          <span>{post.readingTime} dakikalık okuma</span>
+          <span>{__(':count dakikalık okuma', { count: post.readingTime })}</span>
         </div>
         <p className="leading-relaxed text-light-text dark:text-dark-text-dark line-clamp-3">
           {createExcerpt(post.content)}
