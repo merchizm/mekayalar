@@ -22,7 +22,7 @@ const FeaturedProjectCard = ({ project }) => (
       )}
       <div className="flex justify-between items-center mt-4">
         <span className="inline-flex items-center text-sm font-semibold text-menu-active dark:text-menu-active-dark">
-          Detayları İncele
+          {__('Detayları İncele')}
           <svg className="ml-1.5 w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>

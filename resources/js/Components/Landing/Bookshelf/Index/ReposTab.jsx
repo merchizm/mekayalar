@@ -36,8 +36,8 @@ const ReposTab = ({ repos, langColors }) => (
           <svg xmlns="http://www.w3.org/2000/svg" className="mx-auto mb-6 w-20 h-20 text-light-text dark:text-dark-text-dark" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
           </svg>
-          <h2 className="mb-3 text-3xl font-bold text-text dark:text-text-dark">Repo Bulunamadı</h2>
-          <p className="text-xl text-light-text dark:text-light-text-dark">Henüz herkese açık bir repom bulunmuyor.</p>
+          <h2 className="mb-3 text-3xl font-bold text-text dark:text-text-dark">{__('Repo Bulunamadı')}</h2>
+          <p className="text-xl text-light-text dark:text-light-text-dark">{__('Henüz herkese açık bir repom bulunmuyor.')}</p>
         </div>
       )}
     </div>

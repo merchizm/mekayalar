@@ -32,7 +32,7 @@ const ProjectCard = ({ project }) => {
 
         <div className="flex justify-between items-center pt-4 mt-auto border-t border-divider/50 dark:border-divider-dark/50">
           <span className="text-sm font-semibold text-menu-active dark:text-menu-active-dark">
-            Detayları İncele
+            {__('Detayları İncele')}
           </span>
           {project.completed_at && (
             <span className="text-sm text-light-text dark:text-dark-text-dark">{new Date(project.completed_at).getFullYear()}</span>

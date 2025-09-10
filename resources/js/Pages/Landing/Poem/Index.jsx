@@ -29,8 +29,8 @@ function Index({ poems, seo }) {
       </Head>
 
       <header className="mb-12 text-center">
-        <h1 className="text-5xl font-bold tracking-tight text-text dark:text-text-dark">Kalemimden Dökülenler</h1>
-        <p className="mx-auto mt-4 max-w-2xl text-xl text-light-text dark:text-light-text-dark">Duygularımı ve düşüncelerimi mısralara döktüğüm kişisel köşem. Küçük bir uyarı, şiirlerin hiç birini bir estetik kaygısı ile yazmadım.</p>
+        <h1 className="text-5xl font-bold tracking-tight text-text dark:text-text-dark">{__('Kalemimden Dökülenler')}</h1>
+        <p className="mx-auto mt-4 max-w-2xl text-xl text-light-text dark:text-light-text-dark">{__('Duygularımı ve düşüncelerimi mısralara döktüğüm kişisel köşem. Küçük bir uyarı, şiirlerin hiç birini bir estetik kaygısı ile yazmadım.')}</p>
       </header>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2">
@@ -51,7 +51,7 @@ function Index({ poems, seo }) {
               <div className="flex justify-between items-center pt-4 mt-auto border-t border-divider/50 dark:border-divider-dark/50">
                 <span className="text-sm text-light-text dark:text-light-text-dark">{formatDate(poem.wrote_at)}</span>
                 <span className="inline-flex items-center text-sm font-semibold text-text dark:text-text-dark group-hover:underline">
-                  Devamını Oku
+                  {__('Devamını Oku')}
                   <svg className="ml-1 w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>
@@ -67,8 +67,8 @@ function Index({ poems, seo }) {
           <svg xmlns="http://www.w3.org/2000/svg" className="mx-auto mb-4 w-16 h-16 text-light-text dark:text-dark-text-dark" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
           </svg>
-          <h2 className="mb-3 text-2xl font-semibold text-text dark:text-text-dark">Henüz şiir bulunmuyor</h2>
-          <p className="text-light-text dark:text-light-text-dark">Yakında burada şiirlerimi görebileceksiniz.</p>
+          <h2 className="mb-3 text-2xl font-semibold text-text dark:text-text-dark">{__('Henüz şiir bulunmuyor')}</h2>
+          <p className="text-light-text dark:text-light-text-dark">{__('Yakında burada şiirlerimi görebileceksiniz.')}</p>
         </div>
       )}
     </>
