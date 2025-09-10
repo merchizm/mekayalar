@@ -24,9 +24,22 @@ class InertiaServiceProvider extends ServiceProvider
         $data = [];
 
         $data['locale'] = function () {
+            $supported = ['en', 'tr'];
+
             if (session()->has('locale')) {
-                session()->get('locale');
                 App::setLocale(session()->get('locale'));
+            } elseif (request()->hasCookie('locale')) {
+                $locale = request()->cookie('locale');
+                if (in_array($locale, $supported)) {
+                    session()->put('locale', $locale);
+                    App::setLocale($locale);
+                }
+            } else {
+                $preferred = request()->getPreferredLanguage($supported) ?: 'en';
+                $locale = in_array($preferred, $supported) ? $preferred : 'en';
+                session()->put('locale', $locale);
+                App::setLocale($locale);
+                cookie()->queue('locale', $locale, 60 * 24 * 365);
             }
 
             return app()->getLocale();
