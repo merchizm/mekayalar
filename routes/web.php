@@ -14,6 +14,7 @@ use App\Http\Controllers\Landing\PoemController as LandingPoemController;
 use App\Http\Controllers\Landing\ProjectController as LandingProjectController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SitemapController;
+use App\Http\Controllers\LanguageController;
 use App\Models\Project;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
@@ -69,6 +70,7 @@ Route::get('/bookshelf', [BookshelfController::class, 'index'])->name('bookshelf
 
 Route::get('/projects', [LandingProjectController::class, 'index'])->name('projects.index');
 Route::get('/projects/{project}', [LandingProjectController::class, 'show'])->name('projects.show');
+Route::post('/language', [LanguageController::class, 'switch'])->name('language.switch');
 Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
