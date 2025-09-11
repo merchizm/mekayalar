@@ -52,6 +52,11 @@ export default function ScreenSaver() {
   };
 
   useEffect(() => {
+    // Development modunda screensaver'ı devre dışı bırak
+    if (import.meta.env.DEV) {
+      return;
+    }
+
     document.body.addEventListener('mouseleave', handleMouseLeave);
     document.body.addEventListener('mousemove', handleMouseMove);
 

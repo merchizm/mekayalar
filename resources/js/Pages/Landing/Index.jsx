@@ -104,7 +104,7 @@ function Index({ seo, featuredProjects }) {
                   title="***** - Freelance Full-stack Developer"
                   date={__('Mayıs 2025')}
                   logo="/assets/img/hidden.png">
-                  {__('Ağırlıklı olarak Front-end olmak üzere, laravel ekosistemine uygun react/blade ve blade + alpine arayüzleri geliştiriyorum.')}
+                  {__('Ağırlıklı olarak Front-end odaklı çalışıyor, Laravel ekosistemiyle uyumlu React/Blade ve Blade + Alpine.js tabanlı arayüzler geliştiriyorum. Figma tasarımlarını üretim ortamına uygun şekilde koda aktarıyor, sistemin sürdürülebilirliğini sağlamak üzere iyileştirmeler yapıyor ve olası darboğazları ile performans problemlerini ortadan kaldırıyorum.')}
               </AccordionItem>
 
             <AccordionItem

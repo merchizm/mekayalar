@@ -38,7 +38,7 @@ function LandingLayout({ children, seo }) {
       <div className="relative min-h-screen bg-background text-text dark:bg-background-dark dark:text-text-dark">
         <Header />
 
-        <div className="px-4 pt-28 pb-40 mx-auto max-w-screen-xl">
+        <div className="px-4 pt-28 pb-16 mx-auto max-w-screen-xl">
           <div className="flex flex-col items-center mb-16 text-center">
             <div className="w-full max-w-[300px] mb-4 mx-auto">
               <ApplicationLogo className="w-[300px] fill-text dark:fill-text-dark" />
