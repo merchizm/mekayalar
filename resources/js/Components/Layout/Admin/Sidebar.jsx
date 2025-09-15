@@ -121,6 +121,7 @@ export default function Sidebar() {
         { name: 'Dosyalar', href: route('admin.media.index'), current: route().current('admin.media.*') },
       ],
     },
+    { name: 'CV Yönetimi', href: route('admin.cv.index'), icon: { outline: UserCircleOutline, solid: UserCircleSolid }, current: route().current('admin.cv.*') },
     { name: 'Profilim', href: route('admin.profile.edit'), icon: { outline: UserCircleOutline, solid: UserCircleSolid }, current: route().current('admin.profile.edit') },
   ];
 
