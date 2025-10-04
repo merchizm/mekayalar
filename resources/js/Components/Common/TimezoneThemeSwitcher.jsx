@@ -104,19 +104,19 @@ export default function TimezoneThemeSwitcher({ isDarkMode, setTimeBasedMode, ha
   };
 
   return (
-    <div className="flex flex-col items-center px-2 w-full sm:px-0">
-      <div className="flex relative justify-between items-end w-full max-w-sm h-12 sm:max-w-2xl sm:h-16" ref={ticksContainerRef} onMouseLeave={handleMouseLeave}>
+    <div className="flex flex-col items-center w-full px-2 sm:px-0">
+      <div className="relative flex items-end justify-between w-full h-12 max-w-sm sm:max-w-2xl sm:h-16" ref={ticksContainerRef} onMouseLeave={handleMouseLeave}>
         {hours.map((hour, index) => {
           const isTickNight = hour >= 21 || hour < 9;
           const isCurrent = hour === displayHour;
           const isHovered = index === hoveredIndex;
           const isNearHovered = hoveredIndex !== null && (index === hoveredIndex - 1 || index === hoveredIndex + 1);
 
-          let tickClasses = 'timeline-tick mobile-timeline-tick ';
-          tickClasses += isTickNight ? 'tick-night ' : 'tick-day ';
-          if (isCurrent) tickClasses += 'tick-current ';
-          if (isHovered) tickClasses += 'hover-main ';
-          if (isNearHovered) tickClasses += 'hover-near ';
+          let dotClasses = 'timeline-dot ';
+          dotClasses += isTickNight ? 'dot-night ' : 'dot-day ';
+          if (isCurrent) dotClasses += 'dot-current ';
+          if (isHovered) dotClasses += 'hover-main ';
+          if (isNearHovered) dotClasses += 'hover-near ';
 
           return (
             <div key={hour}
@@ -127,23 +127,21 @@ export default function TimezoneThemeSwitcher({ isDarkMode, setTimeBasedMode, ha
               onTouchEnd={handleTouchEnd}
               onClick={() => {
                 if (hour === actualHour && hasManualOverride && resetToAutomatic) {
-                  // Clicking on actual time when manual override is active - reset to automatic
                   resetToAutomatic();
                 } else {
-                  // Normal time selection
                   setDisplayHour(hour);
                 }
               }}>
-              <div className={tickClasses.trim()}></div>
+              {isCurrent ? (
+                <div className="flex items-center justify-center text-text dark:text-text-dark">
+                  {isDarkMode ? <NightIcon /> : <DayIcon />}
+                </div>
+              ) : (
+                <div className={dotClasses.trim()}></div>
+              )}
             </div>
           );
         })}
-
-        <div className="absolute timeline-marker" ref={markerRef} style={{ opacity: 0, transition: 'all 0.4s ease-out' }}>
-          <button className="flex justify-center items-center w-6 h-6 text-white rounded-full ring-2 sm:w-8 sm:h-8 sm:ring-4 bg-menu-active dark:bg-menu-active-dark dark:text-background-dark ring-background dark:ring-background-dark touch-manipulation">
-            {isDarkMode ? <NightIcon /> : <DayIcon />}
-          </button>
-        </div>
       </div>
     </div>
   );

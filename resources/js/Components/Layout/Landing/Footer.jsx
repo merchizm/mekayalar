@@ -13,24 +13,62 @@ const Footer = ({ isDarkMode, setTimeBasedMode, hasManualOverride, resetToAutoma
             resetToAutomatic={resetToAutomatic}
           />
         </div>
-        <div className="flex gap-8 justify-center items-end mt-12 mb-8 lg:gap-12">
-          <div className="text-center transition-transform hover:scale-105">
-            <img src="/assets/img/ataturk-32310.png" className="mx-auto mb-2 h-16" alt="Halaskâr Başöğretmenimiz Mareşal Mustafa Kemal Atatürk" />
-            <span className="text-xs text-light-text dark:text-light-text-dark">
-              Halaskâr<br />Mustafa Kemal Atatürk
-            </span>
+        <div className="grid grid-cols-1 gap-6 mt-12 mb-8 sm:grid-cols-3 max-w-4xl mx-auto">
+          <div className="group flex flex-col items-center p-6 rounded-lg border border-divider dark:border-divider-dark hover:border-menu-active dark:hover:border-menu-active-dark transition-all duration-300 bg-background dark:bg-background-dark">
+            <div className="relative mb-4">
+              <div className="absolute inset-0 bg-menu-active/5 dark:bg-menu-active-dark/5 rounded-full blur-xl group-hover:bg-menu-active/10 dark:group-hover:bg-menu-active-dark/10 transition-all duration-300"></div>
+              <img
+                src="/assets/img/ataturk-32310.png"
+                className="relative h-20 w-auto mx-auto object-contain"
+                alt="Halaskâr Başöğretmenimiz Mareşal Mustafa Kemal Atatürk"
+              />
+            </div>
+            <div className="text-center">
+              <h3 className="text-sm font-semibold text-text dark:text-text-dark mb-1">
+                Halaskâr
+              </h3>
+              <p className="text-xs text-light-text dark:text-light-text-dark">
+                Mustafa Kemal Atatürk
+              </p>
+            </div>
           </div>
-          <div className="text-center transition-transform hover:scale-105">
-            <img src="/assets/img/turkiye_coat_of_army_fan_made.png" className="mx-auto mb-2 h-20" alt="Türkiye Coat Of Army (Unofficial)" />
-            <span className="text-xs text-light-text dark:text-light-text-dark">
-              Türkiye<br />Cumhuriyeti
-            </span>
+
+          <div className="group flex flex-col items-center p-6 rounded-lg border border-divider dark:border-divider-dark hover:border-menu-active dark:hover:border-menu-active-dark transition-all duration-300 bg-background dark:bg-background-dark">
+            <div className="relative mb-4">
+              <div className="absolute inset-0 bg-menu-active/5 dark:bg-menu-active-dark/5 rounded-full blur-xl group-hover:bg-menu-active/10 dark:group-hover:bg-menu-active-dark/10 transition-all duration-300"></div>
+              <img
+                src="/assets/img/turkiye_coat_of_army_fan_made.png"
+                className="relative h-24 w-auto mx-auto object-contain"
+                alt="Türkiye Coat Of Army (Unofficial)"
+              />
+            </div>
+            <div className="text-center">
+              <h3 className="text-sm font-semibold text-text dark:text-text-dark mb-1">
+                Türkiye
+              </h3>
+              <p className="text-xs text-light-text dark:text-light-text-dark">
+                Cumhuriyeti
+              </p>
+            </div>
           </div>
-          <div className="text-center transition-transform hover:scale-105">
-            <img src="/assets/img/tatarstan_coat_of_army.png" className="mx-auto mb-2 h-16" alt="Tatarstan Coat Of Army" />
-            <span className="text-xs text-light-text dark:text-light-text-dark">
-              Tatarstan<br />Respublikasy
-            </span>
+
+          <div className="group flex flex-col items-center p-6 rounded-lg border border-divider dark:border-divider-dark hover:border-menu-active dark:hover:border-menu-active-dark transition-all duration-300 bg-background dark:bg-background-dark">
+            <div className="relative mb-4">
+              <div className="absolute inset-0 bg-menu-active/5 dark:bg-menu-active-dark/5 rounded-full blur-xl group-hover:bg-menu-active/10 dark:group-hover:bg-menu-active-dark/10 transition-all duration-300"></div>
+              <img
+                src="/assets/img/tatarstan_coat_of_army.png"
+                className="relative h-20 w-auto mx-auto object-contain"
+                alt="Tatarstan Coat Of Army"
+              />
+            </div>
+            <div className="text-center">
+              <h3 className="text-sm font-semibold text-text dark:text-text-dark mb-1">
+                Tatarstan
+              </h3>
+              <p className="text-xs text-light-text dark:text-light-text-dark">
+                Respublikasy
+              </p>
+            </div>
           </div>
         </div>
 
