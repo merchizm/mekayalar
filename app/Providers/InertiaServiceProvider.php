@@ -36,7 +36,7 @@ class InertiaServiceProvider extends ServiceProvider
                 }
             } else {
                 $preferred = request()->getPreferredLanguage($supported) ?: 'en';
-                $locale = in_array($preferred, $supported) ? $preferred : 'en';
+                $locale    = in_array($preferred, $supported) ? $preferred : 'en';
                 session()->put('locale', $locale);
                 App::setLocale($locale);
                 cookie()->queue('locale', $locale, 60 * 24 * 365);

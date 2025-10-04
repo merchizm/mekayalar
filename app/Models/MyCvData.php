@@ -17,7 +17,7 @@ class MyCvData extends Model
     ];
 
     protected $casts = [
-        'data' => 'array',
+        'data'       => 'array',
         'is_visible' => 'boolean',
     ];
 
@@ -34,8 +34,8 @@ class MyCvData extends Model
     public static function getSection(string $sectionName, string $language = 'tr'): ?self
     {
         return static::where('section_name', $sectionName)
-                     ->where('language', $language)
-                     ->first();
+            ->where('language', $language)
+            ->first();
     }
 
     public static function updateSection(string $sectionName, array $data, string $language = 'tr'): self
@@ -49,6 +49,7 @@ class MyCvData extends Model
     public static function getSectionBothLanguages(string $sectionName): array
     {
         $sections = static::where('section_name', $sectionName)->get();
+
         return [
             'tr' => $sections->firstWhere('language', 'tr'),
             'en' => $sections->firstWhere('language', 'en'),

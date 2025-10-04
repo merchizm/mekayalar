@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\MyCvData;
 use App\Models\CvSetting;
+use App\Models\MyCvData;
 use App\Services\PersonalCvPdfGenerator;
 use Inertia\Inertia;
 
@@ -12,31 +12,31 @@ class PublicCvController extends Controller
     public function show()
     {
         $visibility = CvSetting::get('cv_visibility', ['show_on_public_site' => false]);
-        
+
         if (!$visibility['show_on_public_site']) {
             abort(404);
         }
 
         // Get questionnaire parameters
-        $language = request('lang', 'tr');
+        $language  = request('lang', 'tr');
         $roleFocus = request('role_focus', 'fullstack');
-        $purpose = request('purpose', 'general_view');
-        $industry = request('industry', 'tech');
+        $purpose   = request('purpose', 'general_view');
+        $industry  = request('industry', 'tech');
 
-        $cvData = $this->getCvDataForLanguage($language, $roleFocus);
+        $cvData   = $this->getCvDataForLanguage($language, $roleFocus);
         $settings = [
-            'template' => CvSetting::get('cv_template', []),
+            'template'   => CvSetting::get('cv_template', []),
             'visibility' => $visibility,
         ];
 
         return Inertia::render('CV/PublicView', [
-            'cvData' => $cvData,
-            'settings' => $settings,
+            'cvData'        => $cvData,
+            'settings'      => $settings,
             'questionnaire' => [
-                'language' => $language,
+                'language'  => $language,
                 'roleFocus' => $roleFocus,
-                'purpose' => $purpose,
-                'industry' => $industry,
+                'purpose'   => $purpose,
+                'industry'  => $industry,
             ],
         ]);
     }
@@ -45,23 +45,23 @@ class PublicCvController extends Controller
     {
         $visibility = CvSetting::get('cv_visibility', [
             'show_on_public_site' => false,
-            'allow_pdf_download' => false,
+            'allow_pdf_download'  => false,
         ]);
-        
+
         if (!$visibility['show_on_public_site'] || !$visibility['allow_pdf_download']) {
             abort(404);
         }
 
         // Get questionnaire parameters for PDF
-        $language = request('lang', 'tr');
+        $language  = request('lang', 'tr');
         $roleFocus = request('role_focus', 'fullstack');
-        
-        $cvData = $this->getCvDataForLanguage($language, $roleFocus);
+
+        $cvData   = $this->getCvDataForLanguage($language, $roleFocus);
         $settings = CvSetting::get('cv_template', []);
 
         $pdf = app(PersonalCvPdfGenerator::class)->generate($cvData, $settings);
 
-        return response()->streamDownload(function() use ($pdf) {
+        return response()->streamDownload(function () use ($pdf): void {
             echo $pdf;
         }, "meric-enes-kayalar-{$roleFocus}-cv.pdf", [
             'Content-Type' => 'application/pdf',
@@ -71,20 +71,20 @@ class PublicCvController extends Controller
     private function getFullCvData(): array
     {
         $sections = MyCvData::visible()->ordered()->get();
-        $data = [];
-        
+        $data     = [];
+
         foreach ($sections as $section) {
             $data[$section->section_name] = $section->data;
         }
-        
+
         return $data;
     }
 
     private function getCvDataForLanguage(string $language = 'tr', string $roleFocus = 'fullstack'): array
     {
         $sections = MyCvData::where('language', $language)->visible()->ordered()->get();
-        $data = [];
-        
+        $data     = [];
+
         foreach ($sections as $section) {
             $data[$section->section_name] = $section->data;
         }
@@ -116,13 +116,13 @@ class PublicCvController extends Controller
     private function prioritizeSkillsForRole(array $skills, string $roleFocus): array
     {
         $skillsPriority = [
-            'backend' => ['Backend', 'Database', 'API', 'Server', 'Infrastructure'],
-            'frontend' => ['Frontend', 'UI/UX', 'JavaScript', 'CSS', 'Design'],
+            'backend'   => ['Backend', 'Database', 'API', 'Server', 'Infrastructure'],
+            'frontend'  => ['Frontend', 'UI/UX', 'JavaScript', 'CSS', 'Design'],
             'fullstack' => ['Full-Stack', 'Backend', 'Frontend', 'JavaScript', 'Database'],
-            'devops' => ['DevOps', 'Infrastructure', 'Cloud', 'Automation', 'Monitoring'],
+            'devops'    => ['DevOps', 'Infrastructure', 'Cloud', 'Automation', 'Monitoring'],
         ];
 
-        $priority = $skillsPriority[$roleFocus] ?? $skillsPriority['fullstack'];
+        $priority     = $skillsPriority[$roleFocus] ?? $skillsPriority['fullstack'];
         $sortedSkills = [];
 
         // First add priority categories
@@ -148,24 +148,24 @@ class PublicCvController extends Controller
     private function prioritizeProjectsForRole(array $projects, string $roleFocus): array
     {
         $roleKeywords = [
-            'backend' => ['api', 'backend', 'server', 'database', 'microservice'],
-            'frontend' => ['frontend', 'ui', 'react', 'vue', 'angular', 'javascript'],
+            'backend'   => ['api', 'backend', 'server', 'database', 'microservice'],
+            'frontend'  => ['frontend', 'ui', 'react', 'vue', 'angular', 'javascript'],
             'fullstack' => ['full-stack', 'fullstack', 'web', 'application'],
-            'devops' => ['devops', 'docker', 'kubernetes', 'ci/cd', 'deployment'],
+            'devops'    => ['devops', 'docker', 'kubernetes', 'ci/cd', 'deployment'],
         ];
 
         $keywords = $roleKeywords[$roleFocus] ?? [];
 
-        usort($projects, function($a, $b) use ($keywords) {
+        usort($projects, function ($a, $b) use ($keywords) {
             $scoreA = 0;
             $scoreB = 0;
 
             foreach ($keywords as $keyword) {
-                if (stripos($a['description'] ?? '', $keyword) !== false || 
+                if (stripos($a['description'] ?? '', $keyword) !== false ||
                     stripos($a['name'] ?? '', $keyword) !== false) {
                     $scoreA++;
                 }
-                if (stripos($b['description'] ?? '', $keyword) !== false || 
+                if (stripos($b['description'] ?? '', $keyword) !== false ||
                     stripos($b['name'] ?? '', $keyword) !== false) {
                     $scoreB++;
                 }

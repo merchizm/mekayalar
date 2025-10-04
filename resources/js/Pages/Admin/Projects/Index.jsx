@@ -59,7 +59,8 @@ export default function Index({ auth, projects }) {
         </div>
 
         <div className="bg-white rounded-lg border border-gray-200 shadow-sm dark:bg-gray-800 dark:border-gray-700">
-          <div className="-mx-4 sm:-mx-6 lg:-mx-8">
+          {/* Desktop Table View */}
+          <div className="hidden md:block -mx-4 sm:-mx-6 lg:-mx-8">
             <div className="inline-block min-w-full align-middle sm:px-6 lg:px-8">
               <div className="border-b border-gray-200 shadow-sm dark:border-gray-700 sm:rounded-lg">
                 <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
@@ -159,6 +160,58 @@ export default function Index({ auth, projects }) {
                 </table>
               </div>
             </div>
+          </div>
+
+          {/* Mobile Card View */}
+          <div className="md:hidden p-4 space-y-4">
+            {projects.length > 0 ? (
+              projects.map(project => (
+                <div key={project.id} className="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg p-4">
+                  <div className="flex items-start gap-3 mb-3">
+                    <div className="flex-shrink-0 w-12 h-12">
+                      {project.image ? (
+                        <img className="object-cover w-12 h-12 rounded-lg" src={project.image} alt={project.title} />
+                      ) : (
+                        <span className="flex justify-center items-center w-12 h-12 font-bold text-gray-600 bg-gray-300 rounded-lg dark:bg-gray-600 dark:text-gray-300">{project.title.substring(0, 1)}</span>
+                      )}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-sm font-medium text-gray-900 dark:text-white line-clamp-2">{project.title}</h3>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 line-clamp-2">{createExcerpt(project.description, 80)}</p>
+                      <div className="flex items-center gap-2 mt-2">
+                        <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${project.is_published ? 'bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300' : 'bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-300'}`}>
+                          {project.is_published ? 'Yayında' : 'Taslak'}
+                        </span>
+                        {project.is_featured && (
+                          <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300">
+                            Öne Çıkan
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-3">
+                    <span className="block">{project.completed_at ? new Date(project.completed_at).toLocaleDateString('tr-TR') : 'Tamamlanma tarihi belirtilmemiş'}</span>
+                  </div>
+                  <div className="flex gap-2">
+                    <Link href={route('admin.projects.edit', project.slug)} className="flex-1 px-3 py-2 text-center text-xs font-medium text-white bg-yellow-500 rounded-md hover:bg-yellow-600">
+                      Düzenle
+                    </Link>
+                    <a href={route('projects.show', project.slug)} target="_blank" rel="noopener noreferrer" className="flex-1 px-3 py-2 text-center text-xs font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600">
+                      Görüntüle
+                    </a>
+                    <button onClick={() => openDeleteModal(project)} className="flex-1 px-3 py-2 text-xs font-medium text-white bg-red-600 rounded-md hover:bg-red-700">
+                      Sil
+                    </button>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="text-center py-12 text-gray-400 dark:text-gray-500">
+                <p className="text-gray-500 dark:text-gray-400 text-base font-medium">Proje bulunamadı</p>
+                <p className="text-gray-400 dark:text-gray-500 text-sm mt-1">İlk projenizi oluşturmak için "Yeni Proje Ekle" butonuna tıklayın.</p>
+              </div>
+            )}
           </div>
         </div>
 

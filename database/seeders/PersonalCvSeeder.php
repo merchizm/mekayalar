@@ -19,159 +19,159 @@ class PersonalCvSeeder extends Seeder
     {
         $sections = [
             [
-                'name' => 'personal_info',
+                'name'               => 'personal_info',
                 'title_translations' => [
                     'tr' => 'Kişisel Bilgiler',
-                    'en' => 'Personal Information'
+                    'en' => 'Personal Information',
                 ],
-                'icon' => 'user',
+                'icon'       => 'user',
                 'sort_order' => 1,
-                'questions' => [
+                'questions'  => [
                     [
-                        'field_name' => 'full_name',
+                        'field_name'         => 'full_name',
                         'label_translations' => [
                             'tr' => 'Ad Soyad',
-                            'en' => 'Full Name'
+                            'en' => 'Full Name',
                         ],
-                        'input_type' => 'text',
+                        'input_type'  => 'text',
                         'is_required' => true,
-                        'sort_order' => 1,
+                        'sort_order'  => 1,
                     ],
                     [
-                        'field_name' => 'title',
+                        'field_name'         => 'title',
                         'label_translations' => [
                             'tr' => 'Meslek/Unvan',
-                            'en' => 'Professional Title'
+                            'en' => 'Professional Title',
                         ],
-                        'input_type' => 'text',
+                        'input_type'  => 'text',
                         'is_required' => true,
-                        'sort_order' => 2,
+                        'sort_order'  => 2,
                     ],
                     [
-                        'field_name' => 'email',
+                        'field_name'         => 'email',
                         'label_translations' => [
                             'tr' => 'E-posta',
-                            'en' => 'Email'
+                            'en' => 'Email',
                         ],
-                        'input_type' => 'email',
-                        'is_required' => true,
+                        'input_type'       => 'email',
+                        'is_required'      => true,
                         'validation_rules' => ['email'],
-                        'sort_order' => 3,
+                        'sort_order'       => 3,
                     ],
                     [
-                        'field_name' => 'phone',
+                        'field_name'         => 'phone',
                         'label_translations' => [
                             'tr' => 'Telefon',
-                            'en' => 'Phone'
+                            'en' => 'Phone',
                         ],
                         'input_type' => 'text',
                         'sort_order' => 4,
                     ],
                     [
-                        'field_name' => 'location',
+                        'field_name'         => 'location',
                         'label_translations' => [
                             'tr' => 'Konum',
-                            'en' => 'Location'
+                            'en' => 'Location',
                         ],
                         'input_type' => 'text',
                         'sort_order' => 5,
                     ],
                     [
-                        'field_name' => 'website',
+                        'field_name'         => 'website',
                         'label_translations' => [
                             'tr' => 'Website',
-                            'en' => 'Website'
+                            'en' => 'Website',
                         ],
-                        'input_type' => 'url',
+                        'input_type'       => 'url',
                         'validation_rules' => ['url'],
-                        'sort_order' => 6,
+                        'sort_order'       => 6,
                     ],
                 ],
             ],
             [
-                'name' => 'summary',
+                'name'               => 'summary',
                 'title_translations' => [
                     'tr' => 'Özet',
-                    'en' => 'Summary'
+                    'en' => 'Summary',
                 ],
-                'icon' => 'document-text',
+                'icon'       => 'document-text',
                 'sort_order' => 2,
-                'questions' => [
+                'questions'  => [
                     [
-                        'field_name' => 'professional_summary',
+                        'field_name'         => 'professional_summary',
                         'label_translations' => [
                             'tr' => 'Profesyonel Özet',
-                            'en' => 'Professional Summary'
+                            'en' => 'Professional Summary',
                         ],
-                        'input_type' => 'textarea',
+                        'input_type'  => 'textarea',
                         'is_required' => true,
-                        'sort_order' => 1,
+                        'sort_order'  => 1,
                     ],
                 ],
             ],
             [
-                'name' => 'experience',
+                'name'               => 'experience',
                 'title_translations' => [
                     'tr' => 'İş Deneyimi',
-                    'en' => 'Work Experience'
+                    'en' => 'Work Experience',
                 ],
-                'icon' => 'briefcase',
+                'icon'       => 'briefcase',
                 'sort_order' => 3,
-                'questions' => [
+                'questions'  => [
                     [
-                        'field_name' => 'company',
+                        'field_name'         => 'company',
                         'label_translations' => [
                             'tr' => 'Şirket Adı',
-                            'en' => 'Company Name'
+                            'en' => 'Company Name',
                         ],
-                        'input_type' => 'text',
+                        'input_type'  => 'text',
                         'is_required' => true,
-                        'sort_order' => 1,
+                        'sort_order'  => 1,
                     ],
                     [
-                        'field_name' => 'position',
+                        'field_name'         => 'position',
                         'label_translations' => [
                             'tr' => 'Pozisyon',
-                            'en' => 'Position'
+                            'en' => 'Position',
                         ],
-                        'input_type' => 'text',
+                        'input_type'  => 'text',
                         'is_required' => true,
-                        'sort_order' => 2,
+                        'sort_order'  => 2,
                     ],
                     [
-                        'field_name' => 'location',
+                        'field_name'         => 'location',
                         'label_translations' => [
                             'tr' => 'Konum',
-                            'en' => 'Location'
+                            'en' => 'Location',
                         ],
                         'input_type' => 'text',
                         'sort_order' => 3,
                     ],
                     [
-                        'field_name' => 'start_date',
+                        'field_name'         => 'start_date',
                         'label_translations' => [
                             'tr' => 'Başlangıç Tarihi',
-                            'en' => 'Start Date'
+                            'en' => 'Start Date',
                         ],
-                        'input_type' => 'date',
+                        'input_type'  => 'date',
                         'is_required' => true,
-                        'sort_order' => 4,
+                        'sort_order'  => 4,
                     ],
                     [
-                        'field_name' => 'end_date',
+                        'field_name'         => 'end_date',
                         'label_translations' => [
                             'tr' => 'Bitiş Tarihi',
-                            'en' => 'End Date'
+                            'en' => 'End Date',
                         ],
-                        'input_type' => 'date',
+                        'input_type'  => 'date',
                         'placeholder' => 'Devam ediyorsa boş bırakın',
-                        'sort_order' => 5,
+                        'sort_order'  => 5,
                     ],
                     [
-                        'field_name' => 'description',
+                        'field_name'         => 'description',
                         'label_translations' => [
                             'tr' => 'Açıklama',
-                            'en' => 'Description'
+                            'en' => 'Description',
                         ],
                         'input_type' => 'textarea',
                         'sort_order' => 6,
@@ -179,49 +179,49 @@ class PersonalCvSeeder extends Seeder
                 ],
             ],
             [
-                'name' => 'education',
+                'name'               => 'education',
                 'title_translations' => [
                     'tr' => 'Eğitim',
-                    'en' => 'Education'
+                    'en' => 'Education',
                 ],
-                'icon' => 'academic-cap',
+                'icon'       => 'academic-cap',
                 'sort_order' => 4,
-                'questions' => [
+                'questions'  => [
                     [
-                        'field_name' => 'institution',
+                        'field_name'         => 'institution',
                         'label_translations' => [
                             'tr' => 'Kurum',
-                            'en' => 'Institution'
+                            'en' => 'Institution',
                         ],
-                        'input_type' => 'text',
+                        'input_type'  => 'text',
                         'is_required' => true,
-                        'sort_order' => 1,
+                        'sort_order'  => 1,
                     ],
                     [
-                        'field_name' => 'degree',
+                        'field_name'         => 'degree',
                         'label_translations' => [
                             'tr' => 'Derece/Bölüm',
-                            'en' => 'Degree/Field'
+                            'en' => 'Degree/Field',
                         ],
-                        'input_type' => 'text',
+                        'input_type'  => 'text',
                         'is_required' => true,
-                        'sort_order' => 2,
+                        'sort_order'  => 2,
                     ],
                     [
-                        'field_name' => 'graduation_year',
+                        'field_name'         => 'graduation_year',
                         'label_translations' => [
                             'tr' => 'Mezuniyet Yılı',
-                            'en' => 'Graduation Year'
+                            'en' => 'Graduation Year',
                         ],
-                        'input_type' => 'number',
+                        'input_type'       => 'number',
                         'validation_rules' => ['numeric', 'min:1980', 'max:2030'],
-                        'sort_order' => 3,
+                        'sort_order'       => 3,
                     ],
                     [
-                        'field_name' => 'gpa',
+                        'field_name'         => 'gpa',
                         'label_translations' => [
                             'tr' => 'Not Ortalaması',
-                            'en' => 'GPA'
+                            'en' => 'GPA',
                         ],
                         'input_type' => 'text',
                         'sort_order' => 4,
@@ -229,115 +229,115 @@ class PersonalCvSeeder extends Seeder
                 ],
             ],
             [
-                'name' => 'skills',
+                'name'               => 'skills',
                 'title_translations' => [
                     'tr' => 'Yetenekler',
-                    'en' => 'Skills'
+                    'en' => 'Skills',
                 ],
-                'icon' => 'code',
+                'icon'       => 'code',
                 'sort_order' => 5,
-                'questions' => [
+                'questions'  => [
                     [
-                        'field_name' => 'category',
+                        'field_name'         => 'category',
                         'label_translations' => [
                             'tr' => 'Kategori',
-                            'en' => 'Category'
+                            'en' => 'Category',
                         ],
                         'input_type' => 'select',
-                        'options' => [
+                        'options'    => [
                             'Programming Languages' => 'Programlama Dilleri',
-                            'Frameworks' => 'Framework\'ler',
-                            'Databases' => 'Veritabanları',
-                            'Tools' => 'Araçlar',
-                            'Soft Skills' => 'Kişisel Yetenekler',
+                            'Frameworks'            => 'Framework\'ler',
+                            'Databases'             => 'Veritabanları',
+                            'Tools'                 => 'Araçlar',
+                            'Soft Skills'           => 'Kişisel Yetenekler',
                         ],
                         'is_required' => true,
-                        'sort_order' => 1,
+                        'sort_order'  => 1,
                     ],
                     [
-                        'field_name' => 'skill_name',
+                        'field_name'         => 'skill_name',
                         'label_translations' => [
                             'tr' => 'Yetenek',
-                            'en' => 'Skill'
+                            'en' => 'Skill',
                         ],
-                        'input_type' => 'text',
+                        'input_type'  => 'text',
                         'is_required' => true,
-                        'sort_order' => 2,
+                        'sort_order'  => 2,
                     ],
                     [
-                        'field_name' => 'level',
+                        'field_name'         => 'level',
                         'label_translations' => [
                             'tr' => 'Seviye',
-                            'en' => 'Level'
+                            'en' => 'Level',
                         ],
                         'input_type' => 'select',
-                        'options' => [
-                            'Beginner' => 'Başlangıç',
+                        'options'    => [
+                            'Beginner'     => 'Başlangıç',
                             'Intermediate' => 'Orta',
-                            'Advanced' => 'İleri',
-                            'Expert' => 'Uzman',
+                            'Advanced'     => 'İleri',
+                            'Expert'       => 'Uzman',
                         ],
                         'sort_order' => 3,
                     ],
                 ],
             ],
             [
-                'name' => 'projects',
+                'name'               => 'projects',
                 'title_translations' => [
                     'tr' => 'Projeler',
-                    'en' => 'Projects'
+                    'en' => 'Projects',
                 ],
-                'icon' => 'folder',
+                'icon'       => 'folder',
                 'sort_order' => 6,
-                'questions' => [
+                'questions'  => [
                     [
-                        'field_name' => 'name',
+                        'field_name'         => 'name',
                         'label_translations' => [
                             'tr' => 'Proje Adı',
-                            'en' => 'Project Name'
+                            'en' => 'Project Name',
                         ],
-                        'input_type' => 'text',
+                        'input_type'  => 'text',
                         'is_required' => true,
-                        'sort_order' => 1,
+                        'sort_order'  => 1,
                     ],
                     [
-                        'field_name' => 'description',
+                        'field_name'         => 'description',
                         'label_translations' => [
                             'tr' => 'Açıklama',
-                            'en' => 'Description'
+                            'en' => 'Description',
                         ],
-                        'input_type' => 'textarea',
+                        'input_type'  => 'textarea',
                         'is_required' => true,
-                        'sort_order' => 2,
+                        'sort_order'  => 2,
                     ],
                     [
-                        'field_name' => 'technologies',
+                        'field_name'         => 'technologies',
                         'label_translations' => [
                             'tr' => 'Kullanılan Teknolojiler (virgülle ayırın)',
-                            'en' => 'Technologies Used (comma separated)'
+                            'en' => 'Technologies Used (comma separated)',
                         ],
                         'input_type' => 'text',
                         'sort_order' => 3,
                     ],
                     [
-                        'field_name' => 'url',
+                        'field_name'         => 'url',
                         'label_translations' => [
                             'tr' => 'Proje URL\'si',
-                            'en' => 'Project URL'
+                            'en' => 'Project URL',
                         ],
-                        'input_type' => 'url',
+                        'input_type'       => 'url',
                         'validation_rules' => ['url'],
-                        'sort_order' => 4,
+                        'sort_order'       => 4,
                     ],
                     [
-                        'field_name' => 'github',
+                        'field_name'         => 'github',
                         'label_translations' => [
                             'tr' => 'GitHub URL\'si',
-                            'en' => 'GitHub URL'
+                            'en' => 'GitHub URL',
                         ],
-                        'input_type' => 'url',
+                        'input_type'       => 'url',
                         'validation_rules' => ['url'],
-                        'sort_order' => 5,
+                        'sort_order'       => 5,
                     ],
                 ],
             ],
@@ -360,8 +360,8 @@ class PersonalCvSeeder extends Seeder
     {
         CvSetting::set('cv_template', [
             'template' => 'modern',
-            'colors' => [
-                'primary' => '#2563eb',
+            'colors'   => [
+                'primary'   => '#2563eb',
                 'secondary' => '#1f2937',
             ],
             'font_family' => 'Inter',
@@ -369,8 +369,8 @@ class PersonalCvSeeder extends Seeder
 
         CvSetting::set('cv_visibility', [
             'show_on_public_site' => true,
-            'allow_pdf_download' => true,
-            'show_contact_info' => true,
+            'allow_pdf_download'  => true,
+            'show_contact_info'   => true,
         ]);
     }
 }

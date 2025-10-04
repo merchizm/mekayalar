@@ -1,22 +1,22 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CvController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\PoemController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
-use App\Http\Controllers\Admin\CvController;
 use App\Http\Controllers\Landing\BlogController;
 use App\Http\Controllers\Landing\BookmarkController;
 use App\Http\Controllers\Landing\BookshelfController;
 use App\Http\Controllers\Landing\PoemController as LandingPoemController;
 use App\Http\Controllers\Landing\ProjectController as LandingProjectController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicCvController;
+use App\Http\Controllers\SitemapController;
 use App\Models\Project;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
@@ -105,9 +105,9 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
         Route::post('/create-folder', [MediaController::class, 'createFolder'])->name('media.createFolder');
         Route::get('/download/{file}', [MediaController::class, 'download'])->name('media.download');
         Route::get('/media', [MediaController::class, 'index'])->name('media.index');
-        
+
         // CV Management
-        Route::prefix('cv')->name('cv.')->group(function () {
+        Route::prefix('cv')->name('cv.')->group(function (): void {
             Route::get('/', [CvController::class, 'index'])->name('index');
             Route::get('/section/{sectionName}', [CvController::class, 'editSection'])->name('section.edit');
             Route::post('/section/{sectionName}', [CvController::class, 'updateSection'])->name('section.update');

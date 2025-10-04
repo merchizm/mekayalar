@@ -72,7 +72,8 @@ export default function Index({ auth, poems }) {
           </div>
         </div>
         <div className="p-5">
-          <div className="overflow-x-auto">
+          {/* Desktop Table View */}
+          <div className="hidden md:block overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
               <thead className="bg-gray-50 dark:bg-gray-700">
                 <tr>
@@ -102,6 +103,40 @@ export default function Index({ auth, poems }) {
                 ))}
               </tbody>
             </table>
+          </div>
+
+          {/* Mobile Card View */}
+          <div className="md:hidden space-y-4">
+            {poems.length > 0 ? (
+              poems.map((poem) => (
+                <div key={poem.id} className="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg p-4">
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex-1">
+                      <h3 className="text-sm font-medium text-gray-900 dark:text-white line-clamp-2">{poem.title}</h3>
+                      <div className="flex items-center gap-2 mt-2">
+                        <StatusBadge status={poem.status} />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-3">
+                    <span className="block">{new Date(poem.wrote_at).toLocaleDateString('tr-TR')}</span>
+                  </div>
+                  <div className="flex gap-2">
+                    <button className="flex-1 px-3 py-2 text-center text-xs font-medium text-white bg-yellow-500 rounded-md hover:bg-yellow-600" onClick={() => openEditModal(poem)}>
+                      Düzenle
+                    </button>
+                    <button className="flex-1 px-3 py-2 text-xs font-medium text-white bg-red-600 rounded-md hover:bg-red-700" onClick={() => deletePoem(poem)}>
+                      Sil
+                    </button>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="text-center py-12 text-gray-400 dark:text-gray-500">
+                <p className="text-gray-500 dark:text-gray-400 text-base font-medium">Şiir bulunamadı</p>
+                <p className="text-gray-400 dark:text-gray-500 text-sm mt-1">İlk şiirinizi oluşturmak için "Yeni Şiir" butonuna tıklayın.</p>
+              </div>
+            )}
           </div>
         </div>
       </div>

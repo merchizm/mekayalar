@@ -8,10 +8,10 @@ class PersonalCvPdfGenerator
 {
     public function generate(array $cvData, array $settings = []): string
     {
-        $data = $this->prepareCvData($cvData);
+        $data             = $this->prepareCvData($cvData);
         $templateSettings = array_merge([
             'colors' => [
-                'primary' => '#2563eb',
+                'primary'   => '#2563eb',
                 'secondary' => '#1f2937',
             ],
             'font_family' => 'Inter',
@@ -19,26 +19,26 @@ class PersonalCvPdfGenerator
 
         $html = view('cv.personal-template', compact('data', 'templateSettings'))->render();
 
-        $pdf = PDF::loadHTML($html)
+        $pdf = Pdf::loadHTML($html)
             ->setPaper('a4', 'portrait')
             ->setOptions([
-                'isRemoteEnabled' => false,
-                'isPhpEnabled' => false,
-                'isHtml5ParserEnabled' => true,
+                'isRemoteEnabled'         => false,
+                'isPhpEnabled'            => false,
+                'isHtml5ParserEnabled'    => true,
                 'isFontSubsettingEnabled' => true,
-                'defaultFont' => 'DejaVu Sans',
-                'defaultMediaType' => 'print',
-                'defaultPaperSize' => 'A4',
-                'isJavascriptEnabled' => false,
-                'debugKeepTemp' => false,
-                'debugCss' => false,
-                'debugLayout' => false,
-                'debugLayoutLines' => false,
-                'debugLayoutBlocks' => false,
-                'debugLayoutInline' => false,
-                'debugLayoutPaddingBox' => false,
-                'fontHeightRatio' => 1.1,
-                'chroot' => public_path(),
+                'defaultFont'             => 'DejaVu Sans',
+                'defaultMediaType'        => 'print',
+                'defaultPaperSize'        => 'A4',
+                'isJavascriptEnabled'     => false,
+                'debugKeepTemp'           => false,
+                'debugCss'                => false,
+                'debugLayout'             => false,
+                'debugLayoutLines'        => false,
+                'debugLayoutBlocks'       => false,
+                'debugLayoutInline'       => false,
+                'debugLayoutPaddingBox'   => false,
+                'fontHeightRatio'         => 1.1,
+                'chroot'                  => public_path(),
             ]);
 
         return $pdf->output();

@@ -11,6 +11,7 @@
         "php": "^8.2",
         "ext-gd": "*",
         "archtechx/laravel-seo": "^0.10.1",
+        "barryvdh/laravel-dompdf": "^3.1",
         "erusev/parsedown": "^1.7",
         "guzzlehttp/guzzle": "^7.2",
         "inertiajs/inertia-laravel": "^2.0",

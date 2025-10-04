@@ -21,9 +21,9 @@ class CvSectionQuestion extends Model
 
     protected $casts = [
         'label_translations' => 'array',
-        'options' => 'array',
-        'validation_rules' => 'array',
-        'is_required' => 'boolean',
+        'options'            => 'array',
+        'validation_rules'   => 'array',
+        'is_required'        => 'boolean',
     ];
 
     public function section(): BelongsTo
@@ -39,15 +39,15 @@ class CvSectionQuestion extends Model
     public function getValidationRules(): array
     {
         $rules = [];
-        
+
         if ($this->is_required) {
             $rules[] = 'required';
         }
-        
+
         if ($this->validation_rules) {
             $rules = array_merge($rules, $this->validation_rules);
         }
-        
+
         return $rules;
     }
 }

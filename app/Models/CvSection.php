@@ -17,7 +17,7 @@ class CvSection extends Model
 
     protected $casts = [
         'title_translations' => 'array',
-        'is_active' => 'boolean',
+        'is_active'          => 'boolean',
     ];
 
     public function questions(): HasMany

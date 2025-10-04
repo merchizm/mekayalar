@@ -4,8 +4,8 @@ import { router } from '@inertiajs/react';
 export default function CvQuestionnaireModal({ isOpen, onClose }) {
     const [currentStep, setCurrentStep] = useState(0);
     const [answers, setAnswers] = useState({
-        purpose: '', // job_application, general_view, employer_review, academic_application
-        industry: '', // tech, finance, healthcare, education, other
+        purpose: '', // job_application, general_view
+        industry: '', // tech, finance, healthcare, education, entertainment, other
         language: 'tr', // tr, en
         role_focus: '', // backend, frontend, fullstack, devops
     });
@@ -13,24 +13,23 @@ export default function CvQuestionnaireModal({ isOpen, onClose }) {
     const questions = [
         {
             id: 'purpose',
-            title: 'CV\'nizi hangi amaçla görüntülemek istiyorsunuz?',
-            titleEn: 'What is the purpose of viewing your CV?',
+            title: 'CV\'yi hangi amaçla görüntülemek istiyorsunuz?',
+            titleEn: 'What is the purpose of viewing my CV?',
             options: [
                 { value: 'job_application', label: 'İş başvurusu için', labelEn: 'For job application' },
                 { value: 'general_view', label: 'Genel inceleme', labelEn: 'General review' },
-                { value: 'employer_review', label: 'İşveren olarak değerlendirme', labelEn: 'As an employer review' },
-                { value: 'academic_application', label: 'Akademik başvuru', labelEn: 'Academic application' },
             ]
         },
         {
             id: 'industry',
-            title: 'Hangi sektörde çalışıyorsunuz veya başvuru yapacaksınız?',
-            titleEn: 'Which industry are you working in or applying to?',
+            title: 'Hangi sektördesiniz?',
+            titleEn: 'What industry are you in?',
             options: [
                 { value: 'tech', label: 'Teknoloji', labelEn: 'Technology' },
                 { value: 'finance', label: 'Finans', labelEn: 'Finance' },
                 { value: 'healthcare', label: 'Sağlık', labelEn: 'Healthcare' },
                 { value: 'education', label: 'Eğitim', labelEn: 'Education' },
+                { value: 'entertainment', label: 'Oyun/Eğlence', labelEn: 'Entertainment' },
                 { value: 'other', label: 'Diğer', labelEn: 'Other' },
             ]
         },
@@ -109,27 +108,27 @@ export default function CvQuestionnaireModal({ isOpen, onClose }) {
         <div className="fixed inset-0 z-50 overflow-y-auto">
             <div className="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:p-0">
                 {/* Backdrop */}
-                <div 
-                    className="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75 dark:bg-gray-800 dark:bg-opacity-75" 
+                <div
+                    className="fixed inset-0 transition-opacity bg-gray-500/75 dark:bg-gray-900/75"
                     onClick={onClose}
                 ></div>
 
                 {/* Modal */}
-                <div className="relative inline-block px-4 pt-5 pb-4 overflow-hidden text-left align-bottom transition-all transform bg-white rounded-lg shadow-xl dark:bg-gray-800 sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+                <div className="relative inline-block px-4 pt-5 pb-4 overflow-hidden text-left align-bottom transition-all transform rounded-lg shadow-xl bg-background dark:bg-background-dark sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
                     <div>
                         {/* Progress Bar */}
                         <div className="mb-6">
                             <div className="flex justify-between mb-2">
-                                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                                <span className="text-sm font-medium text-light-text dark:text-light-text-dark">
                                     Adım {currentStep + 1} / {questions.length}
                                 </span>
-                                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                                <span className="text-sm font-medium text-light-text dark:text-light-text-dark">
                                     {Math.round(((currentStep + 1) / questions.length) * 100)}%
                                 </span>
                             </div>
-                            <div className="w-full bg-gray-200 rounded-full h-2 dark:bg-gray-700">
-                                <div 
-                                    className="bg-blue-600 h-2 rounded-full transition-all duration-300 ease-out"
+                            <div className="w-full h-2 rounded-full bg-divider dark:bg-divider-dark">
+                                <div
+                                    className="h-2 transition-all duration-300 ease-out rounded-full bg-menu-active dark:bg-menu-active-dark"
                                     style={{ width: `${((currentStep + 1) / questions.length) * 100}%` }}
                                 ></div>
                             </div>
@@ -137,20 +136,19 @@ export default function CvQuestionnaireModal({ isOpen, onClose }) {
 
                         {/* Question */}
                         <div className="mb-6">
-                            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+                            <h3 className="mb-4 text-lg font-medium text-text dark:text-text-dark">
                                 {currentQuestion.title}
                             </h3>
 
                             {/* Options */}
                             <div className="space-y-3">
                                 {currentQuestion.options.map((option) => (
-                                    <label 
+                                    <label
                                         key={option.value}
-                                        className={`flex items-center p-4 rounded-lg border-2 cursor-pointer transition-colors ${
-                                            currentAnswer === option.value
-                                                ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-400'
-                                                : 'border-gray-200 hover:border-gray-300 dark:border-gray-600 dark:hover:border-gray-500'
-                                        }`}
+                                        className={`flex items-center p-4 rounded-lg border-2 cursor-pointer transition-colors ${currentAnswer === option.value
+                                            ? 'border-menu-active dark:border-menu-active-dark bg-menu-active/10 dark:bg-menu-active-dark/20'
+                                            : 'border-divider dark:border-divider-dark hover:bg-menu-hover dark:hover:bg-menu-hover-dark'
+                                            }`}
                                     >
                                         <input
                                             type="radio"
@@ -158,9 +156,9 @@ export default function CvQuestionnaireModal({ isOpen, onClose }) {
                                             value={option.value}
                                             checked={currentAnswer === option.value}
                                             onChange={() => handleAnswer(currentQuestion.id, option.value)}
-                                            className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                            className="w-4 h-4 text-menu-active dark:text-menu-active-dark border-divider dark:border-divider-dark focus:ring-menu-active dark:focus:ring-menu-active-dark dark:ring-offset-background-dark focus:ring-2 dark:bg-button-dark"
                                         />
-                                        <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                        <span className="ml-3 text-sm font-medium text-text dark:text-text-dark">
                                             {option.label}
                                         </span>
                                     </label>
@@ -174,7 +172,7 @@ export default function CvQuestionnaireModal({ isOpen, onClose }) {
                         <button
                             type="button"
                             onClick={onClose}
-                            className="inline-flex justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-600"
+                            className="inline-flex justify-center px-4 py-2 text-sm font-medium border rounded-md shadow-sm text-text dark:text-text-dark bg-button dark:bg-button-dark border-divider dark:border-divider-dark hover:bg-button-hover dark:hover:bg-button-hover-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-menu-active dark:focus:ring-menu-active-dark"
                         >
                             İptal
                         </button>
@@ -184,7 +182,7 @@ export default function CvQuestionnaireModal({ isOpen, onClose }) {
                                 <button
                                     type="button"
                                     onClick={handleBack}
-                                    className="inline-flex justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-600"
+                                    className="inline-flex justify-center px-4 py-2 text-sm font-medium border rounded-md shadow-sm text-text dark:text-text-dark bg-button dark:bg-button-dark border-divider dark:border-divider-dark hover:bg-button-hover dark:hover:bg-button-hover-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-menu-active dark:focus:ring-menu-active-dark"
                                 >
                                     Geri
                                 </button>
@@ -194,11 +192,10 @@ export default function CvQuestionnaireModal({ isOpen, onClose }) {
                                 type="button"
                                 onClick={handleNext}
                                 disabled={!currentAnswer}
-                                className={`inline-flex justify-center px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${
-                                    currentAnswer
-                                        ? 'bg-blue-600 hover:bg-blue-700'
-                                        : 'bg-gray-400 cursor-not-allowed'
-                                }`}
+                                className={`inline-flex justify-center px-4 py-2 text-sm font-medium border border-transparent rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 ${currentAnswer
+                                    ? 'bg-menu-active dark:bg-menu-active-dark text-background dark:text-background-dark hover:opacity-90 focus:ring-menu-active dark:focus:ring-menu-active-dark'
+                                    : 'bg-divider dark:bg-divider-dark text-light-text dark:text-dark-text-dark cursor-not-allowed opacity-50'
+                                    }`}
                             >
                                 {isLastStep ? 'CV\'yi Görüntüle' : 'Devam Et'}
                             </button>

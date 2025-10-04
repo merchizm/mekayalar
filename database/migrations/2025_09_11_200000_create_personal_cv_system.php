@@ -4,12 +4,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class() extends Migration {
     public function up(): void
     {
         // CV Sections (Experience, Education, Skills, etc.)
-        Schema::create('cv_sections', function (Blueprint $table) {
+        Schema::create('cv_sections', function (Blueprint $table): void {
             $table->id();
             $table->string('name'); // experience, education, skills, projects, etc.
             $table->json('title_translations'); // {en: "Experience", tr: "Deneyim"}
@@ -20,7 +19,7 @@ return new class extends Migration
         });
 
         // Dynamic Questions for each section
-        Schema::create('cv_section_questions', function (Blueprint $table) {
+        Schema::create('cv_section_questions', function (Blueprint $table): void {
             $table->id();
             $table->foreignId('cv_section_id')->constrained()->onDelete('cascade');
             $table->string('field_name'); // company, position, start_date, etc.
@@ -35,7 +34,7 @@ return new class extends Migration
         });
 
         // Your personal CV data
-        Schema::create('my_cv_data', function (Blueprint $table) {
+        Schema::create('my_cv_data', function (Blueprint $table): void {
             $table->id();
             $table->string('section_name'); // experience, education, skills, etc.
             $table->json('data'); // All the data for that section
@@ -47,7 +46,7 @@ return new class extends Migration
         });
 
         // CV Settings and metadata
-        Schema::create('cv_settings', function (Blueprint $table) {
+        Schema::create('cv_settings', function (Blueprint $table): void {
             $table->id();
             $table->string('key')->unique();
             $table->json('value');
