@@ -11,10 +11,8 @@ class MarkdownEditor extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(
-        public string $name,
-        public string $value = '',
-    ) {
+    public function __construct(public string $name, public string $value = '')
+    {
         //
     }
 

@@ -1,16 +1,20 @@
 import React from 'react';
 
 const SearchImagePost = ({ post }) => (
-    <div className="overflow-hidden relative p-5 rounded-xl border shadow-lg bg-background dark:bg-repository-card-bg-dark border-divider dark:border-label-border-dark">
-        <div className="absolute top-4 left-4 bg-button dark:bg-button-dark px-3 py-1.5 rounded-lg border border-outline-color dark:border-outline-color-dark text-text dark:text-text-dark z-10">
+    <div className="relative overflow-hidden rounded-xl border border-divider bg-background p-5 shadow-lg dark:border-label-border-dark dark:bg-repository-card-bg-dark">
+        <div className="absolute left-4 top-4 z-10 rounded-lg border border-outline-color bg-button px-3 py-1.5 text-text dark:border-outline-color-dark dark:bg-button-dark dark:text-text-dark">
             {post.type === 'drawing' ? __('👾 Çizim') : __('📷 Fotoğraf')}
         </div>
         <div className="flex justify-center">
-            <div className="overflow-hidden relative w-full h-80 rounded-lg">
-                <img src={post.post_image} alt={post.post_title} className="object-contain object-center absolute inset-0 w-full h-full" />
+            <div className="relative h-80 w-full overflow-hidden rounded-lg">
+                <img
+                    src={post.post_image}
+                    alt={post.post_title}
+                    className="absolute inset-0 h-full w-full object-contain object-center"
+                />
             </div>
         </div>
     </div>
 );
 
-export default SearchImagePost; 
+export default SearchImagePost;

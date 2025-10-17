@@ -15,5 +15,4 @@ return [
     'raindrop_client_id'     => env('RAINDROP_CLIENT_ID'),
     'raindrop_client_secret' => env('RAINDROP_CLIENT_SECRET'),
     'raindrop_callback_url'  => env('RAINDROP_CALLBACK_URL'),
-
 ];

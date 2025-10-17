@@ -24,19 +24,15 @@ class SpotifyService
 
     public function __construct()
     {
-
         // initialize spotify API
         $this->session = new SpotifyWebAPI\Session(
             config('external.spotify_client_id'),
             config('external.spotify_client_secret'),
-            config('external.spotify_callback_url')
+            config('external.spotify_callback_url'),
         );
 
         $this->options = [
-            'scope' => [
-                'user-read-currently-playing',
-                'playlist-read-private',
-            ],
+            'scope' => ['user-read-currently-playing', 'playlist-read-private'],
         ];
 
         $this->api = new SpotifyWebAPI\SpotifyWebAPI(session: $this->session);
@@ -77,14 +73,24 @@ class SpotifyService
                 $artists[] = $artist->name;
             }
 
-            return ['name' => $result['item']->name, 'artists' => implode(', ', $artists), 'is_playing' => $result['is_playing'], 'url' => $result['item']->external_urls->spotify];
+            return [
+                'name'       => $result['item']->name,
+                'artists'    => implode(', ', $artists),
+                'is_playing' => $result['is_playing'],
+                'url'        => $result['item']->external_urls->spotify,
+            ];
         };
         try {
             // check result is valid
             $result = $cp();
 
             $last_response = $this->api->getLastResponse();
-            if ($result['is_playing'] === false || $last_response['status'] == !200 || $last_response['status'] == !204) { // @see https://developer.spotify.com/documentation/web-api/
+            if (
+                $result['is_playing'] === false ||
+                $last_response['status'] == !200 ||
+                $last_response['status'] == !204
+            ) {
+                // @see https://developer.spotify.com/documentation/web-api/
                 $this->refreshToken();
 
                 return $result;
@@ -93,7 +99,8 @@ class SpotifyService
             }
         } catch (SpotifyWebAPIAuthException $ex) {
             return ['error' => 'The access token could not be refreshed.', 'is_playing' => false];
-        } catch (SpotifyWebAPIException $ex) { // if access token is expired, renew with refresh token and try again
+        } catch (SpotifyWebAPIException $ex) {
+            // if access token is expired, renew with refresh token and try again
             $this->refreshToken();
 
             return $cp();

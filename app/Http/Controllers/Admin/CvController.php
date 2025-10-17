@@ -200,11 +200,15 @@ class CvController extends Controller
 
         $pdf = app(\App\Services\PersonalCvPdfGenerator::class)->generate($cvData, $settings);
 
-        return response()->streamDownload(function () use ($pdf): void {
-            echo $pdf;
-        }, 'meric-enes-kayalar-cv.pdf', [
-            'Content-Type' => 'application/pdf',
-        ]);
+        return response()->streamDownload(
+            function () use ($pdf): void {
+                echo $pdf;
+            },
+            'meric-enes-kayalar-cv.pdf',
+            [
+                'Content-Type' => 'application/pdf',
+            ],
+        );
     }
 
     private function processDataForSection(string $sectionName, array $requestData): array

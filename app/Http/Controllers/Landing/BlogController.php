@@ -75,7 +75,7 @@ class BlogController extends Controller
 
     public function type($type)
     {
-        $typeLabel = ($type === 'photo') ? 'Fotoğraf' : 'Çizim';
+        $typeLabel = $type === 'photo' ? 'Fotoğraf' : 'Çizim';
 
         seo()
             ->title('Mekayalar.com — '.$typeLabel.' Gönderileri')

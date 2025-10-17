@@ -17,6 +17,10 @@
         @viteReactRefresh
         @vite(['resources/js/app.jsx', "resources/js/Pages/{$page['component']}.jsx"])
         @inertiaHead
+
+        <script>
+            window.localeLanguage = @json($page['props']['localeLanguage'] ?? []);
+        </script>
     </head>
     <body class="font-sans antialiased">
         @inertia

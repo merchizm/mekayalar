@@ -76,27 +76,32 @@ class MediaController extends Controller
                 'parent_folder' => $parentFolder,
             ]);
 
-            return response()->json([
-                'success'       => true,
-                'path'          => $path,
-                'url'           => asset('storage/uploads/'.$parentFolder.'/'.$fileName),
-                'name'          => $fileName,
-                'original_name' => $originalName,
-                'size'          => $this->formatFileSize($fileSize),
-            ], 201);
-
+            return response()->json(
+                [
+                    'success'       => true,
+                    'path'          => $path,
+                    'url'           => asset('storage/uploads/'.$parentFolder.'/'.$fileName),
+                    'name'          => $fileName,
+                    'original_name' => $originalName,
+                    'size'          => $this->formatFileSize($fileSize),
+                ],
+                201,
+            );
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Upload failed: '.$e->getMessage(),
-            ], 500);
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'Upload failed: '.$e->getMessage(),
+                ],
+                500,
+            );
         }
     }
 
     private function processImageWithGD($file, $path): void
     {
-        list($width, $height) = getimagesize($path);
-        $divide               = $this->divider($width);
+        [$width, $height] = getimagesize($path);
+        $divide           = $this->divider($width);
 
         if ($divide !== 1) {
             $newWidth  = $width / $divide;
@@ -191,9 +196,18 @@ class MediaController extends Controller
             } else {
                 $extension  = pathinfo($item->name, PATHINFO_EXTENSION);
                 $isImage    = in_array(strtolower($extension), ['jpg', 'jpeg', 'png', 'gif', 'webp']);
-                $isDocument = in_array(strtolower($extension), ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'txt']);
-                $isVideo    = in_array(strtolower($extension), ['mp4', 'avi', 'mov', 'wmv', 'flv', 'webm']);
-                $isAudio    = in_array(strtolower($extension), ['mp3', 'wav', 'ogg', 'flac']);
+                $isDocument = in_array(strtolower($extension), [
+                    'pdf',
+                    'doc',
+                    'docx',
+                    'xls',
+                    'xlsx',
+                    'ppt',
+                    'pptx',
+                    'txt',
+                ]);
+                $isVideo = in_array(strtolower($extension), ['mp4', 'avi', 'mov', 'wmv', 'flv', 'webm']);
+                $isAudio = in_array(strtolower($extension), ['mp3', 'wav', 'ogg', 'flac']);
 
                 $fileType = 'Other';
                 if ($isImage) {
@@ -291,7 +305,6 @@ class MediaController extends Controller
             $media->delete();
 
             return response()->json(['success' => true, 'message' => 'Dosya başarıyla silindi.']);
-
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response()->json(['success' => false, 'message' => 'Veritabanında dosya bulunamadı.'], 404);
         } catch (\Exception $e) {
@@ -324,7 +337,9 @@ class MediaController extends Controller
         // Şimdi içi boşaltılmış olan klasörün kendisini diskten ve veritabanından silelim.
         $folderInDb = Media::where('name', $folderName)->where('type', 'folder')->first();
         if ($folderInDb) {
-            $folderPath = $folderInDb->parent_folder === '/' ? $folderInDb->name : $folderInDb->parent_folder.'/'.$folderInDb->name;
+            $folderPath = $folderInDb->parent_folder === '/'
+                    ? $folderInDb->name
+                    : $folderInDb->parent_folder.'/'.$folderInDb->name;
 
             if ($disk->exists($folderPath)) {
                 $disk->deleteDirectory($folderPath);
@@ -355,22 +370,20 @@ class MediaController extends Controller
             }
 
             // Get the media item
-            $media = Media::where('name', $file)
-                ->where('parent_folder', $parentFolder)
-                ->first();
+            $media = Media::where('name', $file)->where('parent_folder', $parentFolder)->first();
 
             if (!$media) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'File not found',
-                ], 404);
+                return response()->json(
+                    [
+                        'success' => false,
+                        'message' => 'File not found',
+                    ],
+                    404,
+                );
             }
 
             // Rename in storage
-            Storage::disk('uploads')->move(
-                $parentFolder.'/'.$file,
-                $parentFolder.'/'.$newName
-            );
+            Storage::disk('uploads')->move($parentFolder.'/'.$file, $parentFolder.'/'.$newName);
 
             // Update in database
             $media->name          = $newName;
@@ -383,10 +396,13 @@ class MediaController extends Controller
                 'new_name' => $newName,
             ]);
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Rename failed: '.$e->getMessage(),
-            ], 500);
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'Rename failed: '.$e->getMessage(),
+                ],
+                500,
+            );
         }
     }
 
@@ -405,15 +421,16 @@ class MediaController extends Controller
             $fullFolderPath = $parentFolder === '/' ? $folderName : $parentFolder.'/'.$folderName;
 
             // Check if folder already exists
-            $existingFolder = Media::where('name', $fullFolderPath)
-                ->where('type', 'folder')
-                ->first();
+            $existingFolder = Media::where('name', $fullFolderPath)->where('type', 'folder')->first();
 
             if ($existingFolder) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Folder already exists',
-                ], 409);
+                return response()->json(
+                    [
+                        'success' => false,
+                        'message' => 'Folder already exists',
+                    ],
+                    409,
+                );
             }
 
             // Create directory in filesystem
@@ -433,10 +450,13 @@ class MediaController extends Controller
                 'message' => 'Folder created successfully',
             ]);
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Create folder failed: '.$e->getMessage(),
-            ], 500);
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'Create folder failed: '.$e->getMessage(),
+                ],
+                500,
+            );
         }
     }
 

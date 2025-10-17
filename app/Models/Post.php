@@ -29,10 +29,7 @@ class Post extends Model
         'post_status' => PostEnum::class,
     ];
 
-    protected $appends = [
-        'readingTime',
-        'content',
-    ];
+    protected $appends = ['readingTime', 'content'];
 
     public function getReadingTimeAttribute()
     {

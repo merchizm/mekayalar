@@ -61,11 +61,15 @@ class PublicCvController extends Controller
 
         $pdf = app(PersonalCvPdfGenerator::class)->generate($cvData, $settings);
 
-        return response()->streamDownload(function () use ($pdf): void {
-            echo $pdf;
-        }, "meric-enes-kayalar-{$roleFocus}-cv.pdf", [
-            'Content-Type' => 'application/pdf',
-        ]);
+        return response()->streamDownload(
+            function () use ($pdf): void {
+                echo $pdf;
+            },
+            "meric-enes-kayalar-{$roleFocus}-cv.pdf",
+            [
+                'Content-Type' => 'application/pdf',
+            ],
+        );
     }
 
     private function getFullCvData(): array
@@ -161,12 +165,16 @@ class PublicCvController extends Controller
             $scoreB = 0;
 
             foreach ($keywords as $keyword) {
-                if (stripos($a['description'] ?? '', $keyword) !== false ||
-                    stripos($a['name'] ?? '', $keyword) !== false) {
+                if (
+                    stripos($a['description'] ?? '', $keyword) !== false ||
+                    stripos($a['name'] ?? '', $keyword) !== false
+                ) {
                     $scoreA++;
                 }
-                if (stripos($b['description'] ?? '', $keyword) !== false ||
-                    stripos($b['name'] ?? '', $keyword) !== false) {
+                if (
+                    stripos($b['description'] ?? '', $keyword) !== false ||
+                    stripos($b['name'] ?? '', $keyword) !== false
+                ) {
                     $scoreB++;
                 }
             }

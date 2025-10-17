@@ -13,8 +13,9 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
         patch(route('admin.profile.update'));
     };
 
-    const formInputClass = "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 sm:text-sm";
-    const formLabelClass = "block text-sm font-medium text-gray-700 dark:text-gray-300";
+    const formInputClass =
+        'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 sm:text-sm';
+    const formLabelClass = 'block text-sm font-medium text-gray-700 dark:text-gray-300';
 
     return (
         <section className={className}>
@@ -28,7 +29,9 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
 
             <form onSubmit={submit} className="mt-6 space-y-6">
                 <div>
-                    <label htmlFor="name" className={formLabelClass}>İsim</label>
+                    <label htmlFor="name" className={formLabelClass}>
+                        İsim
+                    </label>
 
                     <input
                         id="name"
@@ -40,11 +43,13 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                         autoComplete="name"
                     />
 
-                    {errors.name && <div className="text-red-500 mt-2 text-xs">{errors.name}</div>}
+                    {errors.name && <div className="mt-2 text-xs text-red-500">{errors.name}</div>}
                 </div>
 
                 <div>
-                    <label htmlFor="email" className={formLabelClass}>E-posta</label>
+                    <label htmlFor="email" className={formLabelClass}>
+                        E-posta
+                    </label>
 
                     <input
                         id="email"
@@ -56,25 +61,25 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                         autoComplete="username"
                     />
 
-                    {errors.email && <div className="text-red-500 mt-2 text-xs">{errors.email}</div>}
+                    {errors.email && <div className="mt-2 text-xs text-red-500">{errors.email}</div>}
                 </div>
 
                 {mustVerifyEmail && user.email_verified_at === null && (
                     <div>
-                        <p className="text-sm mt-2 text-gray-800 dark:text-gray-200">
+                        <p className="mt-2 text-sm text-gray-800 dark:text-gray-200">
                             E-posta adresiniz doğrulanmamış.
                             <Link
                                 href={route('verification.send')}
                                 method="post"
                                 as="button"
-                                className="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+                                className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800"
                             >
                                 Doğrulama e-postasını yeniden göndermek için buraya tıklayın.
                             </Link>
                         </p>
 
                         {status === 'verification-link-sent' && (
-                            <div className="mt-2 font-medium text-sm text-green-600 dark:text-green-400">
+                            <div className="mt-2 text-sm font-medium text-green-600 dark:text-green-400">
                                 Kayıt sırasında verdiğiniz e-posta adresine yeni bir doğrulama bağlantısı gönderildi.
                             </div>
                         )}
@@ -82,11 +87,14 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                 )}
 
                 <div className="flex items-center gap-4">
-                    <button className="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 active:bg-blue-900 focus:outline-none focus:border-blue-900 focus:ring ring-blue-300 disabled:opacity-25 transition ease-in-out duration-150" disabled={processing}>Kaydet</button>
+                    <button
+                        className="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white ring-blue-300 transition duration-150 ease-in-out hover:bg-blue-700 focus:border-blue-900 focus:outline-none focus:ring active:bg-blue-900 disabled:opacity-25"
+                        disabled={processing}
+                    >
+                        Kaydet
+                    </button>
 
-                    {recentlySuccessful && (
-                        <p className="text-sm text-gray-600 dark:text-gray-400">Kaydedildi.</p>
-                    )}
+                    {recentlySuccessful && <p className="text-sm text-gray-600 dark:text-gray-400">Kaydedildi.</p>}
                 </div>
             </form>
         </section>

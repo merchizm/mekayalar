@@ -36,29 +36,17 @@ class GenerateSitemap extends Command
         $sitemap = Sitemap::create();
 
         // Add static pages
-        $sitemap->add(Url::create('/')
-            ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
-            ->setPriority(1.0));
+        $sitemap->add(Url::create('/')->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)->setPriority(1.0));
 
-        $sitemap->add(Url::create('/blog')
-            ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
-            ->setPriority(0.8));
+        $sitemap->add(Url::create('/blog')->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)->setPriority(0.8));
 
-        $sitemap->add(Url::create('/poems')
-            ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
-            ->setPriority(0.8));
+        $sitemap->add(Url::create('/poems')->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)->setPriority(0.8));
 
-        $sitemap->add(Url::create('/projects')
-            ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
-            ->setPriority(0.8));
+        $sitemap->add(Url::create('/projects')->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)->setPriority(0.8));
 
-        $sitemap->add(Url::create('/bookshelf')
-            ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
-            ->setPriority(0.7));
+        $sitemap->add(Url::create('/bookshelf')->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)->setPriority(0.7));
 
-        $sitemap->add(Url::create('/bookmarks')
-            ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
-            ->setPriority(0.7));
+        $sitemap->add(Url::create('/bookmarks')->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)->setPriority(0.7));
 
         // Add blog posts
         $posts = Post::where('is_published', true)->get();
@@ -67,7 +55,7 @@ class GenerateSitemap extends Command
                 Url::create("/blog/{$post->post_slug}")
                     ->setLastModificationDate($post->updated_at)
                     ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
-                    ->setPriority(0.7)
+                    ->setPriority(0.7),
             );
         }
 
@@ -78,7 +66,7 @@ class GenerateSitemap extends Command
                 Url::create("/poems/{$poem->slug}")
                     ->setLastModificationDate($poem->updated_at)
                     ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
-                    ->setPriority(0.7)
+                    ->setPriority(0.7),
             );
         }
 
@@ -89,7 +77,7 @@ class GenerateSitemap extends Command
                 Url::create("/projects/{$project->slug}")
                     ->setLastModificationDate($project->updated_at)
                     ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
-                    ->setPriority(0.7)
+                    ->setPriority(0.7),
             );
         }
 

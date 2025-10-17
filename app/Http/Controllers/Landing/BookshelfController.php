@@ -20,7 +20,6 @@ class BookshelfController extends Controller
 
     public function index()
     {
-
         seo()
             ->title('Mekayalar.com — Kitaplık')
             ->description('Playlistlerim, okuduğum kitaplarım, github repolarım.')

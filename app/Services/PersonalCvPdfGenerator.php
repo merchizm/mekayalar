@@ -9,13 +9,16 @@ class PersonalCvPdfGenerator
     public function generate(array $cvData, array $settings = []): string
     {
         $data             = $this->prepareCvData($cvData);
-        $templateSettings = array_merge([
-            'colors' => [
-                'primary'   => '#2563eb',
-                'secondary' => '#1f2937',
+        $templateSettings = array_merge(
+            [
+                'colors' => [
+                    'primary'   => '#2563eb',
+                    'secondary' => '#1f2937',
+                ],
+                'font_family' => 'Inter',
             ],
-            'font_family' => 'Inter',
-        ], $settings);
+            $settings,
+        );
 
         $html = view('cv.personal-template', compact('data', 'templateSettings'))->render();
 

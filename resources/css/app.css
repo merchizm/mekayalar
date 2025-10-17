@@ -1,6 +1,6 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 @import url(https://fonts.bunny.net/css?family=akshar:300,400,500,700|catamaran:200,300,400,500,600,700,800,900|family=adamina:400);
 
 :root {
@@ -29,7 +29,7 @@
 }
 
 body.dark {
-    --ba-gradient: linear-gradient(186deg, rgba(255, 255, 255, .16) -1.41%, rgba(255, 255, 255, 0) 104.86%);
+    --ba-gradient: linear-gradient(186deg, rgba(255, 255, 255, 0.16) -1.41%, rgba(255, 255, 255, 0) 104.86%);
     --webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
     --bg-gradient: linear-gradient(135deg, #ffffff1a, #ffffff0f 61.12%, #ffffff1a);
 }
@@ -91,7 +91,6 @@ body {
 }
 
 @keyframes spotify-playing {
-
     0%,
     100% {
         transform: scaleY(0.3);
@@ -103,7 +102,6 @@ body {
 }
 
 @keyframes bounce {
-
     0%,
     100%,
     50% {
@@ -124,7 +122,7 @@ body {
 }
 
 .body {
-    @apply bg-[color:var(--background-color)] text-[color:var(--color)] leading-[inherit];
+    @apply bg-[color:var(--background-color)] leading-[inherit] text-[color:var(--color)];
     -webkit-font-smoothing: antialiased;
     font-family: Catamaran, sans-serif;
     line-height: 1.5;
@@ -146,7 +144,6 @@ p {
 }
 
 article {
-
     h1 {
         font-size: 2em;
         margin-bottom: 0.3em;
@@ -238,63 +235,62 @@ article {
 }
 
 .label {
-    @apply text-[0.9em] leading-[1.2] no-underline inline-flex items-center justify-center border bg-label-color dark:bg-label-color-dark px-1.5 py-1 rounded-[0.4em] dark:border-button-dark;
+    @apply inline-flex items-center justify-center rounded-[0.4em] border bg-label-color px-1.5 py-1 text-[0.9em] leading-[1.2] no-underline dark:border-button-dark dark:bg-label-color-dark;
 
     span {
-        @apply inline-flex mr-[0.4em];
+        @apply mr-[0.4em] inline-flex;
 
         svg {
-            @apply fill-text dark:fill-text-dark w-[1em] h-[1em];
+            @apply h-[1em] w-[1em] fill-text dark:fill-text-dark;
         }
 
         img {
-            @apply w-[1em] h-[1em];
+            @apply h-[1em] w-[1em];
         }
-
     }
 }
 
 .social-button {
-    @apply flex flex-row gap-0.5 items-center content-center border-text dark:border-text-dark no-underline text-[1.2em] transition-all duration-[ease-in] delay-100 px-2.5 py-[5px] rounded-[10px] border-2 border-solid hover:bg-button hover:dark:bg-button-dark hover:border-button-hover hover:dark:border-button-hover-dark;
+    @apply flex flex-row content-center items-center gap-0.5 rounded-[10px] border-2 border-solid border-text px-2.5 py-[5px] text-[1.2em] no-underline transition-all delay-100 duration-[ease-in] hover:border-button-hover hover:bg-button dark:border-text-dark hover:dark:border-button-hover-dark hover:dark:bg-button-dark;
 }
 
 .social-button svg {
-    @apply fill-text dark:fill-text-dark w-[25px] h-[25px] mr-2.5;
+    @apply mr-2.5 h-[25px] w-[25px] fill-text dark:fill-text-dark;
 }
 
 .copyright {
     @apply text-[0.9rem] uppercase text-light-text dark:text-light-text-dark;
-    font-family: "Akshar", sans-serif;
+    font-family: 'Akshar', sans-serif;
 }
 
 .flags {
-    @apply text-[0.9rem] uppercase text-light-text dark:text-light-text-dark inline-flex flex-row gap-5;
-    font-family: "Akshar", sans-serif;
+    @apply inline-flex flex-row gap-5 text-[0.9rem] uppercase text-light-text dark:text-light-text-dark;
+    font-family: 'Akshar', sans-serif;
 
     .flag {
-        @apply inline-flex flex-row gap-2.5 items-center;
+        @apply inline-flex flex-row items-center gap-2.5;
     }
 
     img {
-        @apply transition-[filter] duration-[0.5s] ease-[ease] w-[50px] h-[50px];
+        @apply h-[50px] w-[50px] transition-[filter] duration-[0.5s] ease-[ease];
     }
 }
 
 .poem-container {
-    @apply text-[1.2em] select-none italic;
-    font-family: "Adamina", serif;
+    @apply select-none text-[1.2em] italic;
+    font-family: 'Adamina', serif;
 }
 
 .image-container {
     position: relative;
     border-radius: 1.5rem;
-    padding: .5rem;
+    padding: 0.5rem;
     background: var(--bg-gradient);
     -webkit-backdrop-filter: blur(1.5625rem);
     backdrop-filter: blur(1.5625rem);
 
     :before {
-        content: "";
+        content: '';
         position: absolute;
         top: 0;
         right: 0;
@@ -310,7 +306,7 @@ article {
     }
 
     :after {
-        content: "";
+        content: '';
         position: absolute;
         top: 0;
         right: 0;
@@ -325,8 +321,8 @@ article {
         background: var(--ba-gradient) border-box;
     }
 
-    >* {
-        @apply block rounded-[calc(1.5rem_-_0.5rem)] overflow-hidden w-full object-cover h-[500px];
+    > * {
+        @apply block h-[500px] w-full overflow-hidden rounded-[calc(1.5rem_-_0.5rem)] object-cover;
     }
 }
 
@@ -355,13 +351,13 @@ article {
 .equalizer-bar {
     width: 3px;
     height: 100%;
-    background-color: #1DB954;
+    background-color: #1db954;
     animation: bounce 1.2s ease-in-out infinite;
     transform-origin: bottom;
 }
 
 .equalizer-bar:nth-child(2) {
-    animation-delay: -1.0s;
+    animation-delay: -1s;
 }
 
 .equalizer-bar:nth-child(3) {
@@ -374,7 +370,11 @@ article {
 
 .timeline-dot {
     border-radius: 9999px;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s, width 0.3s, height 0.3s;
+    transition:
+        transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        background-color 0.3s,
+        width 0.3s,
+        height 0.3s;
 }
 
 .dot-night {
@@ -531,14 +531,14 @@ article {
 .equalizer-bar {
     width: 3px;
     height: 100%;
-    background-color: #1DB954;
+    background-color: #1db954;
     /* Spotify Green */
     animation: wave 1.2s infinite ease-in-out;
     border-radius: 2px;
 }
 
 .equalizer-bar:nth-child(2) {
-    animation-delay: -1.0s;
+    animation-delay: -1s;
 }
 
 .equalizer-bar:nth-child(3) {
@@ -550,7 +550,6 @@ article {
 }
 
 @keyframes wave {
-
     0%,
     40%,
     100% {
@@ -584,7 +583,6 @@ article {
 }
 
 @media (hover: none) and (pointer: coarse) {
-
     .timeline-dot.hover-main:not(.dot-current),
     .timeline-dot.hover-near:not(.dot-current) {
         transform: none;

@@ -77,49 +77,62 @@ Route::post('/language', [LanguageController::class, 'switch'])->name('language.
 // Public CV
 Route::get('/cv', [PublicCvController::class, 'show'])->name('public.cv');
 Route::get('/cv/download', [PublicCvController::class, 'downloadPdf'])->name('public.cv.download');
+
 Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::prefix('admin')->name('admin.')->group(function (): void {
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::prefix('admin')
+        ->name('admin.')
+        ->group(function (): void {
+            Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-        Route::get('/posts/check_slug', [PostController::class, 'check_slug'])->name('posts.check_slug');
-        Route::resource('posts', PostController::class)->except(['show']);
-        Route::post('/posts/draft', [PostController::class, 'saveDraft'])->name('posts.draft');
-        Route::resource('categories', CategoryController::class)->only(['index', 'store', 'update', 'destroy']);
+            Route::get('/posts/check_slug', [PostController::class, 'check_slug'])->name('posts.check_slug');
+            Route::resource('posts', PostController::class)->except(['show']);
+            Route::post('/posts/draft', [PostController::class, 'saveDraft'])->name('posts.draft');
+            Route::resource('categories', CategoryController::class)->only(['index', 'store', 'update', 'destroy']);
 
-        Route::get('/profile', [AdminProfileController::class, 'edit'])->name('profile.edit');
-        Route::patch('/profile', [AdminProfileController::class, 'update'])->name('profile.update');
-        Route::delete('/profile', [AdminProfileController::class, 'destroy'])->name('profile.destroy');
+            Route::get('/profile', [AdminProfileController::class, 'edit'])->name('profile.edit');
+            Route::patch('/profile', [AdminProfileController::class, 'update'])->name('profile.update');
+            Route::delete('/profile', [AdminProfileController::class, 'destroy'])->name('profile.destroy');
 
-        Route::resource('poems', PoemController::class)->names('poems');
+            Route::resource('poems', PoemController::class)->names('poems');
 
-        Route::resource('projects', AdminProjectController::class)->names('projects');
+            Route::resource('projects', AdminProjectController::class)->names('projects');
 
-        Route::post('/upload', [MediaController::class, 'upload'])->name('media.upload');
-        Route::get('/files', [MediaController::class, 'listFiles'])->name('media.files');
-        Route::post('/delete', [MediaController::class, 'delete'])->name('media.delete');
-        Route::post('/rename', [MediaController::class, 'rename'])->name('media.rename');
-        Route::post('/create-folder', [MediaController::class, 'createFolder'])->name('media.createFolder');
-        Route::get('/download/{file}', [MediaController::class, 'download'])->name('media.download');
-        Route::get('/media', [MediaController::class, 'index'])->name('media.index');
+            Route::post('/upload', [MediaController::class, 'upload'])->name('media.upload');
+            Route::get('/files', [MediaController::class, 'listFiles'])->name('media.files');
+            Route::post('/delete', [MediaController::class, 'delete'])->name('media.delete');
+            Route::post('/rename', [MediaController::class, 'rename'])->name('media.rename');
+            Route::post('/create-folder', [MediaController::class, 'createFolder'])->name('media.createFolder');
+            Route::get('/download/{file}', [MediaController::class, 'download'])->name('media.download');
+            Route::get('/media', [MediaController::class, 'index'])->name('media.index');
 
-        // CV Management
-        Route::prefix('cv')->name('cv.')->group(function (): void {
-            Route::get('/', [CvController::class, 'index'])->name('index');
-            Route::get('/section/{sectionName}', [CvController::class, 'editSection'])->name('section.edit');
-            Route::post('/section/{sectionName}', [CvController::class, 'updateSection'])->name('section.update');
-            Route::post('/section/{sectionName}/add-item', [CvController::class, 'addItem'])->name('section.add_item');
-            Route::delete('/section/{sectionName}/item/{index}', [CvController::class, 'removeItem'])->name('section.remove_item');
-            Route::post('/section/{sectionName}/reorder', [CvController::class, 'reorderItems'])->name('section.reorder');
-            Route::get('/settings', [CvController::class, 'settings'])->name('settings');
-            Route::post('/settings', [CvController::class, 'updateSettings'])->name('settings.update');
-            Route::get('/preview', [CvController::class, 'preview'])->name('preview');
-            Route::get('/download-pdf', [CvController::class, 'generatePdf'])->name('download_pdf');
+            // CV Management
+            Route::prefix('cv')
+                ->name('cv.')
+                ->group(function (): void {
+                    Route::get('/', [CvController::class, 'index'])->name('index');
+                    Route::get('/section/{sectionName}', [CvController::class, 'editSection'])->name('section.edit');
+                    Route::post('/section/{sectionName}', [CvController::class, 'updateSection'])->name(
+                        'section.update',
+                    );
+                    Route::post('/section/{sectionName}/add-item', [CvController::class, 'addItem'])->name(
+                        'section.add_item',
+                    );
+                    Route::delete('/section/{sectionName}/item/{index}', [CvController::class, 'removeItem'])->name(
+                        'section.remove_item',
+                    );
+                    Route::post('/section/{sectionName}/reorder', [CvController::class, 'reorderItems'])->name(
+                        'section.reorder',
+                    );
+                    Route::get('/settings', [CvController::class, 'settings'])->name('settings');
+                    Route::post('/settings', [CvController::class, 'updateSettings'])->name('settings.update');
+                    Route::get('/preview', [CvController::class, 'preview'])->name('preview');
+                    Route::get('/download-pdf', [CvController::class, 'generatePdf'])->name('download_pdf');
+                });
         });
-    });
 });
 
 require __DIR__.'/auth.php';
@@ -131,8 +144,7 @@ require __DIR__.'/auth.php';
 Route::get('/applause-button.js', function () {
     $stub = File::get(resource_path('stubs/applause-button.stub'));
 
-    return response($stub, 200)
-        ->header('Content-Type', 'text/javascript');
+    return response($stub, 200)->header('Content-Type', 'text/javascript');
 })->name('applause-button');
 
 Route::get('sitemap.xml', [SitemapController::class, 'index'])->name('sitemap.index');

@@ -21,27 +21,29 @@ class InertiaServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $supported = ['en', 'tr'];
+
+        if (session()->has('locale')) {
+            $locale = session()->get('locale');
+            if (in_array($locale, $supported)) {
+                App::setLocale($locale);
+            }
+        } elseif (request()->hasCookie('locale')) {
+            $locale = request()->cookie('locale');
+            if (in_array($locale, $supported)) {
+                session()->put('locale', $locale);
+                App::setLocale($locale);
+            }
+        } else {
+            $preferred = request()->getPreferredLanguage($supported) ?: 'en';
+            $locale    = in_array($preferred, $supported) ? $preferred : 'en';
+            session()->put('locale', $locale);
+            App::setLocale($locale);
+        }
+
         $data = [];
 
         $data['locale'] = function () {
-            $supported = ['en', 'tr'];
-
-            if (session()->has('locale')) {
-                App::setLocale(session()->get('locale'));
-            } elseif (request()->hasCookie('locale')) {
-                $locale = request()->cookie('locale');
-                if (in_array($locale, $supported)) {
-                    session()->put('locale', $locale);
-                    App::setLocale($locale);
-                }
-            } else {
-                $preferred = request()->getPreferredLanguage($supported) ?: 'en';
-                $locale    = in_array($preferred, $supported) ? $preferred : 'en';
-                session()->put('locale', $locale);
-                App::setLocale($locale);
-                cookie()->queue('locale', $locale, 60 * 24 * 365);
-            }
-
             return app()->getLocale();
         };
 

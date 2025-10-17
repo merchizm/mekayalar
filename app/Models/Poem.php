@@ -9,13 +9,7 @@ class Poem extends Model
 {
     protected $table = 'poems';
 
-    protected $fillable = [
-        'title',
-        'slug',
-        'content',
-        'status',
-        'wrote_at',
-    ];
+    protected $fillable = ['title', 'slug', 'content', 'status', 'wrote_at'];
 
     protected $casts = [
         'wrote_at'   => 'datetime',
@@ -23,5 +17,4 @@ class Poem extends Model
         'updated_at' => 'datetime',
         'status'     => PostEnum::class,
     ];
-
 }

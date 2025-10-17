@@ -9,9 +9,12 @@ export default function MarkdownEditor({ value, onChange }) {
     const [fullscreen, setFullscreen] = useState(false);
     const textareaRef = useRef(null);
 
+    // Sync content with value prop when it changes externally
     useEffect(() => {
-        onChange(content);
-    }, [content]);
+        if (value !== content) {
+            setContent(value || '');
+        }
+    }, [value, content]);
 
     useEffect(() => {
         if (fullscreen) {
@@ -46,6 +49,7 @@ export default function MarkdownEditor({ value, onChange }) {
 
         const newContent = content.substring(0, start) + syntaxMap[action] + content.substring(end);
         setContent(newContent);
+        onChange(newContent);
         textarea.focus();
     };
 
@@ -58,13 +62,21 @@ export default function MarkdownEditor({ value, onChange }) {
     return (
         <div className={editorContainerClass}>
             <div className={editorSectionClass}>
-                <div className="flex flex-wrap justify-between items-center p-2 border-b border-gray-200 dark:border-gray-700">
+                <div className="flex flex-wrap items-center justify-between border-b border-gray-200 p-2 dark:border-gray-700">
                     <Toolbar onAction={handleAction} />
-                    <div className="flex gap-2 items-center">
-                        <button type="button" onClick={() => setShowPreview(!showPreview)} className="px-2 py-1 text-xs font-medium text-white bg-yellow-500 rounded hover:bg-yellow-600">
+                    <div className="flex items-center gap-2">
+                        <button
+                            type="button"
+                            onClick={() => setShowPreview(!showPreview)}
+                            className="rounded bg-yellow-500 px-2 py-1 text-xs font-medium text-white hover:bg-yellow-600"
+                        >
                             {showPreview ? 'Önizlemeyi Gizle' : 'Önizlemeyi Göster'}
                         </button>
-                        <button type="button" onClick={() => setFullscreen(!fullscreen)} className="px-2 py-1 text-xs font-medium text-white bg-blue-500 rounded hover:bg-blue-600">
+                        <button
+                            type="button"
+                            onClick={() => setFullscreen(!fullscreen)}
+                            className="rounded bg-blue-500 px-2 py-1 text-xs font-medium text-white hover:bg-blue-600"
+                        >
                             {fullscreen ? 'Tam Ekrandan Çık' : 'Tam Ekran'}
                         </button>
                     </div>
@@ -72,19 +84,28 @@ export default function MarkdownEditor({ value, onChange }) {
                 <textarea
                     ref={textareaRef}
                     value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                    className="flex-grow p-4 w-full bg-transparent border-0 resize-none focus:ring-0 dark:text-gray-200"
+                    onChange={(e) => {
+                        const newValue = e.target.value;
+                        setContent(newValue);
+                        onChange(newValue);
+                    }}
+                    className="w-full flex-grow resize-none border-0 bg-transparent p-4 focus:ring-0 dark:text-gray-200"
                     style={{ minHeight: '400px' }}
                 />
-                <div className="p-2 text-xs text-gray-500 border-t border-gray-200 dark:border-gray-700 dark:text-gray-400">
+                <div className="border-t border-gray-200 p-2 text-xs text-gray-500 dark:border-gray-700 dark:text-gray-400">
                     Karakter: {content.length}
                 </div>
             </div>
-            {showPreview && <div className="bg-gray-300 dark:bg-gray-600 cursor-col-resize w-1.5 hover:bg-blue-500 flex-shrink-0"></div>}
+            {showPreview && (
+                <div className="w-1.5 flex-shrink-0 cursor-col-resize bg-gray-300 hover:bg-blue-500 dark:bg-gray-600"></div>
+            )}
             <div className={previewSectionClass}>
                 <h5 className="mb-2 text-lg font-bold">Önizleme</h5>
-                <div className="max-w-none prose prose-sm sm:prose lg:prose-lg xl:prose-xl dark:prose-invert" dangerouslySetInnerHTML={{ __html: sanitizedHtml }} />
+                <div
+                    className="prose prose-sm sm:prose lg:prose-lg xl:prose-xl dark:prose-invert max-w-none"
+                    dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
+                />
             </div>
         </div>
     );
-} 
+}

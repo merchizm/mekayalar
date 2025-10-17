@@ -6,158 +6,224 @@ import PostFilters from '@/Components/Admin/Posts/PostFilters';
 import PostTypeBadge from '@/Components/Admin/Posts/PostTypeBadge';
 
 const StatusBadge = ({ status }) => {
-  const colorMap = {
-    published: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300',
-    draft: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300',
-    trash: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300',
-  };
-  const labelMap = {
-    published: 'Yayınlandı',
-    draft: 'Taslak',
-    trash: 'Çöp',
-  }
-  return (
-    <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${colorMap[status] || 'bg-gray-100 text-gray-800'}`}>
-      {labelMap[status] || status}
-    </span>
-  );
+    const colorMap = {
+        published: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300',
+        draft: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300',
+        trash: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300',
+    };
+    const labelMap = {
+        published: 'Yayınlandı',
+        draft: 'Taslak',
+        trash: 'Çöp',
+    };
+    return (
+        <span
+            className={`inline-flex rounded-full px-2 text-xs font-semibold leading-5 ${colorMap[status] || 'bg-gray-100 text-gray-800'}`}
+        >
+            {labelMap[status] || status}
+        </span>
+    );
 };
 
 export default function Index({ auth, posts, filters = {} }) {
-  const deletePost = (post) => {
-    if (!confirm(`'${post.post_title}' başlıklı gönderiyi silmek istediğinizden emin misiniz?`)) {
-      return;
-    }
-    router.delete(route('admin.posts.destroy', post.id), {
-      onSuccess: () => toast.success('Gönderi başarıyla silindi!'),
-      onError: () => toast.error('Gönderi silinirken bir hata oluştu.'),
-    });
-  };
+    const deletePost = (post) => {
+        if (!confirm(`'${post.post_title}' başlıklı gönderiyi silmek istediğinizden emin misiniz?`)) {
+            return;
+        }
+        router.delete(route('admin.posts.destroy', post.id), {
+            onSuccess: () => toast.success('Gönderi başarıyla silindi!'),
+            onError: () => toast.error('Gönderi silinirken bir hata oluştu.'),
+        });
+    };
 
-  return (
-    <AdminLayout user={auth.user}>
-      <Head title="Tüm Gönderiler" />
+    return (
+        <AdminLayout user={auth.user}>
+            <Head title="Tüm Gönderiler" />
 
-      <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm">
-        <div className="px-5 py-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
-          <div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Tüm Gönderiler</h3>
-            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-              Toplam {posts.total} gönderi
-            </p>
-          </div>
-          <div>
-            <Link href={route('admin.posts.create')} className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-              Yeni Gönderi
-            </Link>
-          </div>
-        </div>
-
-        {/* Filters */}
-        <PostFilters filters={filters} />
-        <div className="p-5">
-          {/* Desktop Table View */}
-          <div className="hidden md:block overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-              <thead className="bg-gray-50 dark:bg-gray-700">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Başlık</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Tür</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Kategori</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Durum</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Oluşturulma Tarihi</th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">İşlemler</th>
-                </tr>
-              </thead>
-              <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-                {posts.data.length > 0 ? (
-                  posts.data.map((post) => (
-                    <tr key={post.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">{post.post_title}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm"><PostTypeBadge type={post.type} /></td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{post.category?.name || '-'}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm"><StatusBadge status={post.post_status} /></td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{new Date(post.created_at).toLocaleDateString('tr-TR')}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
-                        <Link href={route('admin.posts.edit', post.id)} className="px-3 py-1 text-sm font-medium text-white bg-yellow-500 rounded-md hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
-                          Düzenle
-                        </Link>
-                        <button className="px-3 py-1 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500" onClick={() => deletePost(post)}>
-                          Sil
-                        </button>
-                      </td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="6" className="px-6 py-12 text-center">
-                      <div className="text-gray-400 dark:text-gray-500">
-                        <svg className="mx-auto h-12 w-12 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                        </svg>
-                        <p className="text-gray-500 dark:text-gray-400 text-lg font-medium">Gönderi bulunamadı</p>
-                        <p className="text-gray-400 dark:text-gray-500 text-sm mt-1">
-                          {Object.keys(filters).some(key => filters[key])
-                            ? 'Filtreleri temizleyerek tekrar deneyin.'
-                            : 'İlk gönderinizi oluşturmak için "Yeni Gönderi" butonuna tıklayın.'
-                          }
-                        </p>
-                      </div>
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-
-          {/* Mobile Card View */}
-          <div className="md:hidden space-y-4">
-            {posts.data.length > 0 ? (
-              posts.data.map((post) => (
-                <div key={post.id} className="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg p-4">
-                  <div className="flex items-start justify-between mb-3">
-                    <div className="flex-1">
-                      <h3 className="text-sm font-medium text-gray-900 dark:text-white line-clamp-2">{post.post_title}</h3>
-                      <div className="flex items-center gap-2 mt-2">
-                        <PostTypeBadge type={post.type} />
-                        <StatusBadge status={post.post_status} />
-                      </div>
+            <div className="rounded-lg border border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                <div className="flex items-center justify-between border-b border-gray-200 px-5 py-4 dark:border-gray-700">
+                    <div>
+                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Tüm Gönderiler</h3>
+                        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Toplam {posts.total} gönderi</p>
                     </div>
-                  </div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-3">
-                    <span className="block">{post.category?.name || 'Kategori yok'}</span>
-                    <span className="block mt-1">{new Date(post.created_at).toLocaleDateString('tr-TR')}</span>
-                  </div>
-                  <div className="flex gap-2">
-                    <Link href={route('admin.posts.edit', post.id)} className="flex-1 px-3 py-2 text-center text-xs font-medium text-white bg-yellow-500 rounded-md hover:bg-yellow-600">
-                      Düzenle
-                    </Link>
-                    <button className="flex-1 px-3 py-2 text-xs font-medium text-white bg-red-600 rounded-md hover:bg-red-700" onClick={() => deletePost(post)}>
-                      Sil
-                    </button>
-                  </div>
+                    <div>
+                        <Link
+                            href={route('admin.posts.create')}
+                            className="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                        >
+                            Yeni Gönderi
+                        </Link>
+                    </div>
                 </div>
-              ))
-            ) : (
-              <div className="text-center py-12 text-gray-400 dark:text-gray-500">
-                <svg className="mx-auto h-12 w-12 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                <p className="text-gray-500 dark:text-gray-400 text-base font-medium">Gönderi bulunamadı</p>
-                <p className="text-gray-400 dark:text-gray-500 text-sm mt-1">
-                  {Object.keys(filters).some(key => filters[key])
-                    ? 'Filtreleri temizleyerek tekrar deneyin.'
-                    : 'İlk gönderinizi oluşturmak için "Yeni Gönderi" butonuna tıklayın.'
-                  }
-                </p>
-              </div>
-            )}
-          </div>
-        </div>
 
-        {/* Pagination */}
-        <Pagination links={posts.links} meta={posts} />
-      </div>
-    </AdminLayout>
-  );
-} 
+                {/* Filters */}
+                <PostFilters filters={filters} />
+                <div className="p-5">
+                    {/* Desktop Table View */}
+                    <div className="hidden overflow-x-auto md:block">
+                        <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                            <thead className="bg-gray-50 dark:bg-gray-700">
+                                <tr>
+                                    <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300">
+                                        Başlık
+                                    </th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300">
+                                        Tür
+                                    </th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300">
+                                        Kategori
+                                    </th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300">
+                                        Durum
+                                    </th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300">
+                                        Oluşturulma Tarihi
+                                    </th>
+                                    <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300">
+                                        İşlemler
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800">
+                                {posts.data.length > 0 ? (
+                                    posts.data.map((post) => (
+                                        <tr key={post.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
+                                            <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">
+                                                {post.post_title}
+                                            </td>
+                                            <td className="whitespace-nowrap px-6 py-4 text-sm">
+                                                <PostTypeBadge type={post.type} />
+                                            </td>
+                                            <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500 dark:text-gray-400">
+                                                {post.category?.name || '-'}
+                                            </td>
+                                            <td className="whitespace-nowrap px-6 py-4 text-sm">
+                                                <StatusBadge status={post.post_status} />
+                                            </td>
+                                            <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500 dark:text-gray-400">
+                                                {new Date(post.created_at).toLocaleDateString('tr-TR')}
+                                            </td>
+                                            <td className="space-x-2 whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
+                                                <Link
+                                                    href={route('admin.posts.edit', post.id)}
+                                                    className="rounded-md bg-yellow-500 px-3 py-1 text-sm font-medium text-white hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
+                                                >
+                                                    Düzenle
+                                                </Link>
+                                                <button
+                                                    className="rounded-md bg-red-600 px-3 py-1 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                                                    onClick={() => deletePost(post)}
+                                                >
+                                                    Sil
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan="6" className="px-6 py-12 text-center">
+                                            <div className="text-gray-400 dark:text-gray-500">
+                                                <svg
+                                                    className="mx-auto mb-4 h-12 w-12"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    viewBox="0 0 24 24"
+                                                >
+                                                    <path
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                        strokeWidth={1}
+                                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                                                    />
+                                                </svg>
+                                                <p className="text-lg font-medium text-gray-500 dark:text-gray-400">
+                                                    Gönderi bulunamadı
+                                                </p>
+                                                <p className="mt-1 text-sm text-gray-400 dark:text-gray-500">
+                                                    {Object.keys(filters).some((key) => filters[key])
+                                                        ? 'Filtreleri temizleyerek tekrar deneyin.'
+                                                        : 'İlk gönderinizi oluşturmak için "Yeni Gönderi" butonuna tıklayın.'}
+                                                </p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {/* Mobile Card View */}
+                    <div className="space-y-4 md:hidden">
+                        {posts.data.length > 0 ? (
+                            posts.data.map((post) => (
+                                <div
+                                    key={post.id}
+                                    className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-600 dark:bg-gray-700"
+                                >
+                                    <div className="mb-3 flex items-start justify-between">
+                                        <div className="flex-1">
+                                            <h3 className="line-clamp-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                {post.post_title}
+                                            </h3>
+                                            <div className="mt-2 flex items-center gap-2">
+                                                <PostTypeBadge type={post.type} />
+                                                <StatusBadge status={post.post_status} />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="mb-3 text-xs text-gray-500 dark:text-gray-400">
+                                        <span className="block">{post.category?.name || 'Kategori yok'}</span>
+                                        <span className="mt-1 block">
+                                            {new Date(post.created_at).toLocaleDateString('tr-TR')}
+                                        </span>
+                                    </div>
+                                    <div className="flex gap-2">
+                                        <Link
+                                            href={route('admin.posts.edit', post.id)}
+                                            className="flex-1 rounded-md bg-yellow-500 px-3 py-2 text-center text-xs font-medium text-white hover:bg-yellow-600"
+                                        >
+                                            Düzenle
+                                        </Link>
+                                        <button
+                                            className="flex-1 rounded-md bg-red-600 px-3 py-2 text-xs font-medium text-white hover:bg-red-700"
+                                            onClick={() => deletePost(post)}
+                                        >
+                                            Sil
+                                        </button>
+                                    </div>
+                                </div>
+                            ))
+                        ) : (
+                            <div className="py-12 text-center text-gray-400 dark:text-gray-500">
+                                <svg
+                                    className="mx-auto mb-4 h-12 w-12"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={1}
+                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                                    />
+                                </svg>
+                                <p className="text-base font-medium text-gray-500 dark:text-gray-400">
+                                    Gönderi bulunamadı
+                                </p>
+                                <p className="mt-1 text-sm text-gray-400 dark:text-gray-500">
+                                    {Object.keys(filters).some((key) => filters[key])
+                                        ? 'Filtreleri temizleyerek tekrar deneyin.'
+                                        : 'İlk gönderinizi oluşturmak için "Yeni Gönderi" butonuna tıklayın.'}
+                                </p>
+                            </div>
+                        )}
+                    </div>
+                </div>
+
+                {/* Pagination */}
+                <Pagination links={posts.links} meta={posts} />
+            </div>
+        </AdminLayout>
+    );
+}

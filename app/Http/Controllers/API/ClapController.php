@@ -27,8 +27,9 @@ class ClapController extends Controller
         return response()->json($clap->count);
     }
 
-    public function updateClaps(ClapRequest $request): Application|Response|JsonResponse|\Illuminate\Contracts\Foundation\Application|ResponseFactory
-    {
+    public function updateClaps(
+        ClapRequest $request,
+    ): Application|Response|JsonResponse|\Illuminate\Contracts\Foundation\Application|ResponseFactory {
         $data       = $request->validated();
         $ip_address = $request->ip();
 
@@ -47,7 +48,10 @@ class ClapController extends Controller
         $clap = Clap::where($data)->firstOrFail();
 
         // Check how many times this IP has clapped
-        $log = ClapLog::firstOrCreate(['clap_id' => $clap->id, 'ip_address' => $ip_address], ['clap_id' => $clap->id, 'ip_address' => $ip_address, 'count' => 0]);
+        $log = ClapLog::firstOrCreate(
+            ['clap_id' => $clap->id, 'ip_address' => $ip_address],
+            ['clap_id' => $clap->id, 'ip_address' => $ip_address, 'count' => 0],
+        );
 
         if ($log->count >= self::MAX_CLAPS_PER_USER) {
             return response($clap->count);

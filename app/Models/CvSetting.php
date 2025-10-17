@@ -6,10 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CvSetting extends Model
 {
-    protected $fillable = [
-        'key',
-        'value',
-    ];
+    protected $fillable = ['key', 'value'];
 
     protected $casts = [
         'value' => 'array',
@@ -24,9 +21,6 @@ class CvSetting extends Model
 
     public static function set(string $key, $value): self
     {
-        return static::updateOrCreate(
-            ['key' => $key],
-            ['value' => $value]
-        );
+        return static::updateOrCreate(['key' => $key], ['value' => $value]);
     }
 }

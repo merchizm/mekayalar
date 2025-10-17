@@ -33,7 +33,7 @@ class CvSectionQuestion extends Model
 
     public function getTranslatedLabel(string $locale = 'tr'): string
     {
-        return $this->label_translations[$locale] ?? $this->label_translations['en'] ?? $this->field_name;
+        return $this->label_translations[$locale] ?? ($this->label_translations['en'] ?? $this->field_name);
     }
 
     public function getValidationRules(): array

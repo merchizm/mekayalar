@@ -31,8 +31,9 @@ export default function UpdatePasswordForm({ className = '' }) {
         });
     };
 
-    const formInputClass = "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 sm:text-sm";
-    const formLabelClass = "block text-sm font-medium text-gray-700 dark:text-gray-300";
+    const formInputClass =
+        'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 sm:text-sm';
+    const formLabelClass = 'block text-sm font-medium text-gray-700 dark:text-gray-300';
 
     return (
         <section className={className}>
@@ -46,7 +47,9 @@ export default function UpdatePasswordForm({ className = '' }) {
 
             <form onSubmit={updatePassword} className="mt-6 space-y-6">
                 <div>
-                    <label htmlFor="current_password" className={formLabelClass}>Mevcut Şifre</label>
+                    <label htmlFor="current_password" className={formLabelClass}>
+                        Mevcut Şifre
+                    </label>
                     <input
                         id="current_password"
                         ref={currentPasswordInput}
@@ -56,11 +59,15 @@ export default function UpdatePasswordForm({ className = '' }) {
                         className={formInputClass}
                         autoComplete="current-password"
                     />
-                    {errors.current_password && <div className="text-red-500 mt-2 text-xs">{errors.current_password}</div>}
+                    {errors.current_password && (
+                        <div className="mt-2 text-xs text-red-500">{errors.current_password}</div>
+                    )}
                 </div>
 
                 <div>
-                    <label htmlFor="password" className={formLabelClass}>Yeni Şifre</label>
+                    <label htmlFor="password" className={formLabelClass}>
+                        Yeni Şifre
+                    </label>
                     <input
                         id="password"
                         ref={passwordInput}
@@ -70,11 +77,13 @@ export default function UpdatePasswordForm({ className = '' }) {
                         className={formInputClass}
                         autoComplete="new-password"
                     />
-                    {errors.password && <div className="text-red-500 mt-2 text-xs">{errors.password}</div>}
+                    {errors.password && <div className="mt-2 text-xs text-red-500">{errors.password}</div>}
                 </div>
 
                 <div>
-                    <label htmlFor="password_confirmation" className={formLabelClass}>Yeni Şifre (Tekrar)</label>
+                    <label htmlFor="password_confirmation" className={formLabelClass}>
+                        Yeni Şifre (Tekrar)
+                    </label>
                     <input
                         id="password_confirmation"
                         value={data.password_confirmation}
@@ -83,15 +92,20 @@ export default function UpdatePasswordForm({ className = '' }) {
                         className={formInputClass}
                         autoComplete="new-password"
                     />
-                    {errors.password_confirmation && <div className="text-red-500 mt-2 text-xs">{errors.password_confirmation}</div>}
+                    {errors.password_confirmation && (
+                        <div className="mt-2 text-xs text-red-500">{errors.password_confirmation}</div>
+                    )}
                 </div>
 
                 <div className="flex items-center gap-4">
-                    <button className="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 active:bg-blue-900 focus:outline-none focus:border-blue-900 focus:ring ring-blue-300 disabled:opacity-25 transition ease-in-out duration-150" disabled={processing}>Kaydet</button>
+                    <button
+                        className="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white ring-blue-300 transition duration-150 ease-in-out hover:bg-blue-700 focus:border-blue-900 focus:outline-none focus:ring active:bg-blue-900 disabled:opacity-25"
+                        disabled={processing}
+                    >
+                        Kaydet
+                    </button>
 
-                    {recentlySuccessful && (
-                        <p className="text-sm text-gray-600 dark:text-gray-400">Kaydedildi.</p>
-                    )}
+                    {recentlySuccessful && <p className="text-sm text-gray-600 dark:text-gray-400">Kaydedildi.</p>}
                 </div>
             </form>
         </section>

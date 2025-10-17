@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Head, useForm } from '@inertiajs/react';
 import AdminLayout from '@/Layouts/AdminLayout';
 
 export default function CvSettings({ settings }) {
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, post, processing } = useForm({
         template: settings.template || {
             template: 'modern',
             colors: {
@@ -51,7 +51,7 @@ export default function CvSettings({ settings }) {
     return (
         <>
             <Head title="CV Ayarları" />
-            
+
             <div className="space-y-6">
                 {/* Header */}
                 <div className="flex items-center justify-between">
@@ -61,7 +61,7 @@ export default function CvSettings({ settings }) {
                     </div>
                     <a
                         href={route('admin.cv.index')}
-                        className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
+                        className="rounded-lg bg-gray-600 px-4 py-2 font-medium text-white transition-colors hover:bg-gray-700"
                     >
                         Geri Dön
                     </a>
@@ -69,19 +69,19 @@ export default function CvSettings({ settings }) {
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                     {/* Template Settings */}
-                    <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-                        <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Şablon Ayarları</h2>
-                        
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="rounded-lg bg-white p-6 shadow dark:bg-gray-800">
+                        <h2 className="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Şablon Ayarları</h2>
+
+                        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                             {/* Template Type */}
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
                                     Şablon Türü
                                 </label>
                                 <select
                                     value={data.template.template}
                                     onChange={(e) => updateTemplate('template', e.target.value)}
-                                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                                    className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                                 >
                                     <option value="modern">Modern</option>
                                     <option value="classic">Klasik</option>
@@ -91,13 +91,13 @@ export default function CvSettings({ settings }) {
 
                             {/* Font Family */}
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
                                     Yazı Tipi
                                 </label>
                                 <select
                                     value={data.template.font_family}
                                     onChange={(e) => updateTemplate('font_family', e.target.value)}
-                                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                                    className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-transparent focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                                 >
                                     <option value="Inter">Inter</option>
                                     <option value="Roboto">Roboto</option>
@@ -108,7 +108,7 @@ export default function CvSettings({ settings }) {
 
                             {/* Primary Color */}
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
                                     Ana Renk (Başlıklar, Vurgular)
                                 </label>
                                 <div className="flex items-center space-x-3">
@@ -116,13 +116,13 @@ export default function CvSettings({ settings }) {
                                         type="color"
                                         value={data.template.colors.primary}
                                         onChange={(e) => updateTemplateColor('primary', e.target.value)}
-                                        className="w-12 h-10 border border-gray-300 dark:border-gray-600 rounded cursor-pointer"
+                                        className="h-10 w-12 cursor-pointer rounded border border-gray-300 dark:border-gray-600"
                                     />
                                     <input
                                         type="text"
                                         value={data.template.colors.primary}
                                         onChange={(e) => updateTemplateColor('primary', e.target.value)}
-                                        className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white"
+                                        className="flex-1 rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                                         placeholder="#2563eb"
                                     />
                                 </div>
@@ -130,7 +130,7 @@ export default function CvSettings({ settings }) {
 
                             {/* Secondary Color */}
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
                                     İkincil Renk (Metin, Detaylar)
                                 </label>
                                 <div className="flex items-center space-x-3">
@@ -138,13 +138,13 @@ export default function CvSettings({ settings }) {
                                         type="color"
                                         value={data.template.colors.secondary}
                                         onChange={(e) => updateTemplateColor('secondary', e.target.value)}
-                                        className="w-12 h-10 border border-gray-300 dark:border-gray-600 rounded cursor-pointer"
+                                        className="h-10 w-12 cursor-pointer rounded border border-gray-300 dark:border-gray-600"
                                     />
                                     <input
                                         type="text"
                                         value={data.template.colors.secondary}
                                         onChange={(e) => updateTemplateColor('secondary', e.target.value)}
-                                        className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white"
+                                        className="flex-1 rounded-lg border border-gray-300 px-3 py-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                                         placeholder="#1f2937"
                                     />
                                 </div>
@@ -153,7 +153,7 @@ export default function CvSettings({ settings }) {
 
                         {/* Quick Color Presets */}
                         <div className="mt-6">
-                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+                            <label className="mb-3 block text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Hazır Renk Paletleri
                             </label>
                             <div className="flex flex-wrap gap-3">
@@ -171,16 +171,16 @@ export default function CvSettings({ settings }) {
                                             updateTemplateColor('primary', preset.primary);
                                             updateTemplateColor('secondary', preset.secondary);
                                         }}
-                                        className="px-4 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                                        className="rounded-lg border border-gray-300 px-4 py-2 text-sm transition-colors hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-700"
                                     >
                                         <div className="flex items-center space-x-2">
                                             <div className="flex space-x-1">
-                                                <div 
-                                                    className="w-3 h-3 rounded-full"
+                                                <div
+                                                    className="h-3 w-3 rounded-full"
                                                     style={{ backgroundColor: preset.primary }}
                                                 ></div>
-                                                <div 
-                                                    className="w-3 h-3 rounded-full"
+                                                <div
+                                                    className="h-3 w-3 rounded-full"
                                                     style={{ backgroundColor: preset.secondary }}
                                                 ></div>
                                             </div>
@@ -193,58 +193,72 @@ export default function CvSettings({ settings }) {
                     </div>
 
                     {/* Visibility Settings */}
-                    <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-                        <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Görünürlük Ayarları</h2>
-                        
+                    <div className="rounded-lg bg-white p-6 shadow dark:bg-gray-800">
+                        <h2 className="mb-4 text-lg font-semibold text-gray-900 dark:text-white">
+                            Görünürlük Ayarları
+                        </h2>
+
                         <div className="space-y-4">
                             {/* Show on Public Site */}
                             <div className="flex items-center justify-between">
                                 <div>
-                                    <h3 className="text-sm font-medium text-gray-900 dark:text-white">Genel Sitede Göster</h3>
-                                    <p className="text-sm text-gray-500 dark:text-gray-400">CV'nizi halka açık sitede görüntüleyin</p>
+                                    <h3 className="text-sm font-medium text-gray-900 dark:text-white">
+                                        Genel Sitede Göster
+                                    </h3>
+                                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                                        CV'nizi halka açık sitede görüntüleyin
+                                    </p>
                                 </div>
-                                <label className="relative inline-flex items-center cursor-pointer">
+                                <label className="relative inline-flex cursor-pointer items-center">
                                     <input
                                         type="checkbox"
                                         checked={data.visibility.show_on_public_site}
                                         onChange={(e) => updateVisibility('show_on_public_site', e.target.checked)}
-                                        className="sr-only peer"
+                                        className="peer sr-only"
                                     />
-                                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                                    <div className="peer h-6 w-11 rounded-full bg-gray-200 after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-blue-800"></div>
                                 </label>
                             </div>
 
                             {/* Allow PDF Download */}
                             <div className="flex items-center justify-between">
                                 <div>
-                                    <h3 className="text-sm font-medium text-gray-900 dark:text-white">PDF İndirmeye İzin Ver</h3>
-                                    <p className="text-sm text-gray-500 dark:text-gray-400">Ziyaretçiler CV'nizi PDF olarak indirebilir</p>
+                                    <h3 className="text-sm font-medium text-gray-900 dark:text-white">
+                                        PDF İndirmeye İzin Ver
+                                    </h3>
+                                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                                        Ziyaretçiler CV'nizi PDF olarak indirebilir
+                                    </p>
                                 </div>
-                                <label className="relative inline-flex items-center cursor-pointer">
+                                <label className="relative inline-flex cursor-pointer items-center">
                                     <input
                                         type="checkbox"
                                         checked={data.visibility.allow_pdf_download}
                                         onChange={(e) => updateVisibility('allow_pdf_download', e.target.checked)}
-                                        className="sr-only peer"
+                                        className="peer sr-only"
                                     />
-                                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                                    <div className="peer h-6 w-11 rounded-full bg-gray-200 after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-blue-800"></div>
                                 </label>
                             </div>
 
                             {/* Show Contact Info */}
                             <div className="flex items-center justify-between">
                                 <div>
-                                    <h3 className="text-sm font-medium text-gray-900 dark:text-white">İletişim Bilgilerini Göster</h3>
-                                    <p className="text-sm text-gray-500 dark:text-gray-400">E-posta, telefon gibi iletişim bilgilerini göster</p>
+                                    <h3 className="text-sm font-medium text-gray-900 dark:text-white">
+                                        İletişim Bilgilerini Göster
+                                    </h3>
+                                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                                        E-posta, telefon gibi iletişim bilgilerini göster
+                                    </p>
                                 </div>
-                                <label className="relative inline-flex items-center cursor-pointer">
+                                <label className="relative inline-flex cursor-pointer items-center">
                                     <input
                                         type="checkbox"
                                         checked={data.visibility.show_contact_info}
                                         onChange={(e) => updateVisibility('show_contact_info', e.target.checked)}
-                                        className="sr-only peer"
+                                        className="peer sr-only"
                                     />
-                                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                                    <div className="peer h-6 w-11 rounded-full bg-gray-200 after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-blue-800"></div>
                                 </label>
                             </div>
                         </div>
@@ -254,14 +268,14 @@ export default function CvSettings({ settings }) {
                     <div className="flex justify-end space-x-3">
                         <a
                             href={route('admin.cv.index')}
-                            className="bg-gray-300 hover:bg-gray-400 text-gray-700 px-6 py-2 rounded-lg font-medium transition-colors"
+                            className="rounded-lg bg-gray-300 px-6 py-2 font-medium text-gray-700 transition-colors hover:bg-gray-400"
                         >
                             İptal
                         </a>
                         <button
                             type="submit"
                             disabled={processing}
-                            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors disabled:opacity-50"
+                            className="rounded-lg bg-blue-600 px-6 py-2 font-medium text-white transition-colors hover:bg-blue-700 disabled:opacity-50"
                         >
                             {processing ? 'Kaydediliyor...' : 'Ayarları Kaydet'}
                         </button>
@@ -272,4 +286,4 @@ export default function CvSettings({ settings }) {
     );
 }
 
-CvSettings.layout = page => <AdminLayout children={page} />;
+CvSettings.layout = (page) => <AdminLayout children={page} />;

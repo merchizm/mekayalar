@@ -7,13 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class CvSection extends Model
 {
-    protected $fillable = [
-        'name',
-        'title_translations',
-        'icon',
-        'sort_order',
-        'is_active',
-    ];
+    protected $fillable = ['name', 'title_translations', 'icon', 'sort_order', 'is_active'];
 
     protected $casts = [
         'title_translations' => 'array',
@@ -27,7 +21,7 @@ class CvSection extends Model
 
     public function getTranslatedTitle(string $locale = 'tr'): string
     {
-        return $this->title_translations[$locale] ?? $this->title_translations['en'] ?? $this->name;
+        return $this->title_translations[$locale] ?? ($this->title_translations['en'] ?? $this->name);
     }
 
     public function scopeActive($query)

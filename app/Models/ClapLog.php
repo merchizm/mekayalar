@@ -8,9 +8,5 @@ class ClapLog extends Model
 {
     protected $table = 'clap_logs';
 
-    protected $fillable = [
-        'clap_id',
-        'ip_address',
-        'count',
-    ];
+    protected $fillable = ['clap_id', 'ip_address', 'count'];
 }

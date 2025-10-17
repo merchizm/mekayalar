@@ -36,8 +36,12 @@ class DashboardController extends Controller
             ],
         ];
 
-        $recentPosts = Post::latest()->take(5)->get(['id', 'post_title', 'post_status', 'created_at']);
-        $recentPoems = Poem::latest()->take(5)->get(['id', 'title', 'wrote_at']);
+        $recentPosts = Post::latest()
+            ->take(5)
+            ->get(['id', 'post_title', 'post_status', 'created_at']);
+        $recentPoems = Poem::latest()
+            ->take(5)
+            ->get(['id', 'title', 'wrote_at']);
 
         return Inertia::render('Admin/Dashboard', [
             'stats'       => $stats,

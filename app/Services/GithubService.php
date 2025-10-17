@@ -23,7 +23,9 @@ class GithubService
             $result = json_decode($response->getBody()->getContents(), true);
 
             if (isset($result['message']) && $response->getStatusCode() > 400) {
-                throw new \Exception($response->getStatusCode().' '.$response->getReasonPhrase()."\n".$result['message']);
+                throw new \Exception(
+                    $response->getStatusCode().' '.$response->getReasonPhrase()."\n".$result['message'],
+                );
             }
 
             return $result;

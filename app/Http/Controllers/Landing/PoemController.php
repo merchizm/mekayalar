@@ -12,7 +12,9 @@ class PoemController extends Controller
     {
         seo()
             ->title('Mekayalar.com — Şiirlerim')
-            ->description('Şiirleri sadece duygularımı ifade etmek için kullandığım bir gerçek, bu nedenle şairlere nazaran bir performans benden katiyen beklenmemeli ve öyle şiirleri okumalı.')
+            ->description(
+                'Şiirleri sadece duygularımı ifade etmek için kullandığım bir gerçek, bu nedenle şairlere nazaran bir performans benden katiyen beklenmemeli ve öyle şiirleri okumalı.',
+            )
             ->twitter()
             ->twitterCreator('merchizm')
             ->locale('tr_TR')

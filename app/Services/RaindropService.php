@@ -50,16 +50,20 @@ class RaindropService
 
     public function shorten_data($data): Collection
     {
-        return collect($data)->map(function ($bookmark) {
-            return [
-                'title'   => $bookmark['title'],
-                'link'    => $bookmark['link'],
-                'created' => $bookmark['created'],
-                'domain'  => $bookmark['domain'],
-            ];
-        })->sortByDesc(function ($bookmark) {
-            return new Carbon($bookmark['created']);
-        })->values()->all();
+        return collect($data)
+            ->map(function ($bookmark) {
+                return [
+                    'title'   => $bookmark['title'],
+                    'link'    => $bookmark['link'],
+                    'created' => $bookmark['created'],
+                    'domain'  => $bookmark['domain'],
+                ];
+            })
+            ->sortByDesc(function ($bookmark) {
+                return new Carbon($bookmark['created']);
+            })
+            ->values()
+            ->all();
     }
 
     /**
@@ -135,7 +139,10 @@ class RaindropService
 
     public function authorize(): string
     {
-        return 'https://raindrop.io/oauth/authorize?client_id='.config('external.raindrop_client_id').'&redirect_uri='.config('external.raindrop_callback_url');
+        return 'https://raindrop.io/oauth/authorize?client_id='.
+            config('external.raindrop_client_id').
+            '&redirect_uri='.
+            config('external.raindrop_callback_url');
     }
 
     public function callback(Request $request)

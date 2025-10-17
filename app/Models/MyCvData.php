@@ -8,13 +8,7 @@ class MyCvData extends Model
 {
     protected $table = 'my_cv_data';
 
-    protected $fillable = [
-        'section_name',
-        'language',
-        'data',
-        'sort_order',
-        'is_visible',
-    ];
+    protected $fillable = ['section_name', 'language', 'data', 'sort_order', 'is_visible'];
 
     protected $casts = [
         'data'       => 'array',
@@ -33,17 +27,12 @@ class MyCvData extends Model
 
     public static function getSection(string $sectionName, string $language = 'tr'): ?self
     {
-        return static::where('section_name', $sectionName)
-            ->where('language', $language)
-            ->first();
+        return static::where('section_name', $sectionName)->where('language', $language)->first();
     }
 
     public static function updateSection(string $sectionName, array $data, string $language = 'tr'): self
     {
-        return static::updateOrCreate(
-            ['section_name' => $sectionName, 'language' => $language],
-            ['data' => $data]
-        );
+        return static::updateOrCreate(['section_name' => $sectionName, 'language' => $language], ['data' => $data]);
     }
 
     public static function getSectionBothLanguages(string $sectionName): array

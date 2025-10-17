@@ -112,7 +112,9 @@ class PostController extends Controller
         ];
 
         if (array_key_exists('post_tags', $validated)) {
-            $updateData['post_tags'] = !empty($validated['post_tags']) ? array_column($validated['post_tags'], 'value') : [];
+            $updateData['post_tags'] = !empty($validated['post_tags'])
+                ? array_column($validated['post_tags'], 'value')
+                : [];
         }
 
         $post->update($updateData);
@@ -146,7 +148,7 @@ class PostController extends Controller
                 'post_image'       => $request->post_image ?? null,
                 'description'      => $request->description ?? null,
                 'post_category_id' => $request->post_category_id ?? null,
-            ]
+            ],
         );
 
         return response()->json(['success' => true, 'post_id' => $post->id]);

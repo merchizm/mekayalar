@@ -7,41 +7,41 @@ import TomSelect from 'tom-select';
 import 'tom-select/dist/css/tom-select.bootstrap5.css';
 
 const TagInput = ({ value = [], onChange, ...props }) => {
-  const selectRef = useRef(null);
-  const tomSelectInstance = useRef(null);
+    const selectRef = useRef(null);
+    const tomSelectInstance = useRef(null);
 
-  useEffect(() => {
-    if (selectRef.current) {
-      tomSelectInstance.current = new TomSelect(selectRef.current, {
-        plugins: ['remove_button'],
-        create: true,
-        persist: false,
-        items: value,
-        onChange(values) {
-          onChange(values ? values.split(',') : []);
-        },
-        ...props
-      });
-    }
+    useEffect(() => {
+        if (selectRef.current) {
+            tomSelectInstance.current = new TomSelect(selectRef.current, {
+                plugins: ['remove_button'],
+                create: true,
+                persist: false,
+                items: value,
+                onChange(values) {
+                    onChange(values ? values.split(',') : []);
+                },
+                ...props,
+            });
+        }
 
-    return () => {
-      if (tomSelectInstance.current) {
-        tomSelectInstance.current.destroy();
-      }
-    };
-  }, []);
+        return () => {
+            if (tomSelectInstance.current) {
+                tomSelectInstance.current.destroy();
+            }
+        };
+    }, []);
 
-  useEffect(() => {
-    if (tomSelectInstance.current) {
-      // Sync TomSelect with external value changes
-      if (JSON.stringify(tomSelectInstance.current.items) !== JSON.stringify(value)) {
-        tomSelectInstance.current.clear(true); // silent clear
-        tomSelectInstance.current.addItems(value, true); // silent add
-      }
-    }
-  }, [value]);
+    useEffect(() => {
+        if (tomSelectInstance.current) {
+            // Sync TomSelect with external value changes
+            if (JSON.stringify(tomSelectInstance.current.items) !== JSON.stringify(value)) {
+                tomSelectInstance.current.clear(true); // silent clear
+                tomSelectInstance.current.addItems(value, true); // silent add
+            }
+        }
+    }, [value]);
 
-  return <input ref={selectRef} defaultValue={value.join(',')} />;
+    return <input ref={selectRef} defaultValue={value.join(',')} />;
 };
 
-export default TagInput; 
+export default TagInput;

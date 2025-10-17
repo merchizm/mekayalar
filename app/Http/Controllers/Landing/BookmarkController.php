@@ -19,9 +19,9 @@ class BookmarkController extends Controller
     public function index()
     {
         /*
-        * burada şimdilik geçici basit bir cache yapısı oluşturdum.
-        * asıl hedef ise yeni içeriğin girilmesine bağlı yenilenen cache mekaniği
-        */
+         * burada şimdilik geçici basit bir cache yapısı oluşturdum.
+         * asıl hedef ise yeni içeriğin girilmesine bağlı yenilenen cache mekaniği
+         */
         if (Cache::has('raindrop_bookmarks')) {
             $bookmarks = Cache::get('raindrop_bookmarks');
         } else {
@@ -31,7 +31,9 @@ class BookmarkController extends Controller
 
         seo()
             ->title('Mekayalar.com — Yer İmleri')
-            ->description('Size ve bana yararı olabileceğini düşündüğüm, bugün ve sonrası için kaydettiğim yararlı bağlantılar.')
+            ->description(
+                'Size ve bana yararı olabileceğini düşündüğüm, bugün ve sonrası için kaydettiğim yararlı bağlantılar.',
+            )
             ->twitter()
             ->twitterCreator('merchizm')
             ->locale('tr_TR')
