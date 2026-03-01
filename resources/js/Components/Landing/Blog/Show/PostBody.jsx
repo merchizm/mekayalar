@@ -28,16 +28,16 @@ const PostBody = ({ post }) => {
                         {primaryBook && <span>•</span>}
                         {primaryBook && <span>{primaryBook.author}</span>}
                         {post.quote_page && <span>•</span>}
-                        {post.quote_page && <span>s. {post.quote_page}</span>}
+                        {post.quote_page && <span>{__('s. :page', { page: post.quote_page })}</span>}
                     </div>
                 </section>
             )}
             {type === '4' && albumItems.length > 0 && (
                 <section className="mb-12">
                     <div className="mb-6">
-                        <h2 className="text-2xl font-bold text-text dark:text-text-dark">Galeri</h2>
+                        <h2 className="text-2xl font-bold text-text dark:text-text-dark">{__('Galeri')}</h2>
                         <p className="mt-1 text-sm text-light-text dark:text-light-text-dark">
-                            Albümde {albumItems.length} görsel var. Büyütmek için bir kare seç.
+                            {__('Albümde :count görsel var. Büyütmek için bir kare seç.', { count: albumItems.length })}
                         </p>
                     </div>
                     <div

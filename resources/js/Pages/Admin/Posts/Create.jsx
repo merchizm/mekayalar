@@ -132,7 +132,7 @@ export default function Create({ auth, categories, books = [] }) {
                                             <div className="space-y-6 rounded-lg border border-amber-200 bg-amber-50/60 p-4 dark:border-amber-900 dark:bg-amber-950/20">
                                                 <div>
                                                     <label htmlFor="quote_text" className={formLabelClass}>
-                                                        Alıntı Metni
+                                                        {__('Alıntı Metni')}
                                                     </label>
                                                     <textarea
                                                         rows="6"
@@ -156,7 +156,7 @@ export default function Create({ auth, categories, books = [] }) {
                                                     </div>
                                                     <div>
                                                         <label htmlFor="quote_highlight_color" className={formLabelClass}>
-                                                            Vurgu Rengi
+                                                            {__('Vurgu Rengi')}
                                                         </label>
                                                         <input
                                                             type="color"
@@ -170,7 +170,7 @@ export default function Create({ auth, categories, books = [] }) {
                                                 </div>
                                                 <div>
                                                     <label htmlFor="book_ids" className={formLabelClass}>
-                                                        Kitaplar
+                                                        {__('Kitaplar')}
                                                     </label>
                                                     <select
                                                         multiple
@@ -185,13 +185,13 @@ export default function Create({ auth, categories, books = [] }) {
                                                         ))}
                                                     </select>
                                                     <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                                                        Birden fazla kitap seçilebilir.
+                                                        {__('Birden fazla kitap seçilebilir.')}
                                                     </div>
                                                 </div>
                                                 {data.book_ids.length > 0 && (
                                                     <div>
                                                         <label htmlFor="primary_book_id" className={formLabelClass}>
-                                                            Ana Kitap
+                                                            {__('Ana Kitap')}
                                                         </label>
                                                         <select
                                                             className={formInputClass}
@@ -219,21 +219,21 @@ export default function Create({ auth, categories, books = [] }) {
                                             <div className="space-y-4 rounded-lg border border-rose-200 bg-rose-50/60 p-4 dark:border-rose-900 dark:bg-rose-950/20">
                                                 <div className="flex items-center justify-between">
                                                     <h4 className="text-base font-semibold text-gray-900 dark:text-white">
-                                                        Albüm Görselleri
+                                                        {__('Albüm Görselleri')}
                                                     </h4>
                                                     <button
                                                         type="button"
                                                         onClick={addAlbumItem}
                                                         className="rounded-md bg-rose-600 px-3 py-2 text-sm font-medium text-white"
                                                     >
-                                                        Görsel Ekle
+                                                        {__('Görsel Ekle')}
                                                     </button>
                                                 </div>
                                                 {data.album_items.map((item, index) => (
                                                     <div key={index} className="rounded-md border border-gray-200 p-4 dark:border-gray-700">
                                                         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
                                                             <div className="md:col-span-3">
-                                                                <label className={formLabelClass}>Görsel URL</label>
+                                                                <label className={formLabelClass}>{__('Görsel URL')}</label>
                                                                 <input
                                                                     type="text"
                                                                     className={formInputClass}
@@ -244,7 +244,7 @@ export default function Create({ auth, categories, books = [] }) {
                                                                 />
                                                             </div>
                                                             <div>
-                                                                <label className={formLabelClass}>Caption</label>
+                                                                <label className={formLabelClass}>{__('Caption')}</label>
                                                                 <input
                                                                     type="text"
                                                                     className={formInputClass}
@@ -253,7 +253,7 @@ export default function Create({ auth, categories, books = [] }) {
                                                                 />
                                                             </div>
                                                             <div>
-                                                                <label className={formLabelClass}>Alt Text</label>
+                                                                <label className={formLabelClass}>{__('Alt Text')}</label>
                                                                 <input
                                                                     type="text"
                                                                     className={formInputClass}
@@ -267,7 +267,7 @@ export default function Create({ auth, categories, books = [] }) {
                                                                     onClick={() => removeAlbumItem(index)}
                                                                     className="w-full rounded-md bg-gray-200 px-3 py-2 text-sm font-medium text-gray-800 dark:bg-gray-700 dark:text-gray-100"
                                                                 >
-                                                                    Kaldır
+                                                                    {__('Kaldır')}
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -281,7 +281,7 @@ export default function Create({ auth, categories, books = [] }) {
                             <div className="space-y-6 rounded-lg border bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800 md:col-span-1">
                                 <div>
                                     <label htmlFor="post_status" className={formLabelClass}>
-                                        Durum
+                                        {__('Durum')}
                                     </label>
                                     <select
                                         className={formInputClass}
@@ -342,7 +342,7 @@ export default function Create({ auth, categories, books = [] }) {
 
                                 <div>
                                     <label htmlFor="description" className={formLabelClass}>
-                                        Kısa Açıklama
+                                        {__('Kısa Açıklama')}
                                     </label>
                                     <textarea
                                         className={formInputClass}
@@ -354,7 +354,7 @@ export default function Create({ auth, categories, books = [] }) {
 
                                 <div>
                                     <label htmlFor="post_image" className={formLabelClass}>
-                                        {isAlbumPost ? 'Kapak Görseli URL' : 'Öne Çıkan Görsel URL'}
+                                        {isAlbumPost ? __('Kapak Görseli URL') : __('Öne Çıkan Görsel URL')}
                                     </label>
                                     <input
                                         type="text"
@@ -365,7 +365,7 @@ export default function Create({ auth, categories, books = [] }) {
                                 </div>
                                 <div>
                                     <label htmlFor="type" className={formLabelClass}>
-                                        Gönderi Tipi
+                                        {__('Gönderi Tipi')}
                                     </label>
                                     <select
                                         className={formInputClass}

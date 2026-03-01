@@ -161,7 +161,7 @@ class PostController extends Controller
     {
         $post->delete();
 
-        return redirect()->route('posts.index')->with('success', 'Post deleted successfully.');
+        return redirect()->route('admin.posts.index')->with('success', 'Post deleted successfully.');
     }
 
     public function saveDraft(Request $request)

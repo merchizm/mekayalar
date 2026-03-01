@@ -178,12 +178,12 @@ function Index({ featuredProjects }) {
                     <h2 className="mb-6 text-2xl font-bold text-text dark:text-text-dark">{__('İş Deneyimi')}</h2>
                     <div className="space-y-4">
                         <AccordionItem
-                            title="***** - Freelance Full-stack Developer"
+                            title="Beesoft - Full-stack Developer"
                             date={__('Mayıs 2025')}
-                            logo="/assets/img/hidden.png"
+                            logo="/assets/img/beesoft.png"
                         >
                             {__(
-                                'Ağırlıklı olarak Front-end odaklı çalışıyor, Laravel ekosistemiyle uyumlu React/Blade ve Blade + Alpine.js tabanlı arayüzler geliştiriyorum. Figma tasarımlarını üretim ortamına uygun şekilde koda aktarıyor, sistemin sürdürülebilirliğini sağlamak üzere iyileştirmeler yapıyor ve olası darboğazları ile performans problemlerini ortadan kaldırıyorum.'
+                                'experience.beesoft.summary'
                             )}
                         </AccordionItem>
 

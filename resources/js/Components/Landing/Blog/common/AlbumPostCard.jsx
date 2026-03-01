@@ -29,10 +29,10 @@ export default function AlbumPostCard({ post }) {
                         <div className="rounded-[1.75rem] border border-white/55 bg-white/72 p-5 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-neutral-950/82 dark:shadow-[0_24px_80px_rgba(0,0,0,0.5)] sm:p-6 md:p-7">
                             <div className="mb-3 flex items-center justify-between gap-4">
                                 <div className="inline-flex rounded-full bg-rose-100/90 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-rose-800 dark:bg-rose-950/80 dark:text-rose-100">
-                                    Albüm
+                                    {__('Albüm')}
                                 </div>
                                 <div className="rounded-full bg-black/80 px-3 py-1 text-xs font-semibold text-white dark:bg-white/14 dark:text-white">
-                                    {totalCount} görsel
+                                    {__(':count görsel', { count: totalCount })}
                                 </div>
                             </div>
                             <h2 className="mb-2 text-2xl font-bold text-text transition group-hover:text-menu-active dark:text-text-dark dark:group-hover:text-menu-active-dark sm:text-3xl md:text-4xl">
