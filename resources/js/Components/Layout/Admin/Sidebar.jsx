@@ -212,6 +212,8 @@ export default function Sidebar() {
             icon: { outline: DocumentTextOutline, solid: DocumentTextOutline },
             children: [
                 { name: 'Gönderiler', href: route('admin.posts.index'), current: route().current('admin.posts.*') },
+                { name: 'Kitaplar', href: route('admin.books.index'), current: route().current('admin.books.*') },
+                { name: 'Yorumlar', href: route('admin.comments.index'), current: route().current('admin.comments.*') },
                 { name: 'Şiirler', href: route('admin.poems.index'), current: route().current('admin.poems.*') },
                 { name: 'Projeler', href: route('admin.projects.index'), current: route().current('admin.projects.*') },
                 { name: 'Dosyalar', href: route('admin.media.index'), current: route().current('admin.media.*') },
@@ -237,6 +239,12 @@ export default function Sidebar() {
             href: route('admin.posts.create'),
             icon: { outline: PlusIcon, solid: PlusIcon },
             current: route().current('admin.posts.create'),
+        },
+        {
+            name: 'Yeni Kitap Ekle',
+            href: route('admin.books.create'),
+            icon: { outline: PlusIcon, solid: PlusIcon },
+            current: route().current('admin.books.create'),
         },
         {
             name: 'Yeni Proje Ekle',

@@ -1,0 +1,315 @@
+import React, { useMemo, useState } from 'react';
+import { router, useForm, usePage } from '@inertiajs/react';
+import LandingLayout from '@/Layouts/LandingLayout';
+
+const emojiOptions = ['👍', '❤️', '🔥', '🎉', '✨', '😂', '👏', '😮', '🤍', '🌍'];
+
+const sortOptions = [
+    { value: 'newest', label: 'En Yeni' },
+    { value: 'oldest', label: 'En Eski' },
+    { value: 'popular', label: 'En Çok Tepki' },
+];
+
+export default function GuestbookIndex({ entries = [], honeypot = null }) {
+    const {
+        props: { auth },
+    } = usePage();
+    const [emojiPickerFor, setEmojiPickerFor] = useState(null);
+    const [sort, setSort] = useState('newest');
+    const [replyDrafts, setReplyDrafts] = useState({});
+    const [replyErrors, setReplyErrors] = useState({});
+
+    const honeypotData = useMemo(() => {
+        if (!honeypot?.enabled) {
+            return {};
+        }
+
+        return {
+            [honeypot.nameFieldName]: '',
+            [honeypot.validFromFieldName]: honeypot.encryptedValidFrom,
+        };
+    }, [honeypot]);
+
+    const { data, setData, post, processing, reset, errors } = useForm({
+        name: auth?.user?.name || '',
+        message: '',
+        ...honeypotData,
+    });
+
+    const sortedEntries = useMemo(() => {
+        const copy = [...entries];
+        const score = (entry) => Object.values(entry.reactions || {}).reduce((sum, count) => sum + count, 0);
+
+        copy.sort((a, b) => {
+            if (sort === 'oldest') {
+                return (a.created_at || '').localeCompare(b.created_at || '');
+            }
+            if (sort === 'popular') {
+                return score(b) - score(a);
+            }
+            return (b.created_at || '').localeCompare(a.created_at || '');
+        });
+
+        return copy;
+    }, [entries, sort]);
+
+    const submit = (event) => {
+        event.preventDefault();
+        post(route('guestbook.store'), {
+            preserveScroll: true,
+            onSuccess: () => {
+                reset('message');
+            },
+        });
+    };
+
+    const toggleReaction = (entryId, emoji) => {
+        router.post(route('guestbook.react', entryId), { emoji }, { preserveScroll: true });
+        setEmojiPickerFor(null);
+    };
+
+    const pickersOpen = (entryId) => emojiPickerFor === entryId;
+
+    const updateReplyDraft = (entryId, value) => {
+        setReplyDrafts((prev) => ({ ...prev, [entryId]: value }));
+    };
+
+    const submitReply = (entryId) => {
+        if (!auth?.user) {
+            return;
+        }
+
+        const message = replyDrafts[entryId] || '';
+
+        router.post(
+            route('guestbook.reply', entryId),
+            { message },
+            {
+                preserveScroll: true,
+                onSuccess: () => {
+                    setReplyDrafts((prev) => ({ ...prev, [entryId]: '' }));
+                    setReplyErrors((prev) => ({ ...prev, [entryId]: null }));
+                },
+                onError: (errors) => {
+                    setReplyErrors((prev) => ({ ...prev, [entryId]: errors.message }));
+                },
+            }
+        );
+    };
+
+    return (
+        <div className="space-y-12">
+            <header className="text-center">
+                <h1 className="text-5xl font-bold tracking-tight text-text dark:text-text-dark">Guestbook</h1>
+                <p className="mx-auto mt-4 max-w-2xl text-xl text-light-text dark:text-light-text-dark">
+                    Dünyanın neresinden yazdığını görmek istiyorum. Mesajını bırak, haritada yerin görünsün.
+                </p>
+            </header>
+
+            <section className="space-y-10">
+                <div className="rounded-3xl border border-divider bg-white p-6 shadow-lg dark:border-divider-dark dark:bg-gray-900">
+                    <h2 className="text-lg font-semibold text-text dark:text-text-dark">Mesaj Bırak</h2>
+                    <form onSubmit={submit} className="mt-4 space-y-4">
+                        {honeypot?.enabled && (
+                            <>
+                                <input
+                                    type="text"
+                                    name={honeypot.nameFieldName}
+                                    value={data[honeypot.nameFieldName] || ''}
+                                    onChange={(event) => setData(honeypot.nameFieldName, event.target.value)}
+                                    className="hidden"
+                                    tabIndex="-1"
+                                    autoComplete="off"
+                                />
+                                <input
+                                    type="text"
+                                    name={honeypot.validFromFieldName}
+                                    value={data[honeypot.validFromFieldName] || ''}
+                                    onChange={(event) => setData(honeypot.validFromFieldName, event.target.value)}
+                                    className="hidden"
+                                    tabIndex="-1"
+                                    autoComplete="off"
+                                />
+                            </>
+                        )}
+                        <div>
+                            <label className="text-xs font-semibold uppercase tracking-wider text-light-text dark:text-light-text-dark">
+                                İsim
+                            </label>
+                            <input
+                                type="text"
+                                value={data.name}
+                                onChange={(event) => setData('name', event.target.value)}
+                                className="mt-2 w-full rounded-xl border border-divider bg-button px-3 py-2 text-sm text-text focus:border-menu-active focus:outline-none focus:ring-1 focus:ring-menu-active dark:border-divider-dark dark:bg-button-dark dark:text-text-dark"
+                            />
+                            {errors.name && <p className="mt-1 text-xs text-red-500">{errors.name}</p>}
+                        </div>
+                        <div>
+                            <label className="text-xs font-semibold uppercase tracking-wider text-light-text dark:text-light-text-dark">
+                                Mesaj
+                            </label>
+                            <textarea
+                                rows="4"
+                                value={data.message}
+                                onChange={(event) => setData('message', event.target.value)}
+                                className="mt-2 w-full rounded-xl border border-divider bg-button px-3 py-2 text-sm text-text focus:border-menu-active focus:outline-none focus:ring-1 focus:ring-menu-active dark:border-divider-dark dark:bg-button-dark dark:text-text-dark"
+                            />
+                            {errors.message && <p className="mt-1 text-xs text-red-500">{errors.message}</p>}
+                        </div>
+                        <button
+                            type="submit"
+                            disabled={processing}
+                            className="rounded-xl bg-menu-active px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-70"
+                        >
+                            Gönder
+                        </button>
+                    </form>
+                </div>
+                <div className="rounded-3xl border border-divider bg-white p-5 shadow-lg dark:border-divider-dark dark:bg-gray-900">
+                    <div className="flex flex-wrap items-center justify-between gap-3">
+                        <div>
+                            <h2 className="text-lg font-semibold text-text dark:text-text-dark">Ziyaretçi Duvarı</h2>
+                            <p className="text-xs text-light-text dark:text-light-text-dark">
+                                {entries.length} kayıt
+                            </p>
+                        </div>
+                        <div className="flex flex-wrap items-center gap-2 rounded-full border border-divider bg-button p-1 text-xs font-semibold dark:border-divider-dark dark:bg-button-dark">
+                            {sortOptions.map((option) => (
+                                <button
+                                    key={option.value}
+                                    type="button"
+                                    onClick={() => setSort(option.value)}
+                                    className={`rounded-full px-3 py-1 transition ${
+                                        sort === option.value
+                                            ? 'bg-menu-active text-white'
+                                            : 'text-light-text hover:text-text dark:text-light-text-dark dark:hover:text-text-dark'
+                                    }`}
+                                >
+                                    {option.label}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                <div className="space-y-4">
+                    {sortedEntries.map((entry) => (
+                        <div
+                            key={entry.id}
+                            className="rounded-3xl border border-divider bg-white p-5 shadow-lg dark:border-divider-dark dark:bg-gray-900"
+                        >
+                            <div className="flex flex-wrap items-center justify-between gap-4">
+                                <div className="flex items-center gap-3">
+                                    <img
+                                        src={`https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(
+                                            entry.avatar_seed
+                                        )}`}
+                                        alt={entry.name}
+                                        className="h-11 w-11 rounded-full border border-divider bg-button dark:border-divider-dark dark:bg-button-dark"
+                                    />
+                                    <div>
+                                        <p className="text-sm font-semibold text-text dark:text-text-dark">
+                                            {entry.name}
+                                        </p>
+                                        <p className="text-xs text-light-text dark:text-light-text-dark">
+                                            {entry.location?.city || entry.location?.country || 'Unknown'}
+                                        </p>
+                                    </div>
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => setEmojiPickerFor(pickersOpen(entry.id) ? null : entry.id)}
+                                    className="rounded-full border border-divider bg-button px-2 py-1 text-xs font-semibold text-text shadow-sm transition hover:bg-button-hover dark:border-divider-dark dark:bg-button-dark dark:text-text-dark"
+                                >
+                                    +
+                                </button>
+                            </div>
+                            <p className="mt-4 text-sm text-text dark:text-text-dark">{entry.message}</p>
+                            <div className="mt-4 flex flex-wrap gap-2">
+                                {Object.entries(entry.reactions || {}).map(([emoji, count]) => (
+                                    <button
+                                        key={emoji}
+                                        type="button"
+                                        onClick={() => toggleReaction(entry.id, emoji)}
+                                        className={`rounded-full border px-2 py-1 text-xs ${
+                                            entry.reacted?.includes(emoji)
+                                                ? 'border-menu-active bg-menu-active text-white'
+                                                : 'border-divider bg-white text-text dark:border-divider-dark dark:bg-gray-800 dark:text-text-dark'
+                                        }`}
+                                    >
+                                        {emoji} {count}
+                                    </button>
+                                ))}
+                            </div>
+                            {entry.replies?.length > 0 && (
+                                <div className="mt-4 space-y-3 border-t border-divider pt-4 dark:border-divider-dark">
+                                    {entry.replies.map((reply) => (
+                                        <div key={reply.id} className="flex gap-3">
+                                            <div className="mt-1 h-2 w-2 rounded-full bg-menu-active" />
+                                            <div>
+                                                <div className="flex items-center gap-2 text-xs text-light-text dark:text-light-text-dark">
+                                                    <span className="font-semibold text-text dark:text-text-dark">
+                                                        {reply.commenter?.name || 'admin'}
+                                                    </span>
+                                                    {reply.commenter?.is_admin && (
+                                                        <span className="rounded-full bg-menu-active/10 px-2 py-0.5 text-[10px] font-semibold uppercase text-menu-active">
+                                                            admin
+                                                        </span>
+                                                    )}
+                                                </div>
+                                                <p className="mt-1 text-sm text-text dark:text-text-dark">
+                                                    {reply.message}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                            {auth?.user && (
+                                <div className="mt-4 border-t border-divider pt-4 dark:border-divider-dark">
+                                    <label className="text-xs font-semibold uppercase tracking-wider text-light-text dark:text-light-text-dark">
+                                        Yanitla
+                                    </label>
+                                    <textarea
+                                        rows="2"
+                                        value={replyDrafts[entry.id] || ''}
+                                        onChange={(event) => updateReplyDraft(entry.id, event.target.value)}
+                                        className="mt-2 w-full rounded-xl border border-divider bg-button px-3 py-2 text-sm text-text focus:border-menu-active focus:outline-none focus:ring-1 focus:ring-menu-active dark:border-divider-dark dark:bg-button-dark dark:text-text-dark"
+                                    />
+                                    {replyErrors[entry.id] && (
+                                        <p className="mt-1 text-xs text-red-500">{replyErrors[entry.id]}</p>
+                                    )}
+                                    <div className="mt-2 flex justify-end">
+                                        <button
+                                            type="button"
+                                            onClick={() => submitReply(entry.id)}
+                                            className="rounded-full bg-menu-active px-4 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:opacity-90"
+                                        >
+                                            Yanitla
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+                            {pickersOpen(entry.id) && (
+                                <div className="mt-3 flex flex-wrap gap-2 rounded-2xl border border-divider bg-white p-3 dark:border-divider-dark dark:bg-gray-800">
+                                    {emojiOptions.map((emoji) => (
+                                        <button
+                                            key={emoji}
+                                            type="button"
+                                            onClick={() => toggleReaction(entry.id, emoji)}
+                                            className="rounded-lg border border-divider bg-button px-2 py-1 text-sm hover:bg-button-hover dark:border-divider-dark dark:bg-button-dark"
+                                        >
+                                            {emoji}
+                                        </button>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    ))}
+                </div>
+            </section>
+        </div>
+    );
+}
+
+GuestbookIndex.layout = (page) => <LandingLayout children={page} seo={page.props.seo} />;

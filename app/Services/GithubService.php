@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Cache;
 use SoftinkLab\LaravelKeyvalueStorage\Facades\KVOption;
 
 class GithubService
@@ -39,10 +40,10 @@ class GithubService
      */
     public function getRepos(): array
     {
-        $url   = 'https://api.github.com/user/repos?visibility=public&sort=pushed';
-        $repos = $this->getRequest($url);
+        return Cache::remember('github.repos', now()->addDays(2), function () {
+            $url   = 'https://api.github.com/user/repos?visibility=public&sort=pushed';
+            $repos = $this->getRequest($url);
 
-        $shorten = function ($data) {
             return array_map(function ($repo) {
                 return [
                     'name'             => $repo['name'],
@@ -52,10 +53,8 @@ class GithubService
                     'html_url'         => $repo['html_url'],
                     'language'         => $repo['language'],
                 ];
-            }, $data);
-        };
-
-        return $shorten($repos);
+            }, $repos);
+        });
     }
 
     /**
@@ -63,10 +62,10 @@ class GithubService
      */
     public function getGists(): array
     {
-        $url   = 'https://api.github.com/gists';
-        $gists = $this->getRequest($url);
+        return Cache::remember('github.gists', now()->addDays(2), function () {
+            $url   = 'https://api.github.com/gists';
+            $gists = $this->getRequest($url);
 
-        $shorten = function ($data) {
             return array_map(function ($gist) {
                 return [
                     'description' => $gist['description'],
@@ -74,10 +73,8 @@ class GithubService
                     'comments'    => $gist['comments'],
                     'html_url'    => $gist['html_url'],
                 ];
-            }, $data);
-        };
-
-        return $shorten($gists);
+            }, $gists);
+        });
     }
 
     public function getLangColors()

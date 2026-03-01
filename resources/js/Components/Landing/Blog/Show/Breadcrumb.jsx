@@ -18,7 +18,7 @@ const Breadcrumb = ({ post }) => (
                     href={route('blog.index')}
                     className="transition-colors hover:text-menu-active dark:hover:text-menu-active-dark"
                 >
-                    {__('Yazılar')}
+                    {__('Gönderiler')}
                 </Link>
             </li>
             <li className="mx-2">/</li>

@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\BookController as AdminBookController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CommentController as AdminCommentController;
+use App\Http\Controllers\Admin\CommentSettingsController;
 use App\Http\Controllers\Admin\CvController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MediaController;
@@ -9,8 +12,11 @@ use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
 use App\Http\Controllers\Landing\BlogController;
+use App\Http\Controllers\Landing\BookController;
 use App\Http\Controllers\Landing\BookmarkController;
 use App\Http\Controllers\Landing\BookshelfController;
+use App\Http\Controllers\Landing\CommentController;
+use App\Http\Controllers\Landing\GuestbookController;
 use App\Http\Controllers\Landing\PoemController as LandingPoemController;
 use App\Http\Controllers\Landing\ProjectController as LandingProjectController;
 use App\Http\Controllers\LanguageController;
@@ -54,7 +60,7 @@ Route::get('/', function () {
 })->name('landing.index');
 
 Route::get('/incognito', function () {
-    return view('landing.incognito');
+    return view('incognito');
 })->name('incognito');
 
 Route::get('/poems', [LandingPoemController::class, 'index'])->name('poems.index');
@@ -64,11 +70,19 @@ Route::get('/bookmarks', [BookmarkController::class, 'index'])->name('bookmarks.
 
 Route::get('/posts', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/posts/{slug}', [BlogController::class, 'show'])->name('blog.show');
+Route::post('/posts/{post:post_slug}/comments', [CommentController::class, 'store'])->name('blog.comments.store');
 Route::get('/category/{slug}', [BlogController::class, 'category'])->name('blog.category');
 Route::get('/type/{type}', [BlogController::class, 'type'])->name('blog.type');
 Route::get('/search', [BlogController::class, 'search'])->name('blog.search');
+Route::get('/guestbook', [GuestbookController::class, 'index'])->name('guestbook.index');
+Route::post('/guestbook', [GuestbookController::class, 'store'])->name('guestbook.store');
+Route::post('/guestbook/{guestbookEntry}/react', [GuestbookController::class, 'react'])->name('guestbook.react');
+Route::post('/guestbook/{guestbookEntry}/reply', [GuestbookController::class, 'reply'])
+    ->middleware(['auth', 'verified'])
+    ->name('guestbook.reply');
 
 Route::get('/bookshelf', [BookshelfController::class, 'index'])->name('bookshelf.index');
+Route::get('/books/{book}', [BookController::class, 'show'])->name('books.show');
 
 Route::get('/projects', [LandingProjectController::class, 'index'])->name('projects.index');
 Route::get('/projects/{project}', [LandingProjectController::class, 'show'])->name('projects.show');
@@ -90,7 +104,9 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
 
             Route::get('/posts/check_slug', [PostController::class, 'check_slug'])->name('posts.check_slug');
             Route::resource('posts', PostController::class)->except(['show']);
+            Route::resource('books', AdminBookController::class)->except(['show']);
             Route::post('/posts/draft', [PostController::class, 'saveDraft'])->name('posts.draft');
+            Route::get('/posts/{post}/preview', [BlogController::class, 'preview'])->name('posts.preview');
             Route::resource('categories', CategoryController::class)->only(['index', 'store', 'update', 'destroy']);
 
             Route::get('/profile', [AdminProfileController::class, 'edit'])->name('profile.edit');
@@ -100,6 +116,9 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
             Route::resource('poems', PoemController::class)->names('poems');
 
             Route::resource('projects', AdminProjectController::class)->names('projects');
+            Route::resource('comments', AdminCommentController::class)->only(['index', 'update', 'destroy']);
+            Route::get('/comments/settings', [CommentSettingsController::class, 'index'])->name('comments.settings');
+            Route::post('/comments/settings', [CommentSettingsController::class, 'update'])->name('comments.settings.update');
 
             Route::post('/upload', [MediaController::class, 'upload'])->name('media.upload');
             Route::get('/files', [MediaController::class, 'listFiles'])->name('media.files');

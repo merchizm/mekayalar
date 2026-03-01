@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use SoftinkLab\LaravelKeyvalueStorage\Facades\KVOption;
 use SpotifyWebAPI;
 use SpotifyWebAPI\SpotifyWebAPIAuthException;
@@ -116,22 +117,79 @@ class SpotifyService
     /**
      * get all user playlists.
      */
-    public function userPlaylists($offset = 0): array
+    public function userPlaylists(int $offset = 0, int $limit = 12): array
     {
-        $this->setAccessToken();
-        $result = (array) $this->api->getMyPlaylists([
-            'limit'  => 50,
-            'offset' => $offset,
-        ]);
+        return Cache::remember(
+            "spotify.user_playlists.{$offset}.{$limit}",
+            now()->addHours(12),
+            function () use ($offset, $limit) {
+                $this->setAccessToken();
+                $userId = null;
 
-        $last_response = $this->api->getLastResponse();
-        if ($last_response['status'] === 200) {
-            return $result;
-        } else {
-            return [
-                'message' => 'açıkcası bende problem ne bilmiyorum :(',
-            ];
-        }
+                try {
+                    $me     = $this->api->me();
+                    $userId = $me->id ?? null;
+                } catch (SpotifyWebAPIException) {
+                    $userId = null;
+                }
+
+                if ($userId) {
+                    return (array) $this->api->getUserPlaylists($userId, [
+                        'limit'  => $limit,
+                        'offset' => $offset,
+                    ]);
+                }
+
+                return (array) $this->api->getMyPlaylists([
+                    'limit'  => $limit,
+                    'offset' => $offset,
+                ]);
+            }
+        );
+    }
+
+    public function playlistPreview(string $playlistId, int $limit = 6): array
+    {
+        return Cache::remember(
+            "spotify.playlist_preview.{$playlistId}.{$limit}",
+            now()->addMonth(),
+            function () use ($playlistId, $limit) {
+                $this->setAccessToken();
+
+                $tracks = $this->api->getPlaylistTracks($playlistId, [
+                    'limit' => $limit,
+                ]);
+
+                $items = [];
+                foreach ($tracks->items ?? [] as $item) {
+                    $track = $item->track ?? null;
+                    if (!$track) {
+                        continue;
+                    }
+
+                    $artists = [];
+                    foreach ($track->artists ?? [] as $artist) {
+                        $artists[] = $artist->name;
+                    }
+
+                    $image = null;
+                    if (!empty($track->album->images)) {
+                        $image = $track->album->images[0]->url ?? null;
+                    }
+
+                    $items[] = [
+                        'id'      => $track->id ?? null,
+                        'name'    => $track->name ?? '',
+                        'artists' => implode(', ', $artists),
+                        'image'   => $image,
+                    ];
+                }
+
+                return [
+                    'tracks' => $items,
+                ];
+            }
+        );
     }
 
     public function callback(Request $request): void

@@ -17,6 +17,7 @@
         "inertiajs/inertia-laravel": "^2.0",
         "intervention/image": "^3.11",
         "jwilsson/spotify-web-api-php": "^6.1",
+        "lakm/laravel-comments": "^4.0",
         "laravel/framework": "^12.0",
         "laravel/sanctum": "^4.0",
         "laravel/telescope": "^5.5",

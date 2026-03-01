@@ -14,28 +14,6 @@ Modern teknolojilerle geliştirdiğim kişisel web sitemi kaynak kodları. Blog 
 - **Database**: MySQL/PostgreSQL
 - **Build Tool**: Vite
 
-## ✨ Özellikler
-
-### 🎯 Ana Özellikler
-- **Blog Sistemi**: Markdown destekli blog yazılari
-- **Şiir Koleksiyonu**: Kişisel şiir arşivi
-- **Proje Portfolyosu**: GitHub entegrasyonlu proje vitrini
-- **Kitaplık**: Okuma listesi ve öneriler
-- **Yer İmleri**: Faydalı bağlantılar koleksiyonu
-
-### 🎨 Kullanıcı Deneyimi
-- **Responsive Tasarım**: Tüm cihazlarda mükemmel görünüm
-- **Dark/Light Mode**: Otomatik tema değişimi
-- **Saat Dilimi Desteği**: Dinamik tema geçişi
-- **Smooth Animations**: Akıcı geçiş efektleri
-- **Touch Optimized**: Mobil dokunmatik deneyim
-
-### 🔧 Yönetim Paneli
-- **Admin Dashboard**: Kapsamlı yönetim arayüzü
-- **Content Management**: Blog, şiir ve proje yönetimi
-- **Media Manager**: Dosya yükleme ve organizasyon
-- **Analytics**: Ziyaretçi istatistikleri
-
 ## 🛠️ Kurulum
 
 ### Gereksinimler
@@ -43,7 +21,6 @@ Modern teknolojilerle geliştirdiğim kişisel web sitemi kaynak kodları. Blog 
 - **PHP** >= 8.1
 - **Composer** >= 2.0
 - **Node.js** >= 18.0
-- **npm** veya **yarn**
 - **MySQL** >= 5.7 veya **PostgreSQL** >= 12
 - **Git**
 
@@ -151,30 +128,6 @@ php artisan migrate:rollback
 php artisan make:seeder TableSeeder
 ```
 
-## 📁 Proje Yapısı
-
-```
-mekayalar/
-├── app/
-│   ├── Http/Controllers/       # Controller'lar
-│   ├── Models/                 # Eloquent modeller
-│   ├── Services/               # Harici servis entegrasyonları
-│   └── Livewire/              # Livewire bileşenleri
-├── resources/
-│   ├── js/
-│   │   ├── Components/        # React bileşenleri
-│   │   ├── Pages/            # Inertia sayfaları
-│   │   └── Layouts/          # Layout bileşenleri
-│   ├── css/                  # Stil dosyaları
-│   └── views/                # Blade template'leri
-├── database/
-│   ├── migrations/           # Veritabanı migration'ları
-│   └── seeders/             # Seed dosyaları
-└── public/
-    ├── assets/              # Statik dosyalar
-    └── storage/             # Yüklenen dosyalar
-```
-
 ## 🎨 Kişiselleştirme
 
 ### Tema Ayarları
@@ -187,33 +140,6 @@ Admin paneli üzerinden tüm içerikleri yönetebilirsiniz:
 - Projeler
 - Kitap önerileri
 - Yer imleri
-
-## 🚀 Deployment
-
-### Production Hazırlığı
-```bash
-# Composer optimize
-composer install --optimize-autoloader --no-dev
-
-# Config cache
-php artisan config:cache
-
-# Route cache
-php artisan route:cache
-
-# View cache
-php artisan view:cache
-
-# Assets build
-npm run build
-```
-
-### Server Gereksinimleri
-- PHP 8.1+
-- Web server (Apache/Nginx)
-- SSL sertifikası
-- Composer
-- Node.js (build için)
 
 ## 📝 Lisans
 

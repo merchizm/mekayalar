@@ -6,7 +6,7 @@ import ReposTab from '@/Components/Landing/Bookshelf/Index/ReposTab';
 import GistsTab from '@/Components/Landing/Bookshelf/Index/GistsTab';
 import BooksTab from '@/Components/Landing/Bookshelf/Index/BooksTab';
 
-function Index({ playlists, repos, gists, langColors }) {
+function Index({ playlists, repos, gists, books, langColors, playlistPagination }) {
     const [currentTab, setCurrentTab] = useState('playlists');
 
     return (
@@ -96,10 +96,12 @@ function Index({ playlists, repos, gists, langColors }) {
                     </nav>
                 </div>
 
-                {currentTab === 'playlists' && <PlaylistsTab playlists={playlists} />}
+                {currentTab === 'playlists' && (
+                    <PlaylistsTab playlists={playlists} pagination={playlistPagination} />
+                )}
                 {currentTab === 'repos' && <ReposTab repos={repos} langColors={langColors} />}
                 {currentTab === 'gists' && <GistsTab gists={gists} />}
-                {currentTab === 'books' && <BooksTab />}
+                {currentTab === 'books' && <BooksTab books={books} />}
             </div>
         </>
     );

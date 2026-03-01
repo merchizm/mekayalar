@@ -40,7 +40,15 @@ class SpotifyController extends Controller
 
     public function playlists(Request $request): JsonResponse
     {
-        return response()->json($this->service->userPlaylists($request->query('offset', 0)));
+        $offset = (int) $request->query('offset', 0);
+        $limit  = (int) $request->query('limit', 12);
+
+        return response()->json($this->service->userPlaylists($offset, $limit));
+    }
+
+    public function playlistPreview(string $playlistId): JsonResponse
+    {
+        return response()->json($this->service->playlistPreview($playlistId, 6));
     }
 
     public function currentlyPlaying(SpotifyService $spotifyService): JsonResponse

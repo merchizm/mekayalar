@@ -26,6 +26,9 @@ const StatusBadge = ({ status }) => {
 };
 
 export default function Index({ auth, posts, filters = {} }) {
+    const postItems = Array.isArray(posts?.data) ? posts.data : [];
+    const totalPosts = typeof posts?.total === 'number' ? posts.total : postItems.length;
+    const postLinks = Array.isArray(posts?.links) ? posts.links : [];
     const deletePost = (post) => {
         if (!confirm(`'${post.post_title}' başlıklı gönderiyi silmek istediğinizden emin misiniz?`)) {
             return;
@@ -44,7 +47,7 @@ export default function Index({ auth, posts, filters = {} }) {
                 <div className="flex items-center justify-between border-b border-gray-200 px-5 py-4 dark:border-gray-700">
                     <div>
                         <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Tüm Gönderiler</h3>
-                        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Toplam {posts.total} gönderi</p>
+                        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Toplam {totalPosts} gönderi</p>
                     </div>
                     <div>
                         <Link
@@ -85,8 +88,8 @@ export default function Index({ auth, posts, filters = {} }) {
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800">
-                                {posts.data.length > 0 ? (
-                                    posts.data.map((post) => (
+                                {postItems.length > 0 ? (
+                                    postItems.map((post) => (
                                         <tr key={post.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
                                             <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">
                                                 {post.post_title}
@@ -154,8 +157,8 @@ export default function Index({ auth, posts, filters = {} }) {
 
                     {/* Mobile Card View */}
                     <div className="space-y-4 md:hidden">
-                        {posts.data.length > 0 ? (
-                            posts.data.map((post) => (
+                        {postItems.length > 0 ? (
+                            postItems.map((post) => (
                                 <div
                                     key={post.id}
                                     className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-600 dark:bg-gray-700"
@@ -222,7 +225,7 @@ export default function Index({ auth, posts, filters = {} }) {
                 </div>
 
                 {/* Pagination */}
-                <Pagination links={posts.links} meta={posts} />
+                <Pagination links={postLinks} meta={posts} />
             </div>
         </AdminLayout>
     );

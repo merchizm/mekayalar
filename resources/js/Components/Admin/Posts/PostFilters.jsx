@@ -24,6 +24,8 @@ export default function PostFilters({ filters }) {
         { value: '0', label: 'Yazı' },
         { value: '1', label: 'Resim' },
         { value: '2', label: 'Çizim' },
+        { value: '3', label: 'Alıntı' },
+        { value: '4', label: 'Albüm' },
     ];
 
     const postStatuses = [

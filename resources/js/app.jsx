@@ -4,6 +4,7 @@ import './bootstrap';
 import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createRoot } from 'react-dom/client';
+import { bindMarkdownMermaid, bindMarkdownTabs } from './utils/markdown';
 
 // Global translation helper
 window.__ = (name, params = {}) => {
@@ -32,3 +33,6 @@ createInertiaApp({
         color: '#4B5563',
     },
 });
+
+bindMarkdownTabs();
+bindMarkdownMermaid();

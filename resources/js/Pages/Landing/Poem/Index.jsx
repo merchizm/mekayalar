@@ -49,12 +49,6 @@ function Index({ poems }) {
                         <div className="relative z-10 flex flex-grow flex-col">
                             <div className="mb-4 flex items-start justify-between">
                                 <h3 className="text-2xl font-bold text-text dark:text-text-dark">{poem.title}</h3>
-                                <applause-button
-                                    id={poem.id}
-                                    type="poem"
-                                    multiclap="true"
-                                    class="h-[58px] w-[58px] flex-shrink-0"
-                                />
                             </div>
 
                             <div className="mt-auto flex items-center justify-between border-t border-divider/50 pt-4 dark:border-divider-dark/50">

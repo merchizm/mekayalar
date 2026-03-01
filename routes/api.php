@@ -32,6 +32,7 @@ Route::group(['as' => 'spotify.', 'prefix' => 'spotify'], function (): void {
     // others
     Route::get('playing', [SpotifyController::class, 'playing']);
     Route::get('playlists', [SpotifyController::class, 'playlists']);
+    Route::get('playlists/{playlistId}/preview', [SpotifyController::class, 'playlistPreview']);
     Route::get('currently-playing', [SpotifyController::class, 'currentlyPlaying']);
 });
 

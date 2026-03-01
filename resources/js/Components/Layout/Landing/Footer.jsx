@@ -5,14 +5,6 @@ const Footer = ({ isDarkMode, setTimeBasedMode, hasManualOverride, resetToAutoma
     return (
         <footer className="mt-24 w-full">
             <div className="mx-auto max-w-screen-xl px-4 py-8">
-                <div className="mb-8">
-                    <TimezoneThemeSwitcher
-                        isDarkMode={isDarkMode}
-                        setTimeBasedMode={setTimeBasedMode}
-                        hasManualOverride={hasManualOverride}
-                        resetToAutomatic={resetToAutomatic}
-                    />
-                </div>
                 <div className="mx-auto mb-8 mt-12 grid max-w-4xl grid-cols-1 gap-6 sm:grid-cols-3">
                     <div className="group flex flex-col items-center rounded-lg border border-divider bg-background p-6 transition-all duration-300 hover:border-menu-active dark:border-divider-dark dark:bg-background-dark dark:hover:border-menu-active-dark">
                         <div className="relative mb-4">
@@ -58,6 +50,15 @@ const Footer = ({ isDarkMode, setTimeBasedMode, hasManualOverride, resetToAutoma
                             <p className="text-xs text-light-text dark:text-light-text-dark">Respublikasy</p>
                         </div>
                     </div>
+                </div>
+
+                <div className="mb-8 hidden md:block">
+                    <TimezoneThemeSwitcher
+                        isDarkMode={isDarkMode}
+                        setTimeBasedMode={setTimeBasedMode}
+                        hasManualOverride={hasManualOverride}
+                        resetToAutomatic={resetToAutomatic}
+                    />
                 </div>
 
                 <div className="mt-8 text-center text-sm text-light-text dark:text-light-text-dark">
