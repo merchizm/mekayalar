@@ -5,13 +5,14 @@ import PlaylistsTab from '@/Components/Landing/Bookshelf/Index/PlaylistsTab';
 import ReposTab from '@/Components/Landing/Bookshelf/Index/ReposTab';
 import GistsTab from '@/Components/Landing/Bookshelf/Index/GistsTab';
 import BooksTab from '@/Components/Landing/Bookshelf/Index/BooksTab';
+import RevealSection from '@/Components/Common/RevealSection';
 
 function Index({ playlists, repos, gists, books, langColors, playlistPagination }) {
     const [currentTab, setCurrentTab] = useState('playlists');
 
     return (
         <>
-            <header className="mb-12 text-center">
+            <RevealSection as="header" className="mb-12 text-center">
                 <h1 className="text-5xl font-bold tracking-tight text-text dark:text-text-dark">
                     {__('Dijital Kitaplığım')}
                 </h1>
@@ -20,10 +21,10 @@ function Index({ playlists, repos, gists, books, langColors, playlistPagination 
                         'Müzik zevkim, kod dünyam ve okuma notlarım. Hepsi bir arada. Umarım hoşuna gidecek şeyler bulabilirsin.'
                     )}
                 </p>
-            </header>
+            </RevealSection>
 
             <div className="container">
-                <div className="mb-8 flex justify-center border-b border-divider dark:border-divider-dark">
+                <RevealSection className="mb-8 flex justify-center border-b border-divider dark:border-divider-dark" delay={0.04}>
                     <nav className="-mb-px flex flex-wrap justify-center space-x-2 sm:space-x-6">
                         <TabButton isActive={currentTab === 'playlists'} onClick={() => setCurrentTab('playlists')}>
                             <svg
@@ -94,14 +95,16 @@ function Index({ playlists, repos, gists, books, langColors, playlistPagination 
                             {__('Kitaplar')}
                         </TabButton>
                     </nav>
-                </div>
+                </RevealSection>
 
                 {currentTab === 'playlists' && (
+                    <RevealSection delay={0.08}>
                     <PlaylistsTab playlists={playlists} pagination={playlistPagination} />
+                    </RevealSection>
                 )}
-                {currentTab === 'repos' && <ReposTab repos={repos} langColors={langColors} />}
-                {currentTab === 'gists' && <GistsTab gists={gists} />}
-                {currentTab === 'books' && <BooksTab books={books} />}
+                {currentTab === 'repos' && <RevealSection delay={0.08}><ReposTab repos={repos} langColors={langColors} /></RevealSection>}
+                {currentTab === 'gists' && <RevealSection delay={0.08}><GistsTab gists={gists} /></RevealSection>}
+                {currentTab === 'books' && <RevealSection delay={0.08}><BooksTab books={books} /></RevealSection>}
             </div>
         </>
     );

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import LandingLayout from '@/Layouts/LandingLayout';
 import AccordionItem from '@/Components/Landing/Index/AccordionItem';
 import TwitterModal from '@/Components/Landing/Index/TwitterModal';
@@ -6,6 +6,161 @@ import { Link } from '@inertiajs/react';
 import Php from '@/Components/Landing/Svg/Php';
 import Laravel from '@/Components/Landing/Svg/Laravel';
 import Trans from '@/Components/Common/Trans';
+import RevealSection from '@/Components/Common/RevealSection';
+import { AnimatePresence, motion } from 'framer-motion';
+import { annotate } from 'rough-notation';
+
+function MericHoverName() {
+    const [isNameHovered, setIsNameHovered] = useState(false);
+    const [showNamePointers, setShowNamePointers] = useState(true);
+    const nameRef = useRef(null);
+    const nameAnnotationRef = useRef(null);
+
+    const namePolaroids = [
+        {
+            id: 'memory-01',
+            tilt: '-rotate-6',
+            hoverTilt: 'group-hover:-rotate-12',
+            offset: '-left-8 top-3',
+            hoverOffset: 'group-hover:-left-12 group-hover:-top-1',
+            z: 'z-10',
+            image: '/assets/img/1.jpg',
+        },
+        {
+            id: 'memory-02',
+            tilt: 'rotate-2',
+            hoverTilt: 'group-hover:rotate-3',
+            offset: 'left-10 -top-2',
+            hoverOffset: 'group-hover:left-14 group-hover:-top-5',
+            z: 'z-30',
+            image: '/assets/img/2.jpg',
+        },
+        {
+            id: 'memory-03',
+            tilt: 'rotate-[7deg]',
+            hoverTilt: 'group-hover:rotate-[12deg]',
+            offset: 'left-36 top-4',
+            hoverOffset: 'group-hover:left-40 group-hover:top-0',
+            z: 'z-20',
+            image: '/assets/img/3.jpg',
+        },
+    ];
+
+    useEffect(() => {
+        const timeoutId = window.setTimeout(() => {
+            setShowNamePointers(false);
+        }, 20000);
+
+        return () => window.clearTimeout(timeoutId);
+    }, []);
+
+    useEffect(() => {
+        if (!nameRef.current || typeof window === 'undefined') {
+            return;
+        }
+
+        if (!nameAnnotationRef.current) {
+            const bodyStyles = window.getComputedStyle(document.body);
+            const isDark = document.body.classList.contains('dark');
+            const annotationColor = bodyStyles
+                .getPropertyValue(isDark ? '--menu-active-dark' : '--menu-active')
+                .trim();
+
+            nameAnnotationRef.current = annotate(nameRef.current, {
+                type: 'underline',
+                color: annotationColor || (isDark ? '#f1f1f1' : '#333333'),
+                strokeWidth: 2.5,
+                padding: [0, 2, 6, 2],
+                animate: true,
+                animationDuration: 650,
+                iterations: 1,
+                multiline: false,
+            });
+        }
+
+        if (isNameHovered) {
+            nameAnnotationRef.current.show();
+        } else {
+            nameAnnotationRef.current.hide();
+        }
+    }, [isNameHovered]);
+
+    useEffect(() => {
+        return () => {
+            nameAnnotationRef.current?.remove();
+            nameAnnotationRef.current = null;
+        };
+    }, []);
+
+    return (
+        <span
+            className="group relative ml-3 inline-flex items-center"
+            onMouseEnter={() => setIsNameHovered(true)}
+            onMouseLeave={() => setIsNameHovered(false)}
+            onFocus={() => setIsNameHovered(true)}
+            onBlur={() => setIsNameHovered(false)}
+        >
+            <button
+                type="button"
+                className="relative inline-flex items-center rounded-full px-1.5 py-0.5 text-inherit focus:outline-none"
+                aria-label="Meriç"
+            >
+                {!isNameHovered && showNamePointers && (
+                    <>
+                        <span className="pointer-events-none absolute left-3 top-[18px] z-20 hidden select-none text-xl motion-safe:animate-[name-pointer-float_2.4s_ease-in-out_infinite] md:block">
+                            👆
+                        </span>
+                        <span className="pointer-events-none absolute left-12 top-[30px] z-30 hidden select-none text-lg opacity-90 motion-safe:animate-[name-pointer-float_2.8s_ease-in-out_infinite_0.35s] md:block">
+                            👆
+                        </span>
+                    </>
+                )}
+                <span
+                    ref={nameRef}
+                    className={`relative transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                        isNameHovered
+                            ? 'scale-[1.03] tracking-[0.01em] text-menu-active dark:text-menu-active-dark'
+                            : 'text-text dark:text-text-dark'
+                    }`}
+                >
+                    Meriç
+                </span>
+            </button>
+
+            <AnimatePresence mode="wait">
+                {isNameHovered && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 12, scale: 0.94 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 8, scale: 0.96 }}
+                        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                        className="pointer-events-none absolute left-1/2 top-full z-30 mt-6 hidden h-56 w-[22rem] -translate-x-1/2 md:block"
+                    >
+                        <div className="absolute inset-0">
+                            {namePolaroids.map((card) => (
+                                <div
+                                    key={card.id}
+                                    className={`absolute ${card.offset} ${card.hoverOffset} ${card.z} ${card.tilt} ${card.hoverTilt} transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]`}
+                                >
+                                    <div className="w-36 rounded-[1.25rem] border border-black/10 bg-white p-3 shadow-[0_18px_45px_-22px_rgba(17,24,39,0.38)] dark:border-white/10 dark:bg-[#f3f1eb]">
+                                        <div className="aspect-square overflow-hidden rounded-[0.9rem] border border-black/5 bg-[#f5f1e8]">
+                                            <img
+                                                src={card.image}
+                                                alt="Meriç arşiv fotoğrafı"
+                                                className="h-full w-full object-cover"
+                                                loading="lazy"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </span>
+    );
+}
 
 function Index({ featuredProjects }) {
     const [isTwitterModalOpen, setTwitterModalOpen] = useState(false);
@@ -28,7 +183,7 @@ function Index({ featuredProjects }) {
 
     return (
         <>
-            <div className="mb-8 flex items-center rounded-xl border border-divider bg-background p-5 dark:border-label-border-dark dark:bg-repository-card-bg-dark">
+            <RevealSection className="mb-8 flex items-center rounded-xl border border-divider bg-background p-5 dark:border-label-border-dark dark:bg-repository-card-bg-dark">
                 <div className="mr-4 flex-shrink-0 text-menu-active dark:text-menu-active-dark">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -50,14 +205,16 @@ function Index({ featuredProjects }) {
                         {__('Web siteyi hala geliştirme aşamasındayım. Bu sebeple bazı hatalarla karşılaşabilirsiniz.')}
                     </p>
                 </div>
-            </div>
+            </RevealSection>
 
             <div className="leading-relaxed">
-                <h1 className="mb-8 flex items-center text-4xl font-bold tracking-tight sm:text-5xl">
-                    {__('hey, Ben Meriç')} <span className="wave ml-3">👋</span>
-                </h1>
+                <RevealSection as="h1" className="mb-8 flex flex-wrap items-center text-4xl font-bold tracking-tight sm:text-5xl">
+                    <span>{__('hey, Ben')}</span>
+                    <MericHoverName />
+                    <span className="wave ml-3">👋</span>
+                </RevealSection>
 
-                <div className="mb-8 rounded-xl border border-divider bg-background p-6 dark:border-label-border-dark dark:bg-repository-card-bg-dark">
+                <RevealSection className="mb-8 rounded-xl border border-divider bg-background p-6 dark:border-label-border-dark dark:bg-repository-card-bg-dark">
                     <p className="mb-4 text-base text-text dark:text-text-dark sm:text-lg">
                         <Trans
                             i18nKey="Merhaba, ben bir full-stack geliştiriciyim, aynı zamanda :php geliştiricisi ve :laravel uzmanıyım. Pixel arta olan ilgim ve şiirle olan tutkumun yanı sıra felsefi düşüncelere de büyük bir ilgi duyuyorum. Geçmişte full-stack geliştirici ve takım lideri olarak rol aldım."
@@ -81,9 +238,9 @@ function Index({ featuredProjects }) {
                             }}
                         />
                     </p>
-                </div>
+                </RevealSection>
 
-                <div className="mb-8 rounded-xl border border-divider bg-background p-6 dark:border-label-border-dark dark:bg-repository-card-bg-dark">
+                <RevealSection className="mb-8 rounded-xl border border-divider bg-background p-6 dark:border-label-border-dark dark:bg-repository-card-bg-dark" delay={0.03}>
                     <div className="flex flex-col gap-4 text-base">
                         <p className="text-text dark:text-text-dark">
                             {__(
@@ -104,9 +261,9 @@ function Index({ featuredProjects }) {
                             {__('Çocukluğumdan beri içerik üretmeyi ve içerik tüketmeyi bir hayli seviyorum.')}
                         </p>
                     </div>
-                </div>
+                </RevealSection>
 
-                <div className="mb-12">
+                <RevealSection className="mb-12" delay={0.05}>
                     <h2 className="mb-6 text-2xl font-bold text-text dark:text-text-dark">{__('Bağlantılar')}</h2>
                     <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
                         <a
@@ -172,9 +329,9 @@ function Index({ featuredProjects }) {
                             <span className="font-medium text-text dark:text-text-dark">Twitter/X</span>
                         </button>
                     </div>
-                </div>
+                </RevealSection>
 
-                <div className="mb-12">
+                <RevealSection className="mb-12" delay={0.07}>
                     <h2 className="mb-6 text-2xl font-bold text-text dark:text-text-dark">{__('İş Deneyimi')}</h2>
                     <div className="space-y-4">
                         <AccordionItem
@@ -233,9 +390,9 @@ function Index({ featuredProjects }) {
                             )}
                         </AccordionItem>
                     </div>
-                </div>
+                </RevealSection>
 
-                <div className="mb-12">
+                <RevealSection className="mb-12" delay={0.09}>
                     <h2 className="mb-6 text-2xl font-bold text-text dark:text-text-dark">
                         {__('Öne Çıkan Yetenekler')}
                     </h2>
@@ -283,10 +440,10 @@ function Index({ featuredProjects }) {
                             <span className="font-semibold text-text dark:text-text-dark">Laravel</span>
                         </div>
                     </div>
-                </div>
+                </RevealSection>
 
                 {featuredProjects && featuredProjects.length > 0 && (
-                    <div className="mb-8">
+                    <RevealSection className="mb-8" delay={0.12}>
                         <h2 className="mb-6 text-2xl font-bold text-text dark:text-text-dark">
                             {__('Öne Çıkan Projeler')}
                         </h2>
@@ -370,7 +527,7 @@ function Index({ featuredProjects }) {
                                 </div>
                             ))}
                         </div>
-                    </div>
+                    </RevealSection>
                 )}
             </div>
 

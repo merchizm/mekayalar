@@ -42,7 +42,7 @@ const Header = () => {
             {/* Mobil Container */}
             <div className="relative mx-auto w-full max-w-screen-xl px-4 md:hidden">
                 <nav
-                    className={`mobile-nav-wrapper overflow-hidden rounded-full bg-background/80 backdrop-blur-lg dark:bg-background-dark/80 ${scrolled ? 'shadow-lg ring-1 ring-black/5' : ''}`}
+                    className={`mobile-nav-wrapper overflow-hidden rounded-full bg-background/80 backdrop-blur-lg transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] dark:bg-background-dark/80 ${scrolled ? 'shadow-lg ring-1 ring-black/5 dark:ring-white/10' : 'shadow-[0_10px_30px_-24px_rgba(17,24,39,0.18)] dark:shadow-[0_10px_30px_-24px_rgba(0,0,0,0.4)]'}`}
                 >
                     <div className="mobile-nav-container">
                         <ul className="flex items-center gap-1 whitespace-nowrap p-2">
@@ -117,7 +117,7 @@ const Header = () => {
             {/* Desktop Container */}
             <div className="relative hidden px-4 md:block">
                 <nav
-                    className={`overflow-hidden rounded-full bg-background/80 backdrop-blur-lg dark:bg-background-dark/80 ${scrolled ? 'shadow-lg ring-1 ring-black/5' : ''}`}
+                    className={`overflow-hidden rounded-full bg-background/80 backdrop-blur-lg transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] dark:bg-background-dark/80 ${scrolled ? 'shadow-lg ring-1 ring-black/5 dark:ring-white/10' : 'shadow-[0_10px_30px_-24px_rgba(17,24,39,0.18)] dark:shadow-[0_10px_30px_-24px_rgba(0,0,0,0.4)]'}`}
                 >
                     <div className="mobile-nav-container">
                         <ul className="flex items-center justify-center gap-1 whitespace-nowrap p-2">

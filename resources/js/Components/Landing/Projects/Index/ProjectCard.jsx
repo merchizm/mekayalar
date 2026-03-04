@@ -12,7 +12,7 @@ const ProjectCard = ({ project }) => {
     return (
         <Link
             href={route('projects.show', project)}
-            className="group flex h-full flex-col rounded-2xl border border-divider bg-background p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-menu-active hover:shadow-lg dark:border-divider-dark dark:bg-repository-card-bg-dark dark:hover:border-menu-active-dark"
+            className="surface-lift group flex h-full flex-col rounded-2xl border border-divider bg-background p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-menu-active hover:shadow-lg dark:border-divider-dark dark:bg-repository-card-bg-dark dark:hover:border-menu-active-dark"
         >
             <div className="mb-5 flex-shrink-0">
                 <svg

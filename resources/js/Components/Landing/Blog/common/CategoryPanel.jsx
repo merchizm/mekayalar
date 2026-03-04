@@ -18,13 +18,13 @@ export default function CategoryPanel({ categories = [], currentCategory = null 
             <button
                 type="button"
                 onClick={() => setOpen((prev) => !prev)}
-                className="flex w-full items-center justify-between rounded-2xl border border-divider bg-button px-4 py-3 text-left text-sm font-semibold text-text shadow-sm transition hover:border-menu-active/50 hover:bg-button-hover dark:border-divider-dark dark:bg-button-dark dark:text-text-dark dark:hover:bg-button-hover-dark"
+                className="interactive-pill flex w-full items-center justify-between rounded-2xl border border-divider bg-button px-4 py-3 text-left text-sm font-semibold text-text shadow-sm transition hover:border-menu-active/50 hover:bg-button-hover dark:border-divider-dark dark:bg-button-dark dark:text-text-dark dark:hover:bg-button-hover-dark"
             >
                 <span>{__('Kategoriler')}</span>
                 <span className="text-xs">{open ? '▲' : '▼'}</span>
             </button>
             {open && (
-                <div className="absolute left-0 top-full z-20 mt-3 w-full rounded-2xl border border-divider bg-button p-4 shadow-lg dark:border-divider-dark dark:bg-button-dark">
+                <div className="absolute left-0 top-full z-20 mt-3 w-full rounded-2xl border border-divider bg-button p-4 shadow-lg transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] dark:border-divider-dark dark:bg-button-dark">
                     <input
                         type="text"
                         value={query}
@@ -40,7 +40,7 @@ export default function CategoryPanel({ categories = [], currentCategory = null 
                                     <Link
                                         key={category.id}
                                         href={route('blog.category', { slug: category.slug })}
-                                        className={`block rounded-lg px-3 py-2 text-sm ${
+                                        className={`interactive-pill block rounded-lg px-3 py-2 text-sm ${
                                             isActive
                                                 ? 'bg-menu-active text-white dark:text-text-dark'
                                                 : 'text-text hover:bg-button-hover dark:text-text-dark dark:hover:bg-button-hover-dark'

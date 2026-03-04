@@ -4,7 +4,7 @@ import { Link } from '@inertiajs/react';
 const FeaturedProjectCard = ({ project }) => (
     <Link
         href={route('projects.show', project)}
-        className="group relative block transform overflow-hidden rounded-2xl border border-divider bg-transparent shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:border-divider-dark"
+        className="surface-lift group relative block transform overflow-hidden rounded-2xl border border-divider bg-transparent shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:border-divider-dark"
     >
         {project.image && (
             <div className="h-64 overflow-hidden">

@@ -1,9 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
+import { FiExternalLink } from 'react-icons/fi';
+import { HiOutlineUserCircle } from 'react-icons/hi2';
 
 export default function SpotifyPlaying() {
     const [isLoading, setIsLoading] = useState(false);
     const [musicName, setMusicName] = useState(null);
+    const [musicArtist, setMusicArtist] = useState(null);
+    const [musicImage, setMusicImage] = useState(null);
     const [musicUrl, setMusicUrl] = useState(null);
     const [showTooltip, setShowTooltip] = useState(false);
     const hideTooltipTimeout = useRef(null);
@@ -22,13 +26,17 @@ export default function SpotifyPlaying() {
     const fetchData = async () => {
         try {
             const response = await axios.get('/api/spotify/currently-playing');
-            const { isPlaying, musicName, musicUrl } = response.data;
+            const { isPlaying, musicName, musicArtist, musicImage, musicUrl } = response.data;
             setIsLoading(isPlaying);
             setMusicName(musicName);
+            setMusicArtist(musicArtist);
+            setMusicImage(musicImage);
             setMusicUrl(musicUrl);
         } catch {
             setIsLoading(false);
             setMusicName(null);
+            setMusicArtist(null);
+            setMusicImage(null);
             setMusicUrl(null);
         }
     };
@@ -65,27 +73,65 @@ export default function SpotifyPlaying() {
                         <div className="equalizer-bar"></div>
                     </div>
                     <span className="hidden text-xs font-medium text-text dark:text-text-dark sm:inline">
-                        {limit(musicName, 40)}
+                        {limit(`${musicName}${musicArtist ? ` - ${musicArtist}` : ''}`, 40)}
                     </span>
                     {showTooltip && musicUrl && (
-                        <div className="tooltip-bubble text-default absolute bottom-full left-1/2 z-10 mb-2 w-max -translate-x-1/2 rounded bg-background px-3 py-2 text-xs shadow-lg dark:bg-repository-card-bg-dark dark:text-text-dark">
-                            <div className="flex items-center gap-4">
-                                <a
-                                    href={musicUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="hover:text-spotify-green"
-                                >
-                                    {__('Müziği aç')}
-                                </a>
-                                <a
-                                    href="https://open.spotify.com/user/hkt7thwkuynqutz8jenb3x0wu?si=eb716f20515241b4"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="hover:text-spotify-green"
-                                >
-                                    {__('Profilime git')}
-                                </a>
+                        <div className="absolute bottom-full left-1/2 z-20 mb-3 w-80 max-w-[calc(100vw-2rem)] -translate-x-1/2">
+                            <div className="overflow-visible rounded-[1.35rem] border border-divider bg-background/95 shadow-[0_22px_56px_-30px_rgba(17,24,39,0.38)] backdrop-blur-xl dark:border-label-border-dark dark:bg-repository-card-bg-dark/95 dark:shadow-[0_22px_56px_-30px_rgba(0,0,0,0.48)]">
+                                <div className="flex items-center gap-3 p-3.5">
+                                    <div className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-[0.95rem] bg-button shadow-sm dark:bg-button-dark">
+                                        {musicImage ? (
+                                            <img
+                                                src={musicImage}
+                                                alt={musicName || 'Spotify cover'}
+                                                className="h-full w-full object-cover"
+                                            />
+                                        ) : (
+                                            <div className="flex h-full w-full items-center justify-center text-lg">
+                                                ♪
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div className="min-w-0 flex-1 pr-1">
+                                        <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-light-text dark:text-light-text-dark">
+                                            {__('Şu an çalıyor')}
+                                        </p>
+                                        <p className="mt-1 line-clamp-2 text-sm font-semibold leading-5 text-text dark:text-text-dark">
+                                            {musicName}
+                                        </p>
+                                        {musicArtist && (
+                                            <p className="mt-1 line-clamp-2 text-xs leading-5 text-light-text dark:text-light-text-dark">
+                                                {musicArtist}
+                                            </p>
+                                        )}
+                                    </div>
+                                    <div className="flex w-9 flex-shrink-0 flex-col items-center gap-2 self-center">
+                                        <a
+                                            href={musicUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="group/spotify-action interactive-pill relative inline-flex h-9 w-9 items-center justify-center rounded-full bg-menu-active text-white shadow-sm transition hover:opacity-90 dark:bg-button-dark dark:text-text-dark dark:hover:bg-button-hover-dark"
+                                            aria-label={__('Müziği Aç')}
+                                        >
+                                            <FiExternalLink className="h-[18px] w-[18px]" />
+                                            <span className="pointer-events-none absolute bottom-full mb-2 whitespace-nowrap rounded-full border border-divider bg-background px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-text opacity-0 shadow-sm transition-all duration-200 group-hover/spotify-action:-translate-y-0.5 group-hover/spotify-action:opacity-100 dark:border-label-border-dark dark:bg-repository-card-bg-dark dark:text-text-dark">
+                                                {__('Müziği Aç')}
+                                            </span>
+                                        </a>
+                                        <a
+                                            href="https://open.spotify.com/user/hkt7thwkuynqutz8jenb3x0wu?si=eb716f20515241b4"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="group/spotify-action interactive-pill relative inline-flex h-9 w-9 items-center justify-center rounded-full border border-divider bg-button text-text shadow-sm transition hover:bg-button-hover dark:border-label-border-dark dark:bg-repository-card-bg-dark dark:text-text-dark dark:hover:bg-button-hover-dark"
+                                            aria-label={__('Profili Aç')}
+                                        >
+                                            <HiOutlineUserCircle className="h-[19px] w-[19px]" />
+                                            <span className="pointer-events-none absolute bottom-full mb-2 whitespace-nowrap rounded-full border border-divider bg-background px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-text opacity-0 shadow-sm transition-all duration-200 group-hover/spotify-action:-translate-y-0.5 group-hover/spotify-action:opacity-100 dark:border-label-border-dark dark:bg-repository-card-bg-dark dark:text-text-dark">
+                                                {__('Profili Aç')}
+                                            </span>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     )}

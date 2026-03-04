@@ -29,7 +29,7 @@ const BooksTab = ({ books = [] }) => {
                         key={option.key}
                         type="button"
                         onClick={() => setStatus(option.key)}
-                        className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+                        className={`interactive-pill rounded-full px-4 py-2 text-sm font-semibold transition ${
                             status === option.key
                                 ? 'bg-menu-active text-white dark:bg-menu-active-dark dark:text-text-dark'
                                 : 'bg-button text-text dark:bg-button-dark dark:text-text-dark'
@@ -45,7 +45,7 @@ const BooksTab = ({ books = [] }) => {
                         <Link
                             key={book.id}
                             href={route('books.show', { book: book.slug })}
-                            className="group overflow-hidden rounded-3xl border border-divider bg-background shadow-sm transition hover:-translate-y-1 hover:shadow-lg dark:border-divider-dark dark:bg-repository-card-bg-dark"
+                            className="surface-lift group overflow-hidden rounded-3xl border border-divider bg-background shadow-sm transition hover:-translate-y-1 hover:shadow-lg dark:border-divider-dark dark:bg-repository-card-bg-dark"
                         >
                             <div className="aspect-[4/5] overflow-hidden bg-divider/40 dark:bg-divider-dark/40">
                                 {book.cover_image ? (

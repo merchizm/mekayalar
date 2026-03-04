@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import FsLightbox from 'fslightbox-react';
+import { createPortal } from 'react-dom';
 import PostCard from '@/Components/Landing/Blog/common/PostCard';
 import ImagePost from '@/Components/Landing/Blog/common/ImagePost';
 import QuotePostCard from '@/Components/Landing/Blog/common/QuotePostCard';
@@ -39,11 +40,16 @@ export default function PostFeed({ postItems = [] }) {
                     );
                 })}
             </div>
-            <FsLightbox
-                toggler={lightboxController.toggler}
-                sources={imageSources}
-                sourceIndex={lightboxController.sourceIndex}
-            />
+            {typeof document !== 'undefined'
+                ? createPortal(
+                      <FsLightbox
+                          toggler={lightboxController.toggler}
+                          sources={imageSources}
+                          sourceIndex={lightboxController.sourceIndex}
+                      />,
+                      document.body
+                  )
+                : null}
         </>
     );
 }

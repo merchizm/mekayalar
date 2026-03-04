@@ -1,4 +1,5 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 
 export default function ConfirmationModal({
     isOpen,
@@ -10,7 +11,7 @@ export default function ConfirmationModal({
     cancelButtonText = 'Cancel',
     confirmButtonColor = 'red',
 }) {
-    if (!isOpen) {
+    if (!isOpen || typeof document === 'undefined') {
         return null;
     }
 
@@ -20,7 +21,7 @@ export default function ConfirmationModal({
         green: 'bg-green-600 hover:bg-green-700 focus:ring-green-500',
     };
 
-    return (
+    return createPortal(
         <div
             className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden"
             aria-labelledby="modal-title"
@@ -83,6 +84,7 @@ export default function ConfirmationModal({
                     </button>
                 </div>
             </div>
-        </div>
+        </div>,
+        document.body
     );
 }

@@ -1,12 +1,14 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 
 const TwitterModal = ({ isOpen, onCancel, onProceed, url }) => {
-    if (!isOpen) return null;
+    if (!isOpen || typeof document === 'undefined') return null;
 
-    return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50" onClick={onCancel}>
+    return createPortal(
+        <div className="fixed inset-0 z-[90] flex items-center justify-center px-4" onClick={onCancel}>
+            <div className="absolute inset-0 bg-background-dark/72 backdrop-blur-sm" />
             <div
-                className="mx-4 w-full max-w-sm rounded-lg border border-divider bg-background p-6 shadow-lg dark:border-label-border-dark dark:bg-repository-card-bg-dark"
+                className="relative mx-4 w-full max-w-sm rounded-2xl border border-divider bg-background p-6 shadow-2xl dark:border-label-border-dark dark:bg-repository-card-bg-dark"
                 onClick={(e) => e.stopPropagation()}
             >
                 <h3 className="mb-4 text-xl font-semibold text-text dark:text-text-dark">{__('Uyarı')}</h3>
@@ -18,19 +20,20 @@ const TwitterModal = ({ isOpen, onCancel, onProceed, url }) => {
                 <div className="flex justify-end gap-4">
                     <button
                         onClick={onCancel}
-                        className="rounded-md border border-divider px-4 py-2 font-medium text-text transition-colors hover:bg-gray-100 dark:border-label-border-dark dark:text-text-dark dark:hover:bg-gray-700"
+                        className="interactive-pill rounded-md border border-divider px-4 py-2 font-medium text-text transition-colors hover:bg-button-hover dark:border-label-border-dark dark:text-text-dark dark:hover:bg-button-hover-dark"
                     >
                         {__('Vazgeç')}
                     </button>
                     <button
                         onClick={() => onProceed(url)}
-                        className="rounded-md bg-menu-active px-4 py-2 font-medium text-white transition-colors hover:bg-opacity-90"
+                        className="interactive-pill rounded-md bg-menu-active px-4 py-2 font-medium text-white transition-colors hover:bg-opacity-90 dark:bg-button-dark dark:text-text-dark dark:hover:bg-button-hover-dark"
                     >
                         {__('Devam Et')}
                     </button>
                 </div>
             </div>
-        </div>
+        </div>,
+        document.body
     );
 };
 

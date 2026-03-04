@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react';
 import FsLightbox from 'fslightbox-react';
+import { createPortal } from 'react-dom';
 
 export const useMarkdownGallery = () => {
     const [state, setState] = useState({ toggler: false, sources: [], slide: 1 });
@@ -30,7 +31,13 @@ export const useMarkdownGallery = () => {
         }));
     }, []);
 
-    const lightbox = <FsLightbox toggler={state.toggler} sources={state.sources} slide={state.slide} />;
+    const lightbox =
+        typeof document !== 'undefined'
+            ? createPortal(
+                  <FsLightbox toggler={state.toggler} sources={state.sources} slide={state.slide} />,
+                  document.body
+              )
+            : null;
 
     return { lightbox, onGalleryClick };
 };

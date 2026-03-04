@@ -2,20 +2,21 @@ import React from 'react';
 import LandingLayout from '@/Layouts/LandingLayout';
 import FeaturedProjectCard from '@/Components/Landing/Projects/Index/FeaturedProjectCard';
 import ProjectCard from '@/Components/Landing/Projects/Index/ProjectCard';
+import RevealSection from '@/Components/Common/RevealSection';
 
 function Index({ featuredProjects, projects }) {
     return (
         <>
-            <header className="mb-12 text-center">
+            <RevealSection as="header" className="mb-12 text-center">
                 <h1 className="text-5xl font-bold tracking-tight text-text dark:text-text-dark">{__('Projelerim')}</h1>
                 <p className="mx-auto mt-4 max-w-2xl text-xl text-light-text dark:text-light-text-dark">
                     {__('Geliştirdiğim, katkıda bulunduğum ve gurur duyduğum çalışmalarım.')}
                 </p>
-            </header>
+            </RevealSection>
 
             <div className="container space-y-16">
                 {featuredProjects.length > 0 && (
-                    <section>
+                    <RevealSection as="section" delay={0.04}>
                         <h2 className="mb-6 text-center text-3xl font-bold text-text dark:text-text-dark">
                             {__('Öne Çıkanlar')}
                         </h2>
@@ -24,11 +25,11 @@ function Index({ featuredProjects, projects }) {
                                 <FeaturedProjectCard key={project.id} project={project} />
                             ))}
                         </div>
-                    </section>
+                    </RevealSection>
                 )}
 
                 {projects.length > 0 && (
-                    <section>
+                    <RevealSection as="section" delay={0.08}>
                         <h2 className="mb-6 text-center text-3xl font-bold text-text dark:text-text-dark">
                             {featuredProjects.length > 0 ? __('Diğer Projeler') : ''}
                         </h2>
@@ -37,7 +38,7 @@ function Index({ featuredProjects, projects }) {
                                 <ProjectCard key={project.id} project={project} />
                             ))}
                         </div>
-                    </section>
+                    </RevealSection>
                 )}
 
                 {featuredProjects.length === 0 && projects.length === 0 && (

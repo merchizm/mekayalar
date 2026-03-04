@@ -74,9 +74,15 @@ class SpotifyService
                 $artists[] = $artist->name;
             }
 
+            $image = null;
+            if (!empty($result['item']->album->images)) {
+                $image = $result['item']->album->images[0]->url ?? null;
+            }
+
             return [
                 'name'       => $result['item']->name,
                 'artists'    => implode(', ', $artists),
+                'image'      => $image,
                 'is_playing' => $result['is_playing'],
                 'url'        => $result['item']->external_urls->spotify,
             ];

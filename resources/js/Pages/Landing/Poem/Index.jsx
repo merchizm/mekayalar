@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Link, Head } from '@inertiajs/react';
 import LandingLayout from '@/Layouts/LandingLayout';
 import '@/../css/applause-button.css';
+import RevealSection from '@/Components/Common/RevealSection';
 
 function Index({ poems }) {
     useEffect(() => {
@@ -27,7 +28,7 @@ function Index({ poems }) {
                 {/* <link rel="stylesheet" href="/assets/styles/applause-button.css" /> */}
             </Head>
 
-            <header className="mb-12 text-center">
+            <RevealSection as="header" className="mb-12 text-center">
                 <h1 className="text-5xl font-bold tracking-tight text-text dark:text-text-dark">
                     {__('Kalemimden Dökülenler')}
                 </h1>
@@ -36,14 +37,14 @@ function Index({ poems }) {
                         'Duygularımı ve düşüncelerimi mısralara döktüğüm kişisel köşem. Küçük bir uyarı, şiirlerin hiç birini bir estetik kaygısı ile yazmadım.'
                     )}
                 </p>
-            </header>
+            </RevealSection>
 
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2">
+            <RevealSection className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2" delay={0.06}>
                 {poems.map((poem) => (
                     <Link
                         key={poem.id}
                         href={route('poems.show', { poem: poem.slug })}
-                        className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-divider bg-transparent p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:border-divider-dark"
+                        className="surface-lift group relative flex h-full flex-col overflow-hidden rounded-2xl border border-divider bg-transparent p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:border-divider-dark"
                     >
                         <div className="absolute inset-0 h-full w-full bg-cover bg-center bg-no-repeat opacity-20 transition-all duration-300 group-hover:opacity-30"></div>
                         <div className="relative z-10 flex flex-grow flex-col">
@@ -76,10 +77,10 @@ function Index({ poems }) {
                         </div>
                     </Link>
                 ))}
-            </div>
+            </RevealSection>
 
             {poems.length === 0 && (
-                <div className="my-5 rounded-xl border border-divider bg-poem-container py-16 text-center shadow-sm dark:border-label-border-dark dark:bg-poem-container-dark">
+                <RevealSection className="my-5 rounded-xl border border-divider bg-poem-container py-16 text-center shadow-sm dark:border-label-border-dark dark:bg-poem-container-dark" delay={0.06}>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="mx-auto mb-4 h-16 w-16 text-light-text dark:text-dark-text-dark"
@@ -100,7 +101,7 @@ function Index({ poems }) {
                     <p className="text-light-text dark:text-light-text-dark">
                         {__('Yakında burada şiirlerimi görebileceksiniz.')}
                     </p>
-                </div>
+                </RevealSection>
             )}
         </>
     );

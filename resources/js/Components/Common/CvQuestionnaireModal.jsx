@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 
 export default function CvQuestionnaireModal({ isOpen, onClose }) {
     const [currentStep, setCurrentStep] = useState(0);
@@ -101,9 +102,9 @@ export default function CvQuestionnaireModal({ isOpen, onClose }) {
     const currentAnswer = answers[currentQuestion.id];
     const isLastStep = currentStep === questions.length - 1;
 
-    if (!isOpen) return null;
+    if (!isOpen || typeof document === 'undefined') return null;
 
-    return (
+    return createPortal(
         <div className="fixed inset-0 z-50 overflow-y-auto">
             <div className="flex min-h-screen items-center justify-center px-4 pb-20 pt-4 text-center sm:p-0">
                 {/* Backdrop */}
@@ -204,6 +205,7 @@ export default function CvQuestionnaireModal({ isOpen, onClose }) {
                     </div>
                 </div>
             </div>
-        </div>
+        </div>,
+        document.body
     );
 }

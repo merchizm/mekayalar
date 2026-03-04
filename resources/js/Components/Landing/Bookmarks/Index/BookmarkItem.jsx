@@ -5,7 +5,7 @@ const BookmarkItem = ({ bookmark }) => (
         href={bookmark.link}
         target="_blank"
         rel="noopener noreferrer"
-        className="group block rounded-2xl border border-divider bg-background p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-menu-active/50 hover:shadow-lg dark:border-label-border-dark dark:bg-repository-card-bg-dark dark:hover:border-menu-active-dark/50"
+        className="surface-lift group block rounded-2xl border border-divider bg-background p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-menu-active/50 hover:shadow-lg dark:border-label-border-dark dark:bg-repository-card-bg-dark dark:hover:border-menu-active-dark/50"
     >
         <div className="flex items-center justify-between">
             <div className="flex min-w-0 flex-1 items-center">

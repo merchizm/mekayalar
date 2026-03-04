@@ -57,9 +57,11 @@ class SpotifyController extends Controller
             $data = $spotifyService->currentPlaying();
             if ($data['is_playing']) {
                 return response()->json([
-                    'isPlaying' => true,
-                    'musicName' => "{$data['name']} - {$data['artists']}",
-                    'musicUrl'  => $data['url'],
+                    'isPlaying'   => true,
+                    'musicName'   => $data['name'],
+                    'musicArtist' => $data['artists'],
+                    'musicImage'  => $data['image'] ?? null,
+                    'musicUrl'    => $data['url'],
                 ]);
             }
         } catch (\Exception $e) {

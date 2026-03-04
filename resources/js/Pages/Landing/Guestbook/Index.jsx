@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { router, useForm, usePage } from '@inertiajs/react';
 import LandingLayout from '@/Layouts/LandingLayout';
+import RevealSection from '@/Components/Common/RevealSection';
 
 const emojiOptions = ['👍', '❤️', '🔥', '🎉', '✨', '😂', '👏', '😮', '🤍', '🌍'];
 
@@ -99,7 +100,7 @@ export default function GuestbookIndex({ entries = [], honeypot = null }) {
 
     return (
         <div className="space-y-12">
-            <header className="text-center">
+            <RevealSection as="header" className="text-center">
                 <h1 className="text-5xl font-bold tracking-tight text-text dark:text-text-dark">
                     {__('Ziyaretçi Defteri')}
                 </h1>
@@ -108,10 +109,10 @@ export default function GuestbookIndex({ entries = [], honeypot = null }) {
                         'Buraya bir not bırakabilir, düşüncelerini paylaşabilir ve sayfada küçük bir izin kalmasını sağlayabilirsin.'
                     )}
                 </p>
-            </header>
+            </RevealSection>
 
             <section className="space-y-10">
-                <div className="rounded-3xl border border-divider bg-background p-6 shadow-lg dark:border-label-border-dark dark:bg-poem-container-dark">
+                <RevealSection className="surface-lift rounded-3xl border border-divider bg-background p-6 shadow-lg dark:border-label-border-dark dark:bg-poem-container-dark" delay={0.04}>
                     <h2 className="text-lg font-semibold text-text dark:text-text-dark">{__('Mesaj Bırak')}</h2>
                     <form onSubmit={submit} className="mt-4 space-y-4">
                         {honeypot?.enabled && (
@@ -168,8 +169,8 @@ export default function GuestbookIndex({ entries = [], honeypot = null }) {
                             {__('Gönder')}
                         </button>
                     </form>
-                </div>
-                <div className="rounded-3xl border border-divider bg-background p-5 shadow-lg dark:border-label-border-dark dark:bg-poem-container-dark">
+                </RevealSection>
+                <RevealSection className="surface-lift rounded-3xl border border-divider bg-background p-5 shadow-lg dark:border-label-border-dark dark:bg-poem-container-dark" delay={0.08}>
                     <div className="flex flex-wrap items-center justify-between gap-3">
                         <div>
                             <h2 className="text-lg font-semibold text-text dark:text-text-dark">
@@ -185,7 +186,7 @@ export default function GuestbookIndex({ entries = [], honeypot = null }) {
                                     key={option.value}
                                     type="button"
                                     onClick={() => setSort(option.value)}
-                                    className={`rounded-full px-3 py-1 transition ${
+                                    className={`interactive-pill rounded-full px-3 py-1 transition ${
                                         sort === option.value
                                             ? 'bg-menu-active text-white'
                                             : 'text-light-text hover:text-text dark:text-light-text-dark dark:hover:text-text-dark'
@@ -196,13 +197,13 @@ export default function GuestbookIndex({ entries = [], honeypot = null }) {
                             ))}
                         </div>
                     </div>
-                </div>
+                </RevealSection>
 
                 <div className="space-y-4">
                     {sortedEntries.map((entry) => (
-                        <div
+                        <RevealSection
                             key={entry.id}
-                            className="rounded-3xl border border-divider bg-background p-5 shadow-lg dark:border-label-border-dark dark:bg-poem-container-dark"
+                            className="surface-lift rounded-3xl border border-divider bg-background p-5 shadow-lg dark:border-label-border-dark dark:bg-poem-container-dark"
                         >
                             <div className="flex flex-wrap items-center justify-between gap-4">
                                 <div className="flex items-center gap-3">
@@ -225,7 +226,7 @@ export default function GuestbookIndex({ entries = [], honeypot = null }) {
                                 <button
                                     type="button"
                                     onClick={() => setEmojiPickerFor(pickersOpen(entry.id) ? null : entry.id)}
-                                    className="rounded-full border border-divider bg-button px-2 py-1 text-xs font-semibold text-text shadow-sm transition hover:bg-button-hover dark:border-divider-dark dark:bg-button-dark dark:text-text-dark"
+                                    className="interactive-pill rounded-full border border-divider bg-button px-2 py-1 text-xs font-semibold text-text shadow-sm transition hover:bg-button-hover dark:border-divider-dark dark:bg-button-dark dark:text-text-dark"
                                 >
                                     +
                                 </button>
@@ -237,7 +238,7 @@ export default function GuestbookIndex({ entries = [], honeypot = null }) {
                                         key={emoji}
                                         type="button"
                                         onClick={() => toggleReaction(entry.id, emoji)}
-                                        className={`rounded-full border px-2 py-1 text-xs ${
+                                        className={`interactive-pill rounded-full border px-2 py-1 text-xs ${
                                             entry.reacted?.includes(emoji)
                                                 ? 'border-menu-active bg-menu-active text-white'
                                                 : 'border-divider bg-background text-text dark:border-label-border-dark dark:bg-button-dark dark:text-text-dark'
@@ -289,7 +290,7 @@ export default function GuestbookIndex({ entries = [], honeypot = null }) {
                                         <button
                                             type="button"
                                             onClick={() => submitReply(entry.id)}
-                                            className="rounded-full bg-menu-active px-4 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:opacity-90"
+                                            className="interactive-pill rounded-full bg-menu-active px-4 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:opacity-90"
                                         >
                                             {__('Yanıtla')}
                                         </button>
@@ -303,14 +304,14 @@ export default function GuestbookIndex({ entries = [], honeypot = null }) {
                                             key={emoji}
                                             type="button"
                                             onClick={() => toggleReaction(entry.id, emoji)}
-                                            className="rounded-lg border border-divider bg-button px-2 py-1 text-sm hover:bg-button-hover dark:border-divider-dark dark:bg-button-dark"
+                                            className="interactive-pill rounded-lg border border-divider bg-button px-2 py-1 text-sm hover:bg-button-hover dark:border-divider-dark dark:bg-button-dark"
                                         >
                                             {emoji}
                                         </button>
                                     ))}
                                 </div>
                             )}
-                        </div>
+                        </RevealSection>
                     ))}
                 </div>
             </section>

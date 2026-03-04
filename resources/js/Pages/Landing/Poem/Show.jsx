@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from '@inertiajs/react';
 import LandingLayout from '@/Layouts/LandingLayout';
 import '@/../css/applause-button.css';
+import RevealSection from '@/Components/Common/RevealSection';
 
 function Show({ poem }) {
     useEffect(() => {
@@ -23,7 +24,7 @@ function Show({ poem }) {
     return (
         <>
             <div className="mx-auto max-w-3xl">
-                <nav aria-label="breadcrumb" className="mb-8">
+                <RevealSection as="nav" aria-label="breadcrumb" className="mb-8">
                     <ol className="flex text-sm text-light-text dark:text-light-text-dark">
                         <li className="breadcrumb-item">
                             <Link
@@ -47,10 +48,10 @@ function Show({ poem }) {
                             {poem.title}
                         </li>
                     </ol>
-                </nav>
+                </RevealSection>
 
                 <article>
-                    <header className="mb-8 text-center">
+                    <RevealSection as="header" className="mb-8 text-center" delay={0.04}>
                         <h1 className="mb-4 text-4xl font-extrabold tracking-tight text-text dark:text-text-dark lg:text-5xl">
                             {poem.title}
                         </h1>
@@ -71,13 +72,13 @@ function Show({ poem }) {
                             </svg>
                             <span>{formatDate(poem.wrote_at) + __(' tarihinde yazıldı.')}</span>
                         </div>
-                    </header>
+                    </RevealSection>
 
-                    <div className="whitespace-pre-wrap rounded-lg bg-poem-container px-6 py-8 font-serif text-xl leading-loose shadow-sm dark:bg-poem-container-dark/50 sm:px-10 sm:py-12">
+                    <RevealSection className="whitespace-pre-wrap rounded-lg bg-poem-container px-6 py-8 font-serif text-xl leading-loose shadow-sm dark:bg-poem-container-dark/50 sm:px-10 sm:py-12" delay={0.08}>
                         {poem.content}
-                    </div>
+                    </RevealSection>
 
-                    <footer className="mt-12 flex flex-col items-center text-center">
+                    <RevealSection as="footer" className="mt-12 flex flex-col items-center text-center" delay={0.12}>
                         <p className="mb-4 text-lg text-light-text dark:text-light-text-dark">
                             {__('Bu şiiri okurken keyif aldınız mı?')}
                         </p>
@@ -105,7 +106,7 @@ function Show({ poem }) {
                                 <span>{__('Tüm Şiirler')}</span>
                             </Link>
                         </div>
-                    </footer>
+                    </RevealSection>
                 </article>
             </div>
         </>

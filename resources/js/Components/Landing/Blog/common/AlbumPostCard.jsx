@@ -5,9 +5,12 @@ export default function AlbumPostCard({ post }) {
     const previewItems = Array.isArray(post.album_items) ? post.album_items.slice(0, 4) : [];
     const previewSources = previewItems.length > 0 ? previewItems.map((item) => item.image_path) : [post.post_image].filter(Boolean);
     const totalCount = Array.isArray(post.album_items) ? post.album_items.length : 0;
-    const offsets = [-44, 38, -24, 20];
-    const mobileOffsets = [-18, 16, -10, 8];
-    const rotations = [-7, 6, -4, 3];
+    const stackClasses = [
+        'translate-x-[-18px] translate-y-[0px] rotate-[-7deg] group-hover:translate-x-[-30px] group-hover:rotate-[-11deg] sm:translate-x-[-30px] sm:group-hover:translate-x-[-52px] md:translate-x-[-44px] md:group-hover:translate-x-[-74px]',
+        'translate-x-[16px] translate-y-[18px] rotate-[6deg] group-hover:translate-x-[26px] group-hover:rotate-[10deg] sm:translate-x-[24px] sm:group-hover:translate-x-[42px] md:translate-x-[38px] md:group-hover:translate-x-[64px]',
+        'translate-x-[-10px] translate-y-[36px] rotate-[-4deg] group-hover:translate-x-[-18px] group-hover:rotate-[-7deg] sm:translate-x-[-18px] sm:group-hover:translate-x-[-28px] md:translate-x-[-24px] md:group-hover:translate-x-[-42px]',
+        'translate-x-[8px] translate-y-[54px] rotate-[3deg] group-hover:translate-x-[16px] group-hover:rotate-[6deg] sm:translate-x-[14px] sm:group-hover:translate-x-[24px] md:translate-x-[20px] md:group-hover:translate-x-[34px]',
+    ];
 
     return (
         <Link href={route('blog.show', { slug: post.post_slug })} className="group mx-auto block w-full max-w-5xl">
@@ -16,17 +19,18 @@ export default function AlbumPostCard({ post }) {
                     {previewSources.map((src, index) => (
                         <div
                             key={`${src}-${index}`}
-                            className="absolute h-[300px] w-[220px] overflow-hidden rounded-[1.75rem] border border-white/70 bg-white shadow-2xl transition duration-300 group-hover:scale-[1.02] dark:border-label-border-dark/70 dark:bg-repository-card-bg-dark sm:h-[360px] sm:w-[260px] md:h-[430px] md:w-[320px]"
-                            style={{
-                                transform: `translateX(clamp(${mobileOffsets[index] ?? 0}px, 4vw, ${offsets[index] ?? 0}px)) translateY(${index * 18}px) rotate(${rotations[index] ?? 0}deg)`,
-                                zIndex: index + 1,
-                            }}
+                            className={`absolute h-[300px] w-[220px] overflow-hidden rounded-[1.75rem] border border-white/70 bg-white shadow-2xl transition duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03] dark:border-label-border-dark/70 dark:bg-repository-card-bg-dark sm:h-[360px] sm:w-[260px] md:h-[430px] md:w-[320px] ${stackClasses[index] || ''}`}
+                            style={{ zIndex: index + 1 }}
                         >
-                            <img src={src} alt={post.post_title} className="h-full w-full object-cover" />
+                            <img
+                                src={src}
+                                alt={post.post_title}
+                                className="h-full w-full object-cover transition duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]"
+                            />
                         </div>
                     ))}
                     <div className="absolute inset-x-0 bottom-0 z-20 mx-auto w-full max-w-xs px-3 sm:max-w-md md:max-w-xl">
-                        <div className="rounded-[1.75rem] border border-white/55 bg-white/72 p-5 shadow-2xl backdrop-blur-xl dark:border-label-border-dark/80 dark:bg-repository-card-bg-dark/85 dark:shadow-[0_24px_80px_rgba(0,0,0,0.5)] sm:p-6 md:p-7">
+                        <div className="rounded-[1.75rem] border border-white/55 bg-white/72 p-5 shadow-2xl backdrop-blur-xl transition duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-2 group-hover:shadow-[0_28px_80px_-32px_rgba(17,24,39,0.38)] dark:border-label-border-dark/80 dark:bg-repository-card-bg-dark/85 dark:shadow-[0_24px_80px_rgba(0,0,0,0.5)] sm:p-6 md:p-7">
                             <div className="mb-3 flex items-center justify-between gap-4">
                                 <div className="inline-flex rounded-full bg-rose-100/90 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-rose-800 dark:bg-rose-950/80 dark:text-rose-100">
                                     {__('Albüm')}

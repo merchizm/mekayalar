@@ -2,6 +2,7 @@ import React from 'react';
 import LandingLayout from '@/Layouts/LandingLayout';
 import QuotePostCard from '@/Components/Landing/Blog/common/QuotePostCard';
 import { Link } from '@inertiajs/react';
+import RevealSection from '@/Components/Common/RevealSection';
 
 export default function Show({ book, quotePosts = [] }) {
     const statusLabels = {
@@ -13,14 +14,14 @@ export default function Show({ book, quotePosts = [] }) {
 
     return (
         <div className="container py-10">
-            <nav aria-label="breadcrumb" className="mb-6 text-sm text-light-text dark:text-light-text-dark">
+            <RevealSection as="nav" aria-label="breadcrumb" className="mb-6 text-sm text-light-text dark:text-light-text-dark">
                 <Link href={route('landing.index')} className="hover:text-menu-active">{__('Ana Sayfa')}</Link>
                 <span className="mx-2">/</span>
                 <Link href={route('bookshelf.index')} className="hover:text-menu-active">{__('Kitaplık')}</Link>
                 <span className="mx-2">/</span>
                 <span className="text-text dark:text-text-dark">{book.title}</span>
-            </nav>
-            <div className="grid grid-cols-1 gap-10 md:grid-cols-[280px,1fr]">
+            </RevealSection>
+            <RevealSection className="grid grid-cols-1 gap-10 md:grid-cols-[280px,1fr]" delay={0.04}>
                 <aside>
                     {book.cover_image ? (
                         <img src={book.cover_image} alt={book.title} className="w-full rounded-3xl object-cover shadow-lg" />
@@ -44,8 +45,8 @@ export default function Show({ book, quotePosts = [] }) {
                     )}
                     {book.notes && <p className="mt-6 max-w-3xl leading-relaxed text-text dark:text-text-dark">{book.notes}</p>}
                 </section>
-            </div>
-            <section className="mt-14 space-y-8">
+            </RevealSection>
+            <RevealSection as="section" className="mt-14 space-y-8" delay={0.08}>
                 <div>
                     <h2 className="text-2xl font-bold text-text dark:text-text-dark">{__('Bu kitaptan alıntılar')}</h2>
                     <p className="mt-2 text-light-text dark:text-light-text-dark">{__(':count kayıt bulundu.', { count: quotePosts.length })}</p>
@@ -57,7 +58,7 @@ export default function Show({ book, quotePosts = [] }) {
                         {__('Bu kitaba ait hiç alıntı girilmemiş.')}
                     </div>
                 )}
-            </section>
+            </RevealSection>
         </div>
     );
 }
