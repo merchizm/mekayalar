@@ -29,7 +29,7 @@ class BookshelfController extends Controller
             ->locale('tr_TR')
             ->withUrl();
 
-        $perPage   = 12;
+        $perPage   = 13;
         $page      = max(1, (int) request()->query('page', 1));
         $offset    = ($page - 1) * $perPage;
         $playlists = $this->spotifyService->userPlaylists($offset, $perPage);

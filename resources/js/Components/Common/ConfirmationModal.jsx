@@ -28,13 +28,13 @@ export default function ConfirmationModal({
             aria-modal="true"
         >
             <div
-                className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+                className="fixed inset-0 bg-background-dark/70 transition-opacity"
                 aria-hidden="true"
                 onClick={onClose}
             ></div>
 
-            <div className="relative inline-block transform overflow-hidden rounded-lg bg-white text-left align-bottom shadow-xl transition-all dark:bg-gray-800 sm:my-8 sm:w-full sm:max-w-lg sm:align-middle">
-                <div className="bg-white px-4 pb-4 pt-5 dark:bg-gray-800 sm:p-6 sm:pb-4">
+            <div className="relative inline-block transform overflow-hidden rounded-lg bg-background text-left align-bottom shadow-xl transition-all dark:bg-repository-card-bg-dark sm:my-8 sm:w-full sm:max-w-lg sm:align-middle">
+                <div className="bg-background px-4 pb-4 pt-5 dark:bg-repository-card-bg-dark sm:p-6 sm:pb-4">
                     <div className="sm:flex sm:items-start">
                         <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 dark:bg-red-800/20 sm:mx-0 sm:h-10 sm:w-10">
                             <svg
@@ -55,18 +55,18 @@ export default function ConfirmationModal({
                         </div>
                         <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                             <h3
-                                className="text-lg font-medium leading-6 text-gray-900 dark:text-white"
+                                className="text-lg font-medium leading-6 text-text dark:text-text-dark"
                                 id="modal-title"
                             >
                                 {title}
                             </h3>
                             <div className="mt-2">
-                                <p className="text-sm text-gray-500 dark:text-gray-400">{children}</p>
+                                <p className="text-sm text-light-text dark:text-light-text-dark">{children}</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="bg-gray-50 px-4 py-3 dark:bg-gray-800/50 sm:flex sm:flex-row-reverse sm:px-6">
+                <div className="bg-button px-4 py-3 dark:bg-button-dark sm:flex sm:flex-row-reverse sm:px-6">
                     <button
                         type="button"
                         className={`inline-flex w-full justify-center rounded-md border border-transparent px-4 py-2 text-base font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm ${colorClasses[confirmButtonColor]}`}
@@ -76,7 +76,7 @@ export default function ConfirmationModal({
                     </button>
                     <button
                         type="button"
-                        className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600 sm:mt-0 sm:w-auto sm:text-sm"
+                        className="mt-3 inline-flex w-full justify-center rounded-md border border-divider bg-background px-4 py-2 text-base font-medium text-text shadow-sm hover:bg-button-hover focus:outline-none focus:ring-2 focus:ring-menu-active focus:ring-offset-2 dark:border-label-border-dark dark:bg-repository-card-bg-dark dark:text-text-dark dark:hover:bg-button-hover-dark sm:mt-0 sm:w-auto sm:text-sm"
                         onClick={onClose}
                     >
                         {cancelButtonText}

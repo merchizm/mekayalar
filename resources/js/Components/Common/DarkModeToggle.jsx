@@ -61,7 +61,7 @@ export default function DarkModeToggle({ isDarkMode, toggleMode, hasManualOverri
                 {isDarkMode ? lightSvg : darkSvg}
             </button>
             {hasManualOverride && (
-                <div className="absolute -right-1 -top-1 h-3 w-3 rounded-full border-2 border-white bg-blue-500 dark:border-gray-800"></div>
+                <div className="absolute -right-1 -top-1 h-3 w-3 rounded-full border-2 border-background bg-blue-500 dark:border-repository-card-bg-dark"></div>
             )}
         </div>
     );

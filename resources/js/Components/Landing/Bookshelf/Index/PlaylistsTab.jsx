@@ -47,7 +47,7 @@ const PlaylistsTab = ({ playlists, pagination }) => {
                         onClick={() => setPreviewId(null)}
                         aria-label={__('Kapat')}
                     />
-                    <div className="relative w-full max-w-lg rounded-3xl border border-divider bg-white p-5 shadow-2xl dark:border-divider-dark dark:bg-gray-900">
+                    <div className="relative w-full max-w-lg rounded-3xl border border-divider bg-background p-5 shadow-2xl dark:border-label-border-dark dark:bg-repository-card-bg-dark">
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-3">
                                 <img

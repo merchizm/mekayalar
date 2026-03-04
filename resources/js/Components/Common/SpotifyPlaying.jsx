@@ -68,7 +68,7 @@ export default function SpotifyPlaying() {
                         {limit(musicName, 40)}
                     </span>
                     {showTooltip && musicUrl && (
-                        <div className="tooltip-bubble text-default absolute bottom-full left-1/2 z-10 mb-2 w-max -translate-x-1/2 rounded bg-background px-3 py-2 text-xs shadow-lg dark:bg-repository-card-bg-dark dark:text-white">
+                        <div className="tooltip-bubble text-default absolute bottom-full left-1/2 z-10 mb-2 w-max -translate-x-1/2 rounded bg-background px-3 py-2 text-xs shadow-lg dark:bg-repository-card-bg-dark dark:text-text-dark">
                             <div className="flex items-center gap-4">
                                 <a
                                     href={musicUrl}

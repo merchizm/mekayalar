@@ -74,7 +74,7 @@ class ProjectController extends Controller
             'is_featured'  => $project->is_featured,
             'is_published' => $project->is_published,
             'completed_at' => $project->completed_at,
-            'tags'         => $project->tags,
+            'tags'         => $project->getLocalizedTags($locale),
             'created_at'   => $project->created_at,
             'updated_at'   => $project->updated_at,
         ];

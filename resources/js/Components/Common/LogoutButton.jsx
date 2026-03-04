@@ -8,7 +8,7 @@ export default function LogoutButton() {
             href={route('logout')}
             method="post"
             as="button"
-            className="flex h-10 w-10 items-center justify-center rounded-lg border border-divider bg-background text-gray-500 shadow-sm transition-all duration-300 hover:translate-y-[-2px] hover:text-gray-700 hover:shadow-md dark:border-label-border-dark dark:bg-repository-card-bg-dark dark:text-gray-400 dark:hover:text-white"
+            className="flex h-10 w-10 items-center justify-center rounded-lg border border-divider bg-background text-light-text shadow-sm transition-all duration-300 hover:translate-y-[-2px] hover:text-text hover:shadow-md dark:border-label-border-dark dark:bg-repository-card-bg-dark dark:text-light-text-dark dark:hover:text-text-dark"
             title="Çıkış Yap"
         >
             <ArrowLeftStartOnRectangleIcon className="h-5 w-5" />

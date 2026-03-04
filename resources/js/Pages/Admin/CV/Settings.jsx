@@ -41,6 +41,16 @@ export default function CvSettings({ settings }) {
         });
     };
 
+    const applyTemplatePreset = (preset) => {
+        setData('template', {
+            ...data.template,
+            colors: {
+                primary: preset.primary,
+                secondary: preset.secondary,
+            },
+        });
+    };
+
     const updateVisibility = (key, value) => {
         setData('visibility', {
             ...data.visibility,
@@ -167,10 +177,7 @@ export default function CvSettings({ settings }) {
                                     <button
                                         key={preset.name}
                                         type="button"
-                                        onClick={() => {
-                                            updateTemplateColor('primary', preset.primary);
-                                            updateTemplateColor('secondary', preset.secondary);
-                                        }}
+                                        onClick={() => applyTemplatePreset(preset)}
                                         className="rounded-lg border border-gray-300 px-4 py-2 text-sm transition-colors hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-700"
                                     >
                                         <div className="flex items-center space-x-2">

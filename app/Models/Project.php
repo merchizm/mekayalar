@@ -120,6 +120,48 @@ class Project extends Model
     }
 
     /**
+     * Localize an arbitrary multilingual string value.
+     */
+    public function localizeValue(?string $value, ?string $locale = null): string
+    {
+        if ($value === null || $value === '') {
+            return '';
+        }
+
+        $locale = $locale ?? app()->getLocale();
+
+        if (str_contains($value, '[tr:]') || str_contains($value, '[en:]')) {
+            if (preg_match('/\['.preg_quote($locale, '/').':\](.*?)\[:\]/s', $value, $matches)) {
+                return trim($matches[1]);
+            }
+
+            if ($locale !== 'tr' && preg_match('/\[tr:\](.*?)\[:\]/s', $value, $matches)) {
+                return trim($matches[1]);
+            }
+
+            if (preg_match('/\[en:\](.*?)\[:\]/s', $value, $matches)) {
+                return trim($matches[1]);
+            }
+        }
+
+        return trim($value);
+    }
+
+    /**
+     * Return localized tags for the given locale.
+     */
+    public function getLocalizedTags(?string $locale = null): array
+    {
+        $tags = is_array($this->tags) ? $this->tags : [];
+
+        return collect($tags)
+            ->map(fn ($tag) => is_string($tag) ? $this->localizeValue($tag, $locale) : '')
+            ->filter()
+            ->values()
+            ->all();
+    }
+
+    /**
      * Check if content exists for a specific locale.
      */
     public function hasLocale(string $locale): bool

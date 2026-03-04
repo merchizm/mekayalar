@@ -100,15 +100,19 @@ export default function GuestbookIndex({ entries = [], honeypot = null }) {
     return (
         <div className="space-y-12">
             <header className="text-center">
-                <h1 className="text-5xl font-bold tracking-tight text-text dark:text-text-dark">Guestbook</h1>
+                <h1 className="text-5xl font-bold tracking-tight text-text dark:text-text-dark">
+                    {__('Ziyaretçi Defteri')}
+                </h1>
                 <p className="mx-auto mt-4 max-w-2xl text-xl text-light-text dark:text-light-text-dark">
-                    Dünyanın neresinden yazdığını görmek istiyorum. Mesajını bırak, haritada yerin görünsün.
+                    {__(
+                        'Buraya bir not bırakabilir, düşüncelerini paylaşabilir ve sayfada küçük bir izin kalmasını sağlayabilirsin.'
+                    )}
                 </p>
             </header>
 
             <section className="space-y-10">
-                <div className="rounded-3xl border border-divider bg-white p-6 shadow-lg dark:border-divider-dark dark:bg-gray-900">
-                    <h2 className="text-lg font-semibold text-text dark:text-text-dark">Mesaj Bırak</h2>
+                <div className="rounded-3xl border border-divider bg-background p-6 shadow-lg dark:border-label-border-dark dark:bg-poem-container-dark">
+                    <h2 className="text-lg font-semibold text-text dark:text-text-dark">{__('Mesaj Bırak')}</h2>
                     <form onSubmit={submit} className="mt-4 space-y-4">
                         {honeypot?.enabled && (
                             <>
@@ -134,7 +138,7 @@ export default function GuestbookIndex({ entries = [], honeypot = null }) {
                         )}
                         <div>
                             <label className="text-xs font-semibold uppercase tracking-wider text-light-text dark:text-light-text-dark">
-                                İsim
+                                {__('İsim')}
                             </label>
                             <input
                                 type="text"
@@ -146,7 +150,7 @@ export default function GuestbookIndex({ entries = [], honeypot = null }) {
                         </div>
                         <div>
                             <label className="text-xs font-semibold uppercase tracking-wider text-light-text dark:text-light-text-dark">
-                                Mesaj
+                                {__('Mesaj')}
                             </label>
                             <textarea
                                 rows="4"
@@ -161,16 +165,18 @@ export default function GuestbookIndex({ entries = [], honeypot = null }) {
                             disabled={processing}
                             className="rounded-xl bg-menu-active px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-70"
                         >
-                            Gönder
+                            {__('Gönder')}
                         </button>
                     </form>
                 </div>
-                <div className="rounded-3xl border border-divider bg-white p-5 shadow-lg dark:border-divider-dark dark:bg-gray-900">
+                <div className="rounded-3xl border border-divider bg-background p-5 shadow-lg dark:border-label-border-dark dark:bg-poem-container-dark">
                     <div className="flex flex-wrap items-center justify-between gap-3">
                         <div>
-                            <h2 className="text-lg font-semibold text-text dark:text-text-dark">Ziyaretçi Duvarı</h2>
+                            <h2 className="text-lg font-semibold text-text dark:text-text-dark">
+                                {__('Ziyaretçi Defteri')}
+                            </h2>
                             <p className="text-xs text-light-text dark:text-light-text-dark">
-                                {entries.length} kayıt
+                                {__(':count kayıt', { count: entries.length })}
                             </p>
                         </div>
                         <div className="flex flex-wrap items-center gap-2 rounded-full border border-divider bg-button p-1 text-xs font-semibold dark:border-divider-dark dark:bg-button-dark">
@@ -185,7 +191,7 @@ export default function GuestbookIndex({ entries = [], honeypot = null }) {
                                             : 'text-light-text hover:text-text dark:text-light-text-dark dark:hover:text-text-dark'
                                     }`}
                                 >
-                                    {option.label}
+                                    {__(option.label)}
                                 </button>
                             ))}
                         </div>
@@ -196,7 +202,7 @@ export default function GuestbookIndex({ entries = [], honeypot = null }) {
                     {sortedEntries.map((entry) => (
                         <div
                             key={entry.id}
-                            className="rounded-3xl border border-divider bg-white p-5 shadow-lg dark:border-divider-dark dark:bg-gray-900"
+                            className="rounded-3xl border border-divider bg-background p-5 shadow-lg dark:border-label-border-dark dark:bg-poem-container-dark"
                         >
                             <div className="flex flex-wrap items-center justify-between gap-4">
                                 <div className="flex items-center gap-3">
@@ -212,7 +218,7 @@ export default function GuestbookIndex({ entries = [], honeypot = null }) {
                                             {entry.name}
                                         </p>
                                         <p className="text-xs text-light-text dark:text-light-text-dark">
-                                            {entry.location?.city || entry.location?.country || 'Unknown'}
+                                            {entry.location?.city || entry.location?.country || __('Bilinmiyor')}
                                         </p>
                                     </div>
                                 </div>
@@ -234,7 +240,7 @@ export default function GuestbookIndex({ entries = [], honeypot = null }) {
                                         className={`rounded-full border px-2 py-1 text-xs ${
                                             entry.reacted?.includes(emoji)
                                                 ? 'border-menu-active bg-menu-active text-white'
-                                                : 'border-divider bg-white text-text dark:border-divider-dark dark:bg-gray-800 dark:text-text-dark'
+                                                : 'border-divider bg-background text-text dark:border-label-border-dark dark:bg-button-dark dark:text-text-dark'
                                         }`}
                                     >
                                         {emoji} {count}
@@ -249,11 +255,11 @@ export default function GuestbookIndex({ entries = [], honeypot = null }) {
                                             <div>
                                                 <div className="flex items-center gap-2 text-xs text-light-text dark:text-light-text-dark">
                                                     <span className="font-semibold text-text dark:text-text-dark">
-                                                        {reply.commenter?.name || 'admin'}
+                                                        {reply.commenter?.name || 'Admin'}
                                                     </span>
                                                     {reply.commenter?.is_admin && (
-                                                        <span className="rounded-full bg-menu-active/10 px-2 py-0.5 text-[10px] font-semibold uppercase text-menu-active">
-                                                            admin
+                                                        <span className="inline-flex items-center rounded-full border border-violet-300 bg-violet-600 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-white shadow-sm dark:border-violet-500/60 dark:bg-violet-500 dark:text-white">
+                                                            Admin
                                                         </span>
                                                     )}
                                                 </div>
@@ -268,7 +274,7 @@ export default function GuestbookIndex({ entries = [], honeypot = null }) {
                             {auth?.user && (
                                 <div className="mt-4 border-t border-divider pt-4 dark:border-divider-dark">
                                     <label className="text-xs font-semibold uppercase tracking-wider text-light-text dark:text-light-text-dark">
-                                        Yanitla
+                                        {__('Yanıtla')}
                                     </label>
                                     <textarea
                                         rows="2"
@@ -285,13 +291,13 @@ export default function GuestbookIndex({ entries = [], honeypot = null }) {
                                             onClick={() => submitReply(entry.id)}
                                             className="rounded-full bg-menu-active px-4 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:opacity-90"
                                         >
-                                            Yanitla
+                                            {__('Yanıtla')}
                                         </button>
                                     </div>
                                 </div>
                             )}
                             {pickersOpen(entry.id) && (
-                                <div className="mt-3 flex flex-wrap gap-2 rounded-2xl border border-divider bg-white p-3 dark:border-divider-dark dark:bg-gray-800">
+                                <div className="mt-3 flex flex-wrap gap-2 rounded-2xl border border-divider bg-background p-3 dark:border-label-border-dark dark:bg-button-dark">
                                     {emojiOptions.map((emoji) => (
                                         <button
                                             key={emoji}

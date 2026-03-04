@@ -93,6 +93,15 @@ const Header = () => {
                             </li>
                             <li>
                                 <NavLink
+                                    href={route('guestbook.index')}
+                                    active={url.startsWith('/guestbook')}
+                                    loading={isNavigating(route('guestbook.index'), true)}
+                                >
+                                    {__('Ziyaretçi Defteri')}
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
                                     href={route('bookmarks.index')}
                                     active={url.startsWith('/bookmarks')}
                                     loading={isNavigating(route('bookmarks.index'), true)}
@@ -155,6 +164,15 @@ const Header = () => {
                                     loading={isNavigating(route('bookshelf.index'), true)}
                                 >
                                     {__('Kitaplık')}
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                    href={route('guestbook.index')}
+                                    active={url.startsWith('/guestbook')}
+                                    loading={isNavigating(route('guestbook.index'), true)}
+                                >
+                                    {__('Ziyaretçi Defteri')}
                                 </NavLink>
                             </li>
                             <li>

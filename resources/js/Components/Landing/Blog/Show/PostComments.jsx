@@ -120,11 +120,11 @@ export default function PostComments({
     };
 
     return (
-        <section className="mt-10 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-900">
+        <section className="mt-10 rounded-2xl border border-divider bg-background p-6 shadow-sm dark:border-label-border-dark dark:bg-repository-card-bg-dark">
             <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Yorumlar</h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                    <h3 className="text-lg font-semibold text-text dark:text-text-dark">Yorumlar</h3>
+                    <p className="text-sm text-light-text dark:text-light-text-dark">
                         {commentsCount} yorum
                     </p>
                 </div>
@@ -132,7 +132,7 @@ export default function PostComments({
                     <select
                         value={order}
                         onChange={handleOrderChange}
-                        className="rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
+                        className="rounded-lg border border-divider bg-background px-3 py-2 text-sm text-text shadow-sm focus:border-menu-active focus:outline-none focus:ring-1 focus:ring-menu-active dark:border-label-border-dark dark:bg-button-dark dark:text-text-dark"
                     >
                         <option value="latest">En yeni</option>
                         <option value="oldest">En eski</option>
@@ -162,46 +162,46 @@ export default function PostComments({
                 {isGuest && (
                     <div className="grid gap-4 md:grid-cols-2">
                     <div>
-                        <label className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                        <label className="text-xs font-semibold uppercase tracking-wide text-light-text dark:text-light-text-dark">
                             İsim
                             </label>
                             <input
                                 type="text"
                                 value={data.name}
                                 onChange={(event) => setData('name', event.target.value)}
-                                className="mt-2 w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+                                className="mt-2 w-full rounded-lg border border-divider bg-background px-3 py-2 text-sm text-text shadow-sm focus:border-menu-active focus:outline-none focus:ring-1 focus:ring-menu-active dark:border-label-border-dark dark:bg-button-dark dark:text-text-dark"
                             />
                             {errors.name && <p className="mt-1 text-xs text-red-500">{errors.name}</p>}
                         </div>
                         <div>
-                            <label className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                            <label className="text-xs font-semibold uppercase tracking-wide text-light-text dark:text-light-text-dark">
                                 E-posta
                             </label>
                             <input
                                 type="email"
                                 value={data.email}
                                 onChange={(event) => setData('email', event.target.value)}
-                                className="mt-2 w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+                                className="mt-2 w-full rounded-lg border border-divider bg-background px-3 py-2 text-sm text-text shadow-sm focus:border-menu-active focus:outline-none focus:ring-1 focus:ring-menu-active dark:border-label-border-dark dark:bg-button-dark dark:text-text-dark"
                             />
                             {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email}</p>}
                         </div>
                     </div>
                 )}
                 <div>
-                    <label className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                    <label className="text-xs font-semibold uppercase tracking-wide text-light-text dark:text-light-text-dark">
                         Yorumunuz
                     </label>
                     <textarea
                         rows="4"
                         value={data.text}
                         onChange={(event) => setData('text', event.target.value)}
-                        className="mt-2 w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+                        className="mt-2 w-full rounded-lg border border-divider bg-background px-3 py-2 text-sm text-text shadow-sm focus:border-menu-active focus:outline-none focus:ring-1 focus:ring-menu-active dark:border-label-border-dark dark:bg-button-dark dark:text-text-dark"
                     />
                     {errors.text && <p className="mt-1 text-xs text-red-500">{errors.text}</p>}
                 </div>
                 <div className="flex flex-wrap items-center justify-between gap-3">
                     {approvalRequired && (
-                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                        <p className="text-xs text-light-text dark:text-light-text-dark">
                             Yorumlar inceleme sonrası yayınlanabilir.
                         </p>
                     )}
@@ -217,7 +217,7 @@ export default function PostComments({
 
             <div className="mt-8 space-y-6">
                 {comments.length === 0 && (
-                    <div className="rounded-lg border border-dashed border-gray-200 p-6 text-center text-sm text-gray-500 dark:border-gray-700 dark:text-gray-400">
+                    <div className="rounded-lg border border-dashed border-divider p-6 text-center text-sm text-light-text dark:border-label-border-dark dark:text-light-text-dark">
                         Henüz yorum yok. İlk yorumu bırakmak ister misin?
                     </div>
                 )}
@@ -227,10 +227,10 @@ export default function PostComments({
                         className={`flex gap-4 rounded-xl border p-4 shadow-sm ${
                             comment.is_pinned
                                 ? 'border-amber-200 bg-amber-50/60 dark:border-amber-700/60 dark:bg-amber-900/20'
-                                : 'border-gray-100 bg-white dark:border-gray-800 dark:bg-gray-900'
+                                : 'border-divider bg-background dark:border-label-border-dark dark:bg-poem-container-dark'
                         }`}
                     >
-                        <div className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-gray-200 text-sm font-semibold text-gray-600 dark:bg-gray-800 dark:text-gray-300">
+                        <div className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-button text-sm font-semibold text-light-text dark:bg-button-dark dark:text-light-text-dark">
                             {comment.commenter?.photo ? (
                                 <img
                                     src={comment.commenter.photo}
@@ -243,11 +243,11 @@ export default function PostComments({
                         </div>
                         <div className="flex-1 space-y-2">
                             <div className="flex flex-wrap items-center gap-2">
-                                <p className="text-sm font-semibold text-gray-900 dark:text-white">
+                                <p className="text-sm font-semibold text-text dark:text-text-dark">
                                     {comment.commenter?.name || 'Ziyaretçi'}
                                 </p>
                                 {comment.commenter?.is_admin && (
-                                    <span className="rounded-full bg-gray-900 px-2 py-0.5 text-[0.65rem] font-semibold uppercase tracking-widest text-white dark:bg-gray-100 dark:text-gray-900">
+                                    <span className="rounded-full bg-menu-active px-2 py-0.5 text-[0.65rem] font-semibold uppercase tracking-widest text-white dark:bg-menu-active-dark dark:text-background-dark">
                                         admin
                                     </span>
                                 )}
@@ -256,19 +256,19 @@ export default function PostComments({
                                         sabit
                                     </span>
                                 )}
-                                <span className="text-xs text-gray-400 dark:text-gray-500">
+                                <span className="text-xs text-light-text dark:text-dark-text-dark">
                                     {formatDate(comment.created_at)}
                                 </span>
                             </div>
-                            <p className="text-sm text-gray-700 dark:text-gray-300">{comment.text}</p>
-                            <div className="flex flex-wrap items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
+                            <p className="text-sm text-text dark:text-light-text-dark">{comment.text}</p>
+                            <div className="flex flex-wrap items-center gap-3 text-xs text-light-text dark:text-light-text-dark">
                                 <button
                                     type="button"
                                     onClick={() => toggleLike(comment.id)}
                                     className={`inline-flex items-center gap-1 rounded-full px-2 py-1 transition ${
                                         comment.liked
                                             ? 'bg-blue-600 text-white'
-                                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300'
+                                            : 'bg-button text-light-text hover:bg-button-hover dark:bg-button-dark dark:text-light-text-dark dark:hover:bg-button-hover-dark'
                                     }`}
                                 >
                                     <span>❤</span>
@@ -280,7 +280,7 @@ export default function PostComments({
                                         onClick={() =>
                                             replyingTo === comment.id ? setReplyingTo(null) : openReplyForm(comment.id)
                                         }
-                                        className="rounded-full bg-gray-100 px-3 py-1 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300"
+                                        className="rounded-full bg-button px-3 py-1 text-light-text hover:bg-button-hover dark:bg-button-dark dark:text-light-text-dark dark:hover:bg-button-hover-dark"
                                     >
                                         Yanıtla
                                     </button>
@@ -315,14 +315,14 @@ export default function PostComments({
                                                 placeholder="İsim"
                                                 value={replyForm.data.name}
                                                 onChange={(event) => replyForm.setData('name', event.target.value)}
-                                                className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+                                                className="w-full rounded-lg border border-divider bg-background px-3 py-2 text-sm text-text shadow-sm focus:border-menu-active focus:outline-none focus:ring-1 focus:ring-menu-active dark:border-label-border-dark dark:bg-button-dark dark:text-text-dark"
                                             />
                                             <input
                                                 type="email"
                                                 placeholder="E-posta"
                                                 value={replyForm.data.email}
                                                 onChange={(event) => replyForm.setData('email', event.target.value)}
-                                                className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+                                                className="w-full rounded-lg border border-divider bg-background px-3 py-2 text-sm text-text shadow-sm focus:border-menu-active focus:outline-none focus:ring-1 focus:ring-menu-active dark:border-label-border-dark dark:bg-button-dark dark:text-text-dark"
                                             />
                                         </div>
                                     )}
@@ -330,7 +330,7 @@ export default function PostComments({
                                         rows="3"
                                         value={replyForm.data.text}
                                         onChange={(event) => replyForm.setData('text', event.target.value)}
-                                        className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+                                        className="w-full rounded-lg border border-divider bg-background px-3 py-2 text-sm text-text shadow-sm focus:border-menu-active focus:outline-none focus:ring-1 focus:ring-menu-active dark:border-label-border-dark dark:bg-button-dark dark:text-text-dark"
                                     />
                                     {replyForm.errors.text && (
                                         <p className="text-xs text-red-500">{replyForm.errors.text}</p>
@@ -339,7 +339,7 @@ export default function PostComments({
                                         <button
                                             type="button"
                                             onClick={() => setReplyingTo(null)}
-                                            className="rounded-full border border-gray-200 px-3 py-1 text-xs text-gray-600 dark:border-gray-700 dark:text-gray-300"
+                                            className="rounded-full border border-divider px-3 py-1 text-xs text-light-text dark:border-label-border-dark dark:text-light-text-dark"
                                         >
                                             Vazgeç
                                         </button>
@@ -354,10 +354,10 @@ export default function PostComments({
                                 </form>
                             )}
                             {comment.replies && comment.replies.length > 0 && (
-                                <div className="mt-5 space-y-4 border-l border-gray-200 pl-4 dark:border-gray-700">
+                                <div className="mt-5 space-y-4 border-l border-divider pl-4 dark:border-label-border-dark">
                                     {comment.replies.map((reply) => (
                                         <div key={reply.id} className="flex gap-3">
-                                            <div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-gray-200 text-xs font-semibold text-gray-600 dark:bg-gray-800 dark:text-gray-300">
+                                            <div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-button text-xs font-semibold text-light-text dark:bg-button-dark dark:text-light-text-dark">
                                                 {reply.commenter?.photo ? (
                                                     <img
                                                         src={reply.commenter.photo}
@@ -370,26 +370,26 @@ export default function PostComments({
                                             </div>
                                             <div className="flex-1 space-y-1">
                                                 <div className="flex flex-wrap items-center gap-2">
-                                                    <p className="text-xs font-semibold text-gray-900 dark:text-white">
+                                                    <p className="text-xs font-semibold text-text dark:text-text-dark">
                                                         {reply.commenter?.name || 'Ziyaretçi'}
                                                     </p>
                                                     {reply.commenter?.is_admin && (
-                                                        <span className="rounded-full bg-gray-900 px-2 py-0.5 text-[0.6rem] font-semibold uppercase tracking-widest text-white dark:bg-gray-100 dark:text-gray-900">
+                                                        <span className="rounded-full bg-menu-active px-2 py-0.5 text-[0.6rem] font-semibold uppercase tracking-widest text-white dark:bg-menu-active-dark dark:text-background-dark">
                                                             admin
                                                         </span>
                                                     )}
-                                                    <span className="text-[0.7rem] text-gray-400 dark:text-gray-500">
+                                                    <span className="text-[0.7rem] text-light-text dark:text-dark-text-dark">
                                                         {formatDate(reply.created_at)}
                                                     </span>
                                                 </div>
-                                                <p className="text-xs text-gray-700 dark:text-gray-300">{reply.text}</p>
+                                                <p className="text-xs text-text dark:text-light-text-dark">{reply.text}</p>
                                                 <button
                                                     type="button"
                                                     onClick={() => toggleLike(reply.id)}
                                                     className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[0.7rem] transition ${
                                                         reply.liked
                                                             ? 'bg-blue-600 text-white'
-                                                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300'
+                                                            : 'bg-button text-light-text hover:bg-button-hover dark:bg-button-dark dark:text-light-text-dark dark:hover:bg-button-hover-dark'
                                                     }`}
                                                 >
                                                     <span>❤</span>

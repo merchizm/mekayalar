@@ -32,7 +32,14 @@ class MyCvData extends Model
 
     public static function updateSection(string $sectionName, array $data, string $language = 'tr'): self
     {
-        return static::updateOrCreate(['section_name' => $sectionName, 'language' => $language], ['data' => $data]);
+        return static::updateOrCreate(
+            ['section_name' => $sectionName, 'language' => $language],
+            [
+                'data'       => $data,
+                'is_visible' => true,
+                'sort_order' => 0,
+            ]
+        );
     }
 
     public static function getSectionBothLanguages(string $sectionName): array

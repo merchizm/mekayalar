@@ -49,7 +49,7 @@ const PostBody = ({ post }) => {
                             <button
                                 key={item.id}
                                 type="button"
-                                className="md-gallery-item group relative mb-5 block w-full break-inside-avoid overflow-hidden rounded-[1.75rem] bg-white text-left shadow-[0_18px_60px_rgba(0,0,0,0.12)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_80px_rgba(0,0,0,0.18)] dark:bg-neutral-900 dark:shadow-[0_18px_60px_rgba(0,0,0,0.32)]"
+                                className="md-gallery-item group relative mb-5 block w-full break-inside-avoid overflow-hidden rounded-[1.75rem] bg-white text-left shadow-[0_18px_60px_rgba(0,0,0,0.12)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_80px_rgba(0,0,0,0.18)] dark:bg-repository-card-bg-dark dark:shadow-[0_18px_60px_rgba(0,0,0,0.32)]"
                                 data-src={item.image_path}
                                 data-title={item.caption || item.alt_text || post.post_title}
                             >

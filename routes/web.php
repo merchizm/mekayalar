@@ -40,6 +40,8 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
+    $locale = app()->getLocale();
+
     seo()
         ->title('Mekayalar.com')
         ->description('Meriç\'in ilham dolu ve sürdürülebilir websitesi')
@@ -52,7 +54,25 @@ Route::get('/', function () {
         ->where('is_featured', true)
         ->orderBy('completed_at', 'desc')
         ->take(2)
-        ->get();
+        ->get()
+        ->filter(fn (Project $project) => $project->hasLocale($locale))
+        ->map(fn (Project $project) => [
+            'id'           => $project->id,
+            'slug'         => $project->slug,
+            'title'        => $project->getLocalized('title', $locale),
+            'description'  => $project->getLocalized('description', $locale),
+            'content'      => $project->getLocalized('content', $locale),
+            'image'        => $project->image,
+            'url'          => $project->url,
+            'github_url'   => $project->github_url,
+            'is_featured'  => $project->is_featured,
+            'is_published' => $project->is_published,
+            'completed_at' => $project->completed_at,
+            'tags'         => $project->getLocalizedTags($locale),
+            'created_at'   => $project->created_at,
+            'updated_at'   => $project->updated_at,
+        ])
+        ->values();
 
     return Inertia::render('Landing/Index', [
         'featuredProjects' => $featuredProjects,

@@ -108,7 +108,7 @@ export default function CvQuestionnaireModal({ isOpen, onClose }) {
             <div className="flex min-h-screen items-center justify-center px-4 pb-20 pt-4 text-center sm:p-0">
                 {/* Backdrop */}
                 <div
-                    className="fixed inset-0 bg-gray-500/75 transition-opacity dark:bg-gray-900/75"
+                    className="fixed inset-0 bg-background-dark/70 transition-opacity"
                     onClick={onClose}
                 ></div>
 

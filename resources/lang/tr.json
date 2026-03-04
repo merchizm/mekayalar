@@ -153,5 +153,17 @@
   "Kapak Görseli URL": "Kapak Görseli URL",
   "Öne Çıkan Görsel URL": "Öne Çıkan Görsel URL",
   "Gönderi Tipi": "Gönderi Tipi",
+  "Ziyaretçi Defteri": "Ziyaretçi Defteri",
+  "Buraya bir not bırakabilir, düşüncelerini paylaşabilir ve sayfada küçük bir izin kalmasını sağlayabilirsin.": "Buraya bir not bırakabilir, düşüncelerini paylaşabilir ve sayfada küçük bir izin kalmasını sağlayabilirsin.",
+  "Mesaj Bırak": "Mesaj Bırak",
+  "İsim": "İsim",
+  "Mesaj": "Mesaj",
+  "Gönder": "Gönder",
+  ":count kayıt": ":count kayıt",
+  "En Yeni": "En Yeni",
+  "En Eski": "En Eski",
+  "En Çok Tepki": "En Çok Tepki",
+  "Bilinmiyor": "Bilinmiyor",
+  "Yanıtla": "Yanıtla",
   "experience.beesoft.summary": "Ağırlıklı olarak Front-end odaklı çalışıyor; Laravel ekosistemiyle uyumlu React/Blade ve Blade + Alpine.js tabanlı arayüzler geliştiriyorum. Figma tasarımlarını üretim ortamına uygun şekilde koda aktarıyor, sistemin sürdürülebilirliğini güçlendirmek için iyileştirmeler yapıyor ve olası darboğazlar ile performans problemlerini gideriyorum. Bununla birlikte API entegrasyonları geliştiriyor, Laravel üzerinde pipe tabanlı entegrasyon akışları kurguluyor ve OOP prensiplerini kullanarak daha bakımı kolay, ölçeklenebilir yapılar oluşturuyorum."
 }

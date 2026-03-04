@@ -153,5 +153,17 @@
   "Kapak Görseli URL": "Cover Image URL",
   "Öne Çıkan Görsel URL": "Featured Image URL",
   "Gönderi Tipi": "Post Type",
+  "Ziyaretçi Defteri": "Guestbook",
+  "Buraya bir not bırakabilir, düşüncelerini paylaşabilir ve sayfada küçük bir izin kalmasını sağlayabilirsin.": "You can leave a note here, share your thoughts, and leave a small trace on the page.",
+  "Mesaj Bırak": "Leave a Message",
+  "İsim": "Name",
+  "Mesaj": "Message",
+  "Gönder": "Send",
+  ":count kayıt": ":count entries",
+  "En Yeni": "Newest",
+  "En Eski": "Oldest",
+  "En Çok Tepki": "Most Reactions",
+  "Bilinmiyor": "Unknown",
+  "Yanıtla": "Reply",
   "experience.beesoft.summary": "I work primarily with a front-end focus, building React/Blade and Blade + Alpine.js interfaces aligned with the Laravel ecosystem. I translate Figma designs into production-ready code, implement improvements that strengthen the sustainability of the system, and resolve potential bottlenecks and performance issues. In addition, I develop API integrations, design pipe-based integration flows in Laravel, and apply OOP principles to build structures that are easier to maintain and more scalable."
 }

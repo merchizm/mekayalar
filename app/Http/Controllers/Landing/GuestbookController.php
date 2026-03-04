@@ -107,7 +107,7 @@ class GuestbookController extends Controller
         return redirect()->back();
     }
 
-    public function react(Request $request, GuestbookEntry $entry)
+    public function react(Request $request, GuestbookEntry $guestbookEntry)
     {
         $validated = $request->validate([
             'emoji' => ['required', 'string', 'max:16'],
@@ -117,7 +117,7 @@ class GuestbookController extends Controller
         $guestIp = $request->ip();
 
         $reaction = GuestbookReaction::query()
-            ->where('entry_id', $entry->getKey())
+            ->where('entry_id', $guestbookEntry->getKey())
             ->where('emoji', $validated['emoji'])
             ->when($user, fn ($query) => $query->where('user_id', $user->getKey()))
             ->when(!$user, fn ($query) => $query->whereNull('user_id')->where('guest_ip', $guestIp))
@@ -127,7 +127,7 @@ class GuestbookController extends Controller
             $reaction->delete();
         } else {
             GuestbookReaction::create([
-                'entry_id' => $entry->getKey(),
+                'entry_id' => $guestbookEntry->getKey(),
                 'user_id'  => $user?->getKey(),
                 'guest_ip' => $user ? null : $guestIp,
                 'emoji'    => $validated['emoji'],
@@ -137,7 +137,7 @@ class GuestbookController extends Controller
         return redirect()->back();
     }
 
-    public function reply(Request $request, GuestbookEntry $entry)
+    public function reply(Request $request, GuestbookEntry $guestbookEntry)
     {
         $user = $request->user();
         if (!$user) {
@@ -149,7 +149,7 @@ class GuestbookController extends Controller
         ]);
 
         GuestbookReply::create([
-            'entry_id' => $entry->getKey(),
+            'entry_id' => $guestbookEntry->getKey(),
             'user_id'  => $user->getKey(),
             'message'  => $validated['message'],
         ]);

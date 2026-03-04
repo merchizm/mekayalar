@@ -315,7 +315,7 @@ function Index({ featuredProjects }) {
                                                 {project.tags.map((tag) => (
                                                     <span
                                                         key={tag}
-                                                        className="rounded-full bg-gray-200 px-2 py-1 text-xs font-semibold text-gray-800 dark:bg-gray-700 dark:text-gray-200"
+                                                        className="rounded-full bg-button px-2 py-1 text-xs font-semibold text-text dark:bg-button-dark dark:text-text-dark"
                                                     >
                                                         {tag}
                                                     </span>
