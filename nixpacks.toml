@@ -1,13 +1,18 @@
 # nixpacks.toml
 
 [phases.setup]
-nixPkgs = ['php83', 'nodejs_20']
+nixPkgs = ['php83', 'nodejs_20', 'yarn']
 
 [phases.build]
 cmds = [
-  'composer install --no-dev --optimize-autoloader',
-  'npm install && npm run build',
-  'php artisan config:clear',
-  'php artisan route:clear',
-  'touch .env && chmod 644 .env'
+  "composer install --no-dev --optimize-autoloader --ignore-platform-reqs",
+  "npm ci",
+  "npm run build",
+  "touch .env",
+  "php artisan config:clear",
+  "php artisan route:clear",
+  "php artisan view:clear"
 ]
+
+[start]
+cmd = "php artisan serve --host=0.0.0.0 --port=$PORT"
