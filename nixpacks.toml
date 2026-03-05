@@ -15,6 +15,9 @@ cmds = [
 
 [phases.build]
 cmds = [
+  "mkdir -p /var/log/nginx",
+  "touch /var/log/nginx/error.log",
+  "touch /var/log/nginx/access.log",
   "npm ci",
   "npm run build",
   "php artisan config:cache",
