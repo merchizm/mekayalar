@@ -1,29 +1,25 @@
-# nixpacks.toml
-
 [phases.setup]
 nixPkgs = [
   "php83",
   "php83Packages.composer",
   "php83Extensions.pdo_mysql",
   "php83Extensions.mbstring",
-  "nodejs_20",
-  "npm"
+  "nodejs_20"
 ]
 
 [phases.install]
 cmds = [
-  "composer install --no-dev --optimize-autoloader --ignore-platform-reqs --no-interaction --prefer-dist"
+  "composer install --no-dev --optimize-autoloader --no-interaction",
 ]
 
 [phases.build]
 cmds = [
   "npm ci",
   "npm run build",
-  "touch .env",
-  "php artisan config:clear",
-  "php artisan route:clear",
-  "php artisan view:clear"
+  "php artisan config:cache",
+  "php artisan route:cache",
+  "php artisan view:cache"
 ]
 
 [start]
-cmd = "php artisan serve --host=0.0.0.0 --port=$PORT"
+cmd = "node /assets/scripts/prestart.mjs /assets/nginx.template.conf /nginx.conf && php-fpm -y /assets/php-fpm.conf & nginx -c /nginx.conf"
