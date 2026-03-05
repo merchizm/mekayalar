@@ -4,7 +4,8 @@ nixPkgs = [
   "php83Packages.composer",
   "php83Extensions.pdo_mysql",
   "php83Extensions.mbstring",
-  "nodejs_20"
+  "nodejs_20",
+  "nginx"
 ]
 
 [phases.install]
@@ -20,6 +21,3 @@ cmds = [
   "php artisan route:cache",
   "php artisan view:cache"
 ]
-
-[start]
-cmd = "node /assets/scripts/prestart.mjs /assets/nginx.template.conf /nginx.conf && php-fpm -y /assets/php-fpm.conf & nginx -c /nginx.conf"
