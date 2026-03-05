@@ -1,6 +1,22 @@
 import React from 'react';
 import { Link } from '@inertiajs/react';
 
+function normalizePaginationUrl(url) {
+    if (!url) return null;
+    if (typeof window === 'undefined') return url;
+
+    try {
+        const parsed = new URL(url, window.location.origin);
+        if (parsed.host === window.location.host) {
+            return `${parsed.pathname}${parsed.search}${parsed.hash}`;
+        }
+    } catch {
+        // Keep original url when parsing fails.
+    }
+
+    return url;
+}
+
 const ChevronLeftIcon = ({ className }) => (
     <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -15,13 +31,17 @@ const ChevronRightIcon = ({ className }) => (
 
 export default function Pagination({ links, meta }) {
     if (!links || links.length <= 3) return null;
+    const normalizedLinks = links.map((link) => ({
+        ...link,
+        url: normalizePaginationUrl(link.url),
+    }));
 
     return (
         <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 dark:border-gray-700 dark:bg-gray-800 sm:px-6">
             <div className="flex flex-1 justify-between sm:hidden">
-                {links[0].url ? (
+                {normalizedLinks[0].url ? (
                     <Link
-                        href={links[0].url}
+                        href={normalizedLinks[0].url}
                         className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
                     >
                         Önceki
@@ -31,9 +51,9 @@ export default function Pagination({ links, meta }) {
                         Önceki
                     </span>
                 )}
-                {links[links.length - 1].url ? (
+                {normalizedLinks[normalizedLinks.length - 1].url ? (
                     <Link
-                        href={links[links.length - 1].url}
+                        href={normalizedLinks[normalizedLinks.length - 1].url}
                         className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
                     >
                         Sonraki
@@ -55,9 +75,9 @@ export default function Pagination({ links, meta }) {
                 <div>
                     <nav className="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
                         {/* Previous button */}
-                        {links[0].url ? (
+                        {normalizedLinks[0].url ? (
                             <Link
-                                href={links[0].url}
+                                href={normalizedLinks[0].url}
                                 className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 dark:ring-gray-600 dark:hover:bg-gray-700"
                             >
                                 <span className="sr-only">Önceki</span>
@@ -71,7 +91,7 @@ export default function Pagination({ links, meta }) {
                         )}
 
                         {/* Page numbers */}
-                        {links.slice(1, -1).map((link, index) => {
+                        {normalizedLinks.slice(1, -1).map((link, index) => {
                             if (link.url === null) {
                                 return (
                                     <span
@@ -98,9 +118,9 @@ export default function Pagination({ links, meta }) {
                         })}
 
                         {/* Next button */}
-                        {links[links.length - 1].url ? (
+                        {normalizedLinks[normalizedLinks.length - 1].url ? (
                             <Link
-                                href={links[links.length - 1].url}
+                                href={normalizedLinks[normalizedLinks.length - 1].url}
                                 className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 dark:ring-gray-600 dark:hover:bg-gray-700"
                             >
                                 <span className="sr-only">Sonraki</span>

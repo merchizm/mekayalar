@@ -11,7 +11,7 @@ const sortOptions = [
     { value: 'popular', label: 'En Çok Tepki' },
 ];
 
-export default function GuestbookIndex({ entries = [], honeypot = null }) {
+export default function GuestbookIndex({ entries = [], honeypot = null, guestbookStatus = null }) {
     const {
         props: { auth },
     } = usePage();
@@ -112,7 +112,7 @@ export default function GuestbookIndex({ entries = [], honeypot = null }) {
             </RevealSection>
 
             <section className="space-y-10">
-                <RevealSection className="surface-lift rounded-3xl border border-divider bg-background p-6 shadow-lg dark:border-label-border-dark dark:bg-poem-container-dark" delay={0.04}>
+                <RevealSection id="guestbook-form" className="surface-lift rounded-3xl border border-divider bg-background p-6 shadow-lg dark:border-label-border-dark dark:bg-poem-container-dark" delay={0.04}>
                     <h2 className="text-lg font-semibold text-text dark:text-text-dark">{__('Mesaj Bırak')}</h2>
                     <form onSubmit={submit} className="mt-4 space-y-4">
                         {honeypot?.enabled && (
@@ -168,12 +168,22 @@ export default function GuestbookIndex({ entries = [], honeypot = null }) {
                         >
                             {__('Gönder')}
                         </button>
+                        {guestbookStatus === 'pending' && (
+                            <p className="rounded-xl border border-amber-300 bg-amber-50 px-3 py-2 text-xs text-amber-800 dark:border-amber-500/60 dark:bg-amber-900/20 dark:text-amber-200">
+                                {__('Mesajın alındı. Onaylandıktan sonra ziyaretçi defterinde yayınlanacak.')}
+                            </p>
+                        )}
+                        {guestbookStatus === 'published' && (
+                            <p className="rounded-xl border border-emerald-300 bg-emerald-50 px-3 py-2 text-xs text-emerald-800 dark:border-emerald-500/60 dark:bg-emerald-900/20 dark:text-emerald-200">
+                                {__('Mesajın yayınlandı. Katkın için teşekkürler.')}
+                            </p>
+                        )}
                     </form>
                 </RevealSection>
                 <RevealSection className="surface-lift rounded-3xl border border-divider bg-background p-5 shadow-lg dark:border-label-border-dark dark:bg-poem-container-dark" delay={0.08}>
                     <div className="flex flex-wrap items-center justify-between gap-3">
                         <div>
-                            <h2 className="text-lg font-semibold text-text dark:text-text-dark">
+                            <h2 id="guestbook-title" className="text-lg font-semibold text-text dark:text-text-dark">
                                 {__('Ziyaretçi Defteri')}
                             </h2>
                             <p className="text-xs text-light-text dark:text-light-text-dark">
@@ -200,6 +210,22 @@ export default function GuestbookIndex({ entries = [], honeypot = null }) {
                 </RevealSection>
 
                 <div className="space-y-4">
+                    {sortedEntries.length === 0 && (
+                        <RevealSection className="my-5 rounded-2xl border-2 border-dashed border-divider bg-background py-20 text-center dark:border-divider-dark dark:bg-repository-card-bg-dark">
+                            <h2 className="mb-3 text-3xl font-bold text-text dark:text-text-dark">
+                                {__('Henüz kayıt yok')}
+                            </h2>
+                            <p className="mx-auto max-w-xl text-center text-base text-light-text dark:text-light-text-dark">
+                                {__('Bu deftere ilk notu sen bırak. Kısa bir selam bile burayı canlandırır.')}
+                            </p>
+                            <a
+                                href="#guestbook-title"
+                                className="interactive-pill mt-6 inline-flex rounded-full bg-menu-active px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:opacity-90"
+                            >
+                                {__('İlk Mesajı Yaz')}
+                            </a>
+                        </RevealSection>
+                    )}
                     {sortedEntries.map((entry) => (
                         <RevealSection
                             key={entry.id}

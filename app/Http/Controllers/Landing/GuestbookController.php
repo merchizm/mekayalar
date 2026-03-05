@@ -20,6 +20,7 @@ class GuestbookController extends Controller
     public function index(Request $request)
     {
         $entries = GuestbookEntry::query()
+            ->where('approved', true)
             ->with(['reactions', 'replies.user'])
             ->latest()
             ->get();
@@ -74,8 +75,9 @@ class GuestbookController extends Controller
         });
 
         return Inertia::render('Landing/Guestbook/Index', [
-            'entries'  => $payload,
-            'honeypot' => app(Honeypot::class)->toArray(),
+            'entries'         => $payload,
+            'honeypot'        => app(Honeypot::class)->toArray(),
+            'guestbookStatus' => session('guestbook_status'),
         ]);
     }
 
@@ -90,6 +92,7 @@ class GuestbookController extends Controller
 
         $location = $this->lookupLocation($request->ip());
         $user     = $request->user();
+        $isGuest  = $user === null;
         $seed     = $user ? $user->id.'-'.$user->email : Str::random(12);
 
         GuestbookEntry::create([
@@ -102,13 +105,18 @@ class GuestbookController extends Controller
             'country'      => $location['country'] ?? null,
             'region'       => $location['region'] ?? null,
             'city'         => $location['city'] ?? null,
+            'approved'     => !$isGuest,
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('guestbook_status', $isGuest ? 'pending' : 'published');
     }
 
     public function react(Request $request, GuestbookEntry $guestbookEntry)
     {
+        if (!$guestbookEntry->approved) {
+            abort(404);
+        }
+
         $validated = $request->validate([
             'emoji' => ['required', 'string', 'max:16'],
         ]);
@@ -139,6 +147,10 @@ class GuestbookController extends Controller
 
     public function reply(Request $request, GuestbookEntry $guestbookEntry)
     {
+        if (!$guestbookEntry->approved) {
+            abort(404);
+        }
+
         $user = $request->user();
         if (!$user) {
             abort(403);

@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\CommentController as AdminCommentController;
 use App\Http\Controllers\Admin\CommentSettingsController;
 use App\Http\Controllers\Admin\CvController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\GuestbookEntryController as AdminGuestbookEntryController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\PoemController;
 use App\Http\Controllers\Admin\PostController;
@@ -137,6 +138,7 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
 
             Route::resource('projects', AdminProjectController::class)->names('projects');
             Route::resource('comments', AdminCommentController::class)->only(['index', 'update', 'destroy']);
+            Route::resource('guestbook', AdminGuestbookEntryController::class)->only(['index', 'update', 'destroy']);
             Route::get('/comments/settings', [CommentSettingsController::class, 'index'])->name('comments.settings');
             Route::post('/comments/settings', [CommentSettingsController::class, 'update'])->name('comments.settings.update');
 

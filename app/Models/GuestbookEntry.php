@@ -18,6 +18,11 @@ class GuestbookEntry extends Model
         'country',
         'region',
         'city',
+        'approved',
+    ];
+
+    protected $casts = [
+        'approved' => 'boolean',
     ];
 
     public function user(): BelongsTo
