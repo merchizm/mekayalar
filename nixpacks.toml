@@ -1,0 +1,13 @@
+# nixpacks.toml
+
+[phases.setup]
+nixPkgs = ['php83', 'nodejs_20']
+
+[phases.build]
+cmds = [
+  'composer install --no-dev --optimize-autoloader',
+  'npm install && npm run build',
+  'php artisan config:clear',
+  'php artisan route:clear',
+  'touch .env && chmod 644 .env'
+]
