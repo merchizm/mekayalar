@@ -1,11 +1,22 @@
 # nixpacks.toml
 
 [phases.setup]
-nixPkgs = ['php83', 'nodejs_20', 'yarn']
+nixPkgs = [
+  "php83",
+  "composer",
+  "php83Extensions.pdo_mysql",
+  "php83Extensions.mbstring",
+  "nodejs_20",
+  "npm"
+]
+
+[phases.install]
+cmds = [
+  "composer install --no-dev --optimize-autoloader --ignore-platform-reqs --no-interaction --prefer-dist"
+]
 
 [phases.build]
 cmds = [
-  "composer install --no-dev --optimize-autoloader --ignore-platform-reqs",
   "npm ci",
   "npm run build",
   "touch .env",
