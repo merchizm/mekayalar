@@ -274,7 +274,7 @@
         if (!lyrics.length) return;
 
         const lyricTimings = [
-            2000, // Excuse my ego (Süre Düzeltildi)
+            2000, // Excuse my ego
             2000, // Can't go incognito
             2000, // Every time you see me
             2200, // It's like winning big in Reno

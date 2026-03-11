@@ -26,7 +26,7 @@ class GuestbookController extends Controller
             ->get();
 
         $user    = $request->user();
-        $guestIp = $request->ip();
+        $guestIp = $this->resolveGuestIp($request);
 
         $payload = $entries->map(function (GuestbookEntry $entry) use ($user, $guestIp) {
             $reactionSummary = $entry->reactions
@@ -90,7 +90,8 @@ class GuestbookController extends Controller
             'message' => ['required', 'string', 'max:2000'],
         ]);
 
-        $location = $this->lookupLocation($request->ip());
+        $ip       = $this->resolveGuestIp($request);
+        $location = $this->lookupLocation($ip);
         $user     = $request->user();
         $isGuest  = $user === null;
         $seed     = $user ? $user->id.'-'.$user->email : Str::random(12);
@@ -99,7 +100,7 @@ class GuestbookController extends Controller
             'user_id'      => $user?->getKey(),
             'name'         => $validated['name'],
             'message'      => $validated['message'],
-            'ip_address'   => $request->ip(),
+            'ip_address'   => $ip,
             'avatar_seed'  => $seed,
             'country_code' => $location['country_code'] ?? null,
             'country'      => $location['country'] ?? null,
@@ -122,7 +123,7 @@ class GuestbookController extends Controller
         ]);
 
         $user    = $request->user();
-        $guestIp = $request->ip();
+        $guestIp = $this->resolveGuestIp($request);
 
         $reaction = GuestbookReaction::query()
             ->where('entry_id', $guestbookEntry->getKey())
@@ -210,6 +211,29 @@ class GuestbookController extends Controller
         } catch (\Throwable) {
             return [];
         }
+    }
+
+    private function resolveGuestIp(Request $request): ?string
+    {
+        $forwardedFor = $request->header('X-Forwarded-For');
+        if (is_string($forwardedFor) && $forwardedFor !== '') {
+            foreach (explode(',', $forwardedFor) as $candidate) {
+                $ip = trim($candidate);
+
+                if (filter_var($ip, FILTER_VALIDATE_IP)) {
+                    return $ip;
+                }
+            }
+        }
+
+        $realIp = $request->header('X-Real-IP');
+        if (is_string($realIp) && filter_var($realIp, FILTER_VALIDATE_IP)) {
+            return $realIp;
+        }
+
+        $ip = $request->ip();
+
+        return is_string($ip) && filter_var($ip, FILTER_VALIDATE_IP) ? $ip : null;
     }
 
     private function checkHoneypot(Request $request): void
