@@ -25,7 +25,9 @@ export default function Pagination({ links }) {
                     key={index}
                     href={normalizePaginationUrl(link.url) || '#'}
                     dangerouslySetInnerHTML={{ __html: link.label }}
-                    className={`rounded-md px-3 py-2 text-sm font-semibold transition-colors ${link.active ? 'bg-primary/20 dark:bg-primary-dark/20 text-primary dark:text-primary-dark' : 'bg-button dark:bg-button-dark'} ${!link.url ? 'cursor-not-allowed text-gray-400 dark:text-dark-text-dark' : 'text-text hover:bg-button-hover dark:text-text-dark dark:hover:bg-button-hover-dark'} `}
+                    className={`rounded-md px-3 py-2 text-sm font-semibold transition-colors ${
+                        link.active ? 'bg-primary/15 text-primary' : 'bg-secondary'
+                    } ${!link.url ? 'cursor-not-allowed text-muted-foreground/60' : 'text-foreground hover:bg-accent'} `}
                     as="button"
                     disabled={!link.url}
                 />

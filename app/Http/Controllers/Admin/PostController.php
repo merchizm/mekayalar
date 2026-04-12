@@ -197,11 +197,7 @@ class PostController extends Controller
             return;
         }
 
-        $bookIds = collect($request->input('book_ids', []))
-            ->filter()
-            ->map(fn ($id) => (int) $id)
-            ->unique()
-            ->values();
+        $bookIds = collect($request->input('book_ids', []))->filter()->map(fn ($id) => (int) $id)->unique()->values();
 
         if ($bookIds->isEmpty()) {
             $post->books()->detach();
@@ -210,9 +206,13 @@ class PostController extends Controller
         }
 
         $primaryBookId = (int) $request->input('primary_book_id', $bookIds->first());
-        $syncData      = $bookIds->mapWithKeys(fn ($bookId) => [
-            $bookId => ['is_primary' => $bookId === $primaryBookId],
-        ])->all();
+        $syncData      = $bookIds
+            ->mapWithKeys(
+                fn ($bookId) => [
+                    $bookId => ['is_primary' => $bookId === $primaryBookId],
+                ],
+            )
+            ->all();
 
         $post->books()->sync($syncData);
     }

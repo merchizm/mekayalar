@@ -5,7 +5,7 @@ import { createExcerpt } from '@/utils/blog';
 const SearchPostCard = ({ post }) => (
     <Link
         href={route('blog.show', { slug: post.post_slug })}
-        className="group block overflow-hidden rounded-xl border border-divider bg-background shadow-lg transition-all duration-300 hover:translate-y-[-5px] hover:shadow-xl dark:border-label-border-dark dark:bg-repository-card-bg-dark"
+        className="group block overflow-hidden rounded-xl border border-border bg-background shadow-lg transition-all duration-300 hover:translate-y-[-5px] hover:shadow-xl dark:border-border dark:bg-card"
     >
         <div className="flex flex-col md:flex-row">
             {post.post_image && (
@@ -18,10 +18,10 @@ const SearchPostCard = ({ post }) => (
                 </div>
             )}
             <div className="p-6 md:w-2/3">
-                <h2 className="mb-3 text-2xl font-bold text-text transition-colors group-hover:text-menu-active dark:text-text-dark dark:group-hover:text-menu-active-dark">
+                <h2 className="mb-3 text-2xl font-bold text-foreground transition-colors group-hover:text-primary dark:text-foreground dark:group-hover:text-primary">
                     {post.post_title}
                 </h2>
-                <div className="mb-4 flex items-center text-sm text-light-text dark:text-light-text-dark">
+                <div className="mb-4 flex items-center text-sm text-muted-foreground dark:text-muted-foreground">
                     <span className="flex items-center">
                         <svg
                             className="mr-1 h-4 w-4"
@@ -62,9 +62,11 @@ const SearchPostCard = ({ post }) => (
                         {__(':count Dakika', { count: post.readingTime })}
                     </span>
                 </div>
-                <p className="line-clamp-3 text-light-text dark:text-dark-text-dark">{createExcerpt(post.content)}</p>
+                <p className="line-clamp-3 text-muted-foreground dark:text-muted-foreground">
+                    {createExcerpt(post.content)}
+                </p>
                 <div className="mt-4">
-                    <span className="inline-flex items-center text-sm font-medium text-menu-active group-hover:underline dark:text-menu-active-dark">
+                    <span className="inline-flex items-center text-sm font-medium text-primary group-hover:underline dark:text-primary">
                         {__('Devamını Oku')}
                         <svg
                             className="ml-1 h-4 w-4"

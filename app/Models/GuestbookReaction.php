@@ -7,12 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class GuestbookReaction extends Model
 {
-    protected $fillable = [
-        'entry_id',
-        'user_id',
-        'guest_ip',
-        'emoji',
-    ];
+    protected $fillable = ['entry_id', 'user_id', 'guest_ip', 'emoji'];
 
     public function entry(): BelongsTo
     {

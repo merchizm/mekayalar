@@ -90,9 +90,11 @@ class BlogController extends Controller
         }
 
         /** @var \Illuminate\Database\Eloquent\Collection<int, Comment> $commentsCollection */
-        $commentsCollection    = $commentsQuery->get();
-        $user                  = request()->user();
-        $guest                 = Guest::query()->where('ip_address', request()->ip())->first();
+        $commentsCollection = $commentsQuery->get();
+        $user               = request()->user();
+        $guest              = Guest::query()
+            ->where('ip_address', request()->ip())
+            ->first();
         $replyApprovalRequired = (bool) config('commenter.reply.approval_required');
         $comments              = $commentsCollection->map(function (Comment $comment) use ($user, $guest, $replyApprovalRequired) {
             $commenter = $comment->commenter;
@@ -102,15 +104,15 @@ class BlogController extends Controller
             $liked      = false;
             if ($user) {
                 $liked = $reactions->contains(function ($reaction) use ($user) {
-                    return $reaction->type === 'like'
-                        && $reaction->owner_type === $user->getMorphClass()
-                        && (int) $reaction->owner_id === (int) $user->getKey();
+                    return $reaction->type === 'like' &&
+                        $reaction->owner_type === $user->getMorphClass() &&
+                        (int) $reaction->owner_id === (int) $user->getKey();
                 });
             } elseif ($guest) {
                 $liked = $reactions->contains(function ($reaction) use ($guest) {
-                    return $reaction->type === 'like'
-                        && $reaction->owner_type === $guest->getMorphClass()
-                        && (int) $reaction->owner_id === (int) $guest->getKey();
+                    return $reaction->type === 'like' &&
+                        $reaction->owner_type === $guest->getMorphClass() &&
+                        (int) $reaction->owner_id === (int) $guest->getKey();
                 });
             }
 
@@ -142,15 +144,15 @@ class BlogController extends Controller
                         $replyLiked     = false;
                         if ($user) {
                             $replyLiked = $replyReactions->contains(function ($reaction) use ($user) {
-                                return $reaction->type === 'like'
-                                    && $reaction->owner_type === $user->getMorphClass()
-                                    && (int) $reaction->owner_id === (int) $user->getKey();
+                                return $reaction->type === 'like' &&
+                                    $reaction->owner_type === $user->getMorphClass() &&
+                                    (int) $reaction->owner_id === (int) $user->getKey();
                             });
                         } elseif ($guest) {
                             $replyLiked = $replyReactions->contains(function ($reaction) use ($guest) {
-                                return $reaction->type === 'like'
-                                    && $reaction->owner_type === $guest->getMorphClass()
-                                    && (int) $reaction->owner_id === (int) $guest->getKey();
+                                return $reaction->type === 'like' &&
+                                    $reaction->owner_type === $guest->getMorphClass() &&
+                                    (int) $reaction->owner_id === (int) $guest->getKey();
                             });
                         }
 
@@ -202,9 +204,7 @@ class BlogController extends Controller
             ->withUrl();
 
         return Inertia::render('Landing/Blog/Category', [
-            'posts' => $this->basePostQuery()
-                ->where('post_category_id', $category->id)
-                ->paginate(6),
+            'posts'           => $this->basePostQuery()->where('post_category_id', $category->id)->paginate(6),
             'categories'      => Category::all(),
             'currentCategory' => $category,
         ]);
@@ -230,9 +230,7 @@ class BlogController extends Controller
             ->withUrl();
 
         return Inertia::render('Landing/Blog/Type', [
-            'posts' => $this->basePostQuery()
-                ->where('type', $typeMap[$type]['value'])
-                ->paginate(6),
+            'posts'       => $this->basePostQuery()->where('type', $typeMap[$type]['value'])->paginate(6),
             'categories'  => Category::all(),
             'currentType' => $type,
             'typeLabel'   => $typeLabel,

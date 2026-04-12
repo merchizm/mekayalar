@@ -12,12 +12,12 @@ const ProjectCard = ({ project }) => {
     return (
         <Link
             href={route('projects.show', project)}
-            className="surface-lift group flex h-full flex-col rounded-2xl border border-divider bg-background p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-menu-active hover:shadow-lg dark:border-divider-dark dark:bg-repository-card-bg-dark dark:hover:border-menu-active-dark"
+            className="surface-lift group flex h-full flex-col rounded-2xl border border-border bg-background p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:shadow-lg dark:border-border dark:bg-card dark:hover:border-primary"
         >
             <div className="mb-5 flex-shrink-0">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-10 w-10 text-menu-active dark:text-menu-active-dark"
+                    className="h-10 w-10 text-primary dark:text-primary"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -31,10 +31,10 @@ const ProjectCard = ({ project }) => {
                 </svg>
             </div>
             <div className="flex flex-grow flex-col">
-                <h3 className="text-xl font-bold text-text transition-colors group-hover:text-menu-active dark:text-text-dark dark:group-hover:text-menu-active-dark">
+                <h3 className="text-xl font-bold text-foreground transition-colors group-hover:text-primary dark:text-foreground dark:group-hover:text-primary">
                     {project.title}
                 </h3>
-                <p className="mt-3 flex-grow text-sm text-light-text dark:text-light-text-dark">
+                <p className="mt-3 flex-grow text-sm text-muted-foreground dark:text-muted-foreground">
                     {limitText(project.description, 120)}
                 </p>
 
@@ -43,7 +43,7 @@ const ProjectCard = ({ project }) => {
                         {project.tags.map((tag) => (
                             <span
                                 key={tag}
-                                className="rounded-full bg-blue-100 px-2 py-1 text-xs font-semibold text-blue-800 dark:bg-blue-900/50 dark:text-blue-300"
+                                className="rounded-full bg-blue-100 px-2 py-1 text-xs font-semibold text-primary dark:bg-blue-900/50 dark:text-primary"
                             >
                                 {tag}
                             </span>
@@ -51,12 +51,12 @@ const ProjectCard = ({ project }) => {
                     </div>
                 )}
 
-                <div className="mt-auto flex items-center justify-between border-t border-divider/50 pt-4 dark:border-divider-dark/50">
-                    <span className="text-sm font-semibold text-menu-active dark:text-menu-active-dark">
+                <div className="mt-auto flex items-center justify-between border-t border-border/50 pt-4 dark:border-border/50">
+                    <span className="text-sm font-semibold text-primary dark:text-primary">
                         {__('Detayları İncele')}
                     </span>
                     {project.completed_at && (
-                        <span className="text-sm text-light-text dark:text-dark-text-dark">
+                        <span className="text-sm text-muted-foreground dark:text-muted-foreground">
                             {new Date(project.completed_at).getFullYear()}
                         </span>
                     )}

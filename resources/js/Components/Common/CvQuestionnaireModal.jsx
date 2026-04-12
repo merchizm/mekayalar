@@ -108,27 +108,24 @@ export default function CvQuestionnaireModal({ isOpen, onClose }) {
         <div className="fixed inset-0 z-50 overflow-y-auto">
             <div className="flex min-h-screen items-center justify-center px-4 pb-20 pt-4 text-center sm:p-0">
                 {/* Backdrop */}
-                <div
-                    className="fixed inset-0 bg-background-dark/70 transition-opacity"
-                    onClick={onClose}
-                ></div>
+                <div className="fixed inset-0 bg-background/70 transition-opacity" onClick={onClose}></div>
 
                 {/* Modal */}
-                <div className="relative inline-block transform overflow-hidden rounded-lg bg-background px-4 pb-4 pt-5 text-left align-bottom shadow-xl transition-all dark:bg-background-dark sm:my-8 sm:w-full sm:max-w-lg sm:p-6 sm:align-middle">
+                <div className="relative inline-block transform overflow-hidden rounded-lg bg-background px-4 pb-4 pt-5 text-left align-bottom shadow-xl transition-all dark:bg-background sm:my-8 sm:w-full sm:max-w-lg sm:p-6 sm:align-middle">
                     <div>
                         {/* Progress Bar */}
                         <div className="mb-6">
                             <div className="mb-2 flex justify-between">
-                                <span className="text-sm font-medium text-light-text dark:text-light-text-dark">
+                                <span className="text-sm font-medium text-muted-foreground dark:text-muted-foreground">
                                     Adım {currentStep + 1} / {questions.length}
                                 </span>
-                                <span className="text-sm font-medium text-light-text dark:text-light-text-dark">
+                                <span className="text-sm font-medium text-muted-foreground dark:text-muted-foreground">
                                     {Math.round(((currentStep + 1) / questions.length) * 100)}%
                                 </span>
                             </div>
-                            <div className="h-2 w-full rounded-full bg-divider dark:bg-divider-dark">
+                            <div className="h-2 w-full rounded-full bg-border dark:bg-border">
                                 <div
-                                    className="h-2 rounded-full bg-menu-active transition-all duration-300 ease-out dark:bg-menu-active-dark"
+                                    className="h-2 rounded-full bg-primary transition-all duration-300 ease-out dark:bg-primary"
                                     style={{ width: `${((currentStep + 1) / questions.length) * 100}%` }}
                                 ></div>
                             </div>
@@ -136,7 +133,7 @@ export default function CvQuestionnaireModal({ isOpen, onClose }) {
 
                         {/* Question */}
                         <div className="mb-6">
-                            <h3 className="mb-4 text-lg font-medium text-text dark:text-text-dark">
+                            <h3 className="mb-4 text-lg font-medium text-foreground dark:text-foreground">
                                 {currentQuestion.title}
                             </h3>
 
@@ -147,8 +144,8 @@ export default function CvQuestionnaireModal({ isOpen, onClose }) {
                                         key={option.value}
                                         className={`flex cursor-pointer items-center rounded-lg border-2 p-4 transition-colors ${
                                             currentAnswer === option.value
-                                                ? 'border-menu-active bg-menu-active/10 dark:border-menu-active-dark dark:bg-menu-active-dark/20'
-                                                : 'border-divider hover:bg-menu-hover dark:border-divider-dark dark:hover:bg-menu-hover-dark'
+                                                ? 'border-primary bg-primary/10 dark:border-primary dark:bg-primary/20'
+                                                : 'border-border hover:bg-accent dark:border-border dark:hover:bg-accent'
                                         }`}
                                     >
                                         <input
@@ -157,9 +154,9 @@ export default function CvQuestionnaireModal({ isOpen, onClose }) {
                                             value={option.value}
                                             checked={currentAnswer === option.value}
                                             onChange={() => handleAnswer(currentQuestion.id, option.value)}
-                                            className="h-4 w-4 border-divider text-menu-active focus:ring-2 focus:ring-menu-active dark:border-divider-dark dark:bg-button-dark dark:text-menu-active-dark dark:ring-offset-background-dark dark:focus:ring-menu-active-dark"
+                                            className="h-4 w-4 border-border text-primary focus:ring-2 focus:ring-ring dark:border-border dark:bg-secondary dark:text-primary dark:ring-offset-background dark:focus:ring-ring"
                                         />
-                                        <span className="ml-3 text-sm font-medium text-text dark:text-text-dark">
+                                        <span className="ml-3 text-sm font-medium text-foreground dark:text-foreground">
                                             {option.label}
                                         </span>
                                     </label>
@@ -173,7 +170,7 @@ export default function CvQuestionnaireModal({ isOpen, onClose }) {
                         <button
                             type="button"
                             onClick={onClose}
-                            className="inline-flex justify-center rounded-md border border-divider bg-button px-4 py-2 text-sm font-medium text-text shadow-sm hover:bg-button-hover focus:outline-none focus:ring-2 focus:ring-menu-active focus:ring-offset-2 dark:border-divider-dark dark:bg-button-dark dark:text-text-dark dark:hover:bg-button-hover-dark dark:focus:ring-menu-active-dark"
+                            className="inline-flex justify-center rounded-md border border-border bg-secondary px-4 py-2 text-sm font-medium text-foreground shadow-sm hover:bg-accent focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 dark:border-border dark:bg-secondary dark:text-foreground dark:hover:bg-accent dark:focus:ring-ring"
                         >
                             İptal
                         </button>
@@ -183,7 +180,7 @@ export default function CvQuestionnaireModal({ isOpen, onClose }) {
                                 <button
                                     type="button"
                                     onClick={handleBack}
-                                    className="inline-flex justify-center rounded-md border border-divider bg-button px-4 py-2 text-sm font-medium text-text shadow-sm hover:bg-button-hover focus:outline-none focus:ring-2 focus:ring-menu-active focus:ring-offset-2 dark:border-divider-dark dark:bg-button-dark dark:text-text-dark dark:hover:bg-button-hover-dark dark:focus:ring-menu-active-dark"
+                                    className="inline-flex justify-center rounded-md border border-border bg-secondary px-4 py-2 text-sm font-medium text-foreground shadow-sm hover:bg-accent focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 dark:border-border dark:bg-secondary dark:text-foreground dark:hover:bg-accent dark:focus:ring-ring"
                                 >
                                     Geri
                                 </button>
@@ -195,8 +192,8 @@ export default function CvQuestionnaireModal({ isOpen, onClose }) {
                                 disabled={!currentAnswer}
                                 className={`inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 ${
                                     currentAnswer
-                                        ? 'bg-menu-active text-background hover:opacity-90 focus:ring-menu-active dark:bg-menu-active-dark dark:text-background-dark dark:focus:ring-menu-active-dark'
-                                        : 'cursor-not-allowed bg-divider text-light-text opacity-50 dark:bg-divider-dark dark:text-dark-text-dark'
+                                        ? 'bg-primary text-background hover:opacity-90 focus:ring-ring dark:bg-primary dark:text-background dark:focus:ring-ring'
+                                        : 'cursor-not-allowed bg-border text-muted-foreground opacity-50 dark:bg-border dark:text-muted-foreground'
                                 }`}
                             >
                                 {isLastStep ? "CV'yi Görüntüle" : 'Devam Et'}

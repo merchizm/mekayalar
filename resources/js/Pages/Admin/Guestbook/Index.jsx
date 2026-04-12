@@ -50,20 +50,22 @@ export default function Index({ auth, entries, filters = {} }) {
         <AdminLayout user={auth.user}>
             <Head title="Ziyaretçi Defteri Moderasyon" />
 
-            <div className="rounded-lg border border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
-                <div className="border-b border-gray-200 px-5 py-4 dark:border-gray-700">
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Ziyaretçi Defteri Moderasyon</h3>
-                    <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+            <div className="rounded-lg border border-border bg-card shadow-sm dark:border-border dark:bg-card">
+                <div className="border-b border-border px-5 py-4 dark:border-border">
+                    <h3 className="text-lg font-semibold text-foreground dark:text-foreground">
+                        Ziyaretçi Defteri Moderasyon
+                    </h3>
+                    <p className="mt-1 text-sm text-muted-foreground dark:text-muted-foreground">
                         Toplam {entries?.total ?? entryItems.length} kayıt
                     </p>
                 </div>
 
                 <form
                     onSubmit={submitFilters}
-                    className="flex flex-wrap items-end gap-4 border-b border-gray-200 px-5 py-4 dark:border-gray-700"
+                    className="flex flex-wrap items-end gap-4 border-b border-border px-5 py-4 dark:border-border"
                 >
                     <div className="flex-1">
-                        <label className="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                        <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground dark:text-muted-foreground">
                             Arama
                         </label>
                         <input
@@ -71,17 +73,17 @@ export default function Index({ auth, entries, filters = {} }) {
                             value={data.search}
                             onChange={(event) => setData('search', event.target.value)}
                             placeholder="İsim veya mesaj..."
-                            className="mt-2 w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+                            className="mt-2 w-full rounded-md border border-border bg-card px-3 py-2 text-sm text-foreground shadow-sm focus:border-ring focus:outline-none focus:ring-1 focus:ring-ring dark:border-border dark:bg-card dark:text-foreground"
                         />
                     </div>
                     <div>
-                        <label className="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                        <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground dark:text-muted-foreground">
                             Durum
                         </label>
                         <select
                             value={data.status}
                             onChange={(event) => setData('status', event.target.value)}
-                            className="mt-2 w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+                            className="mt-2 w-full rounded-md border border-border bg-card px-3 py-2 text-sm text-foreground shadow-sm focus:border-ring focus:outline-none focus:ring-1 focus:ring-ring dark:border-border dark:bg-card dark:text-foreground"
                         >
                             <option value="">Hepsi</option>
                             <option value="approved">Onaylı</option>
@@ -91,14 +93,14 @@ export default function Index({ auth, entries, filters = {} }) {
                     <div className="flex gap-2">
                         <button
                             type="submit"
-                            className="rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700"
+                            className="rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary"
                         >
                             Filtrele
                         </button>
                         <button
                             type="button"
                             onClick={resetFilters}
-                            className="rounded-md border border-gray-200 px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-700"
+                            className="rounded-md border border-border px-4 py-2 text-sm font-semibold text-muted-foreground hover:bg-secondary/70 dark:border-border dark:text-foreground dark:hover:bg-secondary"
                         >
                             Sıfırla
                         </button>
@@ -108,38 +110,42 @@ export default function Index({ auth, entries, filters = {} }) {
                 <div className="p-5">
                     <div className="hidden overflow-x-auto md:block">
                         <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                            <thead className="bg-gray-50 dark:bg-gray-700">
+                            <thead className="bg-secondary/70 dark:bg-secondary">
                                 <tr>
-                                    <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300">
+                                    <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground dark:text-muted-foreground">
                                         Yazar
                                     </th>
-                                    <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300">
+                                    <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground dark:text-muted-foreground">
                                         Mesaj
                                     </th>
-                                    <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300">
+                                    <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground dark:text-muted-foreground">
                                         Detay
                                     </th>
-                                    <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300">
+                                    <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground dark:text-muted-foreground">
                                         Durum
                                     </th>
-                                    <th className="px-4 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300">
+                                    <th className="px-4 py-3 text-right text-xs font-medium uppercase tracking-wider text-muted-foreground dark:text-muted-foreground">
                                         İşlemler
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800">
+                            <tbody className="divide-y divide-gray-200 bg-card dark:divide-gray-700 dark:bg-card">
                                 {entryItems.length > 0 ? (
                                     entryItems.map((entry) => (
-                                        <tr key={entry.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
-                                            <td className="px-4 py-4 text-sm font-medium text-gray-900 dark:text-white">
+                                        <tr key={entry.id} className="hover:bg-secondary/70 dark:hover:bg-secondary">
+                                            <td className="px-4 py-4 text-sm font-medium text-foreground dark:text-foreground">
                                                 {entry.name}
                                             </td>
-                                            <td className="max-w-xl px-4 py-4 text-sm text-gray-700 dark:text-gray-200">
+                                            <td className="max-w-xl px-4 py-4 text-sm text-muted-foreground dark:text-foreground">
                                                 <p className="line-clamp-3">{entry.message}</p>
                                             </td>
-                                            <td className="px-4 py-4 text-xs text-gray-500 dark:text-gray-400">
+                                            <td className="px-4 py-4 text-xs text-muted-foreground dark:text-muted-foreground">
                                                 <p>{entry.location || '-'}</p>
-                                                <p>{entry.created_at ? new Date(entry.created_at).toLocaleDateString('tr-TR') : '-'}</p>
+                                                <p>
+                                                    {entry.created_at
+                                                        ? new Date(entry.created_at).toLocaleDateString('tr-TR')
+                                                        : '-'}
+                                                </p>
                                                 <p>
                                                     {entry.reactions_count} tepki · {entry.replies_count} yanıt
                                                 </p>
@@ -148,8 +154,8 @@ export default function Index({ auth, entries, filters = {} }) {
                                                 <span
                                                     className={`inline-flex rounded-full px-2 py-1 text-xs font-semibold ${
                                                         entry.approved
-                                                            ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300'
-                                                            : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300'
+                                                            ? 'bg-green-100 text-success dark:bg-green-900 dark:text-success'
+                                                            : 'bg-yellow-100 text-warning-foreground dark:bg-yellow-900 dark:text-warning'
                                                     }`}
                                                 >
                                                     {entry.approved ? 'Onaylı' : 'Beklemede'}
@@ -176,7 +182,7 @@ export default function Index({ auth, entries, filters = {} }) {
                                                 <button
                                                     type="button"
                                                     onClick={() => removeEntry(entry)}
-                                                    className="rounded-md bg-red-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-red-700"
+                                                    className="rounded-md bg-destructive px-3 py-1.5 text-xs font-semibold text-white hover:bg-destructive"
                                                 >
                                                     Sil
                                                 </button>
@@ -185,7 +191,10 @@ export default function Index({ auth, entries, filters = {} }) {
                                     ))
                                 ) : (
                                     <tr>
-                                        <td colSpan="5" className="px-4 py-10 text-center text-sm text-gray-500 dark:text-gray-400">
+                                        <td
+                                            colSpan="5"
+                                            className="px-4 py-10 text-center text-sm text-muted-foreground dark:text-muted-foreground"
+                                        >
                                             Kayıt bulunamadı.
                                         </td>
                                     </tr>

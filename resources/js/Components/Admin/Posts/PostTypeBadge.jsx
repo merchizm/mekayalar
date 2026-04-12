@@ -45,13 +45,13 @@ export default function PostTypeBadge({ type }) {
                 return {
                     label: 'Yazı',
                     icon: TextIcon,
-                    className: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300',
+                    className: 'bg-blue-100 text-primary dark:bg-blue-900 dark:text-primary',
                 };
             case '1':
                 return {
                     label: 'Resim',
                     icon: ImageIcon,
-                    className: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300',
+                    className: 'bg-green-100 text-success dark:bg-green-900 dark:text-success',
                 };
             case '2':
                 return {
@@ -75,7 +75,7 @@ export default function PostTypeBadge({ type }) {
                 return {
                     label: 'Bilinmeyen',
                     icon: TextIcon,
-                    className: 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300',
+                    className: 'bg-secondary text-foreground dark:bg-card dark:text-muted-foreground',
                 };
         }
     };

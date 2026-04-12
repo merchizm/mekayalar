@@ -1,9 +1,9 @@
 import React from 'react';
 
 const TabButton = ({ isActive, onClick, children }) => {
-    const activeClasses = 'border-menu-active dark:border-menu-active-dark text-menu-active dark:text-menu-active-dark';
+    const activeClasses = 'border-primary dark:border-primary text-primary dark:text-primary';
     const inactiveClasses =
-        'border-transparent text-light-text dark:text-light-text-dark hover:text-text dark:hover:text-text-dark hover:border-divider dark:hover:border-divider-dark';
+        'border-transparent text-muted-foreground dark:text-muted-foreground hover:text-foreground dark:hover:text-foreground hover:border-border dark:hover:border-border';
     return (
         <button
             onClick={onClick}

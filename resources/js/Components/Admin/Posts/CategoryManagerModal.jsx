@@ -16,8 +16,8 @@ export default function CategoryManagerModal({ isOpen, onClose, categories: init
     }, [initialCategories]);
 
     const formInputClass =
-        'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 sm:text-sm';
-    const formLabelClass = 'block text-sm font-medium text-gray-700 dark:text-gray-300';
+        'mt-1 block w-full rounded-md border-input shadow-sm focus:border-ring focus:ring-ring dark:bg-secondary dark:border-border dark:text-foreground sm:text-sm';
+    const formLabelClass = 'block text-sm font-medium text-muted-foreground dark:text-muted-foreground';
 
     const handleCreate = (e) => {
         e.preventDefault();
@@ -88,17 +88,20 @@ export default function CategoryManagerModal({ isOpen, onClose, categories: init
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-            <div className="flex max-h-[80vh] w-full max-w-2xl flex-col rounded-lg bg-white p-6 shadow-xl dark:bg-gray-800">
+            <div className="flex max-h-[80vh] w-full max-w-2xl flex-col rounded-lg bg-card p-6 shadow-xl dark:bg-card">
                 <div className="mb-4 flex items-center justify-between">
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Kategorileri Yönet</h3>
-                    <button onClick={onClose} className="text-gray-500 hover:text-gray-800 dark:hover:text-gray-200">
+                    <h3 className="text-lg font-semibold text-foreground dark:text-foreground">Kategorileri Yönet</h3>
+                    <button
+                        onClick={onClose}
+                        className="text-muted-foreground hover:text-foreground dark:hover:text-foreground"
+                    >
                         &times;
                     </button>
                 </div>
 
-                <div className="mb-4 rounded-md border p-4 dark:border-gray-700">
+                <div className="mb-4 rounded-md border p-4 dark:border-border">
                     <form onSubmit={handleCreate} className="space-y-3">
-                        <h4 className="font-semibold text-gray-800 dark:text-gray-200">Yeni Kategori Ekle</h4>
+                        <h4 className="font-semibold text-foreground dark:text-foreground">Yeni Kategori Ekle</h4>
                         <div>
                             <label htmlFor="new_category_name" className={formLabelClass}>
                                 Kategori Adı
@@ -127,7 +130,7 @@ export default function CategoryManagerModal({ isOpen, onClose, categories: init
                         <div className="flex justify-end">
                             <button
                                 type="submit"
-                                className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50"
+                                className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary disabled:opacity-50"
                                 disabled={isLoading}
                             >
                                 Ekle
@@ -139,7 +142,7 @@ export default function CategoryManagerModal({ isOpen, onClose, categories: init
                 <div className="flex-grow overflow-y-auto">
                     <ul className="space-y-2">
                         {categories.map((category) => (
-                            <li key={category.id} className="rounded-md bg-gray-50 p-3 dark:bg-gray-700">
+                            <li key={category.id} className="rounded-md bg-secondary/70 p-3 dark:bg-secondary">
                                 {editingCategoryId === category.id ? (
                                     <div className="space-y-2">
                                         <div>
@@ -163,14 +166,14 @@ export default function CategoryManagerModal({ isOpen, onClose, categories: init
                                         <div className="flex justify-end space-x-2">
                                             <button
                                                 onClick={() => handleUpdate(category.id)}
-                                                className="text-green-500 hover:text-green-700 disabled:opacity-50"
+                                                className="text-success hover:text-success disabled:opacity-50"
                                                 disabled={isLoading}
                                             >
                                                 Kaydet
                                             </button>
                                             <button
                                                 onClick={handleCancelEdit}
-                                                className="text-gray-500 hover:text-gray-700 disabled:opacity-50"
+                                                className="text-muted-foreground hover:text-muted-foreground disabled:opacity-50"
                                                 disabled={isLoading}
                                             >
                                                 İptal
@@ -180,24 +183,24 @@ export default function CategoryManagerModal({ isOpen, onClose, categories: init
                                 ) : (
                                     <div className="flex items-center justify-between">
                                         <div>
-                                            <p className="font-semibold text-gray-800 dark:text-gray-200">
+                                            <p className="font-semibold text-foreground dark:text-foreground">
                                                 {category.name}
                                             </p>
-                                            <p className="text-sm text-gray-500 dark:text-gray-400">
+                                            <p className="text-sm text-muted-foreground dark:text-muted-foreground">
                                                 {category.description}
                                             </p>
                                         </div>
                                         <div className="ml-4 flex flex-shrink-0 space-x-2">
                                             <button
                                                 onClick={() => handleStartEdit(category)}
-                                                className="text-blue-500 hover:text-blue-700 disabled:opacity-50"
+                                                className="text-primary hover:text-primary disabled:opacity-50"
                                                 disabled={isLoading}
                                             >
                                                 Düzenle
                                             </button>
                                             <button
                                                 onClick={() => handleDelete(category.id)}
-                                                className="text-red-500 hover:text-red-700 disabled:opacity-50"
+                                                className="text-destructive hover:text-destructive disabled:opacity-50"
                                                 disabled={isLoading}
                                             >
                                                 Sil
@@ -213,7 +216,7 @@ export default function CategoryManagerModal({ isOpen, onClose, categories: init
                 <div className="mt-6 flex justify-end">
                     <button
                         onClick={onClose}
-                        className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+                        className="rounded-md border border-input bg-card px-4 py-2 text-sm font-medium text-muted-foreground shadow-sm hover:bg-secondary/70 dark:border-border dark:bg-secondary dark:text-muted-foreground dark:hover:bg-accent"
                     >
                         Kapat
                     </button>

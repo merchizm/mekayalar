@@ -52,31 +52,35 @@ export default function FileUpload({ currentPath, onSuccess }) {
         <div className="mt-4">
             <div
                 {...getRootProps()}
-                className={`cursor-pointer rounded-md border-2 border-dashed p-6 text-center transition-colors ${isDragActive ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20' : 'border-gray-300 hover:border-gray-400 dark:border-gray-600 dark:hover:border-gray-500'}`}
+                className={`cursor-pointer rounded-md border-2 border-dashed p-6 text-center transition-colors ${isDragActive ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20' : 'border-input hover:border-border dark:border-border dark:hover:border-border'}`}
             >
                 <input {...getInputProps()} />
-                <p className="text-gray-500 dark:text-gray-400">
+                <p className="text-muted-foreground dark:text-muted-foreground">
                     Dosyaları buraya sürükleyin veya seçmek için tıklayın
                 </p>
             </div>
             {uploadingFiles.length > 0 && (
                 <div className="mt-4 space-y-3">
-                    <h6 className="text-sm font-medium text-gray-700 dark:text-gray-300">Yükleniyor:</h6>
+                    <h6 className="text-sm font-medium text-muted-foreground dark:text-muted-foreground">
+                        Yükleniyor:
+                    </h6>
                     {uploadingFiles.map((file, index) => (
                         <div key={index}>
                             <div className="flex items-center justify-between">
-                                <span className="truncate pr-4 text-sm font-medium text-gray-800 dark:text-gray-200">
+                                <span className="truncate pr-4 text-sm font-medium text-foreground dark:text-foreground">
                                     {file.name}
                                 </span>
-                                <span className="text-sm text-gray-500 dark:text-gray-400">{file.progress}%</span>
+                                <span className="text-sm text-muted-foreground dark:text-muted-foreground">
+                                    {file.progress}%
+                                </span>
                             </div>
-                            <div className="mt-1 h-1.5 w-full rounded-full bg-gray-200 dark:bg-gray-700">
+                            <div className="mt-1 h-1.5 w-full rounded-full bg-accent dark:bg-secondary">
                                 <div
-                                    className="h-1.5 rounded-full bg-blue-600"
+                                    className="h-1.5 rounded-full bg-primary"
                                     style={{ width: `${file.progress}%` }}
                                 ></div>
                             </div>
-                            {file.error && <small className="mt-1 text-xs text-red-500">{file.error}</small>}
+                            {file.error && <small className="mt-1 text-xs text-destructive">{file.error}</small>}
                         </div>
                     ))}
                 </div>

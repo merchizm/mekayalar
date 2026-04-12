@@ -43,9 +43,7 @@ class Book extends Model
 
     public function posts(): BelongsToMany
     {
-        return $this->belongsToMany(Post::class)
-            ->withPivot('is_primary')
-            ->withTimestamps();
+        return $this->belongsToMany(Post::class)->withPivot('is_primary')->withTimestamps();
     }
 
     public function getRouteKeyName(): string

@@ -65,7 +65,7 @@ const ToolbarButton = ({ onClick, title, icon }) => (
     <button
         type="button"
         onClick={onClick}
-        className="rounded-md border border-gray-200 bg-white px-2 py-1 text-gray-600 shadow-sm hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-gray-800"
+        className="rounded-md border border-border bg-card px-2 py-1 text-muted-foreground shadow-sm hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1 dark:border-border dark:bg-card dark:text-foreground dark:hover:bg-card"
         title={title}
     >
         {iconMap[icon]}
@@ -73,8 +73,8 @@ const ToolbarButton = ({ onClick, title, icon }) => (
 );
 
 const ToolbarGroup = ({ label, children }) => (
-    <div className="flex flex-col gap-2 rounded-md border border-gray-200 bg-white p-2 dark:border-gray-700 dark:bg-gray-900">
-        <div className="text-[10px] font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+    <div className="flex flex-col gap-2 rounded-md border border-border bg-card p-2 dark:border-border dark:bg-card">
+        <div className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground dark:text-muted-foreground">
             {label}
         </div>
         <div className="flex flex-wrap items-center gap-2">{children}</div>
@@ -96,7 +96,7 @@ export default function Toolbar({ onAction, onTogglePreview, onToggleFullscreen,
         <div className="flex flex-wrap items-stretch gap-3">
             <ToolbarGroup label="Format">
                 <select
-                    className="rounded-md border border-gray-200 bg-white px-2 py-1 text-xs text-gray-600 shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200"
+                    className="rounded-md border border-border bg-card px-2 py-1 text-xs text-muted-foreground shadow-sm dark:border-border dark:bg-card dark:text-foreground"
                     onChange={(event) => {
                         const value = event.target.value;
                         if (value) {
@@ -115,7 +115,11 @@ export default function Toolbar({ onAction, onTogglePreview, onToggleFullscreen,
                 </select>
                 <ToolbarButton onClick={() => onAction('bold')} title="Bold" icon="bi-type-bold" />
                 <ToolbarButton onClick={() => onAction('italic')} title="Italic" icon="bi-type-italic" />
-                <ToolbarButton onClick={() => onAction('strikethrough')} title="Strikethrough" icon="bi-type-strikethrough" />
+                <ToolbarButton
+                    onClick={() => onAction('strikethrough')}
+                    title="Strikethrough"
+                    icon="bi-type-strikethrough"
+                />
                 <ToolbarButton onClick={() => onAction('highlight')} title="Highlight" icon="bi-highlight" />
             </ToolbarGroup>
 
@@ -157,14 +161,14 @@ export default function Toolbar({ onAction, onTogglePreview, onToggleFullscreen,
                 <button
                     type="button"
                     onClick={onTogglePreview}
-                    className="rounded-md border border-gray-200 bg-white px-3 py-1 text-xs font-semibold text-gray-600 shadow-sm hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200"
+                    className="rounded-md border border-border bg-card px-3 py-1 text-xs font-semibold text-muted-foreground shadow-sm hover:bg-secondary dark:border-border dark:bg-card dark:text-foreground"
                 >
                     {showPreview ? 'Önizlemeyi Gizle' : 'Önizlemeyi Göster'}
                 </button>
                 <button
                     type="button"
                     onClick={onToggleFullscreen}
-                    className="rounded-md border border-gray-200 bg-white px-3 py-1 text-xs font-semibold text-gray-600 shadow-sm hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200"
+                    className="rounded-md border border-border bg-card px-3 py-1 text-xs font-semibold text-muted-foreground shadow-sm hover:bg-secondary dark:border-border dark:bg-card dark:text-foreground"
                 >
                     {fullscreen ? 'Tam Ekrandan Çık' : 'Tam Ekran'}
                 </button>

@@ -97,8 +97,8 @@ const stripInline = (value) =>
         .replace(/\*\*([^*]+)\*\*/g, '$1')
         .replace(/\*([^*]+)\*/g, '$1')
         .replace(/_([^_]+)_/g, '$1')
-        .replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1')
-        .replace(/!\[([^\]]*)\]\([^\)]+\)/g, '$1');
+        .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+        .replace(/!\[([^\]]*)\]\([^)]+\)/g, '$1');
 
 const parseAttributes = (input = '') => {
     const attrs = {};
@@ -130,7 +130,9 @@ const parseInfoString = (info = '') => {
 };
 
 const normalizeLang = (lang) => {
-    const key = String(lang || '').trim().toLowerCase();
+    const key = String(lang || '')
+        .trim()
+        .toLowerCase();
     return LANGUAGE_NORMALIZE[key] || key || 'text';
 };
 
@@ -416,10 +418,7 @@ const applyAbbreviations = (markdown, abbreviations) => {
     let result = markdown;
     Object.entries(abbreviations).forEach(([abbr, title]) => {
         const regex = new RegExp(`\\b${escapeRegExp(abbr)}\\b`, 'g');
-        result = result.replace(
-            regex,
-            `<abbr class="md-abbr" title="${escapeHtml(title)}">${escapeHtml(abbr)}</abbr>`,
-        );
+        result = result.replace(regex, `<abbr class="md-abbr" title="${escapeHtml(title)}">${escapeHtml(abbr)}</abbr>`);
     });
     return result;
 };
@@ -564,7 +563,7 @@ const buildTocHtml = (headings) => {
     return html;
 };
 
-const renderWithHeadingIds = (markdown, headings) => {
+const renderWithHeadingIds = (markdown, _headings) => {
     const seen = new Map();
     const renderer = new marked.Renderer();
     renderer.heading = (token) => {
@@ -597,7 +596,7 @@ export const renderMarkdownWithBlocks = (markdown = '', depth = 0, options = {})
 
     const markdownWithoutCode = replaceFencedCodeBlocks(markdown, addBlock);
     const markdownWithEmbeds = markdownWithoutCode.replace(/<iframe[\s\S]*?<\/iframe>/gi, (match) =>
-        addBlock(`<div class="md-embed md-embed-html">${match}</div>`),
+        addBlock(`<div class="md-embed md-embed-html">${match}</div>`)
     );
     const headings = extractHeadings(markdownWithEmbeds);
     let working = markdownWithEmbeds;
@@ -979,10 +978,10 @@ const renderMermaid = async (container) => {
                 const { svg } = await mermaid.render(id, code);
                 node.innerHTML = svg;
                 node.setAttribute('data-rendered', 'true');
-            } catch (error) {
+            } catch {
                 node.setAttribute('data-rendered', 'true');
             }
-        }),
+        })
     );
 };
 

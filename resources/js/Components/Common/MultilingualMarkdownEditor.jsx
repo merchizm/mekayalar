@@ -72,14 +72,14 @@ export default function MultilingualMarkdownEditor({ value = '', onChange }) {
     return (
         <div className="space-y-2">
             {/* Language tabs */}
-            <div className="flex gap-2 border-b border-gray-200 dark:border-gray-700">
+            <div className="flex gap-2 border-b border-border">
                 <button
                     type="button"
                     onClick={() => setActiveTab('tr')}
                     className={`px-4 py-2 font-medium transition-colors ${
                         activeTab === 'tr'
-                            ? 'border-b-2 border-blue-600 text-blue-600 dark:border-blue-400 dark:text-blue-400'
-                            : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'
+                            ? 'border-b-2 border-primary text-primary'
+                            : 'text-muted-foreground hover:text-foreground'
                     }`}
                 >
                     🇹🇷 Türkçe
@@ -89,8 +89,8 @@ export default function MultilingualMarkdownEditor({ value = '', onChange }) {
                     onClick={() => setActiveTab('en')}
                     className={`px-4 py-2 font-medium transition-colors ${
                         activeTab === 'en'
-                            ? 'border-b-2 border-blue-600 text-blue-600 dark:border-blue-400 dark:text-blue-400'
-                            : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'
+                            ? 'border-b-2 border-primary text-primary'
+                            : 'text-muted-foreground hover:text-foreground'
                     }`}
                 >
                     🇬🇧 English
@@ -107,7 +107,7 @@ export default function MultilingualMarkdownEditor({ value = '', onChange }) {
                 <MarkdownEditor value={enValue} onChange={(newValue) => handleChange('en', newValue)} />
             </div>
 
-            <p className="text-xs text-gray-500 dark:text-gray-400">
+            <p className="text-xs text-muted-foreground">
                 İçeriği her iki dilde de girebilirsiniz / You can enter content in both languages
             </p>
         </div>

@@ -15,21 +15,21 @@ return [
      */
     'theme' => 'modern',
 
-    'primary_color' => '#000000',
+    'primary_color' => '#0a0a0a',
 
-    'secondary_color' => '#000000',
+    'secondary_color' => '#fafafa',
 
-    'bg_primary_color' => '#ededed',
+    'bg_primary_color' => '#f5f5f5',
 
-    'bg_secondary_color' => 'white',
+    'bg_secondary_color' => '#ffffff',
 
-    'active_color' => 'rgb(209,213,219)',
+    'active_color' => 'rgb(38,38,38)',
 
-    'hover_color' => 'rgb(229,231,235)',
+    'hover_color' => 'rgb(64,64,64)',
 
-    'button_color' => '#0000FF',
+    'button_color' => '#111111',
 
-    'button_hover_color' => '#0707a5',
+    'button_hover_color' => '#000000',
 
     /*
      * Comment Model
@@ -203,11 +203,7 @@ return [
     'editor_config' => [
         'debug'   => false,
         'modules' => [
-            'toolbar' => [
-                [['header' => [1, 2, false]]],
-                ['bold', 'italic', 'underline'],
-                ['link', 'code-block'],
-            ],
+            'toolbar' => [[['header' => [1, 2, false]]], ['bold', 'italic', 'underline'], ['link', 'code-block']],
         ],
         'placeholder' => 'Your message here',
         'theme'       => 'snow',
@@ -216,11 +212,11 @@ return [
     'should_confirm_link_visit' => true,
 
     'reactions' => [
-        'like'    => ['position' => 'left', 'fill' => 'gray'/* 'icon' => ['plain' => '👍🏾', 'filled' => '👍'] */],
-        'dislike' => ['position' => 'left', 'fill' => 'gray'/* 'icon' => ['plain' => '👎🏾', 'filled' => '👎'] */],
-        'happy'   => ['position' => 'right', 'fill' => 'orange'/* 'icon' => ['plain' => '😁', 'filled' => '😄'] */],
+        'like'    => ['position' => 'left', 'fill' => 'gray' /* 'icon' => ['plain' => '👍🏾', 'filled' => '👍'] */],
+        'dislike' => ['position' => 'left', 'fill' => 'gray' /* 'icon' => ['plain' => '👎🏾', 'filled' => '👎'] */],
+        'happy'   => ['position' => 'right', 'fill' => 'orange' /* 'icon' => ['plain' => '😁', 'filled' => '😄'] */],
         'love'    => ['position' => 'right', 'fill' => 'red', 'icon' => ['plain' => '🤍', 'filled' => '❤️']],
-        'sad'     => ['position' => 'right', 'fill' => 'orange'/* 'icon' => ['plain' => '☹', 'filled' => '😢'] */],
+        'sad'     => ['position' => 'right', 'fill' => 'orange' /* 'icon' => ['plain' => '☹', 'filled' => '😢'] */],
     ],
 
     /*

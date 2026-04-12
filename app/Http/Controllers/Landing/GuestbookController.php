@@ -29,18 +29,19 @@ class GuestbookController extends Controller
         $guestIp = $this->resolveGuestIp($request);
 
         $payload = $entries->map(function (GuestbookEntry $entry) use ($user, $guestIp) {
-            $reactionSummary = $entry->reactions
-                ->groupBy('emoji')
-                ->map(fn ($items) => $items->count())
-                ->toArray();
+            $reactionSummary = $entry->reactions->groupBy('emoji')->map(fn ($items) => $items->count())->toArray();
 
-            $reacted = $entry->reactions->filter(function (GuestbookReaction $reaction) use ($user, $guestIp) {
-                if ($user) {
-                    return $reaction->user_id === $user->getKey();
-                }
+            $reacted = $entry->reactions
+                ->filter(function (GuestbookReaction $reaction) use ($user, $guestIp) {
+                    if ($user) {
+                        return $reaction->user_id === $user->getKey();
+                    }
 
-                return $reaction->guest_ip === $guestIp;
-            })->pluck('emoji')->values()->all();
+                    return $reaction->guest_ip === $guestIp;
+                })
+                ->pluck('emoji')
+                ->values()
+                ->all();
 
             return [
                 'id'          => $entry->getKey(),
@@ -109,7 +110,9 @@ class GuestbookController extends Controller
             'approved'     => !$isGuest,
         ]);
 
-        return redirect()->back()->with('guestbook_status', $isGuest ? 'pending' : 'published');
+        return redirect()
+            ->back()
+            ->with('guestbook_status', $isGuest ? 'pending' : 'published');
     }
 
     public function react(Request $request, GuestbookEntry $guestbookEntry)

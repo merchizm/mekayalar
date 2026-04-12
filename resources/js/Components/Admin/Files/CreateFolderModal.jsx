@@ -50,19 +50,19 @@ export default function CreateFolderModal({ isOpen, onClose, currentPath, onSucc
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-            <div className="mx-4 w-full max-w-md rounded-lg bg-white shadow-xl dark:bg-gray-800">
-                <div className="border-b border-gray-200 px-6 py-4 dark:border-gray-600">
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Yeni Klasör Oluştur</h3>
+            <div className="mx-4 w-full max-w-md rounded-lg bg-card shadow-xl dark:bg-card">
+                <div className="border-b border-border px-6 py-4 dark:border-border">
+                    <h3 className="text-lg font-semibold text-foreground dark:text-foreground">Yeni Klasör Oluştur</h3>
                 </div>
 
                 <div className="px-6 py-4">
                     <div className="mb-4">
-                        <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
+                        <label className="mb-2 block text-sm font-medium text-muted-foreground dark:text-muted-foreground">
                             Klasör Adı
                         </label>
                         <input
                             type="text"
-                            className="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200"
+                            className="w-full rounded-md border border-input px-3 py-2 shadow-sm focus:border-ring focus:ring-ring dark:border-border dark:bg-secondary dark:text-foreground"
                             placeholder="Klasör adını girin..."
                             value={newFolderName}
                             onChange={(e) => setNewFolderName(e.target.value)}
@@ -71,15 +71,15 @@ export default function CreateFolderModal({ isOpen, onClose, currentPath, onSucc
                         />
                     </div>
 
-                    <div className="text-sm text-gray-500 dark:text-gray-400">
+                    <div className="text-sm text-muted-foreground dark:text-muted-foreground">
                         Konum: <span className="font-mono">{currentPath}</span>
                     </div>
                 </div>
 
-                <div className="flex justify-end space-x-3 rounded-b-lg bg-gray-50 px-6 py-4 dark:bg-gray-700">
+                <div className="flex justify-end space-x-3 rounded-b-lg bg-secondary/70 px-6 py-4 dark:bg-secondary">
                     <button
                         onClick={onClose}
-                        className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:border-gray-500 dark:bg-gray-600 dark:text-gray-300 dark:hover:bg-gray-500"
+                        className="dark:hover:bg-secondary/700 rounded-md border border-input bg-card px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-secondary/70 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 dark:border-border dark:bg-accent dark:text-muted-foreground"
                         disabled={loading}
                     >
                         İptal
@@ -87,7 +87,7 @@ export default function CreateFolderModal({ isOpen, onClose, currentPath, onSucc
                     <button
                         onClick={handleCreateFolder}
                         disabled={loading || !newFolderName.trim()}
-                        className="flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        className="flex items-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                     >
                         {loading ? (
                             <>

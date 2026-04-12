@@ -24,9 +24,7 @@ class GuestbookEntryController extends Controller
         if ($request->filled('search')) {
             $term = trim((string) $request->input('search'));
             $query->where(function ($builder) use ($term): void {
-                $builder
-                    ->where('name', 'like', "%{$term}%")
-                    ->orWhere('message', 'like', "%{$term}%");
+                $builder->where('name', 'like', "%{$term}%")->orWhere('message', 'like', "%{$term}%");
             });
         }
 

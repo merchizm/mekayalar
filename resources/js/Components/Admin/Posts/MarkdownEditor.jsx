@@ -68,12 +68,12 @@ export default function MarkdownEditor({ value, onChange }) {
             accordion: `:::accordion\n:::item Başlık 1\n${selectedText || 'İçerik...'}\n:::\n:::item Başlık 2\nİçerik...\n:::\n:::`,
             toc: `:::toc`,
             embed: `:::embed youtube=VIDEO_ID`,
-            figure: `:::figure src=/path/image.jpg caption=\"Açıklama\" alt=\"Alt text\"\n:::`,
+            figure: `:::figure src=/path/image.jpg caption="Açıklama" alt="Alt text"\n:::`,
             footnote: `${selectedText || 'Dipnot örneği'}[^1]\n\n[^1]: Dipnot açıklaması`,
             noautolink: `:::noautolink\n${selectedText || 'https://example.com'}\n:::`,
-            quote: `:::quote title=\"Kitap Adı\" author=\"Yazar\" page=\"12\" image=\"/path/cover.jpg\"\n${selectedText || 'Alıntı metni...'}\n:::`,
+            quote: `:::quote title="Kitap Adı" author="Yazar" page="12" image="/path/cover.jpg"\n${selectedText || 'Alıntı metni...'}\n:::`,
             gallery: `:::gallery\n![Başlık](/path/image.jpg)\n![Başlık 2](/path/image2.jpg)\n:::`,
-            bubble: `:::bubble side=left name=\"Karakter\" image=\"/path/character.png\"\n${selectedText || 'Mesaj...'}\n:::`,
+            bubble: `:::bubble side=left name="Karakter" image="/path/character.png"\n${selectedText || 'Mesaj...'}\n:::`,
             flowchart: `\`\`\`flowchart\nA --> B\n\`\`\``,
             sequence: `\`\`\`sequence\nAlice->>Bob: Merhaba\nBob-->>Alice: Selam\n\`\`\``,
         };
@@ -107,7 +107,8 @@ export default function MarkdownEditor({ value, onChange }) {
                     },
                     '.cm-content': {
                         padding: '16px',
-                        fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+                        fontFamily:
+                            'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
                     },
                     '.cm-gutters': {
                         backgroundColor: 'transparent',
@@ -123,10 +124,10 @@ export default function MarkdownEditor({ value, onChange }) {
                         color: '#6b7280',
                     },
                 },
-                { dark: false },
+                { dark: false }
             ),
         ],
-        [],
+        []
     );
 
     const sanitizedHtml = DOMPurify.sanitize(renderMarkdownWithBlocks(content), {
@@ -177,8 +178,8 @@ export default function MarkdownEditor({ value, onChange }) {
         ],
     });
 
-    const outerContainerClass = `flex min-h-0 flex-col overflow-hidden rounded-md border border-gray-300 dark:border-gray-700 ${
-        fullscreen ? 'fixed inset-0 z-50 h-screen bg-white dark:bg-gray-900' : 'h-[70vh]'
+    const outerContainerClass = `flex min-h-0 flex-col overflow-hidden rounded-md border border-input dark:border-border ${
+        fullscreen ? 'fixed inset-0 z-50 h-screen bg-card dark:bg-card' : 'h-[70vh]'
     }`;
     const editorContainerClass = 'flex flex-1 min-h-0';
     const editorSectionClass = `flex flex-1 min-h-0 min-w-0 flex-col`;
@@ -188,7 +189,7 @@ export default function MarkdownEditor({ value, onChange }) {
 
     return (
         <div className={outerContainerClass}>
-            <div className="border-b border-gray-200 bg-gray-50 px-4 py-3 dark:border-gray-700 dark:bg-gray-900">
+            <div className="border-b border-border bg-secondary/70 px-4 py-3 dark:border-border dark:bg-card">
                 <Toolbar
                     onAction={handleAction}
                     onTogglePreview={() => setShowPreview(!showPreview)}
@@ -199,7 +200,7 @@ export default function MarkdownEditor({ value, onChange }) {
             </div>
             <div className={editorContainerClass}>
                 <div className={editorSectionClass}>
-                    <div className="flex flex-1 min-h-0 overflow-hidden bg-white dark:bg-gray-900">
+                    <div className="flex min-h-0 flex-1 overflow-hidden bg-card dark:bg-card">
                         <CodeMirror
                             value={content}
                             height="100%"
@@ -217,15 +218,15 @@ export default function MarkdownEditor({ value, onChange }) {
                             theme="none"
                         />
                     </div>
-                    <div className="border-t border-gray-200 p-2 text-xs text-gray-500 dark:border-gray-700 dark:text-gray-400">
+                    <div className="border-t border-border p-2 text-xs text-muted-foreground dark:border-border dark:text-muted-foreground">
                         Karakter: {content.length}
                     </div>
                 </div>
                 {showPreview && (
-                    <div className="w-1.5 flex-shrink-0 cursor-col-resize bg-gray-300 hover:bg-blue-500 dark:bg-gray-600"></div>
+                    <div className="w-1.5 flex-shrink-0 cursor-col-resize bg-accent hover:bg-primary dark:bg-accent"></div>
                 )}
                 <div className={previewSectionClass} onClick={onGalleryClick}>
-                    <h5 className="mb-2 text-lg font-bold dark:text-white">Önizleme</h5>
+                    <h5 className="mb-2 text-lg font-bold dark:text-foreground">Önizleme</h5>
                     <div
                         className="md-content prose prose-sm sm:prose lg:prose-lg xl:prose-xl dark:prose-invert max-w-none"
                         dangerouslySetInnerHTML={{ __html: sanitizedHtml }}

@@ -37,36 +37,36 @@ export default function Pagination({ links, meta }) {
     }));
 
     return (
-        <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 dark:border-gray-700 dark:bg-gray-800 sm:px-6">
+        <div className="flex items-center justify-between border-t border-border bg-card px-4 py-3 dark:border-border dark:bg-card sm:px-6">
             <div className="flex flex-1 justify-between sm:hidden">
                 {normalizedLinks[0].url ? (
                     <Link
                         href={normalizedLinks[0].url}
-                        className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+                        className="relative inline-flex items-center rounded-md border border-input bg-card px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-secondary/70 dark:border-border dark:bg-secondary dark:text-muted-foreground dark:hover:bg-accent"
                     >
                         Önceki
                     </Link>
                 ) : (
-                    <span className="relative inline-flex cursor-not-allowed items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-400 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-500">
+                    <span className="relative inline-flex cursor-not-allowed items-center rounded-md border border-input bg-card px-4 py-2 text-sm font-medium text-muted-foreground dark:border-border dark:bg-secondary dark:text-muted-foreground">
                         Önceki
                     </span>
                 )}
                 {normalizedLinks[normalizedLinks.length - 1].url ? (
                     <Link
                         href={normalizedLinks[normalizedLinks.length - 1].url}
-                        className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+                        className="relative ml-3 inline-flex items-center rounded-md border border-input bg-card px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-secondary/70 dark:border-border dark:bg-secondary dark:text-muted-foreground dark:hover:bg-accent"
                     >
                         Sonraki
                     </Link>
                 ) : (
-                    <span className="relative ml-3 inline-flex cursor-not-allowed items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-400 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-500">
+                    <span className="relative ml-3 inline-flex cursor-not-allowed items-center rounded-md border border-input bg-card px-4 py-2 text-sm font-medium text-muted-foreground dark:border-border dark:bg-secondary dark:text-muted-foreground">
                         Sonraki
                     </span>
                 )}
             </div>
             <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
                 <div>
-                    <p className="text-sm text-gray-700 dark:text-gray-300">
+                    <p className="text-sm text-muted-foreground dark:text-muted-foreground">
                         <span className="font-medium">{meta.from || 0}</span> -{' '}
                         <span className="font-medium">{meta.to || 0}</span> arası,{' '}
                         <span className="font-medium">{meta.total}</span> sonuçtan
@@ -78,13 +78,13 @@ export default function Pagination({ links, meta }) {
                         {normalizedLinks[0].url ? (
                             <Link
                                 href={normalizedLinks[0].url}
-                                className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 dark:ring-gray-600 dark:hover:bg-gray-700"
+                                className="relative inline-flex items-center rounded-l-md px-2 py-2 text-muted-foreground ring-1 ring-inset ring-border hover:bg-secondary/70 focus:z-20 focus:outline-offset-0 dark:ring-border dark:hover:bg-secondary"
                             >
                                 <span className="sr-only">Önceki</span>
                                 <ChevronLeftIcon className="h-5 w-5" />
                             </Link>
                         ) : (
-                            <span className="relative inline-flex cursor-not-allowed items-center rounded-l-md px-2 py-2 text-gray-300 ring-1 ring-inset ring-gray-300 dark:text-gray-600 dark:ring-gray-600">
+                            <span className="relative inline-flex cursor-not-allowed items-center rounded-l-md px-2 py-2 text-muted-foreground ring-1 ring-inset ring-border dark:text-muted-foreground dark:ring-border">
                                 <span className="sr-only">Önceki</span>
                                 <ChevronLeftIcon className="h-5 w-5" />
                             </span>
@@ -96,7 +96,7 @@ export default function Pagination({ links, meta }) {
                                 return (
                                     <span
                                         key={index}
-                                        className="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-700 ring-1 ring-inset ring-gray-300 focus:outline-offset-0 dark:text-gray-300 dark:ring-gray-600"
+                                        className="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-muted-foreground ring-1 ring-inset ring-border focus:outline-offset-0 dark:text-muted-foreground dark:ring-border"
                                     >
                                         ...
                                     </span>
@@ -107,10 +107,10 @@ export default function Pagination({ links, meta }) {
                                 <Link
                                     key={index}
                                     href={link.url}
-                                    className={`relative inline-flex items-center px-4 py-2 text-sm font-semibold ring-1 ring-inset ring-gray-300 focus:outline-offset-0 dark:ring-gray-600 ${
+                                    className={`relative inline-flex items-center px-4 py-2 text-sm font-semibold ring-1 ring-inset ring-border focus:outline-offset-0 dark:ring-border ${
                                         link.active
-                                            ? 'z-10 bg-blue-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600'
-                                            : 'text-gray-900 hover:bg-gray-50 focus:z-20 dark:text-gray-300 dark:hover:bg-gray-700'
+                                            ? 'z-10 bg-primary text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600'
+                                            : 'text-foreground hover:bg-secondary/70 focus:z-20 dark:text-muted-foreground dark:hover:bg-secondary'
                                     }`}
                                     dangerouslySetInnerHTML={{ __html: link.label }}
                                 />
@@ -121,13 +121,13 @@ export default function Pagination({ links, meta }) {
                         {normalizedLinks[normalizedLinks.length - 1].url ? (
                             <Link
                                 href={normalizedLinks[normalizedLinks.length - 1].url}
-                                className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 dark:ring-gray-600 dark:hover:bg-gray-700"
+                                className="relative inline-flex items-center rounded-r-md px-2 py-2 text-muted-foreground ring-1 ring-inset ring-border hover:bg-secondary/70 focus:z-20 focus:outline-offset-0 dark:ring-border dark:hover:bg-secondary"
                             >
                                 <span className="sr-only">Sonraki</span>
                                 <ChevronRightIcon className="h-5 w-5" />
                             </Link>
                         ) : (
-                            <span className="relative inline-flex cursor-not-allowed items-center rounded-r-md px-2 py-2 text-gray-300 ring-1 ring-inset ring-gray-300 dark:text-gray-600 dark:ring-gray-600">
+                            <span className="relative inline-flex cursor-not-allowed items-center rounded-r-md px-2 py-2 text-muted-foreground ring-1 ring-inset ring-border dark:text-muted-foreground dark:ring-border">
                                 <span className="sr-only">Sonraki</span>
                                 <ChevronRightIcon className="h-5 w-5" />
                             </span>

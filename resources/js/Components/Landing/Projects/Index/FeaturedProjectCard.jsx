@@ -4,7 +4,7 @@ import { Link } from '@inertiajs/react';
 const FeaturedProjectCard = ({ project }) => (
     <Link
         href={route('projects.show', project)}
-        className="surface-lift group relative block transform overflow-hidden rounded-2xl border border-divider bg-transparent shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:border-divider-dark"
+        className="surface-lift group relative block transform overflow-hidden rounded-2xl border border-border bg-transparent shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:border-border"
     >
         {project.image && (
             <div className="h-64 overflow-hidden">
@@ -16,14 +16,14 @@ const FeaturedProjectCard = ({ project }) => (
             </div>
         )}
         <div className="p-6">
-            <h3 className="text-2xl font-bold text-text dark:text-text-dark">{project.title}</h3>
-            <p className="mt-2 text-light-text dark:text-light-text-dark">{project.description}</p>
+            <h3 className="text-2xl font-bold text-foreground dark:text-foreground">{project.title}</h3>
+            <p className="mt-2 text-muted-foreground dark:text-muted-foreground">{project.description}</p>
             {project.tags && project.tags.length > 0 && (
                 <div className="mt-4 flex flex-wrap gap-2">
                     {project.tags.map((tag) => (
                         <span
                             key={tag}
-                            className="rounded-full bg-blue-100 px-2 py-1 text-xs font-semibold text-blue-800 dark:bg-blue-900/50 dark:text-blue-300"
+                            className="rounded-full bg-blue-100 px-2 py-1 text-xs font-semibold text-primary dark:bg-blue-900/50 dark:text-primary"
                         >
                             {tag}
                         </span>
@@ -31,7 +31,7 @@ const FeaturedProjectCard = ({ project }) => (
                 </div>
             )}
             <div className="mt-4 flex items-center justify-between">
-                <span className="inline-flex items-center text-sm font-semibold text-menu-active dark:text-menu-active-dark">
+                <span className="inline-flex items-center text-sm font-semibold text-primary dark:text-primary">
                     {__('Detayları İncele')}
                     <svg
                         className="ml-1.5 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
@@ -49,7 +49,7 @@ const FeaturedProjectCard = ({ project }) => (
                     </svg>
                 </span>
                 {project.completed_at && (
-                    <span className="text-sm text-light-text dark:text-dark-text-dark">
+                    <span className="text-sm text-muted-foreground dark:text-muted-foreground">
                         {new Date(project.completed_at).getFullYear()}
                     </span>
                 )}

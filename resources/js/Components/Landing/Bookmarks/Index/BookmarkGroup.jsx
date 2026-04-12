@@ -11,9 +11,9 @@ const BookmarkGroup = ({ date, bookmarks }) => {
 
     return (
         <div className="relative pl-8">
-            <div className="absolute left-0 h-full border-l-2 border-dashed border-divider dark:border-divider-dark"></div>
-            <div className="absolute left-[-11px] top-1.5 h-6 w-6 rounded-full border-4 border-background bg-menu-active dark:border-background-dark dark:bg-menu-active-dark"></div>
-            <h2 className="mb-4 text-2xl font-bold text-text dark:text-text-dark">{formatDate(date)}</h2>
+            <div className="absolute left-0 h-full border-l-2 border-dashed border-border dark:border-border"></div>
+            <div className="absolute left-[-11px] top-1.5 h-6 w-6 rounded-full border-4 border-background bg-primary dark:border-background dark:bg-primary"></div>
+            <h2 className="mb-4 text-2xl font-bold text-foreground dark:text-foreground">{formatDate(date)}</h2>
             <div className="space-y-4">
                 {items.map((bookmark) => (
                     <BookmarkItem key={bookmark.link} bookmark={bookmark} />

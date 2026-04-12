@@ -29,10 +29,10 @@ function Index({ poems }) {
             </Head>
 
             <RevealSection as="header" className="mb-12 text-center">
-                <h1 className="text-5xl font-bold tracking-tight text-text dark:text-text-dark">
+                <h1 className="text-5xl font-bold tracking-tight text-foreground dark:text-foreground">
                     {__('Kalemimden Dökülenler')}
                 </h1>
-                <p className="mx-auto mt-4 max-w-2xl text-xl text-light-text dark:text-light-text-dark">
+                <p className="mx-auto mt-4 max-w-2xl text-xl text-muted-foreground dark:text-muted-foreground">
                     {__(
                         'Duygularımı ve düşüncelerimi mısralara döktüğüm kişisel köşem. Küçük bir uyarı, şiirlerin hiç birini bir estetik kaygısı ile yazmadım.'
                     )}
@@ -44,19 +44,21 @@ function Index({ poems }) {
                     <Link
                         key={poem.id}
                         href={route('poems.show', { poem: poem.slug })}
-                        className="surface-lift group relative flex h-full flex-col overflow-hidden rounded-2xl border border-divider bg-transparent p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:border-divider-dark"
+                        className="surface-lift group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-transparent p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:border-border"
                     >
                         <div className="absolute inset-0 h-full w-full bg-cover bg-center bg-no-repeat opacity-20 transition-all duration-300 group-hover:opacity-30"></div>
                         <div className="relative z-10 flex flex-grow flex-col">
                             <div className="mb-4 flex items-start justify-between">
-                                <h3 className="text-2xl font-bold text-text dark:text-text-dark">{poem.title}</h3>
+                                <h3 className="text-2xl font-bold text-foreground dark:text-foreground">
+                                    {poem.title}
+                                </h3>
                             </div>
 
-                            <div className="mt-auto flex items-center justify-between border-t border-divider/50 pt-4 dark:border-divider-dark/50">
-                                <span className="text-sm text-light-text dark:text-light-text-dark">
+                            <div className="mt-auto flex items-center justify-between border-t border-border/50 pt-4 dark:border-border/50">
+                                <span className="text-sm text-muted-foreground dark:text-muted-foreground">
                                     {formatDate(poem.wrote_at)}
                                 </span>
-                                <span className="inline-flex items-center text-sm font-semibold text-text group-hover:underline dark:text-text-dark">
+                                <span className="inline-flex items-center text-sm font-semibold text-foreground group-hover:underline dark:text-foreground">
                                     {__('Devamını Oku')}
                                     <svg
                                         className="ml-1 h-4 w-4"
@@ -80,10 +82,13 @@ function Index({ poems }) {
             </RevealSection>
 
             {poems.length === 0 && (
-                <RevealSection className="my-5 rounded-xl border border-divider bg-poem-container py-16 text-center shadow-sm dark:border-label-border-dark dark:bg-poem-container-dark" delay={0.06}>
+                <RevealSection
+                    className="my-5 rounded-xl border border-border bg-muted py-16 text-center shadow-sm dark:border-border dark:bg-muted"
+                    delay={0.06}
+                >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="mx-auto mb-4 h-16 w-16 text-light-text dark:text-dark-text-dark"
+                        className="mx-auto mb-4 h-16 w-16 text-muted-foreground dark:text-muted-foreground"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -95,10 +100,10 @@ function Index({ poems }) {
                             d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
                         />
                     </svg>
-                    <h2 className="mb-3 text-2xl font-semibold text-text dark:text-text-dark">
+                    <h2 className="mb-3 text-2xl font-semibold text-foreground dark:text-foreground">
                         {__('Henüz şiir bulunmuyor')}
                     </h2>
-                    <p className="text-light-text dark:text-light-text-dark">
+                    <p className="text-muted-foreground dark:text-muted-foreground">
                         {__('Yakında burada şiirlerimi görebileceksiniz.')}
                     </p>
                 </RevealSection>

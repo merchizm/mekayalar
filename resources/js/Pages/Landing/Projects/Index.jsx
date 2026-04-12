@@ -8,8 +8,10 @@ function Index({ featuredProjects, projects }) {
     return (
         <>
             <RevealSection as="header" className="mb-12 text-center">
-                <h1 className="text-5xl font-bold tracking-tight text-text dark:text-text-dark">{__('Projelerim')}</h1>
-                <p className="mx-auto mt-4 max-w-2xl text-xl text-light-text dark:text-light-text-dark">
+                <h1 className="text-5xl font-bold tracking-tight text-foreground dark:text-foreground">
+                    {__('Projelerim')}
+                </h1>
+                <p className="mx-auto mt-4 max-w-2xl text-xl text-muted-foreground dark:text-muted-foreground">
                     {__('Geliştirdiğim, katkıda bulunduğum ve gurur duyduğum çalışmalarım.')}
                 </p>
             </RevealSection>
@@ -17,7 +19,7 @@ function Index({ featuredProjects, projects }) {
             <div className="container space-y-16">
                 {featuredProjects.length > 0 && (
                     <RevealSection as="section" delay={0.04}>
-                        <h2 className="mb-6 text-center text-3xl font-bold text-text dark:text-text-dark">
+                        <h2 className="mb-6 text-center text-3xl font-bold text-foreground dark:text-foreground">
                             {__('Öne Çıkanlar')}
                         </h2>
                         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
@@ -30,7 +32,7 @@ function Index({ featuredProjects, projects }) {
 
                 {projects.length > 0 && (
                     <RevealSection as="section" delay={0.08}>
-                        <h2 className="mb-6 text-center text-3xl font-bold text-text dark:text-text-dark">
+                        <h2 className="mb-6 text-center text-3xl font-bold text-foreground dark:text-foreground">
                             {featuredProjects.length > 0 ? __('Diğer Projeler') : ''}
                         </h2>
                         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -42,10 +44,10 @@ function Index({ featuredProjects, projects }) {
                 )}
 
                 {featuredProjects.length === 0 && projects.length === 0 && (
-                    <div className="my-5 rounded-2xl border-2 border-dashed border-divider bg-background py-24 text-center dark:border-divider-dark dark:bg-repository-card-bg-dark">
+                    <div className="my-5 rounded-2xl border-2 border-dashed border-border bg-background py-24 text-center dark:border-border dark:bg-card">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            className="mx-auto mb-6 h-20 w-20 text-light-text dark:text-dark-text-dark"
+                            className="mx-auto mb-6 h-20 w-20 text-muted-foreground dark:text-muted-foreground"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
@@ -57,10 +59,10 @@ function Index({ featuredProjects, projects }) {
                                 d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
                             />
                         </svg>
-                        <h2 className="mb-3 text-3xl font-bold text-text dark:text-text-dark">
+                        <h2 className="mb-3 text-3xl font-bold text-foreground dark:text-foreground">
                             {__('Henüz Proje Eklenmemiş')}
                         </h2>
-                        <p className="text-center text-xl text-light-text dark:text-light-text-dark">
+                        <p className="text-center text-xl text-muted-foreground dark:text-muted-foreground">
                             {__('Yakında burada projelerimi görebileceksiniz.')}
                         </p>
                     </div>

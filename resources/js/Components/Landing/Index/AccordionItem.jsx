@@ -4,7 +4,7 @@ const AccordionItem = ({ title, date, children, logo }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <div className="rounded-lg border border-divider bg-background transition-all duration-300 dark:border-label-border-dark dark:bg-repository-card-bg-dark">
+        <div className="rounded-lg border border-border bg-background transition-all duration-300 dark:border-border dark:bg-card">
             <button
                 className="flex w-full items-center justify-between gap-4 p-4 text-left"
                 onClick={() => setIsOpen(!isOpen)}
@@ -16,13 +16,13 @@ const AccordionItem = ({ title, date, children, logo }) => {
                         </div>
                     )}
                     <div className="flex-grow">
-                        <h3 className="text-lg font-semibold text-text dark:text-text-dark">{title}</h3>
-                        <p className="text-sm text-light-text dark:text-light-text-dark">{date}</p>
+                        <h3 className="text-lg font-semibold text-foreground dark:text-foreground">{title}</h3>
+                        <p className="text-sm text-muted-foreground dark:text-muted-foreground">{date}</p>
                     </div>
                 </div>
                 <div className="flex-shrink-0">
                     <svg
-                        className={`h-5 w-5 transform text-text transition-transform duration-300 dark:text-text-dark ${isOpen ? 'rotate-180' : ''}`}
+                        className={`h-5 w-5 transform text-foreground transition-transform duration-300 dark:text-foreground ${isOpen ? 'rotate-180' : ''}`}
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -36,7 +36,7 @@ const AccordionItem = ({ title, date, children, logo }) => {
                 style={{ maxHeight: isOpen ? '1000px' : '0' }}
             >
                 <div className="p-4 pt-0">
-                    <div className="mb-3 text-base text-text dark:text-text-dark">{children}</div>
+                    <div className="mb-3 text-base text-foreground dark:text-foreground">{children}</div>
                 </div>
             </div>
         </div>

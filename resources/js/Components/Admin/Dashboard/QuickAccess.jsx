@@ -2,10 +2,10 @@ import React from 'react';
 import { Link } from '@inertiajs/react';
 
 const colorVariants = {
-    primary: 'bg-blue-600 hover:bg-blue-700 focus:ring-blue-500',
+    primary: 'bg-primary hover:bg-primary focus:ring-ring',
     blue: 'bg-sky-600 hover:bg-sky-700 focus:ring-sky-500',
-    yellow: 'bg-yellow-500 hover:bg-yellow-600 focus:ring-yellow-400',
-    red: 'bg-red-600 hover:bg-red-700 focus:ring-red-500',
+    yellow: 'bg-warning hover:bg-warning focus:ring-ring',
+    red: 'bg-destructive hover:bg-destructive focus:ring-ring',
 };
 
 const QuickAccessButton = ({ href, color, icon, label }) => (
@@ -86,9 +86,9 @@ export default function QuickAccess() {
     ];
 
     return (
-        <div className="rounded-lg border border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
-            <div className="border-b border-gray-200 px-5 py-4 dark:border-gray-700">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Hızlı Erişim</h3>
+        <div className="rounded-lg border border-border bg-card shadow-sm dark:border-border dark:bg-card">
+            <div className="border-b border-border px-5 py-4 dark:border-border">
+                <h3 className="text-lg font-semibold text-foreground dark:text-foreground">Hızlı Erişim</h3>
             </div>
             <div className="p-5">
                 <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">

@@ -51,7 +51,7 @@ export default function DarkModeToggle({ isDarkMode, toggleMode, hasManualOverri
             <button
                 onClick={toggleMode}
                 onDoubleClick={handleDoubleClick}
-                className={`flex h-10 w-10 items-center justify-center rounded-lg border border-divider bg-background shadow-sm transition-all duration-300 hover:translate-y-[-2px] hover:shadow-md dark:border-label-border-dark dark:bg-repository-card-bg-dark ${hasManualOverride ? 'ring-2 ring-blue-500 ring-opacity-50' : ''}`}
+                className={`flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-card shadow-sm transition-all duration-300 hover:translate-y-[-2px] hover:bg-accent hover:shadow-md ${hasManualOverride ? 'ring-2 ring-ring/50' : ''}`}
                 title={
                     hasManualOverride
                         ? __('Manual mod aktif - İki kere tıklayarak otomatik moda alın')
@@ -61,7 +61,7 @@ export default function DarkModeToggle({ isDarkMode, toggleMode, hasManualOverri
                 {isDarkMode ? lightSvg : darkSvg}
             </button>
             {hasManualOverride && (
-                <div className="absolute -right-1 -top-1 h-3 w-3 rounded-full border-2 border-background bg-blue-500 dark:border-repository-card-bg-dark"></div>
+                <div className="absolute -right-1 -top-1 h-3 w-3 rounded-full border-2 border-background bg-primary"></div>
             )}
         </div>
     );

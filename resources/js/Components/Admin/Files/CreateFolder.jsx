@@ -36,7 +36,7 @@ export default function CreateFolder({ currentPath, onSuccess }) {
             <div className="flex rounded-md shadow-sm">
                 <input
                     type="text"
-                    className="block w-full min-w-0 flex-1 rounded-none rounded-l-md border-gray-300 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 sm:text-sm"
+                    className="block w-full min-w-0 flex-1 rounded-none rounded-l-md border-input focus:border-ring focus:ring-ring dark:border-border dark:bg-secondary dark:text-foreground sm:text-sm"
                     placeholder="Yeni klasör adı..."
                     value={newFolderName}
                     onChange={(e) => setNewFolderName(e.target.value)}
@@ -45,7 +45,7 @@ export default function CreateFolder({ currentPath, onSuccess }) {
                 <button
                     onClick={handleCreateFolder}
                     disabled={loading}
-                    className="inline-flex items-center rounded-r-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
+                    className="inline-flex items-center rounded-r-md border border-transparent bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:opacity-50"
                 >
                     {loading ? 'Oluşturuluyor...' : 'Dizin Oluştur'}
                 </button>

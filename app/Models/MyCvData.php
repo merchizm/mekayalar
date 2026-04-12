@@ -38,7 +38,7 @@ class MyCvData extends Model
                 'data'       => $data,
                 'is_visible' => true,
                 'sort_order' => 0,
-            ]
+            ],
         );
     }
 

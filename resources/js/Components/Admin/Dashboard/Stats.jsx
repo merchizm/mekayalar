@@ -60,41 +60,41 @@ const UserIcon = () => (
 
 const colorVariants = {
     primary: {
-        text: 'text-blue-500 dark:text-blue-400',
-        bg: 'bg-blue-500',
+        text: 'text-primary dark:text-primary',
+        bg: 'bg-primary',
     },
     blue: {
         text: 'text-sky-500 dark:text-sky-400',
         bg: 'bg-sky-500',
     },
     yellow: {
-        text: 'text-yellow-500 dark:text-yellow-400',
-        bg: 'bg-yellow-500',
+        text: 'text-warning dark:text-warning',
+        bg: 'bg-warning',
     },
     red: {
-        text: 'text-red-500 dark:text-red-400',
-        bg: 'bg-red-500',
+        text: 'text-destructive dark:text-destructive',
+        bg: 'bg-destructive',
     },
 };
 
 const StatCard = ({ title, value, changeValue, changeLabel, icon, color }) => (
-    <div className="rounded-lg border border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
+    <div className="rounded-lg border border-border bg-card shadow-sm dark:border-border dark:bg-card">
         <div className="p-5">
             <div className="flex items-center">
-                <div className="text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                <div className="text-sm font-semibold uppercase tracking-wider text-muted-foreground dark:text-muted-foreground">
                     {title}
                 </div>
             </div>
-            <div className="mb-3 mt-2 text-3xl font-bold text-gray-900 dark:text-white">{value}</div>
+            <div className="mb-3 mt-2 text-3xl font-bold text-foreground dark:text-foreground">{value}</div>
             <div className="mb-2 flex">
-                <div className="text-sm text-gray-500 dark:text-gray-400">{changeLabel}</div>
+                <div className="text-sm text-muted-foreground dark:text-muted-foreground">{changeLabel}</div>
                 <div className="ml-auto">
                     <span className={`${colorVariants[color]?.text || ''} inline-flex items-center leading-tight`}>
                         {changeValue} {icon}
                     </span>
                 </div>
             </div>
-            <div className="h-1.5 w-full rounded-full bg-gray-200 dark:bg-gray-700">
+            <div className="h-1.5 w-full rounded-full bg-accent dark:bg-secondary">
                 <div className={`${colorVariants[color]?.bg || ''} h-1.5 rounded-full`} style={{ width: '100%' }}>
                     <span className="sr-only">100% Complete</span>
                 </div>

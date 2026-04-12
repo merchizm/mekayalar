@@ -7,19 +7,21 @@ const ReposTab = ({ repos, langColors }) => (
                 repos.map((repo) => (
                     <div
                         key={repo.id}
-                        className="surface-lift group relative flex h-full flex-col overflow-hidden rounded-2xl border border-divider bg-transparent p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:border-divider-dark"
+                        className="surface-lift group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-transparent p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:border-border"
                     >
                         <div className="absolute inset-0 h-full w-full bg-cover bg-center bg-no-repeat opacity-20 transition-all duration-300 group-hover:opacity-30"></div>
                         <div className="relative z-10 flex flex-grow flex-col">
                             <a href={repo.html_url} target="_blank" rel="noopener noreferrer" className="flex-grow">
-                                <h3 className="mb-2 text-xl font-bold text-text transition-colors group-hover:text-menu-active dark:text-text-dark dark:group-hover:text-menu-active-dark">
+                                <h3 className="mb-2 text-xl font-bold text-foreground transition-colors group-hover:text-primary dark:text-foreground dark:group-hover:text-primary">
                                     {repo.name}
                                 </h3>
                                 {repo.description && (
-                                    <p className="mb-4 text-light-text dark:text-light-text-dark">{repo.description}</p>
+                                    <p className="mb-4 text-muted-foreground dark:text-muted-foreground">
+                                        {repo.description}
+                                    </p>
                                 )}
                             </a>
-                            <div className="mt-auto flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-divider/50 pt-4 dark:border-divider-dark/50">
+                            <div className="mt-auto flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-border/50 pt-4 dark:border-border/50">
                                 {repo.language && (
                                     <span className="flex items-center text-sm">
                                         <div
@@ -34,7 +36,7 @@ const ReposTab = ({ repos, langColors }) => (
                                         xmlns="http://www.w3.org/2000/svg"
                                         height="18"
                                         width="18"
-                                        className="mr-1 fill-text dark:fill-text-dark"
+                                        className="mr-1 fill-foreground dark:fill-foreground"
                                     >
                                         <path d="M7.271 14.979 10 13.354l2.75 1.625-.729-3.062 2.375-2.042-3.146-.271L10 6.688 8.75 9.604l-3.146.271L8 11.896Z" />
                                     </svg>
@@ -46,7 +48,7 @@ const ReposTab = ({ repos, langColors }) => (
                                         height="18"
                                         width="18"
                                         viewBox="0 0 16 16"
-                                        className="mr-1 fill-text dark:fill-text-dark"
+                                        className="mr-1 fill-foreground dark:fill-foreground"
                                     >
                                         <path
                                             fillRule="evenodd"
@@ -60,10 +62,10 @@ const ReposTab = ({ repos, langColors }) => (
                     </div>
                 ))
             ) : (
-                <div className="my-5 rounded-2xl border-2 border-dashed border-divider bg-background py-24 text-center dark:border-divider-dark dark:bg-repository-card-bg-dark lg:col-span-2">
+                <div className="my-5 rounded-2xl border-2 border-dashed border-border bg-background py-24 text-center dark:border-border dark:bg-card lg:col-span-2">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="mx-auto mb-6 h-20 w-20 text-light-text dark:text-dark-text-dark"
+                        className="mx-auto mb-6 h-20 w-20 text-muted-foreground dark:text-muted-foreground"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -75,8 +77,10 @@ const ReposTab = ({ repos, langColors }) => (
                             d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
                         />
                     </svg>
-                    <h2 className="mb-3 text-3xl font-bold text-text dark:text-text-dark">{__('Repo Bulunamadı')}</h2>
-                    <p className="text-xl text-light-text dark:text-light-text-dark">
+                    <h2 className="mb-3 text-3xl font-bold text-foreground dark:text-foreground">
+                        {__('Repo Bulunamadı')}
+                    </h2>
+                    <p className="text-xl text-muted-foreground dark:text-muted-foreground">
                         {__('Henüz herkese açık bir repom bulunmuyor.')}
                     </p>
                 </div>

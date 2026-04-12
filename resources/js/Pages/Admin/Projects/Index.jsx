@@ -68,14 +68,14 @@ export default function Index({ auth, projects }) {
 
                 <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                     <div>
-                        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Projelerim</h2>
-                        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                        <h2 className="text-2xl font-bold text-foreground dark:text-foreground">Projelerim</h2>
+                        <p className="mt-1 text-sm text-muted-foreground dark:text-muted-foreground">
                             Tüm projelerini buradan yönetebilirsin.
                         </p>
                     </div>
                     <Link
                         href={route('admin.projects.create')}
-                        className="inline-flex items-center justify-center rounded-lg bg-blue-600 px-4 py-2 font-semibold text-white shadow-md transition duration-150 ease-in-out hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                        className="inline-flex items-center justify-center rounded-lg bg-primary px-4 py-2 font-semibold text-white shadow-md transition duration-150 ease-in-out hover:bg-primary focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -97,35 +97,35 @@ export default function Index({ auth, projects }) {
                     </Link>
                 </div>
 
-                <div className="rounded-lg border border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                <div className="rounded-lg border border-border bg-card shadow-sm dark:border-border dark:bg-card">
                     {/* Desktop Table View */}
                     <div className="-mx-4 hidden sm:-mx-6 md:block lg:-mx-8">
                         <div className="inline-block min-w-full align-middle sm:px-6 lg:px-8">
-                            <div className="border-b border-gray-200 shadow-sm dark:border-gray-700 sm:rounded-lg">
+                            <div className="border-b border-border shadow-sm dark:border-border sm:rounded-lg">
                                 <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                                    <thead className="bg-gray-50 dark:bg-gray-700">
+                                    <thead className="bg-secondary/70 dark:bg-secondary">
                                         <tr>
                                             <th
                                                 scope="col"
-                                                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300"
+                                                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground dark:text-muted-foreground"
                                             >
                                                 Proje
                                             </th>
                                             <th
                                                 scope="col"
-                                                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300"
+                                                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground dark:text-muted-foreground"
                                             >
                                                 Durum
                                             </th>
                                             <th
                                                 scope="col"
-                                                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300"
+                                                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground dark:text-muted-foreground"
                                             >
                                                 Öne Çıkan
                                             </th>
                                             <th
                                                 scope="col"
-                                                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300"
+                                                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground dark:text-muted-foreground"
                                             >
                                                 Tamamlanma Tarihi
                                             </th>
@@ -134,12 +134,12 @@ export default function Index({ auth, projects }) {
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody className="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800">
+                                    <tbody className="divide-y divide-gray-200 bg-card dark:divide-gray-700 dark:bg-card">
                                         {projects.length > 0 ? (
                                             projects.map((project) => (
                                                 <tr
                                                     key={project.id}
-                                                    className="hover:bg-gray-50 dark:hover:bg-gray-700"
+                                                    className="hover:bg-secondary/70 dark:hover:bg-secondary"
                                                 >
                                                     <td className="whitespace-nowrap px-6 py-4">
                                                         <div className="flex items-center">
@@ -151,7 +151,7 @@ export default function Index({ auth, projects }) {
                                                                         alt={getLocalizedText(project.title)}
                                                                     />
                                                                 ) : (
-                                                                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-300 font-bold text-gray-600 dark:bg-gray-600 dark:text-gray-300">
+                                                                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent font-bold text-muted-foreground dark:bg-accent dark:text-muted-foreground">
                                                                         {getLocalizedText(project.title).substring(
                                                                             0,
                                                                             1
@@ -160,10 +160,10 @@ export default function Index({ auth, projects }) {
                                                                 )}
                                                             </div>
                                                             <div className="ml-4">
-                                                                <div className="text-sm font-medium text-gray-900 dark:text-white">
+                                                                <div className="text-sm font-medium text-foreground dark:text-foreground">
                                                                     {getLocalizedText(project.title)}
                                                                 </div>
-                                                                <div className="text-sm text-gray-500 dark:text-gray-400">
+                                                                <div className="text-sm text-muted-foreground dark:text-muted-foreground">
                                                                     {createExcerpt(
                                                                         getLocalizedText(project.description),
                                                                         100
@@ -174,19 +174,19 @@ export default function Index({ auth, projects }) {
                                                     </td>
                                                     <td className="whitespace-nowrap px-6 py-4">
                                                         <span
-                                                            className={`inline-flex rounded-full px-2 text-xs font-semibold leading-5 ${project.is_published ? 'bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300' : 'bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-300'}`}
+                                                            className={`inline-flex rounded-full px-2 text-xs font-semibold leading-5 ${project.is_published ? 'bg-green-100 text-success dark:bg-green-900/50 dark:text-success' : 'bg-red-100 text-destructive dark:bg-red-900/50 dark:text-destructive'}`}
                                                         >
                                                             {project.is_published ? 'Yayında' : 'Taslak'}
                                                         </span>
                                                     </td>
                                                     <td className="whitespace-nowrap px-6 py-4">
                                                         <span
-                                                            className={`inline-flex rounded-full px-2 text-xs font-semibold leading-5 ${project.is_featured ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300' : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'}`}
+                                                            className={`inline-flex rounded-full px-2 text-xs font-semibold leading-5 ${project.is_featured ? 'bg-blue-100 text-primary dark:bg-blue-900/50 dark:text-primary' : 'bg-secondary text-foreground dark:bg-secondary dark:text-muted-foreground'}`}
                                                         >
                                                             {project.is_featured ? 'Evet' : 'Hayır'}
                                                         </span>
                                                     </td>
-                                                    <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500 dark:text-gray-400">
+                                                    <td className="whitespace-nowrap px-6 py-4 text-sm text-muted-foreground dark:text-muted-foreground">
                                                         {project.completed_at
                                                             ? new Date(project.completed_at).toLocaleDateString('tr-TR')
                                                             : 'Belirtilmedi'}
@@ -194,7 +194,7 @@ export default function Index({ auth, projects }) {
                                                     <td className="whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
                                                         <Menu as="div" className="relative inline-block text-left">
                                                             <div>
-                                                                <Menu.Button className="flex items-center rounded-full bg-gray-100 text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:hover:text-white">
+                                                                <Menu.Button className="flex items-center rounded-full bg-secondary text-muted-foreground hover:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-gray-100 dark:bg-secondary dark:text-muted-foreground dark:hover:text-white">
                                                                     <span className="sr-only">Open options</span>
                                                                     <EllipsisVerticalIcon
                                                                         className="h-5 w-5"
@@ -212,7 +212,7 @@ export default function Index({ auth, projects }) {
                                                                 leaveFrom="transform opacity-100 scale-100"
                                                                 leaveTo="transform opacity-0 scale-95"
                                                             >
-                                                                <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-gray-800">
+                                                                <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-card shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-card">
                                                                     <div className="py-1">
                                                                         <Menu.Item>
                                                                             {({ active }) => (
@@ -223,8 +223,8 @@ export default function Index({ auth, projects }) {
                                                                                     )}
                                                                                     className={classNames(
                                                                                         active
-                                                                                            ? 'bg-gray-100 text-gray-900 dark:bg-gray-700 dark:text-white'
-                                                                                            : 'text-gray-700 dark:text-gray-300',
+                                                                                            ? 'bg-secondary text-foreground dark:bg-secondary dark:text-foreground'
+                                                                                            : 'text-muted-foreground dark:text-muted-foreground',
                                                                                         'block px-4 py-2 text-sm'
                                                                                     )}
                                                                                 >
@@ -243,8 +243,8 @@ export default function Index({ auth, projects }) {
                                                                                     rel="noopener noreferrer"
                                                                                     className={classNames(
                                                                                         active
-                                                                                            ? 'bg-gray-100 text-gray-900 dark:bg-gray-700 dark:text-white'
-                                                                                            : 'text-gray-700 dark:text-gray-300',
+                                                                                            ? 'bg-secondary text-foreground dark:bg-secondary dark:text-foreground'
+                                                                                            : 'text-muted-foreground dark:text-muted-foreground',
                                                                                         'block px-4 py-2 text-sm'
                                                                                     )}
                                                                                 >
@@ -260,8 +260,8 @@ export default function Index({ auth, projects }) {
                                                                                     }
                                                                                     className={classNames(
                                                                                         active
-                                                                                            ? 'bg-red-100 text-red-900 dark:bg-red-600/20 dark:text-red-300'
-                                                                                            : 'text-red-700 dark:text-red-400',
+                                                                                            ? 'bg-red-100 text-destructive dark:bg-destructive/20 dark:text-destructive'
+                                                                                            : 'text-destructive dark:text-destructive',
                                                                                         'block w-full px-4 py-2 text-left text-sm'
                                                                                     )}
                                                                                 >
@@ -280,7 +280,7 @@ export default function Index({ auth, projects }) {
                                             <tr>
                                                 <td
                                                     colSpan="5"
-                                                    className="px-6 py-12 text-center text-gray-500 dark:text-gray-400"
+                                                    className="px-6 py-12 text-center text-muted-foreground dark:text-muted-foreground"
                                                 >
                                                     Henüz hiç proje eklenmemiş.
                                                 </td>
@@ -298,7 +298,7 @@ export default function Index({ auth, projects }) {
                             projects.map((project) => (
                                 <div
                                     key={project.id}
-                                    className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-600 dark:bg-gray-700"
+                                    className="rounded-lg border border-border bg-card p-4 dark:border-border dark:bg-secondary"
                                 >
                                     <div className="mb-3 flex items-start gap-3">
                                         <div className="h-12 w-12 flex-shrink-0">
@@ -309,33 +309,33 @@ export default function Index({ auth, projects }) {
                                                     alt={getLocalizedText(project.title)}
                                                 />
                                             ) : (
-                                                <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-gray-300 font-bold text-gray-600 dark:bg-gray-600 dark:text-gray-300">
+                                                <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-accent font-bold text-muted-foreground dark:bg-accent dark:text-muted-foreground">
                                                     {getLocalizedText(project.title).substring(0, 1)}
                                                 </span>
                                             )}
                                         </div>
                                         <div className="min-w-0 flex-1">
-                                            <h3 className="line-clamp-2 text-sm font-medium text-gray-900 dark:text-white">
+                                            <h3 className="line-clamp-2 text-sm font-medium text-foreground dark:text-foreground">
                                                 {getLocalizedText(project.title)}
                                             </h3>
-                                            <p className="mt-1 line-clamp-2 text-xs text-gray-500 dark:text-gray-400">
+                                            <p className="mt-1 line-clamp-2 text-xs text-muted-foreground dark:text-muted-foreground">
                                                 {createExcerpt(getLocalizedText(project.description), 80)}
                                             </p>
                                             <div className="mt-2 flex items-center gap-2">
                                                 <span
-                                                    className={`inline-flex rounded-full px-2 text-xs font-semibold leading-5 ${project.is_published ? 'bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300' : 'bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-300'}`}
+                                                    className={`inline-flex rounded-full px-2 text-xs font-semibold leading-5 ${project.is_published ? 'bg-green-100 text-success dark:bg-green-900/50 dark:text-success' : 'bg-red-100 text-destructive dark:bg-red-900/50 dark:text-destructive'}`}
                                                 >
                                                     {project.is_published ? 'Yayında' : 'Taslak'}
                                                 </span>
                                                 {project.is_featured && (
-                                                    <span className="inline-flex rounded-full bg-blue-100 px-2 text-xs font-semibold leading-5 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300">
+                                                    <span className="inline-flex rounded-full bg-blue-100 px-2 text-xs font-semibold leading-5 text-primary dark:bg-blue-900/50 dark:text-primary">
                                                         Öne Çıkan
                                                     </span>
                                                 )}
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="mb-3 text-xs text-gray-500 dark:text-gray-400">
+                                    <div className="mb-3 text-xs text-muted-foreground dark:text-muted-foreground">
                                         <span className="block">
                                             {project.completed_at
                                                 ? new Date(project.completed_at).toLocaleDateString('tr-TR')
@@ -345,7 +345,7 @@ export default function Index({ auth, projects }) {
                                     <div className="flex gap-2">
                                         <Link
                                             href={route('admin.projects.edit', project.slug)}
-                                            className="flex-1 rounded-md bg-yellow-500 px-3 py-2 text-center text-xs font-medium text-white hover:bg-yellow-600"
+                                            className="flex-1 rounded-md bg-warning px-3 py-2 text-center text-xs font-medium text-white hover:bg-warning"
                                         >
                                             Düzenle
                                         </Link>
@@ -353,13 +353,13 @@ export default function Index({ auth, projects }) {
                                             href={route('projects.show', project.slug)}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="flex-1 rounded-md bg-blue-500 px-3 py-2 text-center text-xs font-medium text-white hover:bg-blue-600"
+                                            className="flex-1 rounded-md bg-primary px-3 py-2 text-center text-xs font-medium text-white hover:bg-primary"
                                         >
                                             Görüntüle
                                         </a>
                                         <button
                                             onClick={() => openDeleteModal(project)}
-                                            className="flex-1 rounded-md bg-red-600 px-3 py-2 text-xs font-medium text-white hover:bg-red-700"
+                                            className="flex-1 rounded-md bg-destructive px-3 py-2 text-xs font-medium text-white hover:bg-destructive"
                                         >
                                             Sil
                                         </button>
@@ -367,11 +367,11 @@ export default function Index({ auth, projects }) {
                                 </div>
                             ))
                         ) : (
-                            <div className="py-12 text-center text-gray-400 dark:text-gray-500">
-                                <p className="text-base font-medium text-gray-500 dark:text-gray-400">
+                            <div className="py-12 text-center text-muted-foreground dark:text-muted-foreground">
+                                <p className="text-base font-medium text-muted-foreground dark:text-muted-foreground">
                                     Proje bulunamadı
                                 </p>
-                                <p className="mt-1 text-sm text-gray-400 dark:text-gray-500">
+                                <p className="mt-1 text-sm text-muted-foreground dark:text-muted-foreground">
                                     İlk projenizi oluşturmak için "Yeni Proje Ekle" butonuna tıklayın.
                                 </p>
                             </div>

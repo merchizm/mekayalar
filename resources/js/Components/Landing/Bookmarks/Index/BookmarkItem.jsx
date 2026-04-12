@@ -5,7 +5,7 @@ const BookmarkItem = ({ bookmark }) => (
         href={bookmark.link}
         target="_blank"
         rel="noopener noreferrer"
-        className="surface-lift group block rounded-2xl border border-divider bg-background p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-menu-active/50 hover:shadow-lg dark:border-label-border-dark dark:bg-repository-card-bg-dark dark:hover:border-menu-active-dark/50"
+        className="surface-lift group block rounded-2xl border border-border bg-background p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg dark:border-border dark:bg-card dark:hover:border-primary/50"
     >
         <div className="flex items-center justify-between">
             <div className="flex min-w-0 flex-1 items-center">
@@ -15,16 +15,18 @@ const BookmarkItem = ({ bookmark }) => (
                     className="mr-4 h-8 w-8 flex-shrink-0 rounded-md"
                 />
                 <div className="min-w-0">
-                    <h3 className="mb-1 truncate text-lg font-semibold text-text transition-colors group-hover:text-menu-active dark:text-text-dark dark:group-hover:text-menu-active-dark">
+                    <h3 className="mb-1 truncate text-lg font-semibold text-foreground transition-colors group-hover:text-primary dark:text-foreground dark:group-hover:text-primary">
                         {bookmark.title}
                     </h3>
-                    <p className="truncate text-sm text-light-text dark:text-light-text-dark">{bookmark.domain}</p>
+                    <p className="truncate text-sm text-muted-foreground dark:text-muted-foreground">
+                        {bookmark.domain}
+                    </p>
                 </div>
             </div>
             <div className="ml-4">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 text-light-text transition-transform duration-300 group-hover:translate-x-1 group-hover:text-menu-active dark:text-light-text-dark dark:group-hover:text-menu-active-dark"
+                    className="h-6 w-6 text-muted-foreground transition-transform duration-300 group-hover:translate-x-1 group-hover:text-primary dark:text-muted-foreground dark:group-hover:text-primary"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"

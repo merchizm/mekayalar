@@ -79,14 +79,14 @@ export default function FileUploadModal({ isOpen, onClose, currentPath, onSucces
             className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
             onKeyDown={handleKeyDown}
         >
-            <div className="mx-4 max-h-[90vh] w-full max-w-2xl overflow-hidden rounded-lg bg-white shadow-xl dark:bg-gray-800">
-                <div className="border-b border-gray-200 px-6 py-4 dark:border-gray-600">
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Dosya Yükle</h3>
+            <div className="mx-4 max-h-[90vh] w-full max-w-2xl overflow-hidden rounded-lg bg-card shadow-xl dark:bg-card">
+                <div className="border-b border-border px-6 py-4 dark:border-border">
+                    <h3 className="text-lg font-semibold text-foreground dark:text-foreground">Dosya Yükle</h3>
                 </div>
 
                 <div className="max-h-[60vh] overflow-y-auto px-6 py-4">
                     <div className="mb-4">
-                        <div className="mb-4 text-sm text-gray-500 dark:text-gray-400">
+                        <div className="mb-4 text-sm text-muted-foreground dark:text-muted-foreground">
                             Konum: <span className="font-mono">{currentPath}</span>
                         </div>
 
@@ -95,18 +95,18 @@ export default function FileUploadModal({ isOpen, onClose, currentPath, onSucces
                             className={`cursor-pointer rounded-lg border-2 border-dashed p-8 text-center transition-all duration-200 ${
                                 isDragActive
                                     ? 'scale-105 border-blue-500 bg-blue-50 dark:bg-blue-900/20'
-                                    : 'border-gray-300 hover:border-gray-400 hover:bg-gray-50 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-700/50'
+                                    : 'border-input hover:border-border hover:bg-secondary/70 dark:border-border dark:hover:border-border dark:hover:bg-secondary/50'
                             }`}
                         >
                             <input {...getInputProps()} />
                             <div className="flex flex-col items-center">
                                 <UploadIcon
-                                    className={`mb-4 h-12 w-12 ${isDragActive ? 'text-blue-500' : 'text-gray-400'}`}
+                                    className={`mb-4 h-12 w-12 ${isDragActive ? 'text-primary' : 'text-muted-foreground'}`}
                                 />
-                                <p className="mb-2 text-lg font-medium text-gray-700 dark:text-gray-300">
+                                <p className="mb-2 text-lg font-medium text-muted-foreground dark:text-muted-foreground">
                                     {isDragActive ? 'Dosyaları buraya bırakın' : 'Dosyaları sürükleyin veya seçin'}
                                 </p>
-                                <p className="text-sm text-gray-500 dark:text-gray-400">
+                                <p className="text-sm text-muted-foreground dark:text-muted-foreground">
                                     Birden fazla dosya seçebilirsiniz (Maksimum 20MB)
                                 </p>
                             </div>
@@ -115,41 +115,41 @@ export default function FileUploadModal({ isOpen, onClose, currentPath, onSucces
 
                     {uploadingFiles.length > 0 && (
                         <div className="mt-6">
-                            <h6 className="mb-3 text-sm font-medium text-gray-700 dark:text-gray-300">
+                            <h6 className="mb-3 text-sm font-medium text-muted-foreground dark:text-muted-foreground">
                                 Yükleme Durumu:
                             </h6>
                             <div className="max-h-48 space-y-3 overflow-y-auto">
                                 {uploadingFiles.map((file, index) => (
-                                    <div key={index} className="rounded-lg bg-gray-50 p-3 dark:bg-gray-700">
+                                    <div key={index} className="rounded-lg bg-secondary/70 p-3 dark:bg-secondary">
                                         <div className="mb-2 flex items-center justify-between">
-                                            <span className="truncate pr-4 text-sm font-medium text-gray-800 dark:text-gray-200">
+                                            <span className="truncate pr-4 text-sm font-medium text-foreground dark:text-foreground">
                                                 {file.name}
                                             </span>
                                             <div className="flex items-center space-x-2">
                                                 {file.error ? (
-                                                    <span className="text-xs text-red-500">Hata</span>
+                                                    <span className="text-xs text-destructive">Hata</span>
                                                 ) : file.progress === 100 ? (
-                                                    <span className="text-xs text-green-500">Tamamlandı</span>
+                                                    <span className="text-xs text-success">Tamamlandı</span>
                                                 ) : (
-                                                    <span className="text-xs text-gray-500 dark:text-gray-400">
+                                                    <span className="text-xs text-muted-foreground dark:text-muted-foreground">
                                                         {file.progress}%
                                                     </span>
                                                 )}
                                             </div>
                                         </div>
-                                        <div className="h-2 w-full rounded-full bg-gray-200 dark:bg-gray-600">
+                                        <div className="h-2 w-full rounded-full bg-accent dark:bg-accent">
                                             <div
                                                 className={`h-2 rounded-full transition-all duration-300 ${
                                                     file.error
-                                                        ? 'bg-red-500'
+                                                        ? 'bg-destructive'
                                                         : file.progress === 100
                                                           ? 'bg-green-500'
-                                                          : 'bg-blue-500'
+                                                          : 'bg-primary'
                                                 }`}
                                                 style={{ width: `${file.error ? 100 : file.progress}%` }}
                                             ></div>
                                         </div>
-                                        {file.error && <p className="mt-1 text-xs text-red-500">{file.error}</p>}
+                                        {file.error && <p className="mt-1 text-xs text-destructive">{file.error}</p>}
                                     </div>
                                 ))}
                             </div>
@@ -157,10 +157,10 @@ export default function FileUploadModal({ isOpen, onClose, currentPath, onSucces
                     )}
                 </div>
 
-                <div className="flex justify-end space-x-3 rounded-b-lg bg-gray-50 px-6 py-4 dark:bg-gray-700">
+                <div className="flex justify-end space-x-3 rounded-b-lg bg-secondary/70 px-6 py-4 dark:bg-secondary">
                     <button
                         onClick={handleClose}
-                        className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:border-gray-500 dark:bg-gray-600 dark:text-gray-300 dark:hover:bg-gray-500"
+                        className="dark:hover:bg-secondary/700 rounded-md border border-input bg-card px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-secondary/70 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 dark:border-border dark:bg-accent dark:text-muted-foreground"
                     >
                         {uploadingFiles.some((f) => f.progress < 100 && !f.error) ? 'Arka Planda Devam Et' : 'Kapat'}
                     </button>

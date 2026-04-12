@@ -29,8 +29,9 @@ function classNames(...classes) {
 
 const Icon = ({ outline, solid, active, noMargin }) => {
     const IconComponent = active ? solid : outline;
-    const activeClasses = 'text-indigo-600 dark:text-indigo-400';
-    const inactiveClasses = 'text-gray-400 group-hover:text-gray-500 dark:text-gray-400 dark:group-hover:text-gray-300';
+    const activeClasses = 'text-primary dark:text-indigo-400';
+    const inactiveClasses =
+        'text-muted-foreground group-hover:text-muted-foreground dark:text-muted-foreground dark:group-hover:text-muted-foreground';
     return (
         <IconComponent
             className={classNames(
@@ -50,8 +51,8 @@ const NavLink = ({ item, collapsed }) => {
             className={classNames(
                 'group flex items-center rounded-md px-4 py-2.5 text-sm font-medium transition-all',
                 item.current
-                    ? 'bg-gray-100 text-gray-900 dark:bg-gray-700 dark:text-white'
-                    : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white',
+                    ? 'bg-secondary text-foreground dark:bg-secondary dark:text-foreground'
+                    : 'text-muted-foreground hover:bg-secondary hover:text-foreground dark:text-muted-foreground dark:hover:bg-secondary dark:hover:text-white',
                 collapsed && 'justify-center'
             )}
             title={collapsed ? item.name : undefined}
@@ -86,8 +87,8 @@ const Accordion = ({ item, collapsed }) => {
                     ref={buttonRef}
                     type="button"
                     className={classNames(
-                        'flex w-full items-center justify-center rounded-md px-4 py-2.5 text-left text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white',
-                        isCurrent && 'bg-gray-100 text-gray-900 dark:bg-gray-700 dark:text-white'
+                        'flex w-full items-center justify-center rounded-md px-4 py-2.5 text-left text-sm font-medium text-muted-foreground hover:bg-secondary hover:text-foreground focus:outline-none dark:text-muted-foreground dark:hover:bg-secondary dark:hover:text-white',
+                        isCurrent && 'bg-secondary text-foreground dark:bg-secondary dark:text-foreground'
                     )}
                 >
                     <Icon outline={item.icon.outline} solid={item.icon.solid} active={isCurrent} />
@@ -106,11 +107,11 @@ const Accordion = ({ item, collapsed }) => {
                             }}
                         />
                         <div
-                            className="fixed left-20 z-[60] w-48 rounded-md border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800"
+                            className="fixed left-20 z-[60] w-48 rounded-md border border-border bg-card shadow-lg dark:border-border dark:bg-card"
                             style={{ top: `${dropdownPosition.top}px` }}
                         >
-                            <div className="border-b border-gray-200 px-3 py-2 dark:border-gray-700">
-                                <p className="text-xs font-semibold uppercase text-gray-500 dark:text-gray-400">
+                            <div className="border-b border-border px-3 py-2 dark:border-border">
+                                <p className="text-xs font-semibold uppercase text-muted-foreground dark:text-muted-foreground">
                                     {item.name}
                                 </p>
                             </div>
@@ -122,8 +123,8 @@ const Accordion = ({ item, collapsed }) => {
                                         className={classNames(
                                             'block px-4 py-2 text-sm',
                                             child.current
-                                                ? 'bg-gray-100 text-gray-900 dark:bg-gray-700 dark:text-white'
-                                                : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white'
+                                                ? 'bg-secondary text-foreground dark:bg-secondary dark:text-foreground'
+                                                : 'text-muted-foreground hover:bg-secondary hover:text-foreground dark:text-muted-foreground dark:hover:bg-secondary dark:hover:text-white'
                                         )}
                                     >
                                         {child.name}
@@ -141,7 +142,7 @@ const Accordion = ({ item, collapsed }) => {
         <div className="space-y-1">
             <button
                 type="button"
-                className="group flex w-full items-center rounded-md px-4 py-2.5 text-left text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                className="group flex w-full items-center rounded-md px-4 py-2.5 text-left text-sm font-medium text-muted-foreground hover:bg-secondary hover:text-foreground focus:outline-none dark:text-muted-foreground dark:hover:bg-secondary dark:hover:text-white"
                 onClick={() => setIsOpen(!isOpen)}
             >
                 <Icon outline={item.icon.outline} solid={item.icon.solid} active={isCurrent} />
@@ -162,8 +163,8 @@ const Accordion = ({ item, collapsed }) => {
                             className={classNames(
                                 'group flex w-full items-center rounded-md px-7 py-2.5 text-sm font-medium',
                                 child.current
-                                    ? 'text-gray-900 dark:text-white'
-                                    : 'text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white'
+                                    ? 'text-foreground dark:text-foreground'
+                                    : 'text-muted-foreground hover:text-foreground dark:text-muted-foreground dark:hover:text-white'
                             )}
                         >
                             {child.name}
@@ -214,7 +215,11 @@ export default function Sidebar() {
                 { name: 'Gönderiler', href: route('admin.posts.index'), current: route().current('admin.posts.*') },
                 { name: 'Kitaplar', href: route('admin.books.index'), current: route().current('admin.books.*') },
                 { name: 'Yorumlar', href: route('admin.comments.index'), current: route().current('admin.comments.*') },
-                { name: 'Ziyaretçi Defteri', href: route('admin.guestbook.index'), current: route().current('admin.guestbook.*') },
+                {
+                    name: 'Ziyaretçi Defteri',
+                    href: route('admin.guestbook.index'),
+                    current: route().current('admin.guestbook.*'),
+                },
                 { name: 'Şiirler', href: route('admin.poems.index'), current: route().current('admin.poems.*') },
                 { name: 'Projeler', href: route('admin.projects.index'), current: route().current('admin.projects.*') },
                 { name: 'Dosyalar', href: route('admin.media.index'), current: route().current('admin.media.*') },
@@ -258,14 +263,14 @@ export default function Sidebar() {
     return (
         <>
             {/* Mobile Header with Menu Toggle */}
-            <div className="fixed left-0 right-0 top-0 z-50 flex h-16 items-center justify-between border-b border-gray-200 bg-white px-4 dark:border-gray-700 dark:bg-gray-900 lg:hidden">
+            <div className="fixed left-0 right-0 top-0 z-50 flex h-16 items-center justify-between border-b border-border bg-card px-4 dark:border-border dark:bg-card lg:hidden">
                 <Link href={route('landing.index')} className="flex items-center">
-                    <ApplicationLogo className="w-8 fill-text dark:fill-text-dark" />
-                    <span className="ml-2 text-lg font-semibold text-gray-900 dark:text-white">MBlog</span>
+                    <ApplicationLogo className="w-8 fill-foreground dark:fill-foreground" />
+                    <span className="ml-2 text-lg font-semibold text-foreground dark:text-foreground">MBlog</span>
                 </Link>
                 <button
                     onClick={toggleMobileMenu}
-                    className="rounded-md p-2 text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700"
+                    className="rounded-md p-2 text-muted-foreground hover:bg-secondary dark:text-muted-foreground dark:hover:bg-secondary"
                 >
                     {mobileMenuOpen ? <XMarkIcon className="h-6 w-6" /> : <Bars3Icon className="h-6 w-6" />}
                 </button>
@@ -274,7 +279,7 @@ export default function Sidebar() {
             {/* Desktop Sidebar */}
             <div
                 className={classNames(
-                    'hidden flex-shrink-0 flex-col border-r border-gray-200 bg-white pt-2 transition-all duration-300 dark:border-gray-700 dark:bg-gray-900 lg:flex',
+                    'hidden flex-shrink-0 flex-col border-r border-border bg-card pt-2 transition-all duration-300 dark:border-border dark:bg-card lg:flex',
                     collapsed ? 'w-20' : 'w-64'
                 )}
             >
@@ -283,9 +288,11 @@ export default function Sidebar() {
                         href={route('landing.index')}
                         className={classNames('flex items-center', collapsed && 'w-full justify-center')}
                     >
-                        <ApplicationLogo className="w-[50px] fill-text dark:fill-text-dark" />
+                        <ApplicationLogo className="w-[50px] fill-foreground dark:fill-foreground" />
                         {!collapsed && (
-                            <span className="ml-3 text-lg font-semibold text-gray-900 dark:text-white">MBlog</span>
+                            <span className="ml-3 text-lg font-semibold text-foreground dark:text-foreground">
+                                MBlog
+                            </span>
                         )}
                     </Link>
                 </div>
@@ -293,7 +300,7 @@ export default function Sidebar() {
                 {/* Collapse Toggle Button */}
                 <button
                     onClick={toggleCollapse}
-                    className="mx-2 mb-2 rounded-md p-2 text-gray-600 transition-colors hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700"
+                    className="mx-2 mb-2 rounded-md p-2 text-muted-foreground transition-colors hover:bg-secondary dark:text-muted-foreground dark:hover:bg-secondary"
                     title={collapsed ? 'Menüyü Genişlet' : 'Menüyü Daralt'}
                 >
                     {collapsed ? <ChevronRightIcon className="h-5 w-5" /> : <ChevronLeftIcon className="h-5 w-5" />}
@@ -318,13 +325,13 @@ export default function Sidebar() {
                                         onClick={() => setFavoritesOpen(!favoritesOpen)}
                                         className="mb-2 flex w-full items-center justify-between"
                                     >
-                                        <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-500">
+                                        <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                                             Hızlı Erişim
                                         </h3>
                                         {favoritesOpen ? (
-                                            <ChevronUpIcon className="h-5 w-5 text-gray-400" />
+                                            <ChevronUpIcon className="h-5 w-5 text-muted-foreground" />
                                         ) : (
-                                            <ChevronDownIcon className="h-5 w-5 text-gray-400" />
+                                            <ChevronDownIcon className="h-5 w-5 text-muted-foreground" />
                                         )}
                                     </button>
                                 </div>
@@ -340,7 +347,7 @@ export default function Sidebar() {
                     </nav>
                 </div>
 
-                <div className="mt-auto flex-shrink-0 border-t border-gray-200 p-4 dark:border-gray-700">
+                <div className="mt-auto flex-shrink-0 border-t border-border p-4 dark:border-border">
                     <div
                         className={classNames(
                             'flex items-center',
@@ -358,7 +365,7 @@ export default function Sidebar() {
                                         />
                                     </div>
                                     <div className="ml-3">
-                                        <p className="text-sm font-medium text-gray-700 group-hover:text-gray-900 dark:text-gray-200 dark:group-hover:text-white">
+                                        <p className="text-sm font-medium text-muted-foreground group-hover:text-foreground dark:text-foreground dark:group-hover:text-white">
                                             {auth.user.name}
                                         </p>
                                     </div>
@@ -394,7 +401,7 @@ export default function Sidebar() {
             </div>
 
             {/* Mobile Bottom Navigation */}
-            <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900 lg:hidden">
+            <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-border bg-card dark:border-border dark:bg-card lg:hidden">
                 <nav className="flex h-16 items-center justify-around px-2">
                     {navigation.slice(0, 4).map((item) => {
                         if (item.children && item.children.length > 0) {
@@ -405,7 +412,9 @@ export default function Sidebar() {
                                     href={item.children[0].href}
                                     className={classNames(
                                         'flex h-full flex-1 flex-col items-center justify-center gap-1 text-xs',
-                                        isCurrent ? 'text-gray-900 dark:text-white' : 'text-gray-600 dark:text-gray-400'
+                                        isCurrent
+                                            ? 'text-foreground dark:text-foreground'
+                                            : 'text-muted-foreground dark:text-muted-foreground'
                                     )}
                                 >
                                     <Icon
@@ -424,7 +433,9 @@ export default function Sidebar() {
                                 href={item.href}
                                 className={classNames(
                                     'flex h-full flex-1 flex-col items-center justify-center gap-1 text-xs',
-                                    item.current ? 'text-gray-900 dark:text-white' : 'text-gray-600 dark:text-gray-400'
+                                    item.current
+                                        ? 'text-foreground dark:text-foreground'
+                                        : 'text-muted-foreground dark:text-muted-foreground'
                                 )}
                             >
                                 <Icon
@@ -443,8 +454,8 @@ export default function Sidebar() {
             {/* Mobile Slide-out Menu */}
             {mobileMenuOpen && (
                 <div className="fixed inset-0 z-40 lg:hidden">
-                    <div className="fixed inset-0 bg-gray-600 bg-opacity-75" onClick={toggleMobileMenu}></div>
-                    <div className="fixed inset-y-0 left-0 w-64 overflow-y-auto bg-white dark:bg-gray-900">
+                    <div className="fixed inset-0 bg-accent bg-opacity-75" onClick={toggleMobileMenu}></div>
+                    <div className="fixed inset-y-0 left-0 w-64 overflow-y-auto bg-card dark:bg-card">
                         <div className="flex h-full flex-col pt-16">
                             <nav className="flex-1 space-y-2 px-4 py-6">
                                 <div className="space-y-1">
@@ -462,13 +473,13 @@ export default function Sidebar() {
                                             onClick={() => setFavoritesOpen(!favoritesOpen)}
                                             className="mb-2 flex w-full items-center justify-between"
                                         >
-                                            <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-500">
+                                            <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                                                 Hızlı Erişim
                                             </h3>
                                             {favoritesOpen ? (
-                                                <ChevronUpIcon className="h-5 w-5 text-gray-400" />
+                                                <ChevronUpIcon className="h-5 w-5 text-muted-foreground" />
                                             ) : (
-                                                <ChevronDownIcon className="h-5 w-5 text-gray-400" />
+                                                <ChevronDownIcon className="h-5 w-5 text-muted-foreground" />
                                             )}
                                         </button>
                                     </div>
@@ -481,7 +492,7 @@ export default function Sidebar() {
                                     )}
                                 </div>
                             </nav>
-                            <div className="flex-shrink-0 border-t border-gray-200 p-4 dark:border-gray-700">
+                            <div className="flex-shrink-0 border-t border-border p-4 dark:border-border">
                                 <div className="flex items-center justify-between">
                                     {auth && auth.user && (
                                         <Link href={route('admin.profile.edit')} className="group block flex-shrink-0">
@@ -494,7 +505,7 @@ export default function Sidebar() {
                                                     />
                                                 </div>
                                                 <div className="ml-3">
-                                                    <p className="text-sm font-medium text-gray-700 group-hover:text-gray-900 dark:text-gray-200 dark:group-hover:text-white">
+                                                    <p className="text-sm font-medium text-muted-foreground group-hover:text-foreground dark:text-foreground dark:group-hover:text-white">
                                                         {auth.user.name}
                                                     </p>
                                                 </div>

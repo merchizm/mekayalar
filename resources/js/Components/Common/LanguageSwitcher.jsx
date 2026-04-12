@@ -63,10 +63,16 @@ export default function LanguageSwitcher() {
     return (
         <Menu as="div" className="relative">
             <Menu.Button
-                className="flex h-10 w-10 items-center justify-center rounded-lg border border-divider bg-background shadow-sm transition-all duration-300 hover:translate-y-[-2px] hover:shadow-md dark:border-label-border-dark dark:bg-repository-card-bg-dark"
+                className="flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-background shadow-sm transition-all duration-300 hover:translate-y-[-2px] hover:shadow-md dark:border-border dark:bg-card"
                 title="Change language"
             >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-text dark:text-text-dark">
+                <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    className="text-foreground dark:text-foreground"
+                >
                     <path
                         d="M12.87 15.07L10.33 12.56L10.36 12.53C12.1 10.59 13.34 8.36 14.07 6H17V4H10V2H8V4H1V6H12.17C11.5 7.92 10.44 9.75 9 11.35C8.07 10.32 7.3 9.19 6.69 8H4.69C5.42 9.63 6.42 11.17 7.67 12.56L2.58 17.58L4 19L9 14L12.11 17.11L12.87 15.07ZM18.5 10H16.5L12 22H14L15.12 19H19.87L21 22H23L18.5 10ZM15.88 17L17.5 12.67L19.12 17H15.88Z"
                         fill="currentColor"
@@ -82,13 +88,13 @@ export default function LanguageSwitcher() {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
             >
-                <Menu.Items className="absolute right-0 z-50 mt-2 w-36 origin-top-right overflow-hidden rounded-lg border border-divider bg-background/80 p-1 shadow-lg backdrop-blur-md focus:outline-none dark:border-label-border-dark dark:bg-repository-card-bg-dark/80">
+                <Menu.Items className="absolute right-0 z-50 mt-2 w-36 origin-top-right overflow-hidden rounded-lg border border-border bg-background/80 p-1 shadow-lg backdrop-blur-md focus:outline-none dark:border-border dark:bg-card/80">
                     {languages.map((lang) => (
                         <Menu.Item key={lang.code}>
                             {({ active }) => (
                                 <button
                                     onClick={() => changeLanguage(lang.code)}
-                                    className={`${active ? 'bg-button-hover/50 dark:bg-button-hover-dark/50' : ''} flex w-full items-center rounded-lg px-3 py-3 text-sm transition-all duration-200 hover:bg-button-hover/30 dark:hover:bg-button-hover-dark/30`}
+                                    className={`${active ? 'bg-accent/50 dark:bg-accent/50' : ''} flex w-full items-center rounded-lg px-3 py-3 text-sm transition-all duration-200 hover:bg-accent/30 dark:hover:bg-accent/30`}
                                 >
                                     <div className="mr-3">{lang.flag}</div>
                                     <span className="font-medium">{lang.label}</span>

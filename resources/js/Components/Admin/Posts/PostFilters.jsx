@@ -69,18 +69,18 @@ export default function PostFilters({ filters }) {
     );
 
     return (
-        <div className="border-b border-gray-200 bg-gray-50 px-5 py-4 dark:border-gray-600 dark:bg-gray-700">
+        <div className="border-b border-border bg-secondary/70 px-5 py-4 dark:border-border dark:bg-secondary">
             <div className="flex flex-col gap-4 sm:flex-row">
                 {/* Search */}
                 <div className="flex-1">
                     <div className="relative">
                         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                            <SearchIcon className="h-5 w-5 text-gray-400" />
+                            <SearchIcon className="h-5 w-5 text-muted-foreground" />
                         </div>
                         <input
                             type="text"
                             placeholder="Gönderi başlığında ara..."
-                            className="block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3 leading-5 text-gray-900 placeholder-gray-500 focus:border-blue-500 focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-400 sm:text-sm"
+                            className="block w-full rounded-md border border-input bg-card py-2 pl-10 pr-3 leading-5 text-foreground placeholder-gray-500 focus:border-ring focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-ring dark:border-border dark:bg-card dark:text-foreground dark:placeholder-gray-400 sm:text-sm"
                             value={filters.search || ''}
                             onChange={(e) => handleFilterChange('search', e.target.value)}
                         />
@@ -90,7 +90,7 @@ export default function PostFilters({ filters }) {
                 {/* Post Type Filter */}
                 <div className="sm:w-48">
                     <select
-                        className="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 sm:text-sm"
+                        className="block w-full rounded-md border border-input bg-card px-3 py-2 text-foreground focus:border-ring focus:outline-none focus:ring-1 focus:ring-ring dark:border-border dark:bg-card dark:text-foreground sm:text-sm"
                         value={filters.type || ''}
                         onChange={(e) => handleFilterChange('type', e.target.value)}
                     >
@@ -105,7 +105,7 @@ export default function PostFilters({ filters }) {
                 {/* Status Filter */}
                 <div className="sm:w-48">
                     <select
-                        className="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 sm:text-sm"
+                        className="block w-full rounded-md border border-input bg-card px-3 py-2 text-foreground focus:border-ring focus:outline-none focus:ring-1 focus:ring-ring dark:border-border dark:bg-card dark:text-foreground sm:text-sm"
                         value={filters.status || ''}
                         onChange={(e) => handleFilterChange('status', e.target.value)}
                     >
@@ -121,7 +121,7 @@ export default function PostFilters({ filters }) {
                 {hasActiveFilters && (
                     <button
                         onClick={clearFilters}
-                        className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+                        className="inline-flex items-center rounded-md border border-input bg-card px-3 py-2 text-sm font-medium leading-4 text-muted-foreground shadow-sm hover:bg-secondary/70 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 dark:border-border dark:bg-card dark:text-muted-foreground dark:hover:bg-secondary"
                     >
                         <XIcon className="mr-2 h-4 w-4" />
                         Temizle
@@ -133,22 +133,22 @@ export default function PostFilters({ filters }) {
             {hasActiveFilters && (
                 <div className="mt-3 flex flex-wrap gap-2">
                     {filters.search && (
-                        <span className="inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300">
+                        <span className="inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-primary dark:bg-blue-900 dark:text-primary">
                             Arama: "{filters.search}"
                             <button
                                 onClick={() => handleFilterChange('search', '')}
-                                className="ml-1.5 inline-flex h-4 w-4 items-center justify-center rounded-full text-blue-400 hover:bg-blue-200 hover:text-blue-600 focus:outline-none"
+                                className="ml-1.5 inline-flex h-4 w-4 items-center justify-center rounded-full text-blue-400 hover:bg-blue-200 hover:text-primary focus:outline-none"
                             >
                                 <XIcon className="h-3 w-3" />
                             </button>
                         </span>
                     )}
                     {filters.type && (
-                        <span className="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300">
+                        <span className="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-success dark:bg-green-900 dark:text-success">
                             Tip: {postTypes.find((t) => t.value === filters.type)?.label}
                             <button
                                 onClick={() => handleFilterChange('type', '')}
-                                className="ml-1.5 inline-flex h-4 w-4 items-center justify-center rounded-full text-green-400 hover:bg-green-200 hover:text-green-600 focus:outline-none"
+                                className="ml-1.5 inline-flex h-4 w-4 items-center justify-center rounded-full text-green-400 hover:bg-green-200 hover:text-success focus:outline-none"
                             >
                                 <XIcon className="h-3 w-3" />
                             </button>

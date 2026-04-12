@@ -7,10 +7,10 @@ const NavLink = ({ href, active, loading, children }) => {
     let stateClasses = '';
     if (active) {
         stateClasses =
-            'bg-menu-active text-white shadow-[0_12px_24px_-18px_rgba(17,24,39,0.3)] ring-1 ring-black/5 dark:bg-menu-active-dark dark:text-text dark:ring-white/10 dark:shadow-[0_12px_28px_-18px_rgba(255,255,255,0.18)]';
+            'bg-primary text-primary-foreground shadow-[0_12px_24px_-18px_rgba(17,24,39,0.3)] ring-1 ring-black/5 dark:ring-white/10 dark:shadow-[0_12px_28px_-18px_rgba(255,255,255,0.18)]';
     } else {
         stateClasses =
-            'text-text/90 hover:bg-menu-hover hover:text-text hover:shadow-[0_10px_24px_-20px_rgba(17,24,39,0.28)] dark:text-text-dark/90 dark:hover:bg-menu-hover-dark dark:hover:text-text-dark dark:hover:shadow-[0_10px_24px_-18px_rgba(0,0,0,0.4)] nav-link-wave';
+            'text-muted-foreground hover:bg-accent hover:text-foreground hover:shadow-[0_10px_24px_-20px_rgba(17,24,39,0.28)] dark:hover:shadow-[0_10px_24px_-18px_rgba(0,0,0,0.4)] nav-link-wave';
     }
 
     return (

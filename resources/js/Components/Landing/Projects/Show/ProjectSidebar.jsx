@@ -6,13 +6,13 @@ const ProjectSidebar = ({ project }) => {
         <aside className="lg:col-span-1">
             <div className="sticky top-24 space-y-6">
                 {project.tags && project.tags.length > 0 && (
-                    <div className="space-y-4 rounded-2xl border border-divider bg-background p-6 shadow-sm dark:border-label-border-dark dark:bg-repository-card-bg-dark">
-                        <h3 className="text-xl font-bold text-text dark:text-text-dark">{__('Etiketler')}</h3>
+                    <div className="space-y-4 rounded-2xl border border-border bg-background p-6 shadow-sm dark:border-border dark:bg-card">
+                        <h3 className="text-xl font-bold text-foreground dark:text-foreground">{__('Etiketler')}</h3>
                         <div className="flex flex-wrap gap-2">
                             {project.tags.map((tag) => (
                                 <span
                                     key={tag}
-                                    className="rounded-full bg-blue-100 px-3 py-1 text-sm font-semibold text-blue-800 dark:bg-blue-900/50 dark:text-blue-300"
+                                    className="rounded-full bg-blue-100 px-3 py-1 text-sm font-semibold text-primary dark:bg-blue-900/50 dark:text-primary"
                                 >
                                     {tag}
                                 </span>
@@ -21,12 +21,12 @@ const ProjectSidebar = ({ project }) => {
                     </div>
                 )}
 
-                <div className="space-y-4 rounded-2xl border border-divider bg-background p-6 shadow-sm dark:border-label-border-dark dark:bg-repository-card-bg-dark">
-                    <h3 className="text-xl font-bold text-text dark:text-text-dark">{__('Proje Linkleri')}</h3>
+                <div className="space-y-4 rounded-2xl border border-border bg-background p-6 shadow-sm dark:border-border dark:bg-card">
+                    <h3 className="text-xl font-bold text-foreground dark:text-foreground">{__('Proje Linkleri')}</h3>
                     {project.url && (
                         <a
                             href={project.url}
-                            className="flex w-full items-center justify-center rounded-lg bg-button px-5 py-3 text-center font-semibold text-text shadow-sm transition-colors hover:bg-button-hover dark:bg-button-dark dark:text-text-dark dark:hover:bg-button-hover-dark"
+                            className="flex w-full items-center justify-center rounded-lg bg-secondary px-5 py-3 text-center font-semibold text-foreground shadow-sm transition-colors hover:bg-accent dark:bg-secondary dark:text-foreground dark:hover:bg-accent"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
@@ -50,7 +50,7 @@ const ProjectSidebar = ({ project }) => {
                     {project.github_url && (
                         <a
                             href={project.github_url}
-                            className="flex w-full items-center justify-center rounded-lg bg-gray-800 px-5 py-3 text-center font-semibold text-gray-50 shadow-sm transition-colors hover:bg-gray-700"
+                            className="flex w-full items-center justify-center rounded-lg bg-card px-5 py-3 text-center font-semibold text-foreground shadow-sm transition-colors hover:bg-secondary"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
@@ -60,7 +60,7 @@ const ProjectSidebar = ({ project }) => {
                     )}
                     <Link
                         href={route('projects.index')}
-                        className="flex w-full items-center justify-center rounded-lg border border-divider bg-transparent px-5 py-3 text-center font-semibold text-text transition-colors hover:bg-button-hover/50 dark:border-divider-dark dark:text-text-dark dark:hover:bg-button-hover-dark/50"
+                        className="flex w-full items-center justify-center rounded-lg border border-border bg-transparent px-5 py-3 text-center font-semibold text-foreground transition-colors hover:bg-accent/50 dark:border-border dark:text-foreground dark:hover:bg-accent/50"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"

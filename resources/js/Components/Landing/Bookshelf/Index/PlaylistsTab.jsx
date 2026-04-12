@@ -27,7 +27,7 @@ const PlaylistsTab = ({ playlists, pagination }) => {
         try {
             const response = await axios.get(`/api/spotify/playlists/${playlist.id}/preview`);
             setPreviewData((prev) => ({ ...prev, [playlist.id]: response.data }));
-        } catch (error) {
+        } catch {
             setPreviewData((prev) => ({ ...prev, [playlist.id]: { tracks: [] } }));
         } finally {
             setPreviewLoading((prev) => ({ ...prev, [playlist.id]: false }));
@@ -43,11 +43,11 @@ const PlaylistsTab = ({ playlists, pagination }) => {
                   <div className="fixed inset-0 z-[90] flex items-center justify-center px-4">
                       <button
                           type="button"
-                          className="absolute inset-0 bg-background-dark/72 backdrop-blur-md"
+                          className="bg-background/72 absolute inset-0 backdrop-blur-md"
                           onClick={() => setPreviewId(null)}
                           aria-label={__('Kapat')}
                       />
-                      <div className="relative w-full max-w-lg overflow-hidden rounded-3xl border border-divider bg-background p-5 shadow-2xl dark:border-label-border-dark dark:bg-repository-card-bg-dark">
+                      <div className="relative w-full max-w-lg overflow-hidden rounded-3xl border border-border bg-background p-5 shadow-2xl dark:border-border dark:bg-card">
                           <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-[radial-gradient(circle_at_top,rgba(29,185,84,0.22),transparent_68%)] dark:bg-[radial-gradient(circle_at_top,rgba(29,185,84,0.18),transparent_72%)]"></div>
                           <div className="relative flex items-center justify-between">
                               <div className="flex items-center gap-3">
@@ -57,10 +57,10 @@ const PlaylistsTab = ({ playlists, pagination }) => {
                                       className="h-14 w-14 rounded-2xl object-cover shadow-sm"
                                   />
                                   <div className="min-w-0">
-                                      <p className="truncate text-base font-semibold text-text dark:text-text-dark">
+                                      <p className="truncate text-base font-semibold text-foreground dark:text-foreground">
                                           {activePlaylist.name}
                                       </p>
-                                      <p className="text-xs text-light-text dark:text-light-text-dark">
+                                      <p className="text-xs text-muted-foreground dark:text-muted-foreground">
                                           {__(':count Şarkı', { count: activePlaylist.tracks.total })}
                                       </p>
                                   </div>
@@ -68,7 +68,7 @@ const PlaylistsTab = ({ playlists, pagination }) => {
                               <button
                                   type="button"
                                   onClick={() => setPreviewId(null)}
-                                  className="interactive-pill rounded-full border border-divider bg-background p-2 text-xs text-text shadow-sm transition hover:bg-button-hover dark:border-divider-dark dark:bg-repository-card-bg-dark dark:text-text-dark dark:hover:bg-button-hover-dark"
+                                  className="interactive-pill rounded-full border border-border bg-background p-2 text-xs text-foreground shadow-sm transition hover:bg-accent dark:border-border dark:bg-card dark:text-foreground dark:hover:bg-accent"
                               >
                                   ✕
                               </button>
@@ -77,22 +77,22 @@ const PlaylistsTab = ({ playlists, pagination }) => {
                               {isLoading && (
                                   <div className="flex min-h-[220px] flex-col items-center justify-center gap-4 text-center">
                                       <div className="relative h-14 w-14">
-                                          <span className="absolute inset-0 rounded-full border-2 border-divider dark:border-divider-dark"></span>
-                                          <span className="absolute inset-0 rounded-full border-2 border-transparent border-t-menu-active border-r-menu-active/70 animate-spin"></span>
-                                          <span className="absolute inset-[8px] rounded-full bg-menu-active/10 dark:bg-menu-active-dark/10"></span>
+                                          <span className="absolute inset-0 rounded-full border-2 border-border dark:border-border"></span>
+                                          <span className="absolute inset-0 animate-spin rounded-full border-2 border-transparent border-r-primary/70 border-t-primary"></span>
+                                          <span className="absolute inset-[8px] rounded-full bg-primary/10 dark:bg-primary/10"></span>
                                       </div>
                                       <div>
-                                          <p className="text-sm font-semibold text-text dark:text-text-dark">
+                                          <p className="text-sm font-semibold text-foreground dark:text-foreground">
                                               {__('Playlist yükleniyor')}
                                           </p>
-                                          <p className="mt-1 text-xs text-light-text dark:text-light-text-dark">
+                                          <p className="mt-1 text-xs text-muted-foreground dark:text-muted-foreground">
                                               {__('Şarkı önizlemeleri hazırlanıyor...')}
                                           </p>
                                       </div>
                                   </div>
                               )}
                               {!isLoading && activeTracks.length === 0 && (
-                                  <div className="flex min-h-[220px] items-center justify-center text-center text-xs text-light-text dark:text-light-text-dark">
+                                  <div className="flex min-h-[220px] items-center justify-center text-center text-xs text-muted-foreground dark:text-muted-foreground">
                                       {__('Önizleme bulunamadı.')}
                                   </div>
                               )}
@@ -100,7 +100,7 @@ const PlaylistsTab = ({ playlists, pagination }) => {
                                   activeTracks.map((track) => (
                                       <div
                                           key={track.id ?? track.name}
-                                          className="surface-lift flex items-center gap-3 rounded-2xl border border-divider bg-background p-2 shadow-sm dark:border-divider-dark dark:bg-repository-card-bg-dark"
+                                          className="surface-lift flex items-center gap-3 rounded-2xl border border-border bg-background p-2 shadow-sm dark:border-border dark:bg-card"
                                       >
                                           {track.image ? (
                                               <img
@@ -109,13 +109,13 @@ const PlaylistsTab = ({ playlists, pagination }) => {
                                                   className="h-12 w-12 rounded-xl object-cover"
                                               />
                                           ) : (
-                                              <div className="h-12 w-12 rounded-xl bg-divider dark:bg-divider-dark" />
+                                              <div className="h-12 w-12 rounded-xl bg-border dark:bg-border" />
                                           )}
                                           <div className="min-w-0">
-                                              <p className="truncate text-sm font-semibold text-text dark:text-text-dark">
+                                              <p className="truncate text-sm font-semibold text-foreground dark:text-foreground">
                                                   {track.name}
                                               </p>
-                                              <p className="truncate text-xs text-light-text dark:text-light-text-dark">
+                                              <p className="truncate text-xs text-muted-foreground dark:text-muted-foreground">
                                                   {track.artists}
                                               </p>
                                           </div>
@@ -127,7 +127,7 @@ const PlaylistsTab = ({ playlists, pagination }) => {
                                   href={activePlaylist.external_urls.spotify}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="interactive-pill inline-flex items-center rounded-full bg-menu-active px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:opacity-90 dark:border dark:border-label-border-dark dark:bg-button-dark dark:text-text-dark dark:hover:bg-button-hover-dark"
+                                  className="interactive-pill inline-flex items-center rounded-full bg-primary px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:opacity-90 dark:border dark:border-border dark:bg-secondary dark:text-foreground dark:hover:bg-accent"
                               >
                                   {__('Spotify’da Aç')}
                               </a>
@@ -152,7 +152,7 @@ const PlaylistsTab = ({ playlists, pagination }) => {
                                         onClick={(event) => togglePreview(event, playlist)}
                                         className="block w-full text-left"
                                     >
-                                        <div className="transform overflow-hidden rounded-xl border border-divider bg-background shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-label-border-dark dark:bg-repository-card-bg-dark">
+                                        <div className="transform overflow-hidden rounded-xl border border-border bg-background shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-border dark:bg-card">
                                             <div className="h-48 w-full overflow-hidden">
                                                 <img
                                                     src={playlist.images[0].url}
@@ -161,14 +161,14 @@ const PlaylistsTab = ({ playlists, pagination }) => {
                                                 />
                                             </div>
                                             <div className="p-5">
-                                                <h3 className="line-clamp-1 text-lg font-bold text-text dark:text-text-dark">
+                                                <h3 className="line-clamp-1 text-lg font-bold text-foreground dark:text-foreground">
                                                     {playlist.name}
                                                 </h3>
                                                 <div className="mt-3 flex items-center justify-between">
-                                                    <span className="text-sm text-light-text dark:text-light-text-dark">
+                                                    <span className="text-sm text-muted-foreground dark:text-muted-foreground">
                                                         {__(':count Şarkı', { count: playlist.tracks.total })}
                                                     </span>
-                                                    <span className="text-xs font-semibold text-light-text dark:text-light-text-dark">
+                                                    <span className="text-xs font-semibold text-muted-foreground dark:text-muted-foreground">
                                                         {__('Önizleme')}
                                                     </span>
                                                 </div>
@@ -179,10 +179,10 @@ const PlaylistsTab = ({ playlists, pagination }) => {
                             )
                     )
                 ) : (
-                    <div className="col-span-full my-5 rounded-2xl border-2 border-dashed border-divider bg-background py-24 text-center dark:border-divider-dark dark:bg-repository-card-bg-dark">
+                    <div className="col-span-full my-5 rounded-2xl border-2 border-dashed border-border bg-background py-24 text-center dark:border-border dark:bg-card">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            className="mx-auto mb-6 h-20 w-20 text-light-text dark:text-dark-text-dark"
+                            className="mx-auto mb-6 h-20 w-20 text-muted-foreground dark:text-muted-foreground"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
@@ -194,10 +194,10 @@ const PlaylistsTab = ({ playlists, pagination }) => {
                                 d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"
                             />
                         </svg>
-                        <h2 className="mb-3 text-3xl font-bold text-text dark:text-text-dark">
+                        <h2 className="mb-3 text-3xl font-bold text-foreground dark:text-foreground">
                             {__('Playlist Bulunamadı')}
                         </h2>
-                        <p className="text-xl text-light-text dark:text-light-text-dark">
+                        <p className="text-xl text-muted-foreground dark:text-muted-foreground">
                             {__("Henüz herkese açık bir Spotify playlist'im bulunmuyor.")}
                         </p>
                     </div>
@@ -208,7 +208,7 @@ const PlaylistsTab = ({ playlists, pagination }) => {
                     {pagination.hasPrev && (
                         <Link
                             href={route('bookshelf.index', { page: pagination.page - 1 })}
-                            className="rounded-xl border border-divider bg-background px-4 py-2 text-sm font-semibold text-text shadow-sm transition hover:bg-button-hover dark:border-divider-dark dark:bg-repository-card-bg-dark dark:text-text-dark dark:hover:bg-button-hover-dark"
+                            className="rounded-xl border border-border bg-background px-4 py-2 text-sm font-semibold text-foreground shadow-sm transition hover:bg-accent dark:border-border dark:bg-card dark:text-foreground dark:hover:bg-accent"
                         >
                             {__('Önceki')}
                         </Link>
@@ -216,7 +216,7 @@ const PlaylistsTab = ({ playlists, pagination }) => {
                     {pagination.hasNext && (
                         <Link
                             href={route('bookshelf.index', { page: pagination.page + 1 })}
-                            className="rounded-xl border border-divider bg-background px-4 py-2 text-sm font-semibold text-text shadow-sm transition hover:bg-button-hover dark:border-divider-dark dark:bg-repository-card-bg-dark dark:text-text-dark dark:hover:bg-button-hover-dark"
+                            className="rounded-xl border border-border bg-background px-4 py-2 text-sm font-semibold text-foreground shadow-sm transition hover:bg-accent dark:border-border dark:bg-card dark:text-foreground dark:hover:bg-accent"
                         >
                             {__('Sonraki')}
                         </Link>

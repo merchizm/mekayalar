@@ -1,14 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-export default function RevealSection({
-    children,
-    className = '',
-    delay = 0,
-    y = 28,
-    as = 'div',
-    ...props
-}) {
+export default function RevealSection({ children, className = '', delay = 0, y = 28, as = 'div', ...props }) {
     const Component = motion[as] || motion.div;
 
     return (

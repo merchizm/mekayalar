@@ -36,7 +36,11 @@ export default function PostFeed({ postItems = [] }) {
                         return <AlbumPostCard key={post.id} post={post} />;
                     }
                     return (
-                        <ImagePost key={post.id} post={post} onClick={() => openLightboxOnSource(findImagePostIndex(post))} />
+                        <ImagePost
+                            key={post.id}
+                            post={post}
+                            onClick={() => openLightboxOnSource(findImagePostIndex(post))}
+                        />
                     );
                 })}
             </div>

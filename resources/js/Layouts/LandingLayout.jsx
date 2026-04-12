@@ -95,7 +95,7 @@ function LandingLayout({ children }) {
         <>
             <ScreenSaver />
 
-            <div className="relative min-h-screen bg-background text-text transition-colors duration-300 dark:bg-background-dark dark:text-text-dark">
+            <div className="relative min-h-screen bg-background text-foreground transition-colors duration-300">
                 <Header />
 
                 <div className="mx-auto max-w-screen-xl px-4 pb-16 pt-28">
@@ -121,7 +121,7 @@ function LandingLayout({ children }) {
                             }}
                             transition={heroTransition}
                         >
-                            <ApplicationLogo className="w-[300px] fill-text dark:fill-text-dark" />
+                            <ApplicationLogo className="w-[300px] fill-foreground" />
                         </motion.div>
                         <motion.h1
                             className="text-5xl font-bold tracking-tighter lg:text-7xl"
@@ -134,7 +134,7 @@ function LandingLayout({ children }) {
                             Meriç Enes Kayalar
                         </motion.h1>
                         <motion.p
-                            className="mt-4 max-w-2xl text-xl text-light-text dark:text-light-text-dark"
+                            className="mt-4 max-w-2xl text-xl text-muted-foreground"
                             variants={{
                                 hidden: { opacity: 0, y: 18 },
                                 visible: { opacity: 1, y: 0 },
@@ -148,10 +148,10 @@ function LandingLayout({ children }) {
                     <main className="mx-auto w-full max-w-4xl">
                         <div className="mb-4 flex items-center justify-end gap-2 px-0 py-2.5">
                             <SpotifyPlaying />
-                            <div className="rounded-xl border border-divider bg-background p-1 shadow-sm dark:border-label-border-dark dark:bg-repository-card-bg-dark">
+                            <div className="rounded-xl border border-border bg-card p-1 shadow-sm">
                                 <button
                                     onClick={() => setShowCvModal(true)}
-                                    className="flex h-10 w-10 items-center justify-center rounded-lg transition-colors hover:bg-button-hover dark:hover:bg-button-hover-dark"
+                                    className="flex h-10 w-10 items-center justify-center rounded-lg transition-colors hover:bg-accent"
                                     title="Özgeçmişimi Görüntüle"
                                 >
                                     <svg
@@ -159,7 +159,7 @@ function LandingLayout({ children }) {
                                         width="20"
                                         height="20"
                                         viewBox="0 0 448 512"
-                                        className="text-menu-active dark:text-menu-active-dark"
+                                        className="text-primary"
                                     >
                                         <path
                                             fill="currentColor"
@@ -168,10 +168,10 @@ function LandingLayout({ children }) {
                                     </svg>
                                 </button>
                             </div>
-                            <div className="flex items-center rounded-xl border border-divider bg-background p-1 shadow-sm dark:border-label-border-dark dark:bg-repository-card-bg-dark">
+                            <div className="flex items-center rounded-xl border border-border bg-card p-1 shadow-sm">
                                 <LanguageSwitcher />
                             </div>
-                            <div className="flex items-center rounded-xl border border-divider bg-background p-1 shadow-sm dark:border-label-border-dark dark:bg-repository-card-bg-dark">
+                            <div className="flex items-center rounded-xl border border-border bg-card p-1 shadow-sm">
                                 <DarkModeToggle
                                     isDarkMode={isDarkMode}
                                     toggleMode={toggleManualMode}
@@ -180,7 +180,7 @@ function LandingLayout({ children }) {
                                 />
                             </div>
                         </div>
-                        <hr className="m-0 h-px w-full rounded-[10px] border-0 border-t-2 border-solid border-t-divider dark:border-t-divider-dark" />
+                        <hr className="m-0 h-px w-full rounded-[10px] border-0 border-t-2 border-solid border-t-border" />
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={url}

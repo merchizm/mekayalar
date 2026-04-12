@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const DayIcon = () => (
     <svg
@@ -33,13 +33,16 @@ const NightIcon = () => (
     </svg>
 );
 
-export default function TimezoneThemeSwitcher({ isDarkMode, setTimeBasedMode, hasManualOverride, resetToAutomatic }) {
+export default function TimezoneThemeSwitcher({
+    isDarkMode: _isDarkMode,
+    setTimeBasedMode,
+    hasManualOverride,
+    resetToAutomatic,
+}) {
     const hours = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 0, 1, 2];
     const [actualHour, setActualHour] = useState(null);
     const [displayHour, setDisplayHour] = useState(null);
     const [showHint, setShowHint] = useState(false);
-    const [hoveredIndex, setHoveredIndex] = useState(null);
-    const [isTouchDevice, setIsTouchDevice] = useState(false);
     const ticksContainerRef = useRef(null);
     const markerRef = useRef(null);
     const hoverTimerRef = useRef(null);
@@ -48,9 +51,6 @@ export default function TimezoneThemeSwitcher({ isDarkMode, setTimeBasedMode, ha
         const currentHour = new Date().getHours();
         setActualHour(currentHour);
         setDisplayHour(currentHour);
-
-        // Touch cihaz kontrolü
-        setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
     }, []);
 
     useEffect(() => {
@@ -120,67 +120,47 @@ export default function TimezoneThemeSwitcher({ isDarkMode, setTimeBasedMode, ha
         };
     }, [displayHour]);
 
-    const handleTouchStart = (index) => {
-        if (isTouchDevice) {
-            setHoveredIndex(index);
-        }
-    };
-
-    const handleTouchEnd = () => {
-        if (isTouchDevice) {
-            setTimeout(() => setHoveredIndex(null), 200);
-        }
-    };
-
     return (
         <div className="flex w-full flex-col items-center">
             <div
-                className="relative rounded-xl border border-divider bg-background p-2 shadow-sm dark:border-label-border-dark dark:bg-repository-card-bg-dark"
+                className="relative rounded-xl border border-border bg-card p-2 shadow-sm"
                 id="timezone-switcher-container"
                 onMouseEnter={handleContainerEnter}
                 onMouseLeave={handleContainerLeave}
             >
                 {showHint && (
                     <div className="absolute left-0 top-0 z-20 w-full -translate-y-full pb-3">
-                        <div className="relative w-full rounded-2xl border border-divider bg-white p-4 text-sm text-text shadow-lg dark:border-divider-dark dark:bg-repository-card-bg-dark dark:text-text-dark">
+                        <div className="relative w-full rounded-2xl border border-border bg-card p-4 text-sm text-foreground shadow-lg">
                             <p className="font-semibold">ne bu?</p>
-                            <p className="mt-1 text-light-text dark:text-light-text-dark">
-                                bu zamanlanmış, otomatik tema değişim sistemini temsil eden ve dilersen de günün bir saatine ışınlanmanı sağlayan büyü
+                            <p className="mt-1 text-muted-foreground">
+                                bu zamanlanmış, otomatik tema değişim sistemini temsil eden ve dilersen de günün bir
+                                saatine ışınlanmanı sağlayan büyü
                             </p>
-                            <div className="absolute left-6 top-full h-4 w-4 -translate-y-2 rotate-45 border border-divider bg-white dark:border-divider-dark dark:bg-repository-card-bg-dark z-[-10]"></div>
+                            <div className="absolute left-6 top-full z-[-10] h-4 w-4 -translate-y-2 rotate-45 border border-border bg-card"></div>
                         </div>
                     </div>
                 )}
-                <div
-                    className="flex flex-wrap justify-center gap-2"
-                    ref={ticksContainerRef}
-                >
-                    {hours.map((hour, index) => {
+                <div className="flex flex-wrap justify-center gap-2" ref={ticksContainerRef}>
+                    {hours.map((hour) => {
                         const isTickNight = hour >= 21 || hour < 9;
                         const isCurrent = hour === displayHour;
                         const isActual = hour === actualHour;
 
-                        const dayNightClasses = isCurrent
-                            ? 'dot-current'
-                            : isTickNight
-                              ? 'dot-night'
-                              : 'dot-day';
+                        const dayNightClasses = isCurrent ? 'dot-current' : isTickNight ? 'dot-night' : 'dot-day';
 
                         return (
                             <button
                                 key={hour}
                                 type="button"
                                 data-hour={hour}
-                                onTouchStart={() => handleTouchStart(index)}
-                                onTouchEnd={handleTouchEnd}
                                 onClick={() => {
                                     if (hasManualOverride && resetToAutomatic) {
                                         resetToAutomatic();
                                     }
                                     setDisplayHour(hour);
                                 }}
-                                className={`time-toggle-button flex items-center justify-center rounded-lg border text-[11px] font-semibold shadow-sm transition-all duration-300 hover:translate-y-[-2px] hover:shadow-md border-divider bg-background text-text dark:border-label-border-dark dark:bg-repository-card-bg-dark dark:text-text-dark dark:hover:bg-button-hover-dark ${
-                                    isCurrent ? 'border-menu-active ring-2 ring-menu-active/30' : ''
+                                className={`time-toggle-button flex items-center justify-center rounded-lg border border-border bg-card text-[11px] font-semibold text-foreground shadow-sm transition-all duration-300 hover:translate-y-[-2px] hover:bg-accent hover:shadow-md ${
+                                    isCurrent ? 'border-primary ring-2 ring-ring/30' : ''
                                 } ${dayNightClasses}`}
                                 title={isActual ? __('Şu anki saat') : __('Saat seç')}
                             >

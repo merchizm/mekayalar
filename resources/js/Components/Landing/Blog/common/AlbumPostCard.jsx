@@ -3,7 +3,8 @@ import { Link } from '@inertiajs/react';
 
 export default function AlbumPostCard({ post }) {
     const previewItems = Array.isArray(post.album_items) ? post.album_items.slice(0, 4) : [];
-    const previewSources = previewItems.length > 0 ? previewItems.map((item) => item.image_path) : [post.post_image].filter(Boolean);
+    const previewSources =
+        previewItems.length > 0 ? previewItems.map((item) => item.image_path) : [post.post_image].filter(Boolean);
     const totalCount = Array.isArray(post.album_items) ? post.album_items.length : 0;
     const stackClasses = [
         'translate-x-[-18px] translate-y-[0px] rotate-[-7deg] group-hover:translate-x-[-30px] group-hover:rotate-[-11deg] sm:translate-x-[-30px] sm:group-hover:translate-x-[-52px] md:translate-x-[-44px] md:group-hover:translate-x-[-74px]',
@@ -19,7 +20,7 @@ export default function AlbumPostCard({ post }) {
                     {previewSources.map((src, index) => (
                         <div
                             key={`${src}-${index}`}
-                            className={`absolute h-[300px] w-[220px] overflow-hidden rounded-[1.75rem] border border-white/70 bg-white shadow-2xl transition duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03] dark:border-label-border-dark/70 dark:bg-repository-card-bg-dark sm:h-[360px] sm:w-[260px] md:h-[430px] md:w-[320px] ${stackClasses[index] || ''}`}
+                            className={`absolute h-[300px] w-[220px] overflow-hidden rounded-[1.75rem] border border-white/70 bg-card shadow-2xl transition duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03] dark:border-border/70 dark:bg-card sm:h-[360px] sm:w-[260px] md:h-[430px] md:w-[320px] ${stackClasses[index] || ''}`}
                             style={{ zIndex: index + 1 }}
                         >
                             <img
@@ -30,19 +31,19 @@ export default function AlbumPostCard({ post }) {
                         </div>
                     ))}
                     <div className="absolute inset-x-0 bottom-0 z-20 mx-auto w-full max-w-xs px-3 sm:max-w-md md:max-w-xl">
-                        <div className="rounded-[1.75rem] border border-white/55 bg-white/72 p-5 shadow-2xl backdrop-blur-xl transition duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-2 group-hover:shadow-[0_28px_80px_-32px_rgba(17,24,39,0.38)] dark:border-label-border-dark/80 dark:bg-repository-card-bg-dark/85 dark:shadow-[0_24px_80px_rgba(0,0,0,0.5)] sm:p-6 md:p-7">
+                        <div className="bg-card/72 rounded-[1.75rem] border border-white/55 p-5 shadow-2xl backdrop-blur-xl transition duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-2 group-hover:shadow-[0_28px_80px_-32px_rgba(17,24,39,0.38)] dark:border-border/80 dark:bg-card/85 dark:shadow-[0_24px_80px_rgba(0,0,0,0.5)] sm:p-6 md:p-7">
                             <div className="mb-3 flex items-center justify-between gap-4">
                                 <div className="inline-flex rounded-full bg-rose-100/90 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-rose-800 dark:bg-rose-950/80 dark:text-rose-100">
                                     {__('Albüm')}
                                 </div>
-                                <div className="rounded-full bg-black/80 px-3 py-1 text-xs font-semibold text-white dark:bg-button-dark/90 dark:text-text-dark">
+                                <div className="rounded-full bg-black/80 px-3 py-1 text-xs font-semibold text-white dark:bg-secondary/90 dark:text-foreground">
                                     {__(':count görsel', { count: totalCount })}
                                 </div>
                             </div>
-                            <h2 className="mb-2 text-2xl font-bold text-text transition group-hover:text-menu-active dark:text-text-dark dark:group-hover:text-menu-active-dark sm:text-3xl md:text-4xl">
+                            <h2 className="mb-2 text-2xl font-bold text-foreground transition group-hover:text-primary dark:text-foreground dark:group-hover:text-primary sm:text-3xl md:text-4xl">
                                 {post.post_title}
                             </h2>
-                            <p className="line-clamp-3 text-sm leading-relaxed text-light-text dark:text-dark-text-dark sm:text-base">
+                            <p className="line-clamp-3 text-sm leading-relaxed text-muted-foreground dark:text-muted-foreground sm:text-base">
                                 {post.description}
                             </p>
                         </div>

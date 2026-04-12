@@ -65,7 +65,10 @@ const ProjectContent = ({ project }) => {
     return (
         <div className="lg:col-span-2">
             {project.content ? (
-                <article className="md-content prose prose-lg dark:prose-invert max-w-none pb-8" onClick={onGalleryClick}>
+                <article
+                    className="md-content prose prose-lg dark:prose-invert max-w-none pb-8"
+                    onClick={onGalleryClick}
+                >
                     <Highlight innerHTML={true}>{content}</Highlight>
                 </article>
             ) : (

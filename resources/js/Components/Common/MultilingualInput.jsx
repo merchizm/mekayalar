@@ -86,8 +86,8 @@ export default function MultilingualInput({
         <div className="space-y-4">
             <div>
                 <div className="mb-1 flex items-center justify-between">
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                        🇹🇷 Türkçe {required && !enValue && <span className="text-red-500">*</span>}
+                    <label className="block text-sm font-medium text-foreground">
+                        🇹🇷 Türkçe {required && !enValue && <span className="text-destructive">*</span>}
                     </label>
                 </div>
                 <InputComponent
@@ -103,8 +103,8 @@ export default function MultilingualInput({
 
             <div>
                 <div className="mb-1 flex items-center justify-between">
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                        🇬🇧 English {required && !trValue && <span className="text-red-500">*</span>}
+                    <label className="block text-sm font-medium text-foreground">
+                        🇬🇧 English {required && !trValue && <span className="text-destructive">*</span>}
                     </label>
                 </div>
                 <InputComponent
@@ -119,7 +119,7 @@ export default function MultilingualInput({
             </div>
 
             {!required && (
-                <p className="text-xs text-gray-500 dark:text-gray-400">
+                <p className="text-xs text-muted-foreground">
                     En az bir dil girilmelidir / At least one language must be entered
                 </p>
             )}

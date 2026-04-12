@@ -77,18 +77,18 @@ export default function Create({ auth, categories, books = [] }) {
     };
 
     const formInputClass =
-        'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 sm:text-sm';
-    const formLabelClass = 'block text-sm font-medium text-gray-700 dark:text-gray-300';
-    const errorClass = 'text-red-500 mt-1 text-xs';
+        'mt-1 block w-full rounded-md border-input shadow-sm focus:border-ring focus:ring-ring dark:bg-secondary dark:border-border dark:text-foreground sm:text-sm';
+    const formLabelClass = 'block text-sm font-medium text-muted-foreground dark:text-muted-foreground';
+    const errorClass = 'text-destructive mt-1 text-xs';
 
     return (
         <AdminLayout user={auth.user}>
             <Head title="Yeni Gönderi Oluştur" />
 
             <form onSubmit={submit}>
-                <div className="rounded-lg border border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
-                    <div className="border-b border-gray-200 px-5 py-4 dark:border-gray-700">
-                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Yeni Gönderi</h3>
+                <div className="rounded-lg border border-border bg-card shadow-sm dark:border-border dark:bg-card">
+                    <div className="border-b border-border px-5 py-4 dark:border-border">
+                        <h3 className="text-lg font-semibold text-foreground dark:text-foreground">Yeni Gönderi</h3>
                     </div>
                     <div className="p-5">
                         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
@@ -140,7 +140,9 @@ export default function Create({ auth, categories, books = [] }) {
                                                         value={data.quote_text}
                                                         onChange={(e) => setData('quote_text', e.target.value)}
                                                     />
-                                                    {errors.quote_text && <div className={errorClass}>{errors.quote_text}</div>}
+                                                    {errors.quote_text && (
+                                                        <div className={errorClass}>{errors.quote_text}</div>
+                                                    )}
                                                 </div>
                                                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                                                     <div>
@@ -155,7 +157,10 @@ export default function Create({ auth, categories, books = [] }) {
                                                         />
                                                     </div>
                                                     <div>
-                                                        <label htmlFor="quote_highlight_color" className={formLabelClass}>
+                                                        <label
+                                                            htmlFor="quote_highlight_color"
+                                                            className={formLabelClass}
+                                                        >
                                                             {__('Vurgu Rengi')}
                                                         </label>
                                                         <input
@@ -184,7 +189,7 @@ export default function Create({ auth, categories, books = [] }) {
                                                             </option>
                                                         ))}
                                                     </select>
-                                                    <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                                                    <div className="mt-1 text-xs text-muted-foreground dark:text-muted-foreground">
                                                         {__('Birden fazla kitap seçilebilir.')}
                                                     </div>
                                                 </div>
@@ -196,7 +201,9 @@ export default function Create({ auth, categories, books = [] }) {
                                                         <select
                                                             className={formInputClass}
                                                             value={data.primary_book_id}
-                                                            onChange={(e) => setData('primary_book_id', Number(e.target.value))}
+                                                            onChange={(e) =>
+                                                                setData('primary_book_id', Number(e.target.value))
+                                                            }
                                                         >
                                                             {books
                                                                 .filter((book) => data.book_ids.includes(book.id))
@@ -218,7 +225,7 @@ export default function Create({ auth, categories, books = [] }) {
                                         <motion.div {...animationProps}>
                                             <div className="space-y-4 rounded-lg border border-rose-200 bg-rose-50/60 p-4 dark:border-rose-900 dark:bg-rose-950/20">
                                                 <div className="flex items-center justify-between">
-                                                    <h4 className="text-base font-semibold text-gray-900 dark:text-white">
+                                                    <h4 className="text-base font-semibold text-foreground dark:text-foreground">
                                                         {__('Albüm Görselleri')}
                                                     </h4>
                                                     <button
@@ -230,42 +237,67 @@ export default function Create({ auth, categories, books = [] }) {
                                                     </button>
                                                 </div>
                                                 {data.album_items.map((item, index) => (
-                                                    <div key={index} className="rounded-md border border-gray-200 p-4 dark:border-gray-700">
+                                                    <div
+                                                        key={index}
+                                                        className="rounded-md border border-border p-4 dark:border-border"
+                                                    >
                                                         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
                                                             <div className="md:col-span-3">
-                                                                <label className={formLabelClass}>{__('Görsel URL')}</label>
+                                                                <label className={formLabelClass}>
+                                                                    {__('Görsel URL')}
+                                                                </label>
                                                                 <input
                                                                     type="text"
                                                                     className={formInputClass}
                                                                     value={item.image_path}
                                                                     onChange={(e) =>
-                                                                        updateAlbumItem(index, 'image_path', e.target.value)
+                                                                        updateAlbumItem(
+                                                                            index,
+                                                                            'image_path',
+                                                                            e.target.value
+                                                                        )
                                                                     }
                                                                 />
                                                             </div>
                                                             <div>
-                                                                <label className={formLabelClass}>{__('Caption')}</label>
+                                                                <label className={formLabelClass}>
+                                                                    {__('Caption')}
+                                                                </label>
                                                                 <input
                                                                     type="text"
                                                                     className={formInputClass}
                                                                     value={item.caption}
-                                                                    onChange={(e) => updateAlbumItem(index, 'caption', e.target.value)}
+                                                                    onChange={(e) =>
+                                                                        updateAlbumItem(
+                                                                            index,
+                                                                            'caption',
+                                                                            e.target.value
+                                                                        )
+                                                                    }
                                                                 />
                                                             </div>
                                                             <div>
-                                                                <label className={formLabelClass}>{__('Alt Text')}</label>
+                                                                <label className={formLabelClass}>
+                                                                    {__('Alt Text')}
+                                                                </label>
                                                                 <input
                                                                     type="text"
                                                                     className={formInputClass}
                                                                     value={item.alt_text}
-                                                                    onChange={(e) => updateAlbumItem(index, 'alt_text', e.target.value)}
+                                                                    onChange={(e) =>
+                                                                        updateAlbumItem(
+                                                                            index,
+                                                                            'alt_text',
+                                                                            e.target.value
+                                                                        )
+                                                                    }
                                                                 />
                                                             </div>
                                                             <div className="flex items-end">
                                                                 <button
                                                                     type="button"
                                                                     onClick={() => removeAlbumItem(index)}
-                                                                    className="w-full rounded-md bg-gray-200 px-3 py-2 text-sm font-medium text-gray-800 dark:bg-gray-700 dark:text-gray-100"
+                                                                    className="w-full rounded-md bg-accent px-3 py-2 text-sm font-medium text-foreground dark:bg-secondary dark:text-foreground"
                                                                 >
                                                                     {__('Kaldır')}
                                                                 </button>
@@ -278,7 +310,7 @@ export default function Create({ auth, categories, books = [] }) {
                                     )}
                                 </AnimatePresence>
                             </div>
-                            <div className="space-y-6 rounded-lg border bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800 md:col-span-1">
+                            <div className="space-y-6 rounded-lg border bg-secondary/70 p-4 dark:border-border dark:bg-card md:col-span-1">
                                 <div>
                                     <label htmlFor="post_status" className={formLabelClass}>
                                         {__('Durum')}
@@ -305,7 +337,9 @@ export default function Create({ auth, categories, books = [] }) {
                                                         <select
                                                             className={formInputClass + ' flex-grow'}
                                                             value={data.post_category_id}
-                                                            onChange={(e) => setData('post_category_id', e.target.value)}
+                                                            onChange={(e) =>
+                                                                setData('post_category_id', e.target.value)
+                                                            }
                                                         >
                                                             <option value="">Kategori Seçin</option>
                                                             {allCategories.map((category) => (
@@ -317,7 +351,7 @@ export default function Create({ auth, categories, books = [] }) {
                                                         <button
                                                             type="button"
                                                             onClick={() => setIsCategoryManagerOpen(true)}
-                                                            className="rounded-md bg-gray-600 p-2 text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+                                                            className="rounded-md bg-accent p-2 text-white hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
                                                         >
                                                             Yönet
                                                         </button>
@@ -382,10 +416,10 @@ export default function Create({ auth, categories, books = [] }) {
                             </div>
                         </div>
                     </div>
-                    <div className="flex justify-end border-t border-gray-200 px-5 py-4 dark:border-gray-700">
+                    <div className="flex justify-end border-t border-border px-5 py-4 dark:border-border">
                         <button
                             type="submit"
-                            className="inline-flex justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
+                            className="inline-flex justify-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:opacity-50"
                             disabled={processing}
                         >
                             Oluştur

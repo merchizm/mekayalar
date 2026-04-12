@@ -3,9 +3,9 @@ import { Link } from '@inertiajs/react';
 
 const StatusBadge = ({ status }) => {
     const colorMap = {
-        published: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300',
-        draft: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300',
-        trash: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300',
+        published: 'bg-green-100 text-success dark:bg-green-900 dark:text-success',
+        draft: 'bg-yellow-100 text-warning-foreground dark:bg-yellow-900 dark:text-warning',
+        trash: 'bg-red-100 text-destructive dark:bg-red-900 dark:text-destructive',
     };
     const labelMap = {
         published: 'Yayınlandı',
@@ -14,7 +14,7 @@ const StatusBadge = ({ status }) => {
     };
     return (
         <span
-            className={`inline-flex rounded-full px-2 text-xs font-semibold leading-5 ${colorMap[status] || 'bg-gray-100 text-gray-800'}`}
+            className={`inline-flex rounded-full px-2 text-xs font-semibold leading-5 ${colorMap[status] || 'bg-secondary text-foreground'}`}
         >
             {labelMap[status] || status}
         </span>
@@ -23,45 +23,45 @@ const StatusBadge = ({ status }) => {
 
 export default function RecentPosts({ posts }) {
     return (
-        <div className="rounded-lg border border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
-            <div className="border-b border-gray-200 px-5 py-4 dark:border-gray-700">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Son Gönderiler</h3>
+        <div className="rounded-lg border border-border bg-card shadow-sm dark:border-border dark:bg-card">
+            <div className="border-b border-border px-5 py-4 dark:border-border">
+                <h3 className="text-lg font-semibold text-foreground dark:text-foreground">Son Gönderiler</h3>
             </div>
             <div className="overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                    <thead className="bg-gray-50 dark:bg-gray-700">
+                    <thead className="bg-secondary/70 dark:bg-secondary">
                         <tr>
-                            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300">
+                            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground dark:text-muted-foreground">
                                 Başlık
                             </th>
-                            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300">
+                            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground dark:text-muted-foreground">
                                 Durum
                             </th>
-                            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300">
+                            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground dark:text-muted-foreground">
                                 Tarih
                             </th>
-                            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300">
+                            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground dark:text-muted-foreground">
                                 İşlemler
                             </th>
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800">
+                    <tbody className="divide-y divide-gray-200 bg-card dark:divide-gray-700 dark:bg-card">
                         {posts &&
                             posts.map((post) => (
-                                <tr key={post.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
-                                    <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">
+                                <tr key={post.id} className="hover:bg-secondary/70 dark:hover:bg-secondary">
+                                    <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-foreground dark:text-foreground">
                                         {post.post_title}
                                     </td>
                                     <td className="whitespace-nowrap px-6 py-4 text-sm">
                                         <StatusBadge status={post.post_status} />
                                     </td>
-                                    <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500 dark:text-gray-400">
+                                    <td className="whitespace-nowrap px-6 py-4 text-sm text-muted-foreground dark:text-muted-foreground">
                                         {new Date(post.created_at).toLocaleDateString('tr-TR')}
                                     </td>
                                     <td className="whitespace-nowrap px-6 py-4 text-sm font-medium">
                                         <Link
                                             href={route('admin.posts.edit', post.id)}
-                                            className="rounded-md bg-blue-600 px-3 py-1 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                                            className="rounded-md bg-primary px-3 py-1 text-sm font-medium text-white hover:bg-primary focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
                                         >
                                             Düzenle
                                         </Link>

@@ -14,15 +14,15 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
     };
 
     const formInputClass =
-        'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 sm:text-sm';
-    const formLabelClass = 'block text-sm font-medium text-gray-700 dark:text-gray-300';
+        'mt-1 block w-full rounded-md border-input shadow-sm focus:border-ring focus:ring-ring dark:bg-secondary dark:border-border dark:text-foreground sm:text-sm';
+    const formLabelClass = 'block text-sm font-medium text-muted-foreground dark:text-muted-foreground';
 
     return (
         <section className={className}>
             <header>
-                <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">Profil Bilgileri</h2>
+                <h2 className="text-lg font-medium text-foreground dark:text-foreground">Profil Bilgileri</h2>
 
-                <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                <p className="mt-1 text-sm text-muted-foreground dark:text-muted-foreground">
                     Hesabınızın profil bilgilerini ve e-posta adresini güncelleyin.
                 </p>
             </header>
@@ -43,7 +43,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                         autoComplete="name"
                     />
 
-                    {errors.name && <div className="mt-2 text-xs text-red-500">{errors.name}</div>}
+                    {errors.name && <div className="mt-2 text-xs text-destructive">{errors.name}</div>}
                 </div>
 
                 <div>
@@ -61,25 +61,25 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                         autoComplete="username"
                     />
 
-                    {errors.email && <div className="mt-2 text-xs text-red-500">{errors.email}</div>}
+                    {errors.email && <div className="mt-2 text-xs text-destructive">{errors.email}</div>}
                 </div>
 
                 {mustVerifyEmail && user.email_verified_at === null && (
                     <div>
-                        <p className="mt-2 text-sm text-gray-800 dark:text-gray-200">
+                        <p className="mt-2 text-sm text-foreground dark:text-foreground">
                             E-posta adresiniz doğrulanmamış.
                             <Link
                                 href={route('verification.send')}
                                 method="post"
                                 as="button"
-                                className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800"
+                                className="rounded-md text-sm text-muted-foreground underline hover:text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 dark:text-muted-foreground dark:hover:text-foreground dark:focus:ring-offset-gray-800"
                             >
                                 Doğrulama e-postasını yeniden göndermek için buraya tıklayın.
                             </Link>
                         </p>
 
                         {status === 'verification-link-sent' && (
-                            <div className="mt-2 text-sm font-medium text-green-600 dark:text-green-400">
+                            <div className="mt-2 text-sm font-medium text-success dark:text-success">
                                 Kayıt sırasında verdiğiniz e-posta adresine yeni bir doğrulama bağlantısı gönderildi.
                             </div>
                         )}
@@ -88,13 +88,15 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
 
                 <div className="flex items-center gap-4">
                     <button
-                        className="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white ring-blue-300 transition duration-150 ease-in-out hover:bg-blue-700 focus:border-blue-900 focus:outline-none focus:ring active:bg-blue-900 disabled:opacity-25"
+                        className="inline-flex items-center rounded-md border border-transparent bg-primary px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white ring-blue-300 transition duration-150 ease-in-out hover:bg-primary focus:border-ring focus:outline-none focus:ring active:bg-blue-900 disabled:opacity-25"
                         disabled={processing}
                     >
                         Kaydet
                     </button>
 
-                    {recentlySuccessful && <p className="text-sm text-gray-600 dark:text-gray-400">Kaydedildi.</p>}
+                    {recentlySuccessful && (
+                        <p className="text-sm text-muted-foreground dark:text-muted-foreground">Kaydedildi.</p>
+                    )}
                 </div>
             </form>
         </section>

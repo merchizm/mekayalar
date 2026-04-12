@@ -141,9 +141,9 @@ export default function Index({ auth }) {
         <AdminLayout user={auth.user}>
             <Head title="Dosya Yöneticisi" />
 
-            <div className="rounded-lg border border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
-                <div className="border-b border-gray-200 px-5 py-4 dark:border-gray-700">
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Dosya Yöneticisi</h3>
+            <div className="rounded-lg border border-border bg-card shadow-sm dark:border-border dark:bg-card">
+                <div className="border-b border-border px-5 py-4 dark:border-border">
+                    <h3 className="text-lg font-semibold text-foreground dark:text-foreground">Dosya Yöneticisi</h3>
                 </div>
                 <div className="p-6">
                     <Breadcrumb path={currentPath} onPathClick={handlePathChange} />
@@ -153,14 +153,14 @@ export default function Index({ auth }) {
                         <div className="flex gap-2">
                             <button
                                 onClick={() => setShowCreateFolderModal(true)}
-                                className="inline-flex items-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors duration-200 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                                className="inline-flex items-center rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white transition-colors duration-200 hover:bg-primary focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
                             >
                                 <PlusIcon className="mr-2 h-4 w-4" />
                                 Yeni Klasör
                             </button>
                             <button
                                 onClick={() => setShowUploadModal(true)}
-                                className="inline-flex items-center rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white transition-colors duration-200 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                                className="inline-flex items-center rounded-lg bg-success px-4 py-2 text-sm font-medium text-white transition-colors duration-200 hover:bg-success focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
                             >
                                 <UploadIcon className="mr-2 h-4 w-4" />
                                 Dosya Yükle
@@ -168,13 +168,13 @@ export default function Index({ auth }) {
                         </div>
 
                         {/* View Mode Toggle */}
-                        <div className="ml-auto flex rounded-lg bg-gray-100 p-1 dark:bg-gray-700">
+                        <div className="ml-auto flex rounded-lg bg-secondary p-1 dark:bg-secondary">
                             <button
                                 onClick={() => handleViewModeChange('list')}
                                 className={`rounded-md p-2 transition-colors duration-200 ${
                                     viewMode === 'list'
-                                        ? 'bg-white text-gray-900 shadow-sm dark:bg-gray-600 dark:text-white'
-                                        : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'
+                                        ? 'bg-card text-foreground shadow-sm dark:bg-accent dark:text-foreground'
+                                        : 'text-muted-foreground hover:text-muted-foreground dark:text-muted-foreground dark:hover:text-muted-foreground'
                                 }`}
                                 title="Liste Görünümü"
                             >
@@ -184,8 +184,8 @@ export default function Index({ auth }) {
                                 onClick={() => handleViewModeChange('grid')}
                                 className={`rounded-md p-2 transition-colors duration-200 ${
                                     viewMode === 'grid'
-                                        ? 'bg-white text-gray-900 shadow-sm dark:bg-gray-600 dark:text-white'
-                                        : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'
+                                        ? 'bg-card text-foreground shadow-sm dark:bg-accent dark:text-foreground'
+                                        : 'text-muted-foreground hover:text-muted-foreground dark:text-muted-foreground dark:hover:text-muted-foreground'
                                 }`}
                                 title="Izgara Görünümü"
                             >
@@ -197,8 +197,10 @@ export default function Index({ auth }) {
                     {/* File Explorer */}
                     <div className="mt-6">
                         <div className="mb-4 flex items-center justify-between">
-                            <h4 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Dosya Gezgini</h4>
-                            <div className="text-sm text-gray-500 dark:text-gray-400">
+                            <h4 className="text-lg font-semibold text-foreground dark:text-foreground">
+                                Dosya Gezgini
+                            </h4>
+                            <div className="text-sm text-muted-foreground dark:text-muted-foreground">
                                 {items.folders.length + items.files.length} öğe
                             </div>
                         </div>
@@ -206,7 +208,11 @@ export default function Index({ auth }) {
                         {loading ? (
                             <div className="flex items-center justify-center py-12">
                                 <div className="flex items-center space-x-2">
-                                    <svg className="h-5 w-5 animate-spin text-gray-500" fill="none" viewBox="0 0 24 24">
+                                    <svg
+                                        className="h-5 w-5 animate-spin text-muted-foreground"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                    >
                                         <circle
                                             className="opacity-25"
                                             cx="12"
@@ -221,12 +227,14 @@ export default function Index({ auth }) {
                                             d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                                         ></path>
                                     </svg>
-                                    <span className="text-gray-500 dark:text-gray-400">Yükleniyor...</span>
+                                    <span className="text-muted-foreground dark:text-muted-foreground">
+                                        Yükleniyor...
+                                    </span>
                                 </div>
                             </div>
                         ) : items.folders.length === 0 && items.files.length === 0 ? (
                             <div className="py-12 text-center">
-                                <div className="mb-2 text-gray-400 dark:text-gray-500">
+                                <div className="mb-2 text-muted-foreground dark:text-muted-foreground">
                                     <svg
                                         className="mx-auto h-12 w-12"
                                         fill="none"
@@ -241,15 +249,17 @@ export default function Index({ auth }) {
                                         />
                                     </svg>
                                 </div>
-                                <p className="text-center text-gray-500 dark:text-gray-400">Bu klasör boş</p>
-                                <p className="mt-1 text-center text-sm text-gray-400 dark:text-gray-500">
+                                <p className="text-center text-muted-foreground dark:text-muted-foreground">
+                                    Bu klasör boş
+                                </p>
+                                <p className="mt-1 text-center text-sm text-muted-foreground dark:text-muted-foreground">
                                     Dosya yükleyin veya yeni klasör oluşturun
                                 </p>
                             </div>
                         ) : (
                             <>
                                 {viewMode === 'list' ? (
-                                    <div className="overflow-hidden rounded-lg border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <div className="overflow-hidden rounded-lg border border-border bg-card dark:border-border dark:bg-card">
                                         <ul>
                                             {items.folders.map((folder) => (
                                                 <div
@@ -325,7 +335,7 @@ export default function Index({ auth }) {
                     </div>
                 </Item>
                 <Separator />
-                <Item id="delete" onClick={onFileItemClick} className="text-red-500">
+                <Item id="delete" onClick={onFileItemClick} className="text-destructive">
                     <div className="flex items-center">
                         <TrashIcon className="mr-2" />
                         Sil
@@ -334,7 +344,7 @@ export default function Index({ auth }) {
             </Menu>
 
             <Menu id={FOLDER_MENU_ID} theme="dark">
-                <Item id="delete" onClick={onFolderItemClick} className="text-red-500">
+                <Item id="delete" onClick={onFolderItemClick} className="text-destructive">
                     <div className="flex items-center">
                         <TrashIcon className="mr-2" />
                         Sil

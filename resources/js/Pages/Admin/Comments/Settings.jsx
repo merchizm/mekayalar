@@ -23,17 +23,17 @@ export default function Settings({ auth, blacklist = [], bannedIps = [] }) {
         <AdminLayout user={auth.user}>
             <Head title="Yorum Ayarları" />
 
-            <div className="rounded-lg border border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
-                <div className="flex flex-wrap items-center justify-between gap-4 border-b border-gray-200 px-5 py-4 dark:border-gray-700">
+            <div className="rounded-lg border border-border bg-card shadow-sm dark:border-border dark:bg-card">
+                <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border px-5 py-4 dark:border-border">
                     <div>
-                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Yorum Ayarları</h3>
-                        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                        <h3 className="text-lg font-semibold text-foreground dark:text-foreground">Yorum Ayarları</h3>
+                        <p className="mt-1 text-sm text-muted-foreground dark:text-muted-foreground">
                             Kara liste ve yasaklı IP adreslerini yönetin.
                         </p>
                     </div>
                     <Link
                         href={route('admin.comments.index')}
-                        className="rounded-md border border-gray-200 px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-700"
+                        className="rounded-md border border-border px-4 py-2 text-sm font-semibold text-muted-foreground hover:bg-secondary/70 dark:border-border dark:text-foreground dark:hover:bg-secondary"
                     >
                         Yorumlara Dön
                     </Link>
@@ -41,36 +41,36 @@ export default function Settings({ auth, blacklist = [], bannedIps = [] }) {
 
                 <form onSubmit={submit} className="space-y-6 p-6">
                     <div>
-                        <label className="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                        <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground dark:text-muted-foreground">
                             Kara Liste (satır başına bir kelime/ifade)
                         </label>
                         <textarea
                             rows="8"
                             value={data.blacklist}
                             onChange={(event) => setData('blacklist', event.target.value)}
-                            className="mt-2 w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+                            className="mt-2 w-full rounded-lg border border-border bg-card px-3 py-2 text-sm text-foreground shadow-sm focus:border-ring focus:outline-none focus:ring-1 focus:ring-ring dark:border-border dark:bg-card dark:text-foreground"
                         />
-                        {errors.blacklist && <p className="mt-1 text-xs text-red-500">{errors.blacklist}</p>}
+                        {errors.blacklist && <p className="mt-1 text-xs text-destructive">{errors.blacklist}</p>}
                     </div>
 
                     <div>
-                        <label className="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                        <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground dark:text-muted-foreground">
                             Yasaklı IP Adresleri (satır başına bir IP)
                         </label>
                         <textarea
                             rows="6"
                             value={data.banned_ips}
                             onChange={(event) => setData('banned_ips', event.target.value)}
-                            className="mt-2 w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
+                            className="mt-2 w-full rounded-lg border border-border bg-card px-3 py-2 text-sm text-foreground shadow-sm focus:border-ring focus:outline-none focus:ring-1 focus:ring-ring dark:border-border dark:bg-card dark:text-foreground"
                         />
-                        {errors.banned_ips && <p className="mt-1 text-xs text-red-500">{errors.banned_ips}</p>}
+                        {errors.banned_ips && <p className="mt-1 text-xs text-destructive">{errors.banned_ips}</p>}
                     </div>
 
                     <div className="flex justify-end gap-2">
                         <button
                             type="submit"
                             disabled={processing}
-                            className="rounded-md bg-blue-600 px-5 py-2 text-sm font-semibold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-70"
+                            className="rounded-md bg-primary px-5 py-2 text-sm font-semibold text-white hover:bg-primary disabled:cursor-not-allowed disabled:opacity-70"
                         >
                             Kaydet
                         </button>

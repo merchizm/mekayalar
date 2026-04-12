@@ -27,13 +27,15 @@ class CommentController extends Controller
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function ($subQuery) use ($search): void {
-                $subQuery->where('text', 'like', "%{$search}%")
+                $subQuery
+                    ->where('text', 'like', "%{$search}%")
                     ->orWhereHas('commentable', function ($commentableQuery) use ($search): void {
                         $commentableQuery->where('post_title', 'like', "%{$search}%");
                     })
-                    ->orWhereHasMorph('commenter', [User::class, Guest::class], function ($commenterQuery) use ($search): void {
-                        $commenterQuery->where('name', 'like', "%{$search}%")
-                            ->orWhere('email', 'like', "%{$search}%");
+                    ->orWhereHasMorph('commenter', [User::class, Guest::class], function ($commenterQuery) use (
+                        $search,
+                    ): void {
+                        $commenterQuery->where('name', 'like', "%{$search}%")->orWhere('email', 'like', "%{$search}%");
                     });
             });
         }
@@ -57,11 +59,13 @@ class CommentController extends Controller
                         'photo' => $commenter?->photoUrl(),
                         'type'  => $commenter?->getMorphClass(),
                     ],
-                    'post' => $post ? [
-                        'id'    => $post->getKey(),
-                        'title' => (string) $post->getAttribute('post_title'),
-                        'slug'  => (string) $post->getAttribute('post_slug'),
-                    ] : null,
+                    'post' => $post
+                        ? [
+                            'id'    => $post->getKey(),
+                            'title' => (string) $post->getAttribute('post_title'),
+                            'slug'  => (string) $post->getAttribute('post_slug'),
+                        ]
+                        : null,
                 ];
             }),
             'filters' => $request->only(['search', 'status']),

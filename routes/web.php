@@ -57,22 +57,24 @@ Route::get('/', function () {
         ->take(2)
         ->get()
         ->filter(fn (Project $project) => $project->hasLocale($locale))
-        ->map(fn (Project $project) => [
-            'id'           => $project->id,
-            'slug'         => $project->slug,
-            'title'        => $project->getLocalized('title', $locale),
-            'description'  => $project->getLocalized('description', $locale),
-            'content'      => $project->getLocalized('content', $locale),
-            'image'        => $project->image,
-            'url'          => $project->url,
-            'github_url'   => $project->github_url,
-            'is_featured'  => $project->is_featured,
-            'is_published' => $project->is_published,
-            'completed_at' => $project->completed_at,
-            'tags'         => $project->getLocalizedTags($locale),
-            'created_at'   => $project->created_at,
-            'updated_at'   => $project->updated_at,
-        ])
+        ->map(
+            fn (Project $project) => [
+                'id'           => $project->id,
+                'slug'         => $project->slug,
+                'title'        => $project->getLocalized('title', $locale),
+                'description'  => $project->getLocalized('description', $locale),
+                'content'      => $project->getLocalized('content', $locale),
+                'image'        => $project->image,
+                'url'          => $project->url,
+                'github_url'   => $project->github_url,
+                'is_featured'  => $project->is_featured,
+                'is_published' => $project->is_published,
+                'completed_at' => $project->completed_at,
+                'tags'         => $project->getLocalizedTags($locale),
+                'created_at'   => $project->created_at,
+                'updated_at'   => $project->updated_at,
+            ],
+        )
         ->values();
 
     return Inertia::render('Landing/Index', [
@@ -140,7 +142,9 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
             Route::resource('comments', AdminCommentController::class)->only(['index', 'update', 'destroy']);
             Route::resource('guestbook', AdminGuestbookEntryController::class)->only(['index', 'update', 'destroy']);
             Route::get('/comments/settings', [CommentSettingsController::class, 'index'])->name('comments.settings');
-            Route::post('/comments/settings', [CommentSettingsController::class, 'update'])->name('comments.settings.update');
+            Route::post('/comments/settings', [CommentSettingsController::class, 'update'])->name(
+                'comments.settings.update',
+            );
 
             Route::post('/upload', [MediaController::class, 'upload'])->name('media.upload');
             Route::get('/files', [MediaController::class, 'listFiles'])->name('media.files');

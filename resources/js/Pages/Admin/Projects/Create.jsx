@@ -31,10 +31,10 @@ export default function Create({ auth }) {
     };
 
     const formInputClass =
-        'mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 sm:text-sm';
-    const formLabelClass = 'block text-sm font-medium text-gray-700 dark:text-gray-300';
-    const formHintClass = 'mt-1 text-xs text-gray-500 dark:text-gray-400';
-    const errorClass = 'text-red-500 mt-1 text-xs';
+        'mt-1 block w-full rounded-md border-input shadow-sm focus:border-ring focus:ring-ring dark:bg-secondary dark:border-border dark:text-foreground sm:text-sm';
+    const formLabelClass = 'block text-sm font-medium text-muted-foreground dark:text-muted-foreground';
+    const formHintClass = 'mt-1 text-xs text-muted-foreground dark:text-muted-foreground';
+    const errorClass = 'text-destructive mt-1 text-xs';
 
     return (
         <AdminLayout user={auth.user}>
@@ -42,12 +42,14 @@ export default function Create({ auth }) {
 
             <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Yeni Proje Ekle</h2>
-                    <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Yeni bir proje oluşturun.</p>
+                    <h2 className="text-2xl font-bold text-foreground dark:text-foreground">Yeni Proje Ekle</h2>
+                    <p className="mt-1 text-sm text-muted-foreground dark:text-muted-foreground">
+                        Yeni bir proje oluşturun.
+                    </p>
                 </div>
                 <Link
                     href={route('admin.projects.index')}
-                    className="inline-flex items-center justify-center rounded-lg bg-gray-200 px-4 py-2 font-semibold text-gray-700 shadow-sm transition duration-150 ease-in-out hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
+                    className="inline-flex items-center justify-center rounded-lg bg-accent px-4 py-2 font-semibold text-muted-foreground shadow-sm transition duration-150 ease-in-out hover:bg-accent focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 dark:bg-secondary dark:text-foreground dark:hover:bg-accent"
                 >
                     Geri Dön
                 </Link>
@@ -55,7 +57,7 @@ export default function Create({ auth }) {
 
             <form
                 onSubmit={submit}
-                className="rounded-lg border border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800"
+                className="rounded-lg border border-border bg-card shadow-sm dark:border-border dark:bg-card"
             >
                 <div className="p-5">
                     <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
@@ -167,13 +169,13 @@ export default function Create({ auth }) {
                                     id="is_featured"
                                     name="is_featured"
                                     type="checkbox"
-                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                    className="h-4 w-4 rounded border-input text-primary focus:ring-ring"
                                     checked={data.is_featured}
                                     onChange={(e) => setData('is_featured', e.target.checked)}
                                 />
                                 <label
                                     htmlFor="is_featured"
-                                    className="ml-2 block text-sm text-gray-900 dark:text-gray-300"
+                                    className="ml-2 block text-sm text-foreground dark:text-muted-foreground"
                                 >
                                     Öne Çıkan Proje
                                 </label>
@@ -184,13 +186,13 @@ export default function Create({ auth }) {
                                     id="is_published"
                                     name="is_published"
                                     type="checkbox"
-                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                    className="h-4 w-4 rounded border-input text-primary focus:ring-ring"
                                     checked={data.is_published}
                                     onChange={(e) => setData('is_published', e.target.checked)}
                                 />
                                 <label
                                     htmlFor="is_published"
-                                    className="ml-2 block text-sm text-gray-900 dark:text-gray-300"
+                                    className="ml-2 block text-sm text-foreground dark:text-muted-foreground"
                                 >
                                     Yayınla
                                 </label>
@@ -198,10 +200,10 @@ export default function Create({ auth }) {
                         </div>
                     </div>
                 </div>
-                <div className="flex justify-end border-t border-gray-200 px-5 py-4 dark:border-gray-700">
+                <div className="flex justify-end border-t border-border px-5 py-4 dark:border-border">
                     <button
                         type="submit"
-                        className="inline-flex justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
+                        className="inline-flex justify-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:opacity-50"
                         disabled={processing}
                     >
                         Projeyi Kaydet

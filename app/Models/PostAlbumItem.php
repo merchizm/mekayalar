@@ -7,13 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PostAlbumItem extends Model
 {
-    protected $fillable = [
-        'post_id',
-        'image_path',
-        'caption',
-        'alt_text',
-        'sort_order',
-    ];
+    protected $fillable = ['post_id', 'image_path', 'caption', 'alt_text', 'sort_order'];
 
     protected $casts = [
         'sort_order' => 'integer',

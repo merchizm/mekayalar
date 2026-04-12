@@ -17,7 +17,7 @@ const PostHeader = ({ post }) => {
 
     return (
         <div className="mb-6">
-            <div className="mb-3 flex items-center text-sm text-light-text dark:text-light-text-dark">
+            <div className="mb-3 flex items-center text-sm text-muted-foreground dark:text-muted-foreground">
                 <span className="flex items-center">
                     <svg
                         className="mr-1 h-4 w-4"
@@ -70,8 +70,10 @@ const PostHeader = ({ post }) => {
                     </>
                 )}
             </div>
-            <h1 className="mb-4 text-3xl font-bold text-text dark:text-text-dark md:text-4xl">{post.post_title}</h1>
-            <p className="mb-8 text-xl text-light-text dark:text-light-text-dark">{post.description}</p>
+            <h1 className="mb-4 text-3xl font-bold text-foreground dark:text-foreground md:text-4xl">
+                {post.post_title}
+            </h1>
+            <p className="mb-8 text-xl text-muted-foreground dark:text-muted-foreground">{post.description}</p>
         </div>
     );
 };

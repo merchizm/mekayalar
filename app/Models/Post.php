@@ -66,9 +66,7 @@ class Post extends Model implements CommentableContract
 
     public function books(): BelongsToMany
     {
-        return $this->belongsToMany(Book::class)
-            ->withPivot('is_primary')
-            ->withTimestamps();
+        return $this->belongsToMany(Book::class)->withPivot('is_primary')->withTimestamps();
     }
 
     public function albumItems(): HasMany
@@ -105,8 +103,12 @@ class Post extends Model implements CommentableContract
         return $this->sanitizeUtf8($this->renderMarkdownWithBlocks($markdown, $Parsedown));
     }
 
-    private function renderMarkdownWithBlocks(?string $markdown, Parsedown $parser, int $depth = 0, array $options = []): string
-    {
+    private function renderMarkdownWithBlocks(
+        ?string $markdown,
+        Parsedown $parser,
+        int $depth = 0,
+        array $options = [],
+    ): string {
         $markdown = $markdown ?? '';
         if ($depth > 4) {
             return $parser->text($markdown);
@@ -190,7 +192,12 @@ class Post extends Model implements CommentableContract
 
                 if ($closed) {
                     $outputLines[] = $addBlock(
-                        $this->buildCodeBlockHtml(implode("\n", $codeLines), $info, $languageLabels, $languageNormalize)
+                        $this->buildCodeBlockHtml(
+                            implode("\n", $codeLines),
+                            $info,
+                            $languageLabels,
+                            $languageNormalize,
+                        ),
                     );
                     $i = $j;
                     continue;
@@ -222,7 +229,7 @@ class Post extends Model implements CommentableContract
                         if ($currentTab) {
                             $tabs[] = $currentTab;
                         }
-                        $title      = trim($tabMatch[1] ?? ('Sekme '.(count($tabs) + 1)));
+                        $title      = trim($tabMatch[1] ?? 'Sekme '.(count($tabs) + 1));
                         $currentTab = ['title' => $title, 'body' => []];
                         continue;
                     }
@@ -249,19 +256,37 @@ class Post extends Model implements CommentableContract
 
                     foreach ($tabs as $index => $tab) {
                         $isActive = $index === 0 ? ' is-active' : '';
-                        $listHtml .= '<button type="button" class="md-tab-button'.$isActive
-                            .'" data-tab="'.$tabIdBase.'-'.$index.'">'.htmlspecialchars($tab['title'], ENT_QUOTES, 'UTF-8').'</button>';
+                        $listHtml .=
+                            '<button type="button" class="md-tab-button'.
+                            $isActive.
+                            '" data-tab="'.
+                            $tabIdBase.
+                            '-'.
+                            $index.
+                            '">'.
+                            htmlspecialchars($tab['title'], ENT_QUOTES, 'UTF-8').
+                            '</button>';
                         $body = trim(implode("\n", $tab['body']));
-                        $panelsHtml .= '<div class="md-tab-panel'.$isActive
-                            .'" data-tab-panel="'.$tabIdBase.'-'.$index.'">'
-                            .$this->renderMarkdownWithBlocks($body, $parser, $depth + 1, $options)
-                            .'</div>';
+                        $panelsHtml .=
+                            '<div class="md-tab-panel'.
+                            $isActive.
+                            '" data-tab-panel="'.
+                            $tabIdBase.
+                            '-'.
+                            $index.
+                            '">'.
+                            $this->renderMarkdownWithBlocks($body, $parser, $depth + 1, $options).
+                            '</div>';
                     }
 
-                    $html = '<div class="md-tabs" data-tabs>'
-                        .'<div class="md-tabs-list">'.$listHtml.'</div>'
-                        .'<div class="md-tabs-panels">'.$panelsHtml.'</div>'
-                        .'</div>';
+                    $html = '<div class="md-tabs" data-tabs>'.
+                        '<div class="md-tabs-list">'.
+                        $listHtml.
+                        '</div>'.
+                        '<div class="md-tabs-panels">'.
+                        $panelsHtml.
+                        '</div>'.
+                        '</div>';
 
                     $outputLines[] = $addBlock($html);
                     $i             = $j;
@@ -307,7 +332,10 @@ class Post extends Model implements CommentableContract
                     $columnHtml = '';
                     foreach ($columns as $column) {
                         $body = trim(implode("\n", $column['body']));
-                        $columnHtml .= '<div class="md-column">'.$this->renderMarkdownWithBlocks($body, $parser, $depth + 1, $options).'</div>';
+                        $columnHtml .=
+                            '<div class="md-column">'.
+                            $this->renderMarkdownWithBlocks($body, $parser, $depth + 1, $options).
+                            '</div>';
                     }
                     $class         = $plain ? 'md-columns md-columns-plain' : 'md-columns';
                     $outputLines[] = $addBlock('<div class="'.$class.'">'.$columnHtml.'</div>');
@@ -353,10 +381,15 @@ class Post extends Model implements CommentableContract
                     foreach ($items as $index => $item) {
                         $title = htmlspecialchars($item['title'] ?: 'Item '.($index + 1), ENT_QUOTES, 'UTF-8');
                         $body  = trim(implode("\n", $item['body']));
-                        $itemHtml .= '<details class="md-accordion-item">'
-                            .'<summary class="md-accordion-title">'.$title.'</summary>'
-                            .'<div class="md-accordion-body">'.$this->renderMarkdownWithBlocks($body, $parser, $depth + 1, $options).'</div>'
-                            .'</details>';
+                        $itemHtml .=
+                            '<details class="md-accordion-item">'.
+                            '<summary class="md-accordion-title">'.
+                            $title.
+                            '</summary>'.
+                            '<div class="md-accordion-body">'.
+                            $this->renderMarkdownWithBlocks($body, $parser, $depth + 1, $options).
+                            '</div>'.
+                            '</details>';
                     }
                     $outputLines[] = $addBlock('<div class="md-accordion">'.$itemHtml.'</div>');
                     $i             = $j;
@@ -430,7 +463,12 @@ class Post extends Model implements CommentableContract
                     $body[] = $innerLine;
                 }
                 if ($closed) {
-                    $bodyHtml      = $this->renderMarkdownWithBlocks(trim(implode("\n", $body)), $parser, $depth + 1, $options);
+                    $bodyHtml = $this->renderMarkdownWithBlocks(
+                        trim(implode("\n", $body)),
+                        $parser,
+                        $depth + 1,
+                        $options,
+                    );
                     $outputLines[] = $addBlock($this->buildQuoteHtml($attrs, $bodyHtml));
                     $i             = $j;
                     continue;
@@ -450,7 +488,12 @@ class Post extends Model implements CommentableContract
                     $body[] = $innerLine;
                 }
                 if ($closed) {
-                    $bodyHtml      = $this->renderMarkdownWithBlocks(trim(implode("\n", $body)), $parser, $depth + 1, $options);
+                    $bodyHtml = $this->renderMarkdownWithBlocks(
+                        trim(implode("\n", $body)),
+                        $parser,
+                        $depth + 1,
+                        $options,
+                    );
                     $outputLines[] = $addBlock($this->buildBubbleHtml($attrs, $bodyHtml));
                     $i             = $j;
                     continue;
@@ -469,7 +512,12 @@ class Post extends Model implements CommentableContract
                     $body[] = $innerLine;
                 }
                 if ($closed) {
-                    $bodyHtml      = $this->renderMarkdownWithBlocks(trim(implode("\n", $body)), $parser, $depth + 1, $options);
+                    $bodyHtml = $this->renderMarkdownWithBlocks(
+                        trim(implode("\n", $body)),
+                        $parser,
+                        $depth + 1,
+                        $options,
+                    );
                     $outputLines[] = $addBlock($bodyHtml);
                     $i             = $j;
                     continue;
@@ -504,14 +552,20 @@ class Post extends Model implements CommentableContract
                 $bodyHtml  = $this->renderMarkdownWithBlocks($body, $parser, $depth + 1, $options);
                 $labelHtml = htmlspecialchars($label, ENT_QUOTES, 'UTF-8');
 
-                $html = '<div class="md-alert md-alert-'.$type.'">'
-                    .'<div class="md-alert-title">'.$labelHtml.'</div>'
-                    .'<div class="md-alert-body">'.$bodyHtml.'</div>'
-                    .'</div>';
+                $html = '<div class="md-alert md-alert-'.
+                    $type.
+                    '">'.
+                    '<div class="md-alert-title">'.
+                    $labelHtml.
+                    '</div>'.
+                    '<div class="md-alert-body">'.
+                    $bodyHtml.
+                    '</div>'.
+                    '</div>';
 
                 return $addBlock($html);
             },
-            $markdown
+            $markdown,
         );
 
         $spoilerPattern = '/^:::spoiler(?:\s+([^\n]+))?\R([\s\S]*?)\R:::\s*$/m';
@@ -523,14 +577,18 @@ class Post extends Model implements CommentableContract
                 $bodyHtml  = $this->renderMarkdownWithBlocks($body, $parser, $depth + 1, $options);
                 $titleHtml = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
 
-                $html = '<details class="md-spoiler">'
-                    .'<summary class="md-spoiler-title">'.$titleHtml.'</summary>'
-                    .'<div class="md-spoiler-body">'.$bodyHtml.'</div>'
-                    .'</details>';
+                $html = '<details class="md-spoiler">'.
+                    '<summary class="md-spoiler-title">'.
+                    $titleHtml.
+                    '</summary>'.
+                    '<div class="md-spoiler-body">'.
+                    $bodyHtml.
+                    '</div>'.
+                    '</details>';
 
                 return $addBlock($html);
             },
-            $markdown
+            $markdown,
         );
 
         $checklistPattern = '/^:::checklist\s*\R([\s\S]*?)\R:::\s*$/m';
@@ -548,8 +606,11 @@ class Post extends Model implements CommentableContract
                     $checked  = strtolower($itemMatch[1]) === 'x';
                     $text     = trim($itemMatch[2] ?? '');
                     $itemHtml = $parser->line($text);
-                    $items[]  = '<li><label><input type="checkbox" disabled'.($checked ? ' checked' : '').' />'
-                        .$itemHtml.'</label></li>';
+                    $items[]  = '<li><label><input type="checkbox" disabled'.
+                        ($checked ? ' checked' : '').
+                        ' />'.
+                        $itemHtml.
+                        '</label></li>';
                 }
 
                 if (!$items) {
@@ -560,7 +621,7 @@ class Post extends Model implements CommentableContract
 
                 return $addBlock($html);
             },
-            $markdown
+            $markdown,
         );
 
         [$markdown, $abbreviations] = $this->parseAbbreviations($markdown);
@@ -600,7 +661,11 @@ class Post extends Model implements CommentableContract
             $plain       = in_array('plain', $flags, true) || in_array('nocard', $flags, true);
             $class       = $plain ? 'md-mermaid md-mermaid-plain' : 'md-mermaid';
 
-            return '<div class="'.$class.'" data-mermaid>'.htmlspecialchars($mermaidCode, ENT_NOQUOTES, 'UTF-8').'</div>';
+            return '<div class="'.
+                $class.
+                '" data-mermaid>'.
+                htmlspecialchars($mermaidCode, ENT_NOQUOTES, 'UTF-8').
+                '</div>';
         }
 
         $file        = $parsed['file'] ?? '';
@@ -611,18 +676,38 @@ class Post extends Model implements CommentableContract
         $lineCount   = max(1, substr_count($normalizedCode, "\n") + 1);
         $lineNumbers = implode("\n", range(1, $lineCount));
         $codeHtml    = htmlspecialchars($normalizedCode, ENT_NOQUOTES, 'UTF-8');
-        $fileHtml    = $file !== '' ? '<span class="md-code-file">'.htmlspecialchars($file, ENT_QUOTES, 'UTF-8').'</span>' : '';
-        $langHtml    = '<span class="md-code-lang '.$langClass.'" data-lang="'.htmlspecialchars($labelKey, ENT_QUOTES, 'UTF-8').'">'
-            .htmlspecialchars($label, ENT_QUOTES, 'UTF-8').'</span>';
+        $fileHtml    = $file !== ''
+                ? '<span class="md-code-file">'.htmlspecialchars($file, ENT_QUOTES, 'UTF-8').'</span>'
+                : '';
+        $langHtml = '<span class="md-code-lang '.
+            $langClass.
+            '" data-lang="'.
+            htmlspecialchars($labelKey, ENT_QUOTES, 'UTF-8').
+            '">'.
+            htmlspecialchars($label, ENT_QUOTES, 'UTF-8').
+            '</span>';
         $dataFile = $file !== '' ? ' data-file="'.htmlspecialchars($file, ENT_QUOTES, 'UTF-8').'"' : '';
 
-        return '<details class="md-code-block" data-lang="'.htmlspecialchars($normalizedLang, ENT_QUOTES, 'UTF-8').'"'.$dataFile.' open>'
-            .'<summary class="md-code-summary"><div class="md-code-header">'.$fileHtml.$langHtml.'</div></summary>'
-            .'<div class="md-code-body">'
-            .'<div class="md-code-lines" aria-hidden="true">'.$lineNumbers.'</div>'
-            .'<pre><code class="language-'.htmlspecialchars($normalizedLang, ENT_QUOTES, 'UTF-8').'">'.$codeHtml.'</code></pre>'
-            .'</div>'
-            .'</details>';
+        return '<details class="md-code-block" data-lang="'.
+            htmlspecialchars($normalizedLang, ENT_QUOTES, 'UTF-8').
+            '"'.
+            $dataFile.
+            ' open>'.
+            '<summary class="md-code-summary"><div class="md-code-header">'.
+            $fileHtml.
+            $langHtml.
+            '</div></summary>'.
+            '<div class="md-code-body">'.
+            '<div class="md-code-lines" aria-hidden="true">'.
+            $lineNumbers.
+            '</div>'.
+            '<pre><code class="language-'.
+            htmlspecialchars($normalizedLang, ENT_QUOTES, 'UTF-8').
+            '">'.
+            $codeHtml.
+            '</code></pre>'.
+            '</div>'.
+            '</details>';
     }
 
     private function parseCodeInfo(string $info): array
@@ -679,9 +764,13 @@ class Post extends Model implements CommentableContract
 
     private function wrapIframes(string $markdown, callable $addBlock): string
     {
-        return preg_replace_callback('/<iframe[\s\S]*?<\/iframe>/i', function ($matches) use ($addBlock) {
-            return $addBlock('<div class="md-embed md-embed-html">'.$matches[0].'</div>');
-        }, $markdown);
+        return preg_replace_callback(
+            '/<iframe[\s\S]*?<\/iframe>/i',
+            function ($matches) use ($addBlock) {
+                return $addBlock('<div class="md-embed md-embed-html">'.$matches[0].'</div>');
+            },
+            $markdown,
+        );
     }
 
     private function buildEmbedHtml(array $attrs): string
@@ -699,13 +788,19 @@ class Post extends Model implements CommentableContract
             $id  = $match[1] ?? $value;
             $src = "https://www.youtube-nocookie.com/embed/{$id}";
 
-            return '<div class="md-embed md-embed-'.htmlspecialchars($type, ENT_QUOTES, 'UTF-8').'">'
-                .'<iframe width="560" height="315" src="'.htmlspecialchars($src, ENT_QUOTES, 'UTF-8').'" title="'.htmlspecialchars($title, ENT_QUOTES, 'UTF-8').'"'
-                .'title="YouTube video player" frameBorder="0"'
-                .'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"'
-                .'referrerPolicy="strict-origin-when-cross-origin"'
-                .'allowFullScreen></iframe>'
-                .'</div>';
+            return '<div class="md-embed md-embed-'.
+                htmlspecialchars($type, ENT_QUOTES, 'UTF-8').
+                '">'.
+                '<iframe width="560" height="315" src="'.
+                htmlspecialchars($src, ENT_QUOTES, 'UTF-8').
+                '" title="'.
+                htmlspecialchars($title, ENT_QUOTES, 'UTF-8').
+                '"'.
+                'title="YouTube video player" frameBorder="0"'.
+                'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"'.
+                'referrerPolicy="strict-origin-when-cross-origin"'.
+                'allowFullScreen></iframe>'.
+                '</div>';
         } elseif ($type === 'vimeo') {
             preg_match('/vimeo\.com\/(\d+)/', $value, $match);
             $id    = $match[1] ?? $value;
@@ -720,10 +815,15 @@ class Post extends Model implements CommentableContract
             return '';
         }
 
-        return '<div class="md-embed md-embed-'.htmlspecialchars($type, ENT_QUOTES, 'UTF-8').'">'
-            .'<iframe src="'.htmlspecialchars($src, ENT_QUOTES, 'UTF-8').'" title="'.htmlspecialchars($title, ENT_QUOTES, 'UTF-8')
-            .'" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="no-referrer"></iframe>'
-            .'</div>';
+        return '<div class="md-embed md-embed-'.
+            htmlspecialchars($type, ENT_QUOTES, 'UTF-8').
+            '">'.
+            '<iframe src="'.
+            htmlspecialchars($src, ENT_QUOTES, 'UTF-8').
+            '" title="'.
+            htmlspecialchars($title, ENT_QUOTES, 'UTF-8').
+            '" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="no-referrer"></iframe>'.
+            '</div>';
     }
 
     private function buildFigureHtml(array $attrs, string $body, Parsedown $parser): string
@@ -731,14 +831,18 @@ class Post extends Model implements CommentableContract
         if (!isset($attrs['src'])) {
             return '';
         }
-        $caption     = $attrs['caption'] ?? $attrs['title'] ?? $body;
+        $caption     = $attrs['caption'] ?? ($attrs['title'] ?? $body);
         $captionHtml = $caption !== '' ? '<figcaption>'.$parser->line($caption).'</figcaption>' : '';
         $alt         = $attrs['alt'] ?? $caption;
 
-        return '<figure class="md-figure">'
-            .'<img src="'.htmlspecialchars($attrs['src'], ENT_QUOTES, 'UTF-8').'" alt="'.htmlspecialchars($alt, ENT_QUOTES, 'UTF-8').'" loading="lazy" />'
-            .$captionHtml
-            .'</figure>';
+        return '<figure class="md-figure">'.
+            '<img src="'.
+            htmlspecialchars($attrs['src'], ENT_QUOTES, 'UTF-8').
+            '" alt="'.
+            htmlspecialchars($alt, ENT_QUOTES, 'UTF-8').
+            '" loading="lazy" />'.
+            $captionHtml.
+            '</figure>';
     }
 
     private function buildQuoteHtml(array $attrs, string $bodyHtml): string
@@ -747,14 +851,30 @@ class Post extends Model implements CommentableContract
         $author    = $attrs['author'] ?? '';
         $page      = $attrs['page'] ?? '';
         $image     = $attrs['image'] ?? '';
-        $imageHtml = $image !== '' ? '<div class="md-quote-cover"><img src="'.htmlspecialchars($image, ENT_QUOTES, 'UTF-8').'" alt="'
-            .htmlspecialchars($title ?: 'Quote', ENT_QUOTES, 'UTF-8').'" loading="lazy" /></div>' : '';
-        $titleHtml  = $title !== '' ? '<div class="md-quote-title">'.htmlspecialchars($title, ENT_QUOTES, 'UTF-8').'</div>' : '';
-        $authorHtml = $author !== '' ? '<div class="md-quote-author">'.htmlspecialchars($author, ENT_QUOTES, 'UTF-8').'</div>' : '';
-        $pageHtml   = $page !== '' ? '<div class="md-quote-page">s. '.htmlspecialchars($page, ENT_QUOTES, 'UTF-8').'</div>' : '';
-        $metaHtml   = '<div class="md-quote-meta">'.$titleHtml.$authorHtml.$pageHtml.'</div>';
+        $imageHtml = $image !== ''
+                ? '<div class="md-quote-cover"><img src="'.
+                    htmlspecialchars($image, ENT_QUOTES, 'UTF-8').
+                    '" alt="'.
+                    htmlspecialchars($title ?: 'Quote', ENT_QUOTES, 'UTF-8').
+                    '" loading="lazy" /></div>'
+                : '';
+        $titleHtml = $title !== ''
+                ? '<div class="md-quote-title">'.htmlspecialchars($title, ENT_QUOTES, 'UTF-8').'</div>'
+                : '';
+        $authorHtml = $author !== ''
+                ? '<div class="md-quote-author">'.htmlspecialchars($author, ENT_QUOTES, 'UTF-8').'</div>'
+                : '';
+        $pageHtml = $page !== ''
+                ? '<div class="md-quote-page">s. '.htmlspecialchars($page, ENT_QUOTES, 'UTF-8').'</div>'
+                : '';
+        $metaHtml = '<div class="md-quote-meta">'.$titleHtml.$authorHtml.$pageHtml.'</div>';
 
-        return '<figure class="md-quote"><blockquote>'.$bodyHtml.'</blockquote><div class="md-quote-footer">'.$imageHtml.$metaHtml.'</div></figure>';
+        return '<figure class="md-quote"><blockquote>'.
+            $bodyHtml.
+            '</blockquote><div class="md-quote-footer">'.
+            $imageHtml.
+            $metaHtml.
+            '</div></figure>';
     }
 
     private function buildGalleryHtml(string $body, string $galleryId): string
@@ -771,37 +891,62 @@ class Post extends Model implements CommentableContract
             if ($src === '') {
                 continue;
             }
-            $titleHtml = $title !== '' ? '<span class="md-gallery-title">'.htmlspecialchars($title, ENT_QUOTES, 'UTF-8').'</span>' : '';
-            $itemsHtml .= '<button type="button" class="md-gallery-item" data-src="'.htmlspecialchars($src, ENT_QUOTES, 'UTF-8')
-                .'" data-title="'.htmlspecialchars($title, ENT_QUOTES, 'UTF-8').'">'
-                .'<img src="'.htmlspecialchars($src, ENT_QUOTES, 'UTF-8').'" alt="'
-                .htmlspecialchars($title !== '' ? $title : 'Gallery image', ENT_QUOTES, 'UTF-8').'" loading="lazy" />'
-                .$titleHtml
-                .'</button>';
+            $titleHtml = $title !== ''
+                    ? '<span class="md-gallery-title">'.htmlspecialchars($title, ENT_QUOTES, 'UTF-8').'</span>'
+                    : '';
+            $itemsHtml .=
+                '<button type="button" class="md-gallery-item" data-src="'.
+                htmlspecialchars($src, ENT_QUOTES, 'UTF-8').
+                '" data-title="'.
+                htmlspecialchars($title, ENT_QUOTES, 'UTF-8').
+                '">'.
+                '<img src="'.
+                htmlspecialchars($src, ENT_QUOTES, 'UTF-8').
+                '" alt="'.
+                htmlspecialchars($title !== '' ? $title : 'Gallery image', ENT_QUOTES, 'UTF-8').
+                '" loading="lazy" />'.
+                $titleHtml.
+                '</button>';
         }
 
         if ($itemsHtml === '') {
             return '';
         }
 
-        return '<div class="md-gallery" data-gallery="'.htmlspecialchars($galleryId, ENT_QUOTES, 'UTF-8').'">'.$itemsHtml.'</div>';
+        return '<div class="md-gallery" data-gallery="'.
+            htmlspecialchars($galleryId, ENT_QUOTES, 'UTF-8').
+            '">'.
+            $itemsHtml.
+            '</div>';
     }
 
     private function buildBubbleHtml(array $attrs, string $bodyHtml): string
     {
-        $rawSide    = strtolower($attrs['side'] ?? $attrs['position'] ?? $attrs['align'] ?? 'left');
+        $rawSide    = strtolower($attrs['side'] ?? ($attrs['position'] ?? ($attrs['align'] ?? 'left')));
         $side       = in_array($rawSide, ['left', 'right', 'top'], true) ? $rawSide : 'left';
-        $name       = $attrs['name'] ?? $attrs['character'] ?? $attrs['title'] ?? '';
-        $image      = $attrs['image'] ?? $attrs['avatar'] ?? '';
+        $name       = $attrs['name'] ?? ($attrs['character'] ?? ($attrs['title'] ?? ''));
+        $image      = $attrs['image'] ?? ($attrs['avatar'] ?? '');
         $sideClass  = 'md-bubble-'.$side;
         $avatarHtml = $image !== ''
-            ? '<div class="md-bubble-avatar"><img src="'.htmlspecialchars($image, ENT_QUOTES, 'UTF-8').'" alt="'
-                .htmlspecialchars($name ?: 'Character', ENT_QUOTES, 'UTF-8').'" loading="lazy" /></div>'
-            : '';
-        $nameHtml = $name !== '' ? '<div class="md-bubble-name">'.htmlspecialchars($name, ENT_QUOTES, 'UTF-8').'</div>' : '';
+                ? '<div class="md-bubble-avatar"><img src="'.
+                    htmlspecialchars($image, ENT_QUOTES, 'UTF-8').
+                    '" alt="'.
+                    htmlspecialchars($name ?: 'Character', ENT_QUOTES, 'UTF-8').
+                    '" loading="lazy" /></div>'
+                : '';
+        $nameHtml = $name !== ''
+                ? '<div class="md-bubble-name">'.htmlspecialchars($name, ENT_QUOTES, 'UTF-8').'</div>'
+                : '';
 
-        return '<div class="md-bubble '.$sideClass.'">'.$avatarHtml
-            .'<div class="md-bubble-content">'.$nameHtml.'<div class="md-bubble-text">'.$bodyHtml.'</div></div></div>';
+        return '<div class="md-bubble '.
+            $sideClass.
+            '">'.
+            $avatarHtml.
+            '<div class="md-bubble-content">'.
+            $nameHtml.
+            '<div class="md-bubble-text">'.
+            $bodyHtml.
+            '</div></div></div>';
     }
 
     private function extractHeadings(string $markdown): array
@@ -840,8 +985,12 @@ class Post extends Model implements CommentableContract
                 $html .= '</ul>';
                 array_pop($stack);
             }
-            $html .= '<li><a href="#'.htmlspecialchars($heading['slug'], ENT_QUOTES, 'UTF-8').'">'
-                .htmlspecialchars($heading['text'], ENT_QUOTES, 'UTF-8').'</a></li>';
+            $html .=
+                '<li><a href="#'.
+                htmlspecialchars($heading['slug'], ENT_QUOTES, 'UTF-8').
+                '">'.
+                htmlspecialchars($heading['text'], ENT_QUOTES, 'UTF-8').
+                '</a></li>';
         }
 
         while (count($stack) > 1) {
@@ -859,15 +1008,27 @@ class Post extends Model implements CommentableContract
         }
         $index = 0;
 
-        return preg_replace_callback('/<h([1-6])>(.*?)<\/h\\1>/', function ($matches) use (&$index, $headings) {
-            $slug = $headings[$index]['slug'] ?? null;
-            $index++;
-            if (!$slug) {
-                return $matches[0];
-            }
+        return preg_replace_callback(
+            '/<h([1-6])>(.*?)<\/h\\1>/',
+            function ($matches) use (&$index, $headings) {
+                $slug = $headings[$index]['slug'] ?? null;
+                $index++;
+                if (!$slug) {
+                    return $matches[0];
+                }
 
-            return '<h'.$matches[1].' id="'.htmlspecialchars($slug, ENT_QUOTES, 'UTF-8').'">'.$matches[2].'</h'.$matches[1].'>';
-        }, $html);
+                return '<h'.
+                    $matches[1].
+                    ' id="'.
+                    htmlspecialchars($slug, ENT_QUOTES, 'UTF-8').
+                    '">'.
+                    $matches[2].
+                    '</h'.
+                    $matches[1].
+                    '>';
+            },
+            $html,
+        );
     }
 
     private function parseAbbreviations(string $markdown): array
@@ -890,8 +1051,11 @@ class Post extends Model implements CommentableContract
     {
         foreach ($abbrs as $abbr => $title) {
             $pattern     = '/\b'.preg_quote($abbr, '/').'\b/';
-            $replacement = '<abbr class="md-abbr" title="'.htmlspecialchars($title, ENT_QUOTES, 'UTF-8').'">'
-                .htmlspecialchars($abbr, ENT_QUOTES, 'UTF-8').'</abbr>';
+            $replacement = '<abbr class="md-abbr" title="'.
+                htmlspecialchars($title, ENT_QUOTES, 'UTF-8').
+                '">'.
+                htmlspecialchars($abbr, ENT_QUOTES, 'UTF-8').
+                '</abbr>';
             $markdown = preg_replace($pattern, $replacement, $markdown);
         }
 
@@ -930,20 +1094,29 @@ class Post extends Model implements CommentableContract
     {
         $order    = [];
         $refs     = [];
-        $markdown = preg_replace_callback('/\[\^([^\]]+)\]/', function ($matches) use (&$order, &$refs, $notes) {
-            $key = $matches[1];
-            if (!isset($notes[$key])) {
-                return $matches[0];
-            }
-            if (!isset($refs[$key])) {
-                $order[]    = $key;
-                $refs[$key] = count($order);
-            }
-            $index = $refs[$key];
+        $markdown = preg_replace_callback(
+            '/\[\^([^\]]+)\]/',
+            function ($matches) use (&$order, &$refs, $notes) {
+                $key = $matches[1];
+                if (!isset($notes[$key])) {
+                    return $matches[0];
+                }
+                if (!isset($refs[$key])) {
+                    $order[]    = $key;
+                    $refs[$key] = count($order);
+                }
+                $index = $refs[$key];
 
-            return '<sup class="md-footnote-ref"><a href="#fn-'.htmlspecialchars($key, ENT_QUOTES, 'UTF-8').'" id="fnref-'
-                .htmlspecialchars($key, ENT_QUOTES, 'UTF-8').'">'.$index.'</a></sup>';
-        }, $markdown);
+                return '<sup class="md-footnote-ref"><a href="#fn-'.
+                    htmlspecialchars($key, ENT_QUOTES, 'UTF-8').
+                    '" id="fnref-'.
+                    htmlspecialchars($key, ENT_QUOTES, 'UTF-8').
+                    '">'.
+                    $index.
+                    '</a></sup>';
+            },
+            $markdown,
+        );
 
         return [$markdown, $order];
     }
@@ -956,9 +1129,14 @@ class Post extends Model implements CommentableContract
         $items = '';
         foreach ($order as $key) {
             $text = $notes[$key] ?? '';
-            $items .= '<li id="fn-'.htmlspecialchars($key, ENT_QUOTES, 'UTF-8').'">'
-                .$parser->line($text)
-                .' <a href="#fnref-'.htmlspecialchars($key, ENT_QUOTES, 'UTF-8').'" class="md-footnote-back">↩</a></li>';
+            $items .=
+                '<li id="fn-'.
+                htmlspecialchars($key, ENT_QUOTES, 'UTF-8').
+                '">'.
+                $parser->line($text).
+                ' <a href="#fnref-'.
+                htmlspecialchars($key, ENT_QUOTES, 'UTF-8').
+                '" class="md-footnote-back">↩</a></li>';
         }
 
         return '<section class="md-footnotes"><ol>'.$items.'</ol></section>';
@@ -967,24 +1145,36 @@ class Post extends Model implements CommentableContract
     private function autoLinkUrls(string $markdown): string
     {
         $placeholders = [];
-        $protected    = preg_replace_callback('/!?\[[^\]]*]\([^)]+\)/', function ($matches) use (&$placeholders) {
-            $placeholder    = '@@MDLINK'.count($placeholders).'@@';
-            $placeholders[] = $matches[0];
+        $protected    = preg_replace_callback(
+            '/!?\[[^\]]*]\([^)]+\)/',
+            function ($matches) use (&$placeholders) {
+                $placeholder    = '@@MDLINK'.count($placeholders).'@@';
+                $placeholders[] = $matches[0];
 
-            return $placeholder;
-        }, $markdown);
+                return $placeholder;
+            },
+            $markdown,
+        );
 
-        $linked = preg_replace_callback('/(^|[\s(>])((https?:\/\/|www\.)[^\s<]+[^\s<.,;:!?)]?)/', function ($matches) {
-            $prefix = $matches[1];
-            $url    = $matches[2];
-            if (str_contains($url, 'www.local.host')) {
-                return $prefix.$url;
-            }
-            $href = str_starts_with($url, 'http') ? $url : 'https://'.$url;
+        $linked = preg_replace_callback(
+            '/(^|[\s(>])((https?:\/\/|www\.)[^\s<]+[^\s<.,;:!?)]?)/',
+            function ($matches) {
+                $prefix = $matches[1];
+                $url    = $matches[2];
+                if (str_contains($url, 'www.local.host')) {
+                    return $prefix.$url;
+                }
+                $href = str_starts_with($url, 'http') ? $url : 'https://'.$url;
 
-            return $prefix.'<a href="'.htmlspecialchars($href, ENT_QUOTES, 'UTF-8')
-                .'" rel="noopener noreferrer" target="_blank">'.htmlspecialchars($url, ENT_QUOTES, 'UTF-8').'</a>';
-        }, $protected);
+                return $prefix.
+                    '<a href="'.
+                    htmlspecialchars($href, ENT_QUOTES, 'UTF-8').
+                    '" rel="noopener noreferrer" target="_blank">'.
+                    htmlspecialchars($url, ENT_QUOTES, 'UTF-8').
+                    '</a>';
+            },
+            $protected,
+        );
 
         foreach ($placeholders as $index => $value) {
             $linked = str_replace('@@MDLINK'.$index.'@@', $value, $linked);

@@ -46,10 +46,12 @@ class CommentController extends Controller
         }
 
         if ($isGuest) {
-            $guest = Guest::query()->createOrUpdate(GuestData::fromArray([
-                'name'  => $validated['name'] ?? null,
-                'email' => $validated['email'] ?? null,
-            ]));
+            $guest = Guest::query()->createOrUpdate(
+                GuestData::fromArray([
+                    'name'  => $validated['name'] ?? null,
+                    'email' => $validated['email'] ?? null,
+                ]),
+            );
             $commenter = $guest;
         } else {
             $commenter = $request->user();
@@ -139,10 +141,12 @@ class CommentController extends Controller
             abort(403);
         }
 
-        return Guest::query()->createOrUpdate(GuestData::fromArray([
-            'name'  => $request->input('name'),
-            'email' => $request->input('email'),
-        ]));
+        return Guest::query()->createOrUpdate(
+            GuestData::fromArray([
+                'name'  => $request->input('name'),
+                'email' => $request->input('email'),
+            ]),
+        );
     }
 
     private function findCommentForPost(Post $post, int $commentId): Comment
@@ -155,7 +159,11 @@ class CommentController extends Controller
 
         if ($comment->reply_id) {
             $parent = Comment::query()->find($comment->reply_id);
-            if ($parent && $parent->commentable_type === $post->getMorphClass() && (int) $parent->commentable_id === $post->id) {
+            if (
+                $parent &&
+                $parent->commentable_type === $post->getMorphClass() &&
+                (int) $parent->commentable_id === $post->id
+            ) {
                 return $comment;
             }
         }

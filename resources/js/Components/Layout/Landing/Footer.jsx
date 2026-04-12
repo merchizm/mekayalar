@@ -6,9 +6,9 @@ const Footer = ({ isDarkMode, setTimeBasedMode, hasManualOverride, resetToAutoma
         <footer className="mt-24 w-full">
             <div className="mx-auto max-w-screen-xl px-4 py-8">
                 <div className="mx-auto mb-8 mt-12 grid max-w-4xl grid-cols-1 gap-6 sm:grid-cols-3">
-                    <div className="group flex flex-col items-center rounded-lg border border-divider bg-background p-6 transition-all duration-300 hover:border-menu-active dark:border-divider-dark dark:bg-background-dark dark:hover:border-menu-active-dark">
+                    <div className="group flex flex-col items-center rounded-lg border border-border bg-background p-6 transition-all duration-300 hover:border-primary dark:border-border dark:bg-background dark:hover:border-primary">
                         <div className="relative mb-4">
-                            <div className="absolute inset-0 rounded-full bg-menu-active/5 blur-xl transition-all duration-300 group-hover:bg-menu-active/10 dark:bg-menu-active-dark/5 dark:group-hover:bg-menu-active-dark/10"></div>
+                            <div className="absolute inset-0 rounded-full bg-primary/5 blur-xl transition-all duration-300 group-hover:bg-primary/10 dark:bg-primary/5 dark:group-hover:bg-primary/10"></div>
                             <img
                                 src="/assets/img/ataturk-32310.png"
                                 className="relative mx-auto h-20 w-auto object-contain"
@@ -16,14 +16,18 @@ const Footer = ({ isDarkMode, setTimeBasedMode, hasManualOverride, resetToAutoma
                             />
                         </div>
                         <div className="text-center">
-                            <h3 className="mb-1 text-sm font-semibold text-text dark:text-text-dark">Halaskâr</h3>
-                            <p className="text-xs text-light-text dark:text-light-text-dark">Mustafa Kemal Atatürk</p>
+                            <h3 className="mb-1 text-sm font-semibold text-foreground dark:text-foreground">
+                                Halaskâr
+                            </h3>
+                            <p className="text-xs text-muted-foreground dark:text-muted-foreground">
+                                Mustafa Kemal Atatürk
+                            </p>
                         </div>
                     </div>
 
-                    <div className="group flex flex-col items-center rounded-lg border border-divider bg-background p-6 transition-all duration-300 hover:border-menu-active dark:border-divider-dark dark:bg-background-dark dark:hover:border-menu-active-dark">
+                    <div className="group flex flex-col items-center rounded-lg border border-border bg-background p-6 transition-all duration-300 hover:border-primary dark:border-border dark:bg-background dark:hover:border-primary">
                         <div className="relative mb-4">
-                            <div className="absolute inset-0 rounded-full bg-menu-active/5 blur-xl transition-all duration-300 group-hover:bg-menu-active/10 dark:bg-menu-active-dark/5 dark:group-hover:bg-menu-active-dark/10"></div>
+                            <div className="absolute inset-0 rounded-full bg-primary/5 blur-xl transition-all duration-300 group-hover:bg-primary/10 dark:bg-primary/5 dark:group-hover:bg-primary/10"></div>
                             <img
                                 src="/assets/img/turkiye_coat_of_army_fan_made.png"
                                 className="relative mx-auto h-24 w-auto object-contain"
@@ -31,14 +35,14 @@ const Footer = ({ isDarkMode, setTimeBasedMode, hasManualOverride, resetToAutoma
                             />
                         </div>
                         <div className="text-center">
-                            <h3 className="mb-1 text-sm font-semibold text-text dark:text-text-dark">Türkiye</h3>
-                            <p className="text-xs text-light-text dark:text-light-text-dark">Cumhuriyeti</p>
+                            <h3 className="mb-1 text-sm font-semibold text-foreground dark:text-foreground">Türkiye</h3>
+                            <p className="text-xs text-muted-foreground dark:text-muted-foreground">Cumhuriyeti</p>
                         </div>
                     </div>
 
-                    <div className="group flex flex-col items-center rounded-lg border border-divider bg-background p-6 transition-all duration-300 hover:border-menu-active dark:border-divider-dark dark:bg-background-dark dark:hover:border-menu-active-dark">
+                    <div className="group flex flex-col items-center rounded-lg border border-border bg-background p-6 transition-all duration-300 hover:border-primary dark:border-border dark:bg-background dark:hover:border-primary">
                         <div className="relative mb-4">
-                            <div className="absolute inset-0 rounded-full bg-menu-active/5 blur-xl transition-all duration-300 group-hover:bg-menu-active/10 dark:bg-menu-active-dark/5 dark:group-hover:bg-menu-active-dark/10"></div>
+                            <div className="absolute inset-0 rounded-full bg-primary/5 blur-xl transition-all duration-300 group-hover:bg-primary/10 dark:bg-primary/5 dark:group-hover:bg-primary/10"></div>
                             <img
                                 src="/assets/img/tatarstan_coat_of_army.png"
                                 className="relative mx-auto h-20 w-auto object-contain"
@@ -46,8 +50,10 @@ const Footer = ({ isDarkMode, setTimeBasedMode, hasManualOverride, resetToAutoma
                             />
                         </div>
                         <div className="text-center">
-                            <h3 className="mb-1 text-sm font-semibold text-text dark:text-text-dark">Tatarstan</h3>
-                            <p className="text-xs text-light-text dark:text-light-text-dark">Respublikasy</p>
+                            <h3 className="mb-1 text-sm font-semibold text-foreground dark:text-foreground">
+                                Tatarstan
+                            </h3>
+                            <p className="text-xs text-muted-foreground dark:text-muted-foreground">Respublikasy</p>
                         </div>
                     </div>
                 </div>
@@ -61,11 +67,11 @@ const Footer = ({ isDarkMode, setTimeBasedMode, hasManualOverride, resetToAutoma
                     />
                 </div>
 
-                <div className="mt-8 text-center text-sm text-light-text dark:text-light-text-dark">
+                <div className="mt-8 text-center text-sm text-muted-foreground dark:text-muted-foreground">
                     <div className="flex items-center justify-center gap-2">
                         <span>© 2021-{new Date().getFullYear()}</span>
                         <div className="flex flex-row items-center justify-center gap-1">
-                            <svg className="h-3 w-3 fill-text dark:fill-text-dark" viewBox="0 0 700.00001 700">
+                            <svg className="h-3 w-3 fill-foreground dark:fill-foreground" viewBox="0 0 700.00001 700">
                                 <g transform="translate(1252.3164,-304.67969)">
                                     <path
                                         style={{

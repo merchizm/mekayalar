@@ -21,7 +21,7 @@ export default function CvIndex({ sections, cvData, settings }) {
     };
 
     const getProgressColor = (progress) => {
-        if (progress === 0) return 'bg-gray-300';
+        if (progress === 0) return 'bg-accent';
         if (progress < 50) return 'bg-red-400';
         if (progress < 100) return 'bg-yellow-400';
         return 'bg-green-400';
@@ -101,25 +101,27 @@ export default function CvIndex({ sections, cvData, settings }) {
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">CV Yönetimi</h1>
-                        <p className="text-gray-600 dark:text-gray-400">Kişisel CV bilgilerinizi yönetin</p>
+                        <h1 className="text-2xl font-bold text-foreground dark:text-foreground">CV Yönetimi</h1>
+                        <p className="text-muted-foreground dark:text-muted-foreground">
+                            Kişisel CV bilgilerinizi yönetin
+                        </p>
                     </div>
                     <div className="flex space-x-3">
                         <Link
                             href={route('admin.cv.preview')}
-                            className="rounded-lg bg-blue-600 px-4 py-2 font-medium text-white transition-colors hover:bg-blue-700"
+                            className="rounded-lg bg-primary px-4 py-2 font-medium text-white transition-colors hover:bg-primary"
                         >
                             CV Önizleme
                         </Link>
                         <Link
                             href={route('admin.cv.download_pdf')}
-                            className="rounded-lg bg-green-600 px-4 py-2 font-medium text-white transition-colors hover:bg-green-700"
+                            className="rounded-lg bg-success px-4 py-2 font-medium text-white transition-colors hover:bg-success"
                         >
                             PDF İndir
                         </Link>
                         <Link
                             href={route('admin.cv.settings')}
-                            className="rounded-lg bg-gray-600 px-4 py-2 font-medium text-white transition-colors hover:bg-gray-700"
+                            className="rounded-lg bg-accent px-4 py-2 font-medium text-white transition-colors hover:bg-secondary"
                         >
                             Ayarlar
                         </Link>
@@ -128,11 +130,11 @@ export default function CvIndex({ sections, cvData, settings }) {
 
                 {/* Quick Stats */}
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
-                    <div className="rounded-lg bg-white p-6 shadow dark:bg-gray-800">
+                    <div className="rounded-lg bg-card p-6 shadow dark:bg-card">
                         <div className="flex items-center">
                             <div className="rounded-lg bg-blue-100 p-3 dark:bg-blue-900">
                                 <svg
-                                    className="h-6 w-6 text-blue-600 dark:text-blue-400"
+                                    className="h-6 w-6 text-primary dark:text-primary"
                                     fill="none"
                                     stroke="currentColor"
                                     viewBox="0 0 24 24"
@@ -146,10 +148,10 @@ export default function CvIndex({ sections, cvData, settings }) {
                                 </svg>
                             </div>
                             <div className="ml-4">
-                                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                                <p className="text-sm font-medium text-muted-foreground dark:text-muted-foreground">
                                     Tamamlanan Bölümler (TR)
                                 </p>
-                                <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                                <p className="text-2xl font-bold text-foreground dark:text-foreground">
                                     {sections.filter((section) => getSectionProgress(section, 'tr') === 100).length}/
                                     {sections.length}
                                 </p>
@@ -157,11 +159,11 @@ export default function CvIndex({ sections, cvData, settings }) {
                         </div>
                     </div>
 
-                    <div className="rounded-lg bg-white p-6 shadow dark:bg-gray-800">
+                    <div className="rounded-lg bg-card p-6 shadow dark:bg-card">
                         <div className="flex items-center">
                             <div className="rounded-lg bg-green-100 p-3 dark:bg-green-900">
                                 <svg
-                                    className="h-6 w-6 text-green-600 dark:text-green-400"
+                                    className="h-6 w-6 text-success dark:text-success"
                                     fill="none"
                                     stroke="currentColor"
                                     viewBox="0 0 24 24"
@@ -175,10 +177,10 @@ export default function CvIndex({ sections, cvData, settings }) {
                                 </svg>
                             </div>
                             <div className="ml-4">
-                                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                                <p className="text-sm font-medium text-muted-foreground dark:text-muted-foreground">
                                     Tamamlanan Bölümler (EN)
                                 </p>
-                                <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                                <p className="text-2xl font-bold text-foreground dark:text-foreground">
                                     {sections.filter((section) => getSectionProgress(section, 'en') === 100).length}/
                                     {sections.length}
                                 </p>
@@ -186,7 +188,7 @@ export default function CvIndex({ sections, cvData, settings }) {
                         </div>
                     </div>
 
-                    <div className="rounded-lg bg-white p-6 shadow dark:bg-gray-800">
+                    <div className="rounded-lg bg-card p-6 shadow dark:bg-card">
                         <div className="flex items-center">
                             <div className="rounded-lg bg-purple-100 p-3 dark:bg-purple-900">
                                 <svg
@@ -210,15 +212,17 @@ export default function CvIndex({ sections, cvData, settings }) {
                                 </svg>
                             </div>
                             <div className="ml-4">
-                                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Görünürlük</p>
-                                <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                                <p className="text-sm font-medium text-muted-foreground dark:text-muted-foreground">
+                                    Görünürlük
+                                </p>
+                                <p className="text-2xl font-bold text-foreground dark:text-foreground">
                                     {settings.visibility?.show_on_public_site ? 'Aktif' : 'Pasif'}
                                 </p>
                             </div>
                         </div>
                     </div>
 
-                    <div className="rounded-lg bg-white p-6 shadow dark:bg-gray-800">
+                    <div className="rounded-lg bg-card p-6 shadow dark:bg-card">
                         <div className="flex items-center">
                             <div className="rounded-lg bg-orange-100 p-3 dark:bg-orange-900">
                                 <svg
@@ -236,8 +240,10 @@ export default function CvIndex({ sections, cvData, settings }) {
                                 </svg>
                             </div>
                             <div className="ml-4">
-                                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Şablon</p>
-                                <p className="text-2xl font-bold capitalize text-gray-900 dark:text-white">
+                                <p className="text-sm font-medium text-muted-foreground dark:text-muted-foreground">
+                                    Şablon
+                                </p>
+                                <p className="text-2xl font-bold capitalize text-foreground dark:text-foreground">
                                     {settings.template?.template || 'Modern'}
                                 </p>
                             </div>
@@ -246,9 +252,9 @@ export default function CvIndex({ sections, cvData, settings }) {
                 </div>
 
                 {/* CV Sections */}
-                <div className="rounded-lg bg-white shadow dark:bg-gray-800">
-                    <div className="border-b border-gray-200 px-6 py-4 dark:border-gray-700">
-                        <h2 className="text-lg font-semibold text-gray-900 dark:text-white">CV Bölümleri</h2>
+                <div className="rounded-lg bg-card shadow dark:bg-card">
+                    <div className="border-b border-border px-6 py-4 dark:border-border">
+                        <h2 className="text-lg font-semibold text-foreground dark:text-foreground">CV Bölümleri</h2>
                     </div>
                     <div className="divide-y divide-gray-200 dark:divide-gray-700">
                         {sections.map((section) => {
@@ -288,18 +294,18 @@ export default function CvIndex({ sections, cvData, settings }) {
                             return (
                                 <div
                                     key={section.id}
-                                    className="dark:hover:bg-gray-750 p-6 transition-colors hover:bg-gray-50"
+                                    className="p-6 transition-colors hover:bg-secondary/70 dark:hover:bg-accent"
                                 >
                                     <div className="flex items-center justify-between">
                                         <div className="flex items-center space-x-4">
-                                            <div className="flex-shrink-0 text-gray-400 dark:text-gray-500">
+                                            <div className="flex-shrink-0 text-muted-foreground dark:text-muted-foreground">
                                                 {getSectionIcon(section.icon)}
                                             </div>
                                             <div>
-                                                <h3 className="text-lg font-medium text-gray-900 dark:text-white">
+                                                <h3 className="text-lg font-medium text-foreground dark:text-foreground">
                                                     {section.title_translations?.tr || section.name}
                                                 </h3>
-                                                <p className="text-sm text-gray-500 dark:text-gray-400">
+                                                <p className="text-sm text-muted-foreground dark:text-muted-foreground">
                                                     🇹🇷 {itemCountTr} öğe • {progressTr}% | 🇬🇧 {itemCountEn} öğe •{' '}
                                                     {progressEn}%
                                                 </p>
@@ -309,13 +315,13 @@ export default function CvIndex({ sections, cvData, settings }) {
                                         <div className="flex items-center space-x-4">
                                             {/* Progress Bars */}
                                             <div className="flex flex-col space-y-1">
-                                                <div className="h-2 w-32 rounded-full bg-gray-200 dark:bg-gray-700">
+                                                <div className="h-2 w-32 rounded-full bg-accent dark:bg-secondary">
                                                     <div
                                                         className={`h-2 rounded-full transition-all duration-300 ${getProgressColor(progressTr)}`}
                                                         style={{ width: `${progressTr}%` }}
                                                     ></div>
                                                 </div>
-                                                <div className="h-2 w-32 rounded-full bg-gray-200 dark:bg-gray-700">
+                                                <div className="h-2 w-32 rounded-full bg-accent dark:bg-secondary">
                                                     <div
                                                         className={`h-2 rounded-full transition-all duration-300 ${getProgressColor(progressEn)}`}
                                                         style={{ width: `${progressEn}%` }}
@@ -326,7 +332,7 @@ export default function CvIndex({ sections, cvData, settings }) {
                                             {/* Edit Button */}
                                             <Link
                                                 href={route('admin.cv.section.edit', section.name)}
-                                                className="rounded-lg bg-blue-600 px-4 py-2 font-medium text-white transition-colors hover:bg-blue-700"
+                                                className="rounded-lg bg-primary px-4 py-2 font-medium text-white transition-colors hover:bg-primary"
                                             >
                                                 Düzenle
                                             </Link>

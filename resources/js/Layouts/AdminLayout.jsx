@@ -4,7 +4,7 @@ import { Toaster } from 'react-hot-toast';
 
 export default function AdminLayout({ user, children }) {
     return (
-        <div className="flex h-screen bg-gray-100 dark:bg-gray-800">
+        <div className="flex h-screen bg-sidebar text-sidebar-foreground">
             <Toaster position="top-center" reverseOrder={false} />
             <Sidebar user={user} />
             <div className="flex flex-1 flex-col pt-16 lg:pt-0">

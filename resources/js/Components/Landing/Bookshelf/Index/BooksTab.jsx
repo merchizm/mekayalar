@@ -31,8 +31,8 @@ const BooksTab = ({ books = [] }) => {
                         onClick={() => setStatus(option.key)}
                         className={`interactive-pill rounded-full px-4 py-2 text-sm font-semibold transition ${
                             status === option.key
-                                ? 'bg-menu-active text-white dark:bg-menu-active-dark dark:text-text-dark'
-                                : 'bg-button text-text dark:bg-button-dark dark:text-text-dark'
+                                ? 'bg-primary text-white dark:bg-primary dark:text-foreground'
+                                : 'bg-secondary text-foreground dark:bg-secondary dark:text-foreground'
                         }`}
                     >
                         {option.label}
@@ -45,9 +45,9 @@ const BooksTab = ({ books = [] }) => {
                         <Link
                             key={book.id}
                             href={route('books.show', { book: book.slug })}
-                            className="surface-lift group overflow-hidden rounded-3xl border border-divider bg-background shadow-sm transition hover:-translate-y-1 hover:shadow-lg dark:border-divider-dark dark:bg-repository-card-bg-dark"
+                            className="surface-lift group overflow-hidden rounded-3xl border border-border bg-background shadow-sm transition hover:-translate-y-1 hover:shadow-lg dark:border-border dark:bg-card"
                         >
-                            <div className="aspect-[4/5] overflow-hidden bg-divider/40 dark:bg-divider-dark/40">
+                            <div className="aspect-[4/5] overflow-hidden bg-border/40 dark:bg-border/40">
                                 {book.cover_image ? (
                                     <img
                                         src={book.cover_image}
@@ -55,16 +55,23 @@ const BooksTab = ({ books = [] }) => {
                                         className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                                     />
                                 ) : (
-                                    <div className="flex h-full items-center justify-center text-sm text-light-text dark:text-light-text-dark">
+                                    <div className="flex h-full items-center justify-center text-sm text-muted-foreground dark:text-muted-foreground">
                                         Kapak yok
                                     </div>
                                 )}
                             </div>
                             <div className="p-5">
-                                <h3 className="line-clamp-2 text-xl font-bold text-text dark:text-text-dark">{book.title}</h3>
-                                <p className="mt-2 text-sm text-light-text dark:text-light-text-dark">{book.author}</p>
-                                <div className="mt-4 flex items-center justify-between text-xs text-light-text dark:text-light-text-dark">
-                                    <span>{statusOptions.find((option) => option.key === book.status)?.label || book.status}</span>
+                                <h3 className="line-clamp-2 text-xl font-bold text-foreground dark:text-foreground">
+                                    {book.title}
+                                </h3>
+                                <p className="mt-2 text-sm text-muted-foreground dark:text-muted-foreground">
+                                    {book.author}
+                                </p>
+                                <div className="mt-4 flex items-center justify-between text-xs text-muted-foreground dark:text-muted-foreground">
+                                    <span>
+                                        {statusOptions.find((option) => option.key === book.status)?.label ||
+                                            book.status}
+                                    </span>
                                     <span>{book.rating ? `${book.rating}/10` : 'Puan yok'}</span>
                                 </div>
                             </div>
@@ -72,10 +79,10 @@ const BooksTab = ({ books = [] }) => {
                     ))}
                 </div>
             ) : (
-                <div className="my-5 rounded-2xl border-2 border-dashed border-divider bg-background py-24 text-center dark:border-divider-dark dark:bg-repository-card-bg-dark">
+                <div className="my-5 rounded-2xl border-2 border-dashed border-border bg-background py-24 text-center dark:border-border dark:bg-card">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="mx-auto mb-6 h-20 w-20 text-light-text dark:text-dark-text-dark"
+                        className="mx-auto mb-6 h-20 w-20 text-muted-foreground dark:text-muted-foreground"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -87,8 +94,10 @@ const BooksTab = ({ books = [] }) => {
                             d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
                         />
                     </svg>
-                    <h2 className="mb-3 text-3xl font-bold text-text dark:text-text-dark">{__('Kitap Bulunamadı')}</h2>
-                    <p className="text-center text-xl text-light-text dark:text-light-text-dark">
+                    <h2 className="mb-3 text-3xl font-bold text-foreground dark:text-foreground">
+                        {__('Kitap Bulunamadı')}
+                    </h2>
+                    <p className="text-center text-xl text-muted-foreground dark:text-muted-foreground">
                         {__('Bu filtrede gösterilecek kitap yok.')}
                     </p>
                 </div>

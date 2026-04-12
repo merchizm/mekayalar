@@ -7,18 +7,18 @@ export default function FolderItem({ folder, onFolderClick, viewMode = 'list' })
     if (viewMode === 'grid') {
         return (
             <div
-                className="group cursor-pointer rounded-lg border border-gray-200 p-4 transition-colors duration-200 hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-700"
+                className="group cursor-pointer rounded-lg border border-border p-4 transition-colors duration-200 hover:bg-secondary/70 dark:border-border dark:hover:bg-secondary"
                 onClick={() => onFolderClick(folder.name)}
             >
                 <div className="flex flex-col items-center text-center">
                     <FolderIcon className="mb-3 h-12 w-12 transition-transform duration-200 group-hover:scale-110" />
                     <span
-                        className="w-full truncate text-sm font-medium text-gray-800 dark:text-gray-200"
+                        className="w-full truncate text-sm font-medium text-foreground dark:text-foreground"
                         title={folderName}
                     >
                         {folderName}
                     </span>
-                    <small className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                    <small className="mt-1 text-xs text-muted-foreground dark:text-muted-foreground">
                         {new Date(folder.creation_time).toLocaleDateString()}
                     </small>
                 </div>
@@ -28,14 +28,14 @@ export default function FolderItem({ folder, onFolderClick, viewMode = 'list' })
 
     return (
         <li
-            className="group flex cursor-pointer items-center border-b border-gray-100 px-4 py-3 transition-colors duration-200 last:border-b-0 hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-700"
+            className="group flex cursor-pointer items-center border-b border-border px-4 py-3 transition-colors duration-200 last:border-b-0 hover:bg-secondary/70 dark:border-border dark:hover:bg-secondary"
             onClick={() => onFolderClick(folder.name)}
         >
             <FolderIcon className="mr-3 h-8 w-8 transition-transform duration-200 group-hover:scale-110" />
-            <span className="flex-grow text-sm font-medium text-gray-800 dark:text-gray-200">{folderName}</span>
+            <span className="flex-grow text-sm font-medium text-foreground dark:text-foreground">{folderName}</span>
             <div className="flex flex-col items-end">
-                <small className="text-gray-500 dark:text-gray-400">Klasör</small>
-                <small className="text-xs text-gray-400 dark:text-gray-500">
+                <small className="text-muted-foreground dark:text-muted-foreground">Klasör</small>
+                <small className="text-xs text-muted-foreground dark:text-muted-foreground">
                     {new Date(folder.creation_time).toLocaleDateString()}
                 </small>
             </div>

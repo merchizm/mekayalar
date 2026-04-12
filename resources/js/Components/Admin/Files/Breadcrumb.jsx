@@ -19,9 +19,9 @@ export default function Breadcrumb({ path, onPathClick }) {
                 <li className="inline-flex items-center">
                     <button
                         onClick={() => handleCrumbClick(-1)}
-                        className="inline-flex items-center rounded-md px-2 py-1 text-sm font-medium text-gray-700 transition-colors duration-200 hover:bg-gray-100 hover:text-blue-600 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                        className="inline-flex items-center rounded-md px-2 py-1 text-sm font-medium text-muted-foreground transition-colors duration-200 hover:bg-secondary hover:text-primary dark:text-muted-foreground dark:hover:bg-secondary dark:hover:text-white"
                     >
-                        <HomeIcon className="mr-2 h-4 w-4 text-gray-500" />
+                        <HomeIcon className="mr-2 h-4 w-4 text-muted-foreground" />
                         Root
                     </button>
                 </li>
@@ -30,10 +30,10 @@ export default function Breadcrumb({ path, onPathClick }) {
                         part && (
                             <li key={index}>
                                 <div className="flex items-center">
-                                    <ChevronRightIcon className="mx-1 text-gray-400" />
+                                    <ChevronRightIcon className="mx-1 text-muted-foreground" />
                                     <button
                                         onClick={() => handleCrumbClick(index)}
-                                        className="ml-1 rounded-md px-2 py-1 text-sm font-medium text-gray-700 transition-colors duration-200 hover:bg-gray-100 hover:text-blue-600 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:ml-2"
+                                        className="ml-1 rounded-md px-2 py-1 text-sm font-medium text-muted-foreground transition-colors duration-200 hover:bg-secondary hover:text-primary dark:text-muted-foreground dark:hover:bg-secondary dark:hover:text-white md:ml-2"
                                     >
                                         {part}
                                     </button>

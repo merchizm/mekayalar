@@ -13,7 +13,8 @@ class BookController extends Controller
     {
         abort_unless($book->is_public, 404);
 
-        $quotePosts = $book->posts()
+        $quotePosts = $book
+            ->posts()
             ->where('post_status', PostEnum::PUBLISHED)
             ->where('type', '3')
             ->with(['books', 'albumItems'])

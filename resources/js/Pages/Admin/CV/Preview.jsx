@@ -20,19 +20,21 @@ export default function CvPreview({ cvData, settings }) {
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">CV Önizleme</h1>
-                        <p className="text-gray-600 dark:text-gray-400">CV'nizin son halini görüntüleyin</p>
+                        <h1 className="text-2xl font-bold text-foreground dark:text-foreground">CV Önizleme</h1>
+                        <p className="text-muted-foreground dark:text-muted-foreground">
+                            CV'nizin son halini görüntüleyin
+                        </p>
                     </div>
                     <div className="flex space-x-3">
                         <a
                             href={route('admin.cv.download_pdf')}
-                            className="rounded-lg bg-green-600 px-4 py-2 font-medium text-white transition-colors hover:bg-green-700"
+                            className="rounded-lg bg-success px-4 py-2 font-medium text-white transition-colors hover:bg-success"
                         >
                             PDF İndir
                         </a>
                         <a
                             href={route('admin.cv.index')}
-                            className="rounded-lg bg-gray-600 px-4 py-2 font-medium text-white transition-colors hover:bg-gray-700"
+                            className="rounded-lg bg-accent px-4 py-2 font-medium text-white transition-colors hover:bg-secondary"
                         >
                             Geri Dön
                         </a>
@@ -40,14 +42,14 @@ export default function CvPreview({ cvData, settings }) {
                 </div>
 
                 {/* Language Selector */}
-                <div className="rounded-lg bg-white p-4 shadow dark:bg-gray-800">
-                    <div className="flex max-w-xs space-x-1 rounded-lg bg-gray-100 p-1 dark:bg-gray-700">
+                <div className="rounded-lg bg-card p-4 shadow dark:bg-card">
+                    <div className="flex max-w-xs space-x-1 rounded-lg bg-secondary p-1 dark:bg-secondary">
                         <button
                             onClick={() => setSelectedLanguage('tr')}
                             className={`flex-1 rounded-md px-4 py-2 text-sm font-medium transition-colors ${
                                 selectedLanguage === 'tr'
-                                    ? 'bg-white text-gray-900 shadow dark:bg-gray-600 dark:text-white'
-                                    : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'
+                                    ? 'bg-card text-foreground shadow dark:bg-accent dark:text-foreground'
+                                    : 'text-muted-foreground hover:text-muted-foreground dark:text-muted-foreground dark:hover:text-muted-foreground'
                             }`}
                         >
                             🇹🇷 Türkçe
@@ -56,8 +58,8 @@ export default function CvPreview({ cvData, settings }) {
                             onClick={() => setSelectedLanguage('en')}
                             className={`flex-1 rounded-md px-4 py-2 text-sm font-medium transition-colors ${
                                 selectedLanguage === 'en'
-                                    ? 'bg-white text-gray-900 shadow dark:bg-gray-600 dark:text-white'
-                                    : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'
+                                    ? 'bg-card text-foreground shadow dark:bg-accent dark:text-foreground'
+                                    : 'text-muted-foreground hover:text-muted-foreground dark:text-muted-foreground dark:hover:text-muted-foreground'
                             }`}
                         >
                             🇬🇧 English
@@ -66,24 +68,24 @@ export default function CvPreview({ cvData, settings }) {
                 </div>
 
                 {/* CV Preview */}
-                <div className="rounded-lg bg-white shadow-lg dark:bg-gray-800">
+                <div className="rounded-lg bg-card shadow-lg dark:bg-card">
                     <div className="mx-auto max-w-4xl p-8">
-                        <div className="min-h-screen rounded-lg border border-gray-200 bg-white p-8">
+                        <div className="min-h-screen rounded-lg border border-border bg-card p-8">
                             {/* Header */}
-                            <div className="mb-8 border-b border-gray-200 pb-6 text-center">
+                            <div className="mb-8 border-b border-border pb-6 text-center">
                                 <h1
-                                    className="mb-2 text-3xl font-bold text-gray-900"
+                                    className="mb-2 text-3xl font-bold text-foreground"
                                     style={{ color: settings.template?.colors?.primary || '#2563eb' }}
                                 >
                                     {currentData.personal_info?.full_name || 'Ad Soyad'}
                                 </h1>
                                 <h2
-                                    className="mb-4 text-lg text-gray-600"
+                                    className="mb-4 text-lg text-muted-foreground"
                                     style={{ color: settings.template?.colors?.secondary || '#1f2937' }}
                                 >
                                     {currentData.personal_info?.title || 'Meslek/Unvan'}
                                 </h2>
-                                <div className="space-y-1 text-gray-600">
+                                <div className="space-y-1 text-muted-foreground">
                                     {currentData.personal_info?.email && <div>{currentData.personal_info.email}</div>}
                                     {currentData.personal_info?.phone && <div>{currentData.personal_info.phone}</div>}
                                     {currentData.personal_info?.location && (
@@ -99,13 +101,13 @@ export default function CvPreview({ cvData, settings }) {
                             {currentData.summary?.professional_summary && (
                                 <div className="mb-8">
                                     <h3
-                                        className="mb-3 border-b border-gray-200 pb-1 text-xl font-semibold text-gray-900"
+                                        className="mb-3 border-b border-border pb-1 text-xl font-semibold text-foreground"
                                         style={{ color: settings.template?.colors?.primary || '#2563eb' }}
                                     >
                                         {selectedLanguage === 'tr' ? 'Profesyonel Özet' : 'Professional Summary'}
                                     </h3>
                                     <p
-                                        className="rounded-lg border-l-4 bg-gray-50 p-4 leading-relaxed text-gray-700"
+                                        className="rounded-lg border-l-4 bg-secondary/70 p-4 leading-relaxed text-muted-foreground"
                                         style={{ borderColor: settings.template?.colors?.primary || '#2563eb' }}
                                     >
                                         {currentData.summary.professional_summary}
@@ -117,7 +119,7 @@ export default function CvPreview({ cvData, settings }) {
                             {currentData.experience && currentData.experience.length > 0 && (
                                 <div className="mb-8">
                                     <h3
-                                        className="mb-4 border-b border-gray-200 pb-1 text-xl font-semibold text-gray-900"
+                                        className="mb-4 border-b border-border pb-1 text-xl font-semibold text-foreground"
                                         style={{ color: settings.template?.colors?.primary || '#2563eb' }}
                                     >
                                         {selectedLanguage === 'tr' ? 'İş Deneyimi' : 'Work Experience'}
@@ -131,13 +133,15 @@ export default function CvPreview({ cvData, settings }) {
                                             >
                                                 <div className="mb-2 flex items-start justify-between">
                                                     <div>
-                                                        <h4 className="font-semibold text-gray-900">{exp.position}</h4>
-                                                        <div className="text-gray-600">
+                                                        <h4 className="font-semibold text-foreground">
+                                                            {exp.position}
+                                                        </h4>
+                                                        <div className="text-muted-foreground">
                                                             {exp.company}
                                                             {exp.location && `, ${exp.location}`}
                                                         </div>
                                                     </div>
-                                                    <div className="ml-4 whitespace-nowrap text-sm text-gray-500">
+                                                    <div className="ml-4 whitespace-nowrap text-sm text-muted-foreground">
                                                         {formatDate(exp.start_date)} -{' '}
                                                         {exp.end_date
                                                             ? formatDate(exp.end_date)
@@ -147,7 +151,9 @@ export default function CvPreview({ cvData, settings }) {
                                                     </div>
                                                 </div>
                                                 {exp.description && (
-                                                    <p className="mb-2 text-sm text-gray-700">{exp.description}</p>
+                                                    <p className="mb-2 text-sm text-muted-foreground">
+                                                        {exp.description}
+                                                    </p>
                                                 )}
                                             </div>
                                         ))}
@@ -159,7 +165,7 @@ export default function CvPreview({ cvData, settings }) {
                             {currentData.skills && Object.keys(currentData.skills).length > 0 && (
                                 <div className="mb-8">
                                     <h3
-                                        className="mb-4 border-b border-gray-200 pb-1 text-xl font-semibold text-gray-900"
+                                        className="mb-4 border-b border-border pb-1 text-xl font-semibold text-foreground"
                                         style={{ color: settings.template?.colors?.primary || '#2563eb' }}
                                     >
                                         {selectedLanguage === 'tr' ? 'Yetenekler' : 'Skills'}
@@ -168,7 +174,7 @@ export default function CvPreview({ cvData, settings }) {
                                         {Object.entries(currentData.skills).map(([category, skills]) => (
                                             <div key={category}>
                                                 <h4
-                                                    className="mb-2 font-medium text-gray-900"
+                                                    className="mb-2 font-medium text-foreground"
                                                     style={{ color: settings.template?.colors?.secondary || '#1f2937' }}
                                                 >
                                                     {category}
@@ -177,7 +183,7 @@ export default function CvPreview({ cvData, settings }) {
                                                     {skills.map((skill, index) => (
                                                         <span
                                                             key={index}
-                                                            className="rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-700"
+                                                            className="rounded-full bg-secondary px-3 py-1 text-sm text-muted-foreground"
                                                         >
                                                             {skill.skill_name}
                                                             {skill.level && ` (${skill.level})`}
@@ -194,18 +200,18 @@ export default function CvPreview({ cvData, settings }) {
                             {currentData.projects && currentData.projects.length > 0 && (
                                 <div className="mb-8">
                                     <h3
-                                        className="mb-4 border-b border-gray-200 pb-1 text-xl font-semibold text-gray-900"
+                                        className="mb-4 border-b border-border pb-1 text-xl font-semibold text-foreground"
                                         style={{ color: settings.template?.colors?.primary || '#2563eb' }}
                                     >
                                         {selectedLanguage === 'tr' ? 'Projeler' : 'Projects'}
                                     </h3>
                                     <div className="space-y-4">
                                         {currentData.projects.map((project, index) => (
-                                            <div key={index} className="rounded-lg bg-gray-50 p-4">
+                                            <div key={index} className="rounded-lg bg-secondary/70 p-4">
                                                 <div className="mb-2 flex items-start justify-between">
-                                                    <h4 className="font-semibold text-gray-900">{project.name}</h4>
+                                                    <h4 className="font-semibold text-foreground">{project.name}</h4>
                                                     {project.is_from_projects && (
-                                                        <span className="rounded bg-blue-100 px-2 py-1 text-xs text-blue-800">
+                                                        <span className="rounded bg-blue-100 px-2 py-1 text-xs text-primary">
                                                             {selectedLanguage === 'tr'
                                                                 ? 'Projelerden'
                                                                 : 'From Projects'}
@@ -213,10 +219,12 @@ export default function CvPreview({ cvData, settings }) {
                                                     )}
                                                 </div>
                                                 {project.description && (
-                                                    <p className="mb-2 text-sm text-gray-700">{project.description}</p>
+                                                    <p className="mb-2 text-sm text-muted-foreground">
+                                                        {project.description}
+                                                    </p>
                                                 )}
                                                 {project.technologies && (
-                                                    <div className="mb-2 text-xs text-gray-500">
+                                                    <div className="mb-2 text-xs text-muted-foreground">
                                                         <strong>
                                                             {selectedLanguage === 'tr'
                                                                 ? 'Teknolojiler:'
@@ -227,7 +235,7 @@ export default function CvPreview({ cvData, settings }) {
                                                             : project.technologies.join(', ')}
                                                     </div>
                                                 )}
-                                                <div className="space-y-1 text-xs text-gray-500">
+                                                <div className="space-y-1 text-xs text-muted-foreground">
                                                     {project.url && <div>URL: {project.url}</div>}
                                                     {project.github && project.github !== project.url && (
                                                         <div>GitHub: {project.github}</div>
@@ -243,7 +251,7 @@ export default function CvPreview({ cvData, settings }) {
                             {currentData.education && currentData.education.length > 0 && (
                                 <div className="mb-8">
                                     <h3
-                                        className="mb-4 border-b border-gray-200 pb-1 text-xl font-semibold text-gray-900"
+                                        className="mb-4 border-b border-border pb-1 text-xl font-semibold text-foreground"
                                         style={{ color: settings.template?.colors?.primary || '#2563eb' }}
                                     >
                                         {selectedLanguage === 'tr' ? 'Eğitim' : 'Education'}
@@ -253,16 +261,18 @@ export default function CvPreview({ cvData, settings }) {
                                             <div key={index}>
                                                 <div className="flex items-start justify-between">
                                                     <div>
-                                                        <h4 className="font-semibold text-gray-900">{edu.degree}</h4>
-                                                        <div className="text-gray-600">{edu.institution}</div>
+                                                        <h4 className="font-semibold text-foreground">{edu.degree}</h4>
+                                                        <div className="text-muted-foreground">{edu.institution}</div>
                                                         {edu.gpa && (
-                                                            <div className="text-sm text-gray-500">
+                                                            <div className="text-sm text-muted-foreground">
                                                                 {selectedLanguage === 'tr' ? 'Not Ortalaması:' : 'GPA:'}{' '}
                                                                 {edu.gpa}
                                                             </div>
                                                         )}
                                                     </div>
-                                                    <div className="text-sm text-gray-500">{edu.graduation_year}</div>
+                                                    <div className="text-sm text-muted-foreground">
+                                                        {edu.graduation_year}
+                                                    </div>
                                                 </div>
                                             </div>
                                         ))}
@@ -273,7 +283,7 @@ export default function CvPreview({ cvData, settings }) {
                             {/* Empty State */}
                             {Object.keys(currentData).length === 0 && (
                                 <div className="py-12 text-center">
-                                    <div className="mb-4 text-gray-400">
+                                    <div className="mb-4 text-muted-foreground">
                                         <svg
                                             className="mx-auto h-16 w-16"
                                             fill="none"
@@ -288,17 +298,17 @@ export default function CvPreview({ cvData, settings }) {
                                             />
                                         </svg>
                                     </div>
-                                    <h3 className="mb-2 text-lg font-medium text-gray-900">
+                                    <h3 className="mb-2 text-lg font-medium text-foreground">
                                         {selectedLanguage === 'tr' ? 'Henüz CV bilgisi yok' : 'No CV data yet'}
                                     </h3>
-                                    <p className="mb-4 text-gray-600">
+                                    <p className="mb-4 text-muted-foreground">
                                         {selectedLanguage === 'tr'
                                             ? 'CV bölümlerini doldurmaya başlayın'
                                             : 'Start filling out your CV sections'}
                                     </p>
                                     <a
                                         href={route('admin.cv.index')}
-                                        className="inline-flex items-center rounded-lg bg-blue-600 px-4 py-2 text-white transition-colors hover:bg-blue-700"
+                                        className="inline-flex items-center rounded-lg bg-primary px-4 py-2 text-white transition-colors hover:bg-primary"
                                     >
                                         {selectedLanguage === 'tr' ? 'CV Düzenlemeye Git' : 'Go to CV Editor'}
                                     </a>
