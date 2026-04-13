@@ -4,7 +4,6 @@ use App\Http\Controllers\Admin\BookController as AdminBookController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CommentController as AdminCommentController;
 use App\Http\Controllers\Admin\CommentSettingsController;
-use App\Http\Controllers\Admin\CvController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GuestbookEntryController as AdminGuestbookEntryController;
 use App\Http\Controllers\Admin\MediaController;
@@ -22,7 +21,6 @@ use App\Http\Controllers\Landing\PoemController as LandingPoemController;
 use App\Http\Controllers\Landing\ProjectController as LandingProjectController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\PublicCvController;
 use App\Http\Controllers\SitemapController;
 use App\Models\Project;
 use Illuminate\Support\Facades\File;
@@ -111,10 +109,6 @@ Route::get('/projects', [LandingProjectController::class, 'index'])->name('proje
 Route::get('/projects/{project}', [LandingProjectController::class, 'show'])->name('projects.show');
 Route::post('/language', [LanguageController::class, 'switch'])->name('language.switch');
 
-// Public CV
-Route::get('/cv', [PublicCvController::class, 'show'])->name('public.cv');
-Route::get('/cv/download', [PublicCvController::class, 'downloadPdf'])->name('public.cv.download');
-
 Route::middleware(['auth', 'verified'])->group(function (): void {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -153,30 +147,6 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
             Route::post('/create-folder', [MediaController::class, 'createFolder'])->name('media.createFolder');
             Route::get('/download/{file}', [MediaController::class, 'download'])->name('media.download');
             Route::get('/media', [MediaController::class, 'index'])->name('media.index');
-
-            // CV Management
-            Route::prefix('cv')
-                ->name('cv.')
-                ->group(function (): void {
-                    Route::get('/', [CvController::class, 'index'])->name('index');
-                    Route::get('/section/{sectionName}', [CvController::class, 'editSection'])->name('section.edit');
-                    Route::post('/section/{sectionName}', [CvController::class, 'updateSection'])->name(
-                        'section.update',
-                    );
-                    Route::post('/section/{sectionName}/add-item', [CvController::class, 'addItem'])->name(
-                        'section.add_item',
-                    );
-                    Route::delete('/section/{sectionName}/item/{index}', [CvController::class, 'removeItem'])->name(
-                        'section.remove_item',
-                    );
-                    Route::post('/section/{sectionName}/reorder', [CvController::class, 'reorderItems'])->name(
-                        'section.reorder',
-                    );
-                    Route::get('/settings', [CvController::class, 'settings'])->name('settings');
-                    Route::post('/settings', [CvController::class, 'updateSettings'])->name('settings.update');
-                    Route::get('/preview', [CvController::class, 'preview'])->name('preview');
-                    Route::get('/download-pdf', [CvController::class, 'generatePdf'])->name('download_pdf');
-                });
         });
 });
 

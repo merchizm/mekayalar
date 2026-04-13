@@ -226,12 +226,6 @@ export default function Sidebar() {
             ],
         },
         {
-            name: 'CV Yönetimi',
-            href: route('admin.cv.index'),
-            icon: { outline: UserCircleOutline, solid: UserCircleSolid },
-            current: route().current('admin.cv.*'),
-        },
-        {
             name: 'Profilim',
             href: route('admin.profile.edit'),
             icon: { outline: UserCircleOutline, solid: UserCircleSolid },
